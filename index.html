@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Reset default styles */
     * {
@@ -26,6 +27,7 @@
       top: 0;
       left: 0;
       right: 0;
+      z-index: 9999; /* Add a higher z-index value to ensure it's on top of other elements */
     }
 
     .top-menu a {
@@ -60,10 +62,28 @@
       color: white;
       text-align: center;
       padding: 10px;
+      width: 100%;
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 600px) {
+      /* Adjust top menu padding for smaller screens */
+      .top-menu a {
+        padding: 10px 15px;
+      }
+
+      /* Adjust content margin for smaller screens */
+      .content {
+        margin-top: 40px;
+      }
+
+      /* Adjust footer padding for smaller screens */
+      .footer {
+        padding: 5px;
+      }
     }
   </style>
 </head>
