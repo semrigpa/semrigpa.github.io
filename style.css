@@ -117,3 +117,22 @@ h2 {
 .list li {
   margin-bottom: 0.5em; /* Add spacing between list items if desired */
 }
+.container.lexicon {
+  display: flex;
+  margin-top: 1em; /* Add the desired spacing above the paragraphs */
+  justify-content: center;
+}
+
+.container.lexicon .column {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.container.lexicon ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.container.lexicon li {
+  margin-bottom: 10px;
+}
