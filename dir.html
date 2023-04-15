@@ -53,12 +53,7 @@
       margin-right: auto;
     }
 
-    .content h1 {
-      margin-bottom: 20px;
-    }
-    .content h2 {
-      margin-bottom: 20px;
-    }
+
     /* Footer styles */
     .footer {
       background-color: #222; /* Darken background color */
@@ -88,6 +83,33 @@
         padding: 5px;
       }
     }
+  .button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #d3d3d3; /* Light grey color */
+    color: #333; /* Dark grey color for text */
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Add space above the button */
+    margin-bottom: 10px; /* Add space below the button */
+}
+
+.button:hover {
+    background-color: #b3b3b3; /* Darker grey color on hover */
+}
+
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+
   </style>
 </head>
 <body>
@@ -100,15 +122,19 @@
   <!-- Main content -->
   <div class="content">
     <h1>Site Index</h1>
+    <br>
     <h2>Metaphysics</h2>
     <a href=""></a>
+    <br>
     <h2>Linguistics</h2>
     <p></p>
+    <br>
     <h2>Health</h2>
-    <a href="5rites.html"><p>5 Tibetan Rites</p></a>
+    <a class="link" href="5rites.html"><p>5 Tibetan Rites</p></a>
+    <br>
     <h2>Meditation</h2>
-    <a href="61point.html"><p>61-Point Relaxation (Shavayatra)</p></a>
-    <a href="akashic.html"><p>Akashic Yoga</p></a>
+    <a href="61point.html" class="button">61-Point Relaxation (Shavayatra)</a>
+    <a href="akashic.html" class="button">Akashic Yoga</a> 
   </div>
 
   <!-- Footer -->
