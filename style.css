@@ -105,7 +105,8 @@ body {
 p {
   margin-top: 1em; /* Add the desired spacing above the paragraphs */
 }
-h2 {
+h2,
+h3 {
   margin-top: 1em; /* Add the desired spacing above the paragraphs */
 }
 .list {
