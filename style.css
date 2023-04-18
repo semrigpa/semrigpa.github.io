@@ -47,17 +47,7 @@ body {
   margin-right: auto;
 }
 
-/* Footer styles */
-.footer {
-  background-color: #222; /* Darken background color */
-  color: #f8f8f8; /* Set text color for light mode */
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
+
 
 /* Responsive styles */
 @media screen and (max-width: 600px) {
@@ -71,11 +61,7 @@ body {
     margin-top: 40px;
   }
 
-  /* Adjust footer padding for smaller screens */
-  .footer {
-    padding: 5px;
-  }
-}
+
 
 .button {
   display: block;
@@ -137,3 +123,4 @@ h3 {
 .container.lexicon li {
   margin-bottom: 10px;
 }
+/* CSS for new class */
