@@ -10,23 +10,37 @@
   <a href="index.html" class="w3-bar-item w3-button">Index</a>
 </div>
 </div>
-<br><br>
-<div class="w3-container">
+
   
-  <div class="w3-panel w3-pale-red">
-  <h3>Contents</h2>
-  <ul class="w3-ul">
-  <li><a href="tummo.html">Inner Fire Meditation</a>
-  <ul class="w3-ul">
-    <li><a href=""></a>Preparing for Inner Fire</a></li>
- </ul>
-  </li>
-</ul>
+    <br><br>
+<div class="w3-container" style="padding-top: 25px;">
+  
+    
+  <div class="w3-panel w3-pale-green">
+    <h2>Title</h2>
+    <h3>Subheading</h3>
+    <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-grey w3-left-align">
+Open Section 1</button>
+
+<div id="Demo1" class="w3-container w3-hide w3-animate-zoom w3-white">
+  <p>Some text..</p>
+</div>
 <br>
-  </div>
+</div>
 </div>
 
 
+
+<script>
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 
 </body>
 </html>
