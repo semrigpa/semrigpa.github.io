@@ -1,0 +1,133 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.centre {
+  text-align: center;
+}
+
+h1, {
+  font-size: 3vw;
+  color: grey;
+}
+
+h2 {
+  font-size: 6vw;
+  font-weight: bold;
+  color: blue;
+}
+
+h3 {
+  font-size: 5vw;
+  font-weight: bold;
+  color: green;
+}
+
+h4 {
+  color: red;
+}
+
+/* Paragraph Styles */
+p {
+  font-size: 4vw;
+}
+
+  body, h1, h2, h3 {
+    font-family: 'Verdana';
+  }
+
+  
+  /* unvisited link */
+a {
+  text-decoration: none;
+}
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+</style>
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+<body style="background-color: #FAFAD2;">
+
+<br>
+<h2>Josiah's Wellness Process</h2>
+
+<h3>Stage 1</h3>
+<p>(Perform for 3 days every 10 days)</p>
+<button type="button" class="collapsible"><span style="color: red;">Carrot Medicine Recipe</span></button>
+<div class="content">
+<p><b>Ingriedients</b></p>
+<ul>
+  <li>8oz grated carrots</li>
+  <li>1oz anise seeed</li>
+  <li>2tbsp honey</li>
+  <li>1oz extract of senna</li>
+  <li>1.5oz extract of spigelia</li>
+</ul>
+<p><b>Instructions</b></p>
+<ol>
+  <li>Boil grated carrots for 30 to 45 minutes, then strain. </li>
+  <li>Boil the carrot liquid with anise seed for 10 minutes, then strain.</li>
+  <li>To the liquid, add honey, senna, and spigelia.</li>
+  <li>Store in a cool dark place.</li>
+</ol>
+</div>
+<p>Take upon an empty stomach, one to two tablespoonfuls of it. Use this prescription for three days out of every ten and
+keep it up for one month. Then discontinue.  Eat no breakfast on the mornings you use this preparation and be sure to avoid animal fats and flesh; use no decayed fruits or vegetables.</p>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+</body>
+</html>
