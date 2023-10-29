@@ -97,9 +97,13 @@ a:active {
 
 <h3>Stage 1</h3>
 <p>(Perform for 3 days every 10 days)</p>
-<h4>Carrot Medicine Recipe</h4>
 
-
+<details>
+  <summary>
+    <span style="color:red;"><u>Carrot Medicine</u></span>
+    <span class="icon">👇</span>
+  </summary>
+  
 <p><b>Ingriedients</b></p>
 <ul>
   <li>8oz grated carrots</li>
@@ -115,10 +119,46 @@ a:active {
   <li>To the liquid, add honey, senna, and spigelia.</li>
   <li>Store in a cool dark place.</li>
 </ol>
+</details>
+<style>
+  details {
+  user-select: none;
+}
 
-<p>Take upon an empty stomach, one to two tablespoonfuls of it. Use this prescription for three days out of every ten and
-keep it up for one month. Then discontinue.  Eat no breakfast on the mornings you use this preparation and be sure to avoid animal fats and flesh; use no decayed fruits or vegetables.</p>
+details>summary span.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s;
+  margin-left: auto;
+}
+
+details[open] summary span.icon {
+  transform: rotate(180deg);
+}
+
+summary {
+  display: flex;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+</style>
+
+<p>
+  Take for 3 consecutive mornings every 10 days. Keep this up for 1 month, then discontinue. On an empty stomach,  take 1 to 2 tablespoons. Eat no breakfast on the mornings you use this preparation.</p>
+  
+  <p>Avoid animal fats and flesh. Do not use decayed fruit or vegetables.</p>
 
 
+<details>
+  <summary>
+    <span style="color:red;"><u>Purgative Tea</u></span>
+    <span class="icon">👇</span>
+  </summary>
+<p><b>Ingriedients</b></p>
+</details>
+<br><br><br>
 </body>
 </html>
