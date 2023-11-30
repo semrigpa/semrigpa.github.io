@@ -1,0 +1,123 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* if the screen is wider than 500px set the font size to 80px */
+@media screen and (min-width: 500px) {
+  .dynamicallyScale {
+    font-size: 80px;
+  }
+}
+/*if the screen size is less than 499px set the font size to 80px */
+@media screen and (max-width: 499px) {
+  .dynamicallyScale {
+    font-size: 30px;
+  }
+}
+
+</style>
+<style>
+    body, h1, h2, h3 {
+    font-family: 'Verdana';
+  }
+
+blockquote {
+  background-color: yellow;
+  font-style: italic;
+  color: grey;
+    
+  }
+</style>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+</style>
+<body style="background-color: #FAFAD2;">
+  <style>
+  
+  /* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+
+<span style="font-family: Monospace;">
+ 
+<h1 style="color: grey; font-family: Monospace;">Oliso Cito</h1>
+
+  <p>Edjin cika ya oxnu pula yacai, akto ox takan bano. </p>
+  <h3>Kai Nakbi Ona Cika</h3>
+  <p>Oxnu yat ona tutan anonka oyo.</p>
+  
+  <p>Pat Yesu anompake:</p>
+  
+<p style="color:red;">
+  <b>Isa kiyo aox oyoda bana ixnu yat nuts ona ahoci, </b>
+    Cease not to seek day and night until you find the Mysteries of the Light, which will purify you and make you into refined light and lead you into the Kingdom of Light.
+
+<br><br>
+
+Renounce the whole world and the whole matter therein and all its cares and all its sins, that you may be worthy of the Mysteries of the Light and be saved from all chastisement.
+
+</p>
+ 
+</span>
+
+
+
+ 
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+</body>
+</html>
