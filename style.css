@@ -42,7 +42,7 @@ blockquote {
 .content {
     padding: 0 18px;
     display: ;
-    overflow: auto; /* Changed from overflow: hidden; */
+    overflow: hidden;
     background-color: #d3d3d3;
 }
 
@@ -52,16 +52,22 @@ p.c {
     color: blue;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
     color: darkblue;
     text-decoration: none;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
     color: blue;
     text-decoration: none;
 }
 
 a {
     font-weight: bold;
+}
+
+table {
+    table-layout: autoflow;
 }
