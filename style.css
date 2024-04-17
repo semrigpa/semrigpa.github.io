@@ -12,10 +12,7 @@ body{background-color:#1F0954;font-family:'Tahoma'}
     a:hover,a:active{color:blue;text-decoration:none}
     a {font-weight: bold;}
 
-.content {
-  overflow-x: auto;
-  max-width: 100%;
-}
+
 
 table {
   border-collapse: collapse;
@@ -24,6 +21,6 @@ table {
 
 th, td {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
