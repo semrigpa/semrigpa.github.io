@@ -12,5 +12,22 @@ body{background-color:#1F0954;font-family:'Tahoma'}
     a:hover,a:active{color:blue;text-decoration:none}
     a {font-weight: bold;}
 
-.table { table-layout: fixed;
-width: 100%; }
+.content {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
