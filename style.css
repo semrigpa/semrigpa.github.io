@@ -3,6 +3,7 @@
 body {
   background-color: #1F0954;
   font-family: 'Tahoma';
+  overflow-x: auto; /* Add overflow-x to body */
 }
 
 h1, h2, h3 {
