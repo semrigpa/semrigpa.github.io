@@ -1,26 +1,89 @@
-body{background-color:#1F0954;font-family:'Tahoma'}
-    h1,h2,h3{color:purple}
-    blockquote{background-color:yellow;font-style:italic;color:grey}
-    .dynamicallyScale{font-size:30px}
-    @media screen and (min-width:500px){.dynamicallyScale{font-size:80px}}
-    *{box-sizing:border-box}
-    .column{float:left;width:50%;padding:10px}
-    .row:after{content:"";display:table;clear:both}
-    .content{padding:0 18px;display:;overflow:hidden;background-color:#d3d3d3}
-    p.c{font-style:italic;font-weight:bold;color:blue}
-    a:link,a:visited{color:darkblue;text-decoration:none}
-    a:hover,a:active{color:blue;text-decoration:none}
-    a {font-weight: bold;}
+/* Existing CSS rules */
 
-
-
-table {
-  border-collapse: collapse;
-  width: 100%;
+body {
+  background-color: #1F0954;
+  font-family: 'Tahoma';
 }
 
-th, td {
-  border: 1px solid #dddddd;
-  text-align: center;
+h1, h2, h3 {
+  color: purple;
+}
+
+blockquote {
+  background-color: yellow;
+  font-style: italic;
+  color: grey;
+}
+
+.dynamicallyScale {
+  font-size: 30px;
+}
+
+@media screen and (min-width: 500px) {
+  .dynamicallyScale {
+    font-size: 80px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.content {
+  padding: 0 18px;
+  display:;
+  overflow: hidden;
+  background-color: #d3d3d3;
+}
+
+p.c {
+  font-style: italic;
+  font-weight: bold;
+  color: blue;
+}
+
+a:link, a:visited {
+  color: darkblue;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: blue;
+  text-decoration: none;
+}
+
+a {
+  font-weight: bold;
+}
+
+/* Table styles */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
   padding: 8px;
+  border: 1px solid #dddddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
