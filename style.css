@@ -8,6 +8,4 @@ body{background-color:#1F0954;font-family:'Tahoma'}
     .row:after{content:"";display:table;clear:both}
     .content{padding:0 18px;display:;overflow:hidden;background-color:#d3d3d3}
     p.c{font-style:italic;font-weight:bold;color:blue}
-    a:link,a:visited{color:darkblue;text-decoration:}
-    a:hover,a:active{color:blue;text-decoration:}
-    a {font-weight: bold;}
+    a:link,a:visited{color:darkblue;text-decoration: none;font-weight: bold;} a:hover,a:active{color:blue;text-decoration: none;font-weight: bold;}
