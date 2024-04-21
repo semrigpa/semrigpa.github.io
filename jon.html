@@ -3,6 +3,11 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+<style>
+  #hiddenText {
+    display: none;
+  }
+</style>
 </head>
 <body>
   <h1 style="color: #FFAC1C; font-family: Monospace;">semrigpa</h1>
@@ -16,13 +21,21 @@ h3>Back</h3></a>
 <h2></h2>
 <h3>Chapter 1</h3>
 <p>Ish da shahar. Ish skri kitab. Ish wa shahar.</p>
-<div class="dropdown">
-  <span>Vocab</span>
-  <div class="dropdown-content">
-    <p><b>ish</b> • man</p>
-  </div>
-</div>
-</div>
+
+<button onclick="toggleText()">Vocab</button>
+<p id="hiddenText"><b>ish</b> • man</p>
+
+
+<script>
+  function toggleText() {
+    var text = document.getElementById("hiddenText");
+    if (text.style.display === "none") {
+      text.style.display = "block";
+    } else {
+      text.style.display = "none";
+    }
+  }
+</script>
+
 </body>
 </html>
-
