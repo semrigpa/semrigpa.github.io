@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ṣueṣi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+/* Style for fixed green top bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: green;
+  color: white;
+  padding: 15px 0; /* Adjust top padding */
+  text-align: center; /* Center header text */
+}
+
+/* Style for fixed bar at the bottom */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: green; /* Same color as the top bar */
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style for scrollable content */
+.content {
+  margin-top: 70px; /* Adjust this margin to avoid content overlap with headers */
+  padding: 20px;
+}
+
+/* Hide content sections by default */
+.content section {
+  display: none;
+}
+
+/* Show active content section */
+.content section.active {
+  display: block;
+}
+
+/* Button style */
+.bottom-bar button {
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid white; /* Add border */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  margin: 0 10px; /* Adjust button margin */
+}
+
+/* Remove default button styles */
+.bottom-bar button:focus {
+  outline: none;
+}
+
+/* Increase top header text size */
+.top-bar span {
+  font-size: 20px; /* Adjust font size */
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed green top bar with back button -->
+<div class="top-bar">
+  <span>Şweşi</span>
+</div>
+
+<!-- Content area -->
+<div class="content">
+  <!-- Page 1 content -->
+  <section id="page1" class="active">
+    <h2>Phrases | Jumla</h2>
+    <p></p>
+  </section>
+  
+  <!-- Page 2 content -->
+  <section id="page2">
+    <h2><b>Grama</b> | Grammar</h2>
+    <h3>In 10 Rules</h3>
+    <ol>
+      <li>Ajsjs</li>
+    </ol>
+  </section>
+  
+  <!-- Page 3 content -->
+  <section id="page3">
+    <h2>Kitaba</h2>
+    <p>Table here</p>
+  </section>
+  
+  <!-- Repeat the content sections for additional pages -->
+</div>
+
+<!-- Fixed bar at the bottom with buttons -->
+<div class="bottom-bar">
+  <button onclick="showPage('page1')">Phrases</button>
+  <button onclick="showPage('page2')">Grama</button>
+  <button onclick="showPage('page3')">Lexicon</button>
+  <!-- Add more buttons for additional pages -->
+</div>
+
+<script>
+// Function to show the specified page and hide others
+function showPage(pageId) {
+  // Hide all content sections
+  document.querySelectorAll('.content section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show the target content section
+  document.getElementById(pageId).classList.add('active');
+}
+</script>
+
+</body>
+</html>
