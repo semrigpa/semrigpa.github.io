@@ -66,7 +66,9 @@
   font-size: 20px; /* Adjust font size */
 }
 
-p {
+.basa {
+  
+  font-family: 'EB Garamond';
   
   
 }
@@ -88,7 +90,7 @@ h4 { font-weight:bold; }
 
   
   <!-- Page 2 content -->
-  <section id="page1" class="active">
+  <section id="page2">
     <h3>Grammar in 9 Rules</h3>
     <h4>1. Spelling & Pronunciation</h4>
     <p>Spelling is regular. Words are written as pronounced.</p>
@@ -140,10 +142,29 @@ h4 { font-weight:bold; }
   <br>
   <br>
   </section>
-    <section id="page2">
+    <section id="page1" class="active">
     <h3>Shanti, Jonatan!</h3>
-    <a href="basa.html#1" class="w3-btn w3-black">Bahagi Yek</a>
-    <h4 id="1">Bahagi 1</h4>
+         <div class="w3-card w3-smaller w3-light-grey">
+    <div class="w3-container">
+       <span class="w3-small">
+        <p><b class="basa">Shanti, Jonatan!</b> (Hello, Jonatan!) is the story of a young Englishman who goes to visit his friend in another European country... or so it would seem.</p>
+    <p>It is written entirely in <b class="basa">Dai Basa.</b></p>
+    
+    <p>The story begins with very simple language. The first words in the book are <b class="basa">Nang ita shaha</b> (a man stands in a city), and continues from there.</p>
+   </div>
+ </div>
+ <br>
+ <button onclick="showPage('hj1')" class="w3-btn w3-black">Bahagi Yek</button>
+ 
+ <br>
+ <br>
+
+  </section>
+  <!-- Page 3 content -->
+  
+  <section id="hj1">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-small">Back</button>
+    <h4 id="1">Bahagi Yek (1)</h4>
 
 <!-- Image -->
 
@@ -172,11 +193,6 @@ h4 { font-weight:bold; }
     
 </div>
   <div class="w3-col s6">
-    <p><b>fikra</b> – 💭</b></p>
-      <p><b>ita</b> –🧍</p>
-      <p><b>kitab</b> – 📖</p>
-      <p><b>shaha</b> – 🏙</p>
-      <p><b>shkua</b> – ✍️</p>
     
     
   </div>
@@ -191,8 +207,7 @@ h4 { font-weight:bold; }
      <br>
        <br> <br>
        <br>
-  </section>
-  <!-- Page 3 content -->
+    </section>
   <section id="page3">
     <h2>Kitaba</h2>
 
@@ -203,8 +218,8 @@ h4 { font-weight:bold; }
 
 <!-- Fixed bar at the bottom with buttons -->
 <div class="bottom-bar">
-  <button onclick="showPage('page1')">Grammar</button>
-  <button onclick="showPage('page2')">Read</button>
+   <button onclick="showPage('page1')">Read</button>
+    <button onclick="showPage('page2')">Grammar</button>
   <button onclick="showPage('page3')">Lexicon</button>
   <!-- Add more buttons for additional pages -->
 </div>
