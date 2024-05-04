@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ṣueṣi</title>
+<title>Ṣweṣi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
@@ -51,9 +51,9 @@
   color: white;
   padding: 10px 20px;
   border: 2px solid white; /* Add border */
-  border-radius: 20px; /* Rounded corners */
+  border-radius: 5px; /* Rounded corners */
   cursor: pointer;
-  margin: 0 10px; /* Adjust button margin */
+  margin: 0 6px; /* Adjust button margin */
 }
 
 /* Remove default button styles */
@@ -73,7 +73,7 @@
   
 }
 
-h4 { font-weight:bold; }
+h4, h5 { font-weight:bold; }
 
 </style>
 </head>
@@ -155,14 +155,14 @@ h4 { font-weight:bold; }
     
     <p>The words the reader knows are repeated and new words are added slowly in context, so that no dictionary is needed to read it.</p>
     
-    <p><b class="basa">Dai Basa</b> had a very simple and straightforward grammar. Thanks to it its simplicity and regularity, you will know how to read and use it by the end of <b class="basa">Shanti, Jonatan!</b></p>
+    <p><b class="basa">Dai Basa</b> has a very simple and straightforward grammar. Thanks to it its simplicity and regularity, you will know how to read and use it by the end of <b class="basa">Shanti, Jonatan!</b></p>
    </div>
  </div>
+ <br>
+ 
+          <button onclick="showPage('chap')" class="w3-btn w3-right w3-black">Chapters</button>
+ 
 
- 
- <h3>Chapters</h3>
- <button onclick="showPage('hj1')" class="w3-btn w3-black">Bahagi 1</button>
- 
  <br>
  <br>
  <br>
@@ -170,10 +170,17 @@ h4 { font-weight:bold; }
 
   </section>
   <!-- Page 3 content -->
-  
+  <section id="chap">
+ <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-small">Back</button>
+     <h3>Chapters</h3>
+ <button onclick="showPage('hj1')" class="w3-btn w3-black">Bahagi 1</button>
+ <button onclick="showPage('hj2')" class="w3-btn w3-black">Bahagi 2</button>
+    
+  </section>
+ 
   <section id="hj1">
-    <button onclick="showPage('page1')" class="w3-btn w3-black w3-small">Back</button>
-     <button onclick="showPage('page1')" class="w3-btn w3-black w3-small">Next</button>
+    <button onclick="showPage('chap')" class="w3-btn w3-black w3-small">Index</button>
+     <button onclick="showPage('hj2')" class="w3-btn w3-green w3-right w3-small">Next</button>
     <h4 id="1">Bahagi Yek (1)</h4>
 
 <!-- Image -->
@@ -199,7 +206,7 @@ h4 { font-weight:bold; }
     <p>Da shwa va kitab. Da shwa tem shaha. Da shwa: "Shaha si bon, i shaha si dai."</p>
     <p>Da fikra: "Shaha si bon"; da fikra ke shaha si bon. Da fikra: "Shaha si dai"; da fikra ke shaha si dai. Da fikra tem shaha, i da fikra tem kitab. </p>
     <p>Kitab si ke? Kitab si kelok nang shwa; da shwa va kitab. Va kitab, nang shwa tem shaha. Va kitab, nang ne shwa tem trein; nang ita va shaha, ne va trein. Da ne fikra tem trein; da fikra tem shaha, shaha Münich.</p>
-    <p>Si, Münich si dai shaha, i bon shaha. Nang fikra ke Munich si bon shaha, i da fikra ke da si dai shaha. Nang si mogul. Da pala: "Shanti, Münich!" Da si bon nang!</p>
+    <p>Si, Münich si dai shaha, i bon shaha. Nang fikra ke Münich si bon shaha, i da fikra ke da si dai shaha. Nang si mogul. Da pala: "Shanti, Münich!" Da si bon nang!</p>
     <p>Nang ita i fikra: "Trein si kelol?" Da wa... da wa trein! Da fikra: "Trein!" Nin da ne fikra tem kotab i ne fikra tem shaha; da fikra tem trein!</p>
     </span>
     <hr>
@@ -224,7 +231,6 @@ h4 { font-weight:bold; }
      <p>ne ↔️ si</p>
 </div>
   <div class="w3-col s6">
-
      <p>fikra 💭</p>
      <p>ke</p>
       <p>shanti 👋</p>
@@ -249,9 +255,106 @@ h4 { font-weight:bold; }
        <br> <br>
        <br>
     </section>
-  <section id="page3">
-    <h2>Kitaba</h2>
+  
+    <section id="hj2">
+    <button onclick="showPage('chap')" class="w3-btn w3-black w3-small">Index</button>
+         <button onclick="showPage('hj3')" class="w3-btn w3-green w3-right  w3-small">Next </button>
+     <button onclick="showPage('hj1')" class="w3-btn w3-green w3-right w3-small"> Back</button>
 
+    <h4 id="1">Bahagi Do (2)</h4>
+
+<!-- Image -->
+
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Siguaney_Ferkeltaxi_crop.tif/lossy-page1-800px-Siguaney_Ferkeltaxi_crop.tif.jpg" class="w3-image">
+         <p class="basa">Lama trein.</p>
+         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Orientexpress1883.JPG/800px-Orientexpress1883.JPG" class="w3-image">
+      <p class="basa">Turi va trein.</p>   
+    <hr>
+
+    <span style="font-family: 'EB Garamond';" class="w3-large">
+    <p><b>Masa Lima Do</b></p>
+<p>Nai nang si va tren. Da ne si va Münich; da si va tren. Da turi. Da fikra: "Nai me turi ot Münich na Vienna. Da si bon turi. Me suka turi.</p>
+<p>Da fikra tem Münich. Da fikra: "Nai me si va tren, ma lidin me li va Münich. Nai me shwa kitab va trein, ma lidin me shwali kitab va Münich. Nai me fikra va trein, ma lidin me fikrali va Münich. Lidin me fikrali tem Münich va Münich, nai me fikra tem Vienna va trein. Nai mi si va trein, ne va Vienna. Ma me fikra e shwa tem Vienna.</p>
+<p>Kya nai nang fikra va Münich? Ne, da ne fikra va Münich. Da fikra va trein. Lidin da fikrali va Münich. Da pala: "Shanti, trein!"</p>
+<p>Nang si va trein, e da turi na shaha. Shaha ne si Münich; Münich si shaha ot lidin. Shaha si Vienna; Vienna si shaha ot naidin.</p>
+<p>Nang fikra tem Münich e Vienna. Da fikra: "Münich li shaha ot lidin, e Münich li bon. Nai da si naidin, e me si va trein; trein si bon. Kya Vienna sha bon?</p>
+<p>Nanh fikra tem Münich: Münich li shaha ot lidin. Da fikra va trein: da si va trein naidin. Da fikra tem Vienna: Vienna sha shaha ot shadin.</p>
+<p>Da fikra: "Münich li dai. Trein si dai. Kya Vienna sha dai?"</p>
+<p>Da fikra: "Va Münich me shwali va kitab. Va trein me shwa va kitab. Kya va Vienna me sha shwa va kitab? Si, shadin va Vienna me sha shwa va kitab. Me suka kitab." Nang fikra muli (da fikra muli = da fikra e fikra e fikra), e da shwa muli. Si, da si mogul nang. Mogul nangye shwa muli, e fikra muli. Da si Jonatan: Jonatan si mogul nang.</p>
+    </span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Simple_heart_symbol_-_01.png/562px-Simple_heart_symbol_-_01.png" class="w3-image">
+          <p class="basa">Me suka treinye!</p>
+    <span style="font-family: 'EB Garamond';" class="w3-large">
+      Da shwa: "Me si Jona. Me si trein. Lidin me itali va Munich; shalin me sha ita va Vienna."
+      </span>
+    <hr>
+    
+    <h5>Leshilari</h5>
+      <div class="w3-card w3-smaller w3-khaki">
+    <div class="w3-container">
+      
+<div class="w3-row">
+ <div class="w3-col s6">
+<p>suki</p>
+</div>
+  <div class="w3-col s6">
+
+<p>nai</p>
+<p>tori</p>
+  </div>
+</div>
+      
+      
+      
+     
+      
+  </div>
+    </div>
+     <br>
+       <br> <br>
+       <br>
+    </section>
+  
+  <section id="page3">
+    <h4>Basic Lexicon</h4>
+    <h5>Buildings</h5>
+    <p>shaha • city</p>
+    <hr>
+    <h5>Vehicles</h5>
+    <p>trein • train</p>
+    <h5>Modifiers</h5>
+    <p>bon • good</p>
+    <p>dai • big</p>
+    <p>mogul • intelligent</p>
+    <hr>
+    <h5>Verbs</h5>
+    <p>fikra • think</p>
+    <p>shwa • write</p>
+    <hr>
+  <!--
+
+
+      <p>si</p>
+      <p>kya ❓️</p>
+     
+     <p>va</p>
+     <p>da</p>
+     
+     <p>kitab 📖</p>
+     <p>nang 👨</p>
+     <p>ne ↔️ si</p>
+          <p>fikra 💭</p>
+     <p>ke</p>
+      <p>shanti 👋</p>
+     <p>shwa ✍️</p>
+     <p>ita 🧍</p>
+    
+     <p>kelok 🌍🤷</p>
+     <p>yek, ye = 1</p>
+     <p>wa 👀</p>
+     <p>si ↔️ ne</p>
+     <p>pala 🗣</p>
+     -->
   </section>
   
   <!-- Repeat the content sections for additional pages -->
@@ -259,8 +362,9 @@ h4 { font-weight:bold; }
 
 <!-- Fixed bar at the bottom with buttons -->
 <div class="bottom-bar">
-   <button onclick="showPage('page1')">Home</button>
+   <button onclick="showPage('page1')">🏠</button>
     <button onclick="showPage('page2')">Rules</button>
+        <button onclick="showPage('chap')">📃</button>
   <button onclick="showPage('page3')">Words</button>
 </div>
 
