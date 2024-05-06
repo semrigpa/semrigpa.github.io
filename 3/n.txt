@@ -1,1 +1,7 @@
 Combine practical and vision.
+
+
+	All will combine into practical.txt.
+		- Remember there is text in 3.html.
+	Combine 1.html and ganglia.txt.
+	
