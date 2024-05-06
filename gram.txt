@@ -1,3 +1,12 @@
+Grammar in 8 Rules
+
+1. Spelling and Pronunciation
+2. Pronouns
+3. Numbers
+4. Modifiers
+can modify either a noun or verb 
+
+
   <section id="page2">
     <h3>Grammar in 9 Rules</h3>
     <h4>1. Spelling & Pronunciation</h4>
