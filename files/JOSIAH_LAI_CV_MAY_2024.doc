@@ -1,0 +1,146 @@
+{\rtf1\ansi\ansicpg1252\deff0\uc1
+{\fonttbl
+{\f0\fnil\fcharset0\fprq0\fttruetype Sans;}
+{\f1\fnil\fcharset0\fprq0\fttruetype Liberation Sans;}
+{\f2\fnil\fcharset0\fprq0\fttruetype Times New Roman;}
+{\f3\fnil\fcharset0\fprq0\fttruetype Courier New;}}
+{\colortbl
+\red0\green0\blue0;
+\red255\green255\blue255;
+\red255\green255\blue255;}
+{\stylesheet
+{\s6\fi-430\li720\sbasedon28\snext28 Contents 1;}
+{\s7\fi-430\li1440\sbasedon28\snext28 Contents 2;}
+{\s1\fi-430\li720 Arrowhead List;}
+{\s27\fi-430\li720\sbasedon28 Lower Roman List;}
+{\s29\tx431\sbasedon20\snext28 Numbered Heading 1;}
+{\s30\tx431\sbasedon21\snext28 Numbered Heading 2;}
+{\s12\fi-430\li720 Diamond List;}
+{\s9\fi-430\li2880\sbasedon28\snext28 Contents 4;}
+{\s8\fi-430\li2160\sbasedon28\snext28 Contents 3;}
+{\s31\tx431\sbasedon22\snext28 Numbered Heading 3;}
+{\s32\fi-430\li720 Numbered List;}
+{\s15\sbasedon28 Endnote Text;}
+{\*\cs14\fs20\super Endnote Reference;}
+{\s4\fi-430\li720 Bullet List;}
+{\s5\tx1584\sbasedon29\snext28 Chapter Heading;}
+{\s35\fi-430\li720 Square List;}
+{\s11\fi-430\li720 Dashed List;}
+{\s22\sb440\sa60\f1\fs24\b\sbasedon28\snext28 Heading 3;}
+{\s37\fi-430\li720 Tick List;}
+{\s24\fi-430\li720 Heart List;}
+{\s40\fi-430\li720\sbasedon32 Upper Roman List;}
+{\s39\fi-430\li720\sbasedon32 Upper Case List;}
+{\s16\fi-288\li288\fs20\sbasedon28 Footnote;}
+{\s19\fi-430\li720 Hand List;}
+{\s18\fs20\sbasedon28 Footnote Text;}
+{\s20\sb440\sa60\f1\fs34\b\sbasedon28\snext28 Heading 1;}
+{\s21\sb440\sa60\f1\fs28\b\sbasedon28\snext28 Heading 2;}
+{\s10\qc\sb240\sa119\f1\fs32\b\sbasedon28\snext28 Contents Header;}
+{\s23\sb440\sa60\f1\fs24\b\sbasedon28\snext28 Heading 4;}
+{\s28\f2\fs24 Normal;}
+{\s26\fi-430\li720\sbasedon32 Lower Case List;}
+{\s2\li1440\ri1440\sa119\sbasedon28 Block Text;}
+{\s33\f3\sbasedon28 Plain Text;}
+{\s34\tx1584\sbasedon29\snext28 Section Heading;}
+{\s25\fi-430\li720 Implies List;}
+{\s3\fi-430\li720 Box List;}
+{\s36\fi-430\li720 Star List;}
+{\*\cs17\fs20\super Footnote Reference;}
+{\s38\fi-430\li720 Triangle List;}
+{\s13\fi-288\li288\sbasedon28 Endnote;}}
+{\*\listtable
+{\list\listtemplateid1206\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1005}
+{\list\listtemplateid1207\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1028}
+{\list\listtemplateid1208\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1046}
+{\list\listtemplateid1209\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1124}
+{\list\listtemplateid1210\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1142}
+{\list\listtemplateid1211\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1145}
+{\list\listtemplateid1212\listsimple{\listlevel\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}}\listid1152}}
+{\*\listoverridetable
+{\listoverride\listoverridecount0\listid1005\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls1}
+{\listoverride\listoverridecount0\listid1028\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls2}
+{\listoverride\listoverridecount0\listid1046\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls3}
+{\listoverride\listoverridecount0\listid1124\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls4}
+{\listoverride\listoverridecount0\listid1142\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls5}
+{\listoverride\listoverridecount0\listid1145\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls6}
+{\listoverride\listoverridecount0\listid1152\levelnfc23\levelstartat0\levelspace0\levelfollow0\fi-430\li720{\leveltext\'01\u8226 ;}{\levelnumbers;}\ls7}}
+
+\kerning0\cf0\ftnbj\fet2\ftnstart1\ftnnar\aftnnar\ftnstart1\aftnstart1\aenddoc\revprop3{\*\rdf}{\info\uc1}\deftab720\viewkind1\paperw11905\paperh16837\margl1440\margr1440\widowctrl
+\sectd\sbknone\colsx360\margtsxn992\pgncont\ltrsect
+\pard\plain\ltrpar\qj\sb440\sa60\s20\sl240\slmult1\itap0{\s20\f0\fs40\b\lang2057{\*\listtag0}\abinodiroverride\ltrch  Josiah Ajayi Lai}{\s20\f0\fs40\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs40\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Whalley Range}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Manchester}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch M16 8AH}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch 07513134633}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch josiahlai10@gmail.com}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch I am a motivated and flexible individual with excellent organisational skills and a consistent high standard of work. I am highly reliable and punctual with }{\s28\f0\fs24\lang2057{\*\listtag0}superb}{\s28\f0\fs24\lang2057{\*\listtag0} attendance. People describe me as approachable and non-judgemental. I have experience working with a diverse range of individuals in a range of settings. My main skills are: communication, organisation and problem-solving.}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Interests: Linguistics & Psychology.}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs32\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Experience}{\s28\f0\fs32\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs28\b\lang2057{\*\listtag0}\abinodiroverride\ltrch WeMindTheGap - Trainee}{\s28\f0\fs28\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Nov 2022 - May 2023}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Employed on a 6-month skills programme where I completed four work placements that provided me with valuable skills and knowledge. I worked as a team with a diverse cohort of peers and developed strong professional relationships. I gained experience from the following work placements:}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Manchester Central Library - Researcher}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1005\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls1\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Conducted research using primary sources.}{\s28\f0\fs24\lang2057{\*\listtag1006}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1005\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls1\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Developed skills as an archivist.}{\s28\f0\fs24\lang2057{\*\listtag1007}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1005\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls1\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Produced a blog article  on the history of my area published on their website.}{\s28\f0\fs24\lang2057{\*\listtag1008}\par}
+}\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\b\lang2057{\*\listtag0}\abinodiroverride\ltrch NES Fircroft}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1028\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls2\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Worked in a high level corporate office.}{\s28\f0\fs24\lang2057{\*\listtag1029}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1028\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls2\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Assisted with recruitment by researching potential job candidates.}{\s28\f0\fs24\lang2057{\*\listtag1030}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1028\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls2\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Completed deep dive research into energy projects.}{\s28\f0\fs24\lang2057{\*\listtag1031}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1028\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls2\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Assisted with data management.}{\s28\f0\fs24\lang2057{\*\listtag1032}\par}
+}\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch \tab }{\s28\f0\fs24\lang2057{\*\listtag1037}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Max Spielmann}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1046\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls3\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Delivered friendly and professional customer service.}{\s28\f0\fs24\lang2057{\*\listtag1047}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1046\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls3\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Operated the till and product machinery.}{\s28\f0\fs24\lang2057{\*\listtag1048}\par}
+}{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1046\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls3\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Assisted customers with enquiries.}{\s28\f0\fs24\lang2057{\*\listtag1049}\par}
+}\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag1051}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Hulme Community Garden Centre}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\qj\fi-430\li720\bullet 	}\pard\plain{\ltrpar\qj\fi-430\li720\s28{\*\abilist\abilistid1124\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls4\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Assisted with daily tasks and ground maintenance.}{\s28\f0\fs24\lang2057{\*\listtag1125}\par}
+}\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs28\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Greenscape - Landscaping Operative}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch June 2019 - Tameside}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Over a three week period I assisted the Greenscape Tameside team in completing an array of gardening tasks. Through this I gained a better understanding of how to work effectively as a team and how to apply ideas in a constructive manner.}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs28\b\lang2057{\*\listtag0}\abinodiroverride\ltrch British Gas / Customer Service Trainee}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch May 2019 - Stockport}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch I completed a two week work programme with British Gas at their Stockport and Hattersley locations, in which I actively listened to over ten hours of calls and accompanied an engineer on the job. This experience provided me with a greater perspective on work life and gave me practical experience in working with customers both over the phone and in person.}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs32\b\lang2057{\*\listtag0}\abinodiroverride\ltrch Education}{\s28\f0\fs32\b\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Juniper (2019 - 2018, Ashton-Under-Lyne)}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1142\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls5\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Customer Service Level 2 Certificate}{\s28\f0\fs24\lang2057{\*\listtag1143}\par}
+}\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Tameside College (2017 - 2018)}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1152\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls7\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch GCSE English Language Grade 4}{\s28\f0\fs24\lang2057{\*\listtag1153}\par}
+}{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1152\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls7\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Engineering Level 2 Certificate}{\s28\f0\fs24\lang2057{\*\listtag1154}\par}
+}\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch \tab }{\s28\f0\fs24\lang2057{\*\listtag1155}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Penarth Group School (2011 - 2017)}{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1145\abilistparentid0\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls6\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch GCSE Maths Grade 5}{\s28\f0\fs24\lang2057{\*\listtag1146}\par}
+}{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1145\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls6\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch GCSE Science Grade C}{\s28\f0\fs24\lang2057{\*\listtag1147}\par}
+}{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1145\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls6\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch GCSE Additional Science C}{\s28\f0\fs24\lang2057{\*\listtag1148}\par}
+}{\listtext\pard\fi-430\li720\bullet 	}\pard\plain{\ltrpar\ql\fi-430\li720\s28{\*\abilist\abilistid1145\abilistlevel1\abistartat0{\abifieldfont Liberation Sans}{\abilistdecimal NULL}{\abilistdelim %L}{\abiliststyle Bullet List}}{\*\pn\pnql\pnstart0\pnlvlblt{\pntxtb\bullet}}\ls6\ilvl0\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch Preparation for Working Life Level 2 Certificate}{\s28\f0\fs24\lang2057{\*\listtag1149}\par}
+}\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\ql\s28\sl240\slmult1\itap0{\s28\f0\fs24\ul\lang2057{\*\listtag0}\abinodiroverride\ltrch References available upon request.}{\s28\f0\fs24\ul\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\par}
+\pard\plain\ltrpar\qj\s28\sl240\slmult1\itap0{\s28\f0\fs24\lang2057{\*\listtag0}\abinodiroverride\ltrch \tab \tab \tab \tab \tab }{\s28\f0\fs24\lang2057{\*\listtag0}\par}}
