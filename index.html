@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mo!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="w3.css">
+<link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+
+/* Style for fixed green top bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #00CED1;
+  color: white;
+  padding: 15px 0; /* Adjust top padding */
+  text-align: center; /* Center header text */
+}
+
+/* Style for fixed bar at the bottom */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #00CED1; /* Same color as the top bar */
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style for scrollable content */
+.content {
+  margin-top: 70px; /* Adjust this margin to avoid content overlap with headers */
+  padding: 20px;
+}
+
+/* Hide content sections by default */
+.content section {
+  display: none;
+}
+
+/* Show active content section */
+.content section.active {
+  display: block;
+}
+
+/* Button style */
+.bottom-bar button {
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid white; /* Add border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  margin: 0 6px; /* Adjust button margin */
+}
+
+/* Remove default button styles */
+.bottom-bar button:focus {
+  outline: none;
+}
+
+/* Increase top header text size */
+.top-bar span {
+  font-size: 20px; /* Adjust font size */
+}
+
+
+</style>
+</head>
+<body>
+  
+<div class="top-bar">
+  <span>Mo!</span>
+</div>
+
+<!-- Content area -->
+<div class="content">
+  <!-- Page 1 content -->
+  
+  <!-- Page 2 content -->
+  <section id="page2">
+
+  <h2><b>Léçon-yé</b> | Lessons</h2>
+  
+
+<button onclick="showPage('pronunciation')" class="w3-btn w3-round w3-large w3-block w3-red">Pronunciation</button>
+<br>
+
+<button onclick="showPage('lesson1')" class="w3-btn w3-round w3-large w3-block w3-teal">Lesson 1 – Nouns</button>
+<br>
+
+<button onclick="showPage('lesson2')" class="w3-btn w3-round w3-large w3-block w3-teal">Lesson 2 – Pronouns</button>
+<br>
+
+    </section>
+  
+
+  <section id="pronunciation">
+
+  <h2>Pronunciation</h2>
+  
+  <h3>Vowels</h3>
+  
+  <h3>Nasal Vowels</h3>
+  
+  <h3>Consonants</h3>
+
+  </section>
+  
+  </section>
+  
+
+  <section id="lesson1">
+
+  <h2><b>Lesson 1</b> | Nouns</h2>
+  
+  <h3>Notes</h3>
+<p>
+
+Nouns are words we can use to name things. First, we’ll see how to talk one thing (singular: shyin, 'dog') and more than one thing (plural: shyin-yé, 'the dogs').
+
+Also, we’ll see how we can talk about something specific (shyin-la ‘the dog’), and something non-specific (in shyin ‘a dog’).
+
+Some languages classify nouns by gender. Nouns in Creole are though, nouns can be masculine or feminine.
+
+</p>
+  
+  
+  </section>
+
+
+  <section id="lesson2">
+    <h2><b>Lesson 1</b> | Pronouns</h2>
+ <h3>Types of Pronoun</h3>
+<ul>
+  <li><p><b>Subject</b> – The subject is the one doing the action.</p>
+
+<p><b><u>Je</u> manj diri.</b> | <i>I</i> eat rice.</p></li>
+
+ <li><p><b>Object</b> – The object is the one the action is done to.</p>
+
+<p><b>Yé linm <u>mwa</u>.</b> | They like <i>me.</i></p></li>
+
+</li>
+
+ <li><p><b>Reflexive</b> – If the subject and the object of a verb are the same, we need to use what’s called a reflexive pronoun like English ‘herself’, ‘myself’, etc.</p>
+
+<p><b>Li parl a <u>li-minm</u>.</b> | She talks to <i>herself.</i></p></li>
+
+ <li><p><b>Possesive</b> – Possessive pronouns show who something belongs to.</p></li>
+
+ <li><p><b>Emphatic possessive</b> – Emphatic possessive pronouns emphasize whose thing we’re talking about </p></li>
+
+</ul>
+
+
+<br><br>
+  </section>
+
+  <!-- Page 3 content -->
+<section id="page1" class="active">
+         <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+       <p><b>Aprenn Kréyòl!</b><br>
+      Learn Creole!</p>
+    </div>
+ </div>
+
+<br>
+
+  
+<button onclick="showPage('page2')" class="w3-btn w3-round w3-large w3-block w3-teal">Léçon – Lessons</button>
+<br>
+
+<button onclick="showPage('verbs')" class="w3-btn w3-round w3-large w3-block w3-red">Verbs</button>
+<br>
+
+<button onclick="showPage('animals')" class="w3-btn w3-round w3-large w3-block w3-blue">Bèt – Animals</button>
+<br>
+
+<button onclick="showPage('body')" class="w3-btn w3-round w3-large w3-block w3-blue">Kòr – Body </button>
+<br>
+
+<button onclick="showPage('colours')" class="w3-btn w3-round w3-large w3-block w3-blue">Koulœr – Colours </button>
+<br>
+
+<button onclick="showPage('clothes')" class="w3-btn w3-round w3-large w3-block w3-blue">Linj – Clothes </button>
+<br>
+
+
+<button onclick="showPage('food')" class="w3-btn w3-round w3-large w3-block w3-blue">Manjé – Food </button>
+<br>
+
+<button onclick="showPage('numbers')" class="w3-btn w3-round w3-large w3-block w3-blue">Numéro – Numbers</button>
+<br>
+
+<button onclick="showPage('plants')" class="w3-btn w3-round w3-large w3-block w3-blue">Plant – Plants</button>
+<br>
+
+<button onclick="showPage('rooms')" class="w3-btn w3-round w3-large w3-block w3-blue">Shanm – Rooms</button>
+
+
+<!— plants: flowers, trees / vehicles / family / furniture / culture: religion music / nature,seasons / tools / time / holidays -->
+
+
+
+<br><br><br><br><br>
+  </section>
+ 
+
+  <section id="verbs">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Verb</b> | Verb</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+<!—Water—>
+<p><b>najé ~ naj</b> v. to swim</p>
+<p><b>nwayé ~ nwa</b> v. to drown</p>
+<!—Cooking—>
+
+<p><b>bouyi ~ bouy</b> v. to boil</p>
+
+</div>
+</div>
+    </section>
+
+  <section id="animals">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Bèt</b> | Animals</h3>
+<h4><b>Ferm</b> | Farm</h4>
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+ 
+<p><b>koshon</b> n. 🐖 pig</p>
+
+<p><b>vash</b> n. 🐄 cow</p>
+
+<p><b>poul</b> n. 🐓 chicken, hen</p>
+
+<p><b>mouton</b> n. 🐑 sheep</p>
+
+<p><b>shwal</b> n. 🐎 horse</p>
+
+</div>
+</div>
+
+<h4><b>Lamær</b> | Sea</h4>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>krab</b> n. 🦀 crab</p>
+
+</div>
+</div>
+
+<br>
+
+<h4><b>Ti-Bétay</b> | Insects</h4>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zaryin</b> n. 🕷️ spider</p>
+
+<p><b>ravé</b> n. 🪳 cockroach</p>
+
+</div>
+</div>
+
+<br>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>kokodri</b> n. 🐊 alligator</p>
+
+</div>
+</div>
+<br>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>kiréy</b> n. 🐿️ squirrel</p>
+
+</div>
+</div>
+<br>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zwazo</b> n. 🐦‍⬛ bird</p>
+
+<p><b>zégré</b> n. egret</p>
+
+</div>
+</div>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>kòrn</b> n. horn</p>
+
+<p><b>sabo</b> n. hoof</p>
+
+</div>
+</div>
+
+    </section>
+
+  <section id="body">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Kòr</b> | Body</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zyé</b> n. 👁️ eye</p>
+
+<p><b>zòrtèy</b> n. toe</p>
+
+<p><b>zòrèy</b> n. 👂🏻 ear</p>
+
+<p><b>(la)tèt</b> n. 🧑🏻‍🦲 head</p>
+
+<p><b>kou</b> n. neck</p>
+
+<p><b>zépol</b> n. shoulder</p>
+<p><b>vent</b> n. stomach, belly</p>
+
+</div>
+</div>
+    </section>
+
+  <section id="plants">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Plant</b> | Plants</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zærb</b> n. grass</p>
+
+<p><b>vyolèt</b> n. violet (flower)</p>
+
+<p><b></b> n. </p>
+
+<p><b></b> n. </p>
+
+<p><b></b> n. </p>
+
+<p><b></b> n. </p>
+
+</div>
+</div>
+    </section>
+
+  <section id="numbers">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Numéro</b> | Numbers</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b></b> n. eye</p>
+
+<p><b></b> n. toe</p>
+
+<p><b></b> n. ear</p>
+
+<p><b></b> n. head</p>
+
+<p><b></b> n. neck</p>
+
+<p><b>8</b> wit</p>
+
+</div>
+</div>
+    </section>
+
+  <section id="clothes">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Linj</b> | Clothes</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>kilot</b> n. 👖 trouser</p>
+
+<p><b>kilot kout</b> n. 🩳 shorts</p>
+
+<p><b>ròb</b> n. 👗 dress</p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+    </section>
+
+  <section id="colours">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Koulœr</b> | Colours</h3>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zoranj</b> a. 🟧 orange</p>
+
+<p><b>vyolèt</b> a. 🟪 violet</p>
+
+<p><b>roz</b> a. 🩷 pink</p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+    </section>
+
+  <section id="food">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Manjé</b> | Food</h3>
+<h4><b>Jardinaj</b> | Vegetables</h4>
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+ 
+<p><b>patat</b> n. 🥔 potato</p>
+
+<p><b>patat dous</b> n. 🍠 sweet potato</p>
+
+<p><b>zònyon</b> n. 🧅 onion</p>
+
+<p><b>zariko</b> n. 🫘 beans</p>
+
+<p><b>tomat</b> n. 🍅 tomato</p>
+
+<p><b></b> </p>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>vinég</b> n. vinegar</p>
+
+<p><b>zépis</b> n. spice</p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+
+<br>
+
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>zèf</b> n. 🥚 egg</p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+
+    </section>
+
+      <section id="rooms">
+    <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3><b>Shanm</b> | Rooms</h3>
+<h4><b>Lakizinn</b> | Kitchen</h4>
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+ 
+<p><b>lavatwar</b> n. sink</p>
+
+<p><b>stov</b> n. stove</p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+
+<h4><b>Shanm-bèñin</b> | Bathroom</h4>
+<div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<p><b>kòmòd</b> n. 🚽 toilet</p>
+
+<p><b></b> </p>
+
+</div>
+</div>
+
+    </section>
+    
+  <section id="hj4">
+    <button onclick="showPage('chap')" class="w3-btn w3-black w3-small">Back</button>
+
+    <h4 id="1">Bahagi Car (4)</h4>
+
+<!-- Image -->
+
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Kompass_de.svg/600px-Kompass_de.svg.png" class="w3-image">
+         <p class="basa">Utara, dong, </p>
+        
+    <hr>
+
+    <span style="font-family: 'EB Garamond';" class="w3-large">
+    <p>Jona si keloka? Kya da si va Vienna? Ne, da si va <b>alta</b> shaha. Da si va Bistritz. Bistritz si ke? Da si shaha va Romania. Nai turi <b>shuru</b> va Romania.</p>
+    </span>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Mostowa_Street_in_Warsaw_-_New_Town.jpg/399px-Mostowa_Street_in_Warsaw_-_New_Town.jpg" class="w3-image">
+<p class="basa">Jona wali ... va Budapest.</p>
+<hr>
+ <span style="font-family: 'EB Garamond';" class="w3-large">
+  <p>Jona shwa va <b>dasu</b> kitab:</p>
+   </span>
+    <hr>
+    <br><br>
+    </section>
+ 
+  
+  <!-- Repeat the content sections for additional pages -->
+</div>
+
+<!-- Fixed bar at the bottom with buttons -->
+<div class="bottom-bar">
+
+
+
+
+   <button onclick="showPage('page1')" class="w3-blue">🏠</button>
+           <button onclick="showPage('page2')" class="w3-teal">📃</button>
+   
+
+<a href="https://semrigpa.github.io/menu" class="w3-btn w3-small w3-round w3-large w3-black">➕</a>
+
+
+</div>
+
+<script>
+// Function to show the specified page and hide others
+function showPage(pageId) {
+  // Hide all content sections
+  document.querySelectorAll('.content section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show the target content section
+  document.getElementById(pageId).classList.add('active');
+}
+</script>
+
+</body>
+</html>
