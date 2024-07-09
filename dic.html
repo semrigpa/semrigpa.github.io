@@ -3,77 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary App</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Dictionary Lookup</title>
     <style>
-        .dictionary-entry {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #dictionary-container {
             margin-top: 20px;
         }
-        .word {
-            font-weight: bold;
-            font-size: 1.5em;
+        .word-entry {
+            margin-bottom: 10px;
         }
-        .pos {
-            font-style: italic;
-            color: gray;
+        .word-entry span {
+            font-weight: bold;
         }
     </style>
 </head>
-<body class="w3-container w3-light-grey">
-    <h1 class="w3-center w3-text-blue">Dictionary App</h1>
-    <div class="w3-center">
-        <input type="text" id="search" class="w3-input w3-border w3-round-large w3-margin-bottom" placeholder="Enter a word...">
-    </div>
-    <div class="dictionary w3-card-4 w3-white w3-padding w3-round-large" id="dictionary"></div>
+<body>
+    <h1>Dictionary Lookup</h1>
+    <label for="wordInput">Enter a word in English:</label>
+    <input type="text" id="wordInput">
+    <button onclick="lookupWord()">Lookup</button>
+
+    <div id="dictionary-container"></div>
 
     <script>
         const dictionary = {};
 
-        // Fetch the CSV file
+        // Load the CSV file
         fetch('dictionary.csv')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.text();
-            })
+            .then(response => response.text())
             .then(text => {
-                const lines = text.split('\n');
+                const lines = text.split('\n').slice(1); // Skip header line
                 lines.forEach(line => {
-                    const [word, definition, pos] = line.split(',');
-                    if (word && definition && pos) {
-                        dictionary[word.trim()] = { definition: definition.trim(), pos: pos.trim() };
-                    }
+                    const [word, definition, part_of_speech] = line.split(',');
+                    dictionary[word.trim().toLowerCase()] = {
+                        definition: definition.trim(),
+                        part_of_speech: part_of_speech.trim()
+                    };
                 });
-                console.log(dictionary); // For debugging purposes
-            })
-            .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
             });
 
-        document.getElementById('search').addEventListener('input', (event) => {
-            const query = event.target.value.toLowerCase();
-            const entry = dictionary[query];
-            const dictionaryDiv = document.getElementById('dictionary');
-            dictionaryDiv.innerHTML = '';
+        function lookupWord() {
+            const word = document.getElementById('wordInput').value.trim().toLowerCase();
+            const entry = dictionary[word];
+
+            const container = document.getElementById('dictionary-container');
+            container.innerHTML = ''; // Clear previous result
+
             if (entry) {
-                const wordDiv = document.createElement('div');
-                wordDiv.classList.add('word', 'w3-text-blue');
-                wordDiv.textContent = query;
-
-                const posDiv = document.createElement('div');
-                posDiv.classList.add('pos');
-                posDiv.textContent = entry.pos;
-
-                const definitionDiv = document.createElement('div');
-                definitionDiv.classList.add('w3-margin-top');
-                definitionDiv.textContent = entry.definition;
-
-                dictionaryDiv.appendChild(wordDiv);
-                dictionaryDiv.appendChild(posDiv);
-                dictionaryDiv.appendChild(definitionDiv);
+                container.innerHTML = `
+                    <div class="word-entry">
+                        <span>Word:</span> ${word}
+                    </div>
+                    <div class="word-entry">
+                        <span>Definition:</span> ${entry.definition}
+                    </div>
+                    <div class="word-entry">
+                        <span>Part of Speech:</span> ${entry.part_of_speech}
+                    </div>
+                `;
+            } else {
+                container.innerHTML = '<div class="word-entry">Word not found in the dictionary.</div>';
             }
-        });
+        }
     </script>
 </body>
 </html>
