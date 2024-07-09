@@ -3,71 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Lookup</title>
+    <title>Dictionary App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            padding: 20px;
         }
-        #dictionary-container {
+        .dictionary {
             margin-top: 20px;
         }
-        .word-entry {
-            margin-bottom: 10px;
-        }
-        .word-entry span {
+        .word {
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Dictionary Lookup</h1>
-    <label for="wordInput">Enter a word in English:</label>
-    <input type="text" id="wordInput">
-    <button onclick="lookupWord()">Lookup</button>
-
-    <div id="dictionary-container"></div>
+    <h1>Dictionary App</h1>
+    <input type="text" id="search" placeholder="Enter a word...">
+    <div class="dictionary" id="dictionary"></div>
 
     <script>
         const dictionary = {};
 
-        // Load the CSV file
         fetch('dictionary.csv')
             .then(response => response.text())
             .then(text => {
-                const lines = text.split('\n').slice(1); // Skip header line
+                const lines = text.split('\n');
                 lines.forEach(line => {
-                    const [word, definition, part_of_speech] = line.split(',');
-                    dictionary[word.trim().toLowerCase()] = {
-                        definition: definition.trim(),
-                        part_of_speech: part_of_speech.trim()
-                    };
+                    const [word, definition] = line.split(',');
+                    dictionary[word.trim()] = definition.trim();
                 });
             });
 
-        function lookupWord() {
-            const word = document.getElementById('wordInput').value.trim().toLowerCase();
-            const entry = dictionary[word];
-
-            const container = document.getElementById('dictionary-container');
-            container.innerHTML = ''; // Clear previous result
-
-            if (entry) {
-                container.innerHTML = `
-                    <div class="word-entry">
-                        <span>Word:</span> ${word}
-                    </div>
-                    <div class="word-entry">
-                        <span>Definition:</span> ${entry.definition}
-                    </div>
-                    <div class="word-entry">
-                        <span>Part of Speech:</span> ${entry.part_of_speech}
-                    </div>
-                `;
-            } else {
-                container.innerHTML = '<div class="word-entry">Word not found in the dictionary.</div>';
+        document.getElementById('search').addEventListener('input', (event) => {
+            const query = event.target.value.toLowerCase();
+            const definition = dictionary[query];
+            const dictionaryDiv = document.getElementById('dictionary');
+            dictionaryDiv.innerHTML = '';
+            if (definition) {
+                const wordDiv = document.createElement('div');
+                wordDiv.classList.add('word');
+                wordDiv.textContent = query;
+                const definitionDiv = document.createElement('div');
+                definitionDiv.textContent = definition;
+                dictionaryDiv.appendChild(wordDiv);
+                dictionaryDiv.appendChild(definitionDiv);
             }
-        }
+        });
     </script>
 </body>
 </html>
