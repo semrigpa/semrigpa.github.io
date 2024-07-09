@@ -1,15 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Lookup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #dictionary {
+<title>Kréyòl Look Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="w3.css">
+<link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+
+/* Style for fixed green top bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #7393B3;
+  color: white;
+  padding: 15px 0; /* Adjust top padding */
+  text-align: center; /* Center header text */
+}
+
+/* Style for fixed bar at the bottom */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #7393B3; /* Same color as the top bar */
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style for scrollable content */
+.content {
+  margin-top: 10px; /* Adjust this margin to avoid content overlap with headers */
+  padding: 20px;
+}
+
+/* Hide content sections by default */
+.content section {
+  display: none;
+}
+
+/* Show active content section */
+.content section.active {
+  display: block;
+}
+
+/* Button style */
+.bottom-bar button {
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid white; /* Add border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  margin: 0 6px; /* Adjust button margin */
+}
+
+/* Remove default button styles */
+.bottom-bar button:focus {
+  outline: none;
+}
+
+/* Increase top header text size */
+.top-bar span {
+  font-size: 20px; /* Adjust font size */
+}
+
+h2 { 
+
+color: #808000; 
+
+font-family: Georgia, serif;
+
+}
+
+h3 {
+
+font-weight: bold;
+
+}
+
+h4 { 
+color: #808000;
+font-weight: bold;
+}
+
+
+
+body {
+
+font-family: Georgia, serif;
+
+}
+
+ #dictionary {
             max-width: 600px;
             margin: 0 auto;
         }
@@ -26,16 +112,77 @@
             border-radius: 4px;
             background-color: #f9f9f9;
         }
-    </style>
+
+</style>
 </head>
 <body>
-    <div id="dictionary">
-        <h1>Dictionary Lookup</h1>
+  
+
+
+<!-- Content area -->
+<div class="content">
+  <!-- Page 1 content -->
+  
+  <!-- Page 2 content -->
+  
+
+  
+  
+
+  <!-- Page 3 content -->
+<section id="page1" class="active">
+         <div class="w3-card w3-pale-grey">
+    <div class="w3-container">
+
+   <h2>Kréyòl Look Up</h2>
+<h3></h3>
+    <p></p>
+    </div>
+ </div>
+<br>
+  <div id="dictionary">
+ 
         <input type="text" id="wordInput" placeholder="Type a word..." oninput="lookupWord()">
         <div id="definition" class="definition"></div>
     </div>
 
-    <script>
+
+<br><br><br><br><br>
+  </section>
+ 
+  
+  
+    
+    
+  
+ 
+  
+  <!-- Repeat the content sections for additional pages -->
+</div>
+
+<!-- Fixed bar at the bottom with buttons -->
+<div class="bottom-bar">
+ 
+
+
+<a href="https://semrigpa.github.io/menu" class="w3-btn w3-large w3-round w3-large w3-sand">➕</a>
+
+</div>
+
+<script>
+// Function to show the specified page and hide others
+function showPage(pageId) {
+  // Hide all content sections
+  document.querySelectorAll('.content section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show the target content section
+  document.getElementById(pageId).classList.add('active');
+}
+</script>
+
+  <script>
         const dictionary = {};
 
         fetch('dictionary.csv')
@@ -56,5 +203,6 @@
             document.getElementById('definition').innerText = definition;
         }
     </script>
+
 </body>
 </html>
