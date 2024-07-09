@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .dictionary {
+            margin-top: 20px;
+        }
+        .word {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dictionary App</h1>
+    <input type="text" id="search" placeholder="Enter a word...">
+    <div class="dictionary" id="dictionary"></div>
+
+    <script>
+        const dictionary = {};
+
+        fetch('dictionary.csv')
+            .then(response => response.text())
+            .then(text => {
+                const lines = text.split('\n');
+                lines.forEach(line => {
+                    const [word, definition] = line.split(',');
+                    dictionary[word.trim()] = definition.trim();
+                });
+            });
+
+        document.getElementById('search').addEventListener('input', (event) => {
+            const query = event.target.value.toLowerCase();
+            const definition = dictionary[query];
+            const dictionaryDiv = document.getElementById('dictionary');
+            dictionaryDiv.innerHTML = '';
+            if (definition) {
+                const wordDiv = document.createElement('div');
+                wordDiv.classList.add('word');
+                wordDiv.textContent = query;
+                const definitionDiv = document.createElement('div');
+                definitionDiv.textContent = definition;
+                dictionaryDiv.appendChild(wordDiv);
+                dictionaryDiv.appendChild(definitionDiv);
+            }
+        });
+    </script>
+</body>
+</html>
