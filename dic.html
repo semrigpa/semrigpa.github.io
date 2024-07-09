@@ -41,11 +41,13 @@
         fetch('dictionary.csv')
             .then(response => response.text())
             .then(data => {
-                const lines = data.split('\\n');
-                for (let i = 1; i < lines.length; i++) {
-                    const [word, definition] = lines[i].split(',');
-                    dictionary[word.trim().toLowerCase()] = definition.trim();
-                }
+                const lines = data.split('\n');
+                lines.forEach(line => {
+                    const [word, definition] = line.split(',');
+                    if (word && definition) {
+                        dictionary[word.trim().toLowerCase()] = definition.trim();
+                    }
+                });
             });
 
         function lookupWord() {
