@@ -3,53 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary App</title>
+    <title>Dictionary Lookup</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
+            margin: 20px;
         }
-        .dictionary {
-            margin-top: 20px;
+        #dictionary {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .word {
-            font-weight: bold;
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .definition {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
-    <h1>Dictionary App</h1>
-    <input type="text" id="search" placeholder="Enter a word...">
-    <div class="dictionary" id="dictionary"></div>
+    <div id="dictionary">
+        <h1>Dictionary Lookup</h1>
+        <input type="text" id="wordInput" placeholder="Type a word..." oninput="lookupWord()">
+        <div id="definition" class="definition"></div>
+    </div>
 
     <script>
         const dictionary = {};
 
         fetch('dictionary.csv')
             .then(response => response.text())
-            .then(text => {
-                const lines = text.split('\n');
-                lines.forEach(line => {
-                    const [word, definition] = line.split(',');
-                    dictionary[word.trim()] = definition.trim();
-                });
+            .then(data => {
+                const lines = data.split('\\n');
+                for (let i = 1; i < lines.length; i++) {
+                    const [word, definition] = lines[i].split(',');
+                    dictionary[word.trim().toLowerCase()] = definition.trim();
+                }
             });
 
-        document.getElementById('search').addEventListener('input', (event) => {
-            const query = event.target.value.toLowerCase();
-            const definition = dictionary[query];
-            const dictionaryDiv = document.getElementById('dictionary');
-            dictionaryDiv.innerHTML = '';
-            if (definition) {
-                const wordDiv = document.createElement('div');
-                wordDiv.classList.add('word');
-                wordDiv.textContent = query;
-                const definitionDiv = document.createElement('div');
-                definitionDiv.textContent = definition;
-                dictionaryDiv.appendChild(wordDiv);
-                dictionaryDiv.appendChild(definitionDiv);
-            }
-        });
+        function lookupWord() {
+            const input = document.getElementById('wordInput').value.trim().toLowerCase();
+            const definition = dictionary[input] || 'No definition found';
+            document.getElementById('definition').innerText = definition;
+        }
     </script>
 </body>
 </html>
