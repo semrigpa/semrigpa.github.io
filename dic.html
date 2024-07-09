@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary App</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .dictionary {
+        .dictionary-entry {
             margin-top: 20px;
         }
         .word {
             font-weight: bold;
+            font-size: 1.5em;
+        }
+        .pos {
+            font-style: italic;
+            color: gray;
         }
     </style>
 </head>
-<body>
-    <h1>Dictionary App</h1>
-    <input type="text" id="search" placeholder="Enter a word...">
-    <div class="dictionary" id="dictionary"></div>
+<body class="w3-container w3-light-grey">
+    <h1 class="w3-center w3-text-blue">Dictionary App</h1>
+    <div class="w3-center">
+        <input type="text" id="search" class="w3-input w3-border w3-round-large w3-margin-bottom" placeholder="Enter a word...">
+    </div>
+    <div class="dictionary w3-card-4 w3-white w3-padding w3-round-large" id="dictionary"></div>
 
     <script>
         const dictionary = {};
@@ -30,23 +34,31 @@
             .then(text => {
                 const lines = text.split('\n');
                 lines.forEach(line => {
-                    const [word, definition] = line.split(',');
-                    dictionary[word.trim()] = definition.trim();
+                    const [word, definition, pos] = line.split(',');
+                    dictionary[word.trim()] = { definition: definition.trim(), pos: pos.trim() };
                 });
             });
 
         document.getElementById('search').addEventListener('input', (event) => {
             const query = event.target.value.toLowerCase();
-            const definition = dictionary[query];
+            const entry = dictionary[query];
             const dictionaryDiv = document.getElementById('dictionary');
             dictionaryDiv.innerHTML = '';
-            if (definition) {
+            if (entry) {
                 const wordDiv = document.createElement('div');
-                wordDiv.classList.add('word');
+                wordDiv.classList.add('word', 'w3-text-blue');
                 wordDiv.textContent = query;
+
+                const posDiv = document.createElement('div');
+                posDiv.classList.add('pos');
+                posDiv.textContent = entry.pos;
+
                 const definitionDiv = document.createElement('div');
-                definitionDiv.textContent = definition;
+                definitionDiv.classList.add('w3-margin-top');
+                definitionDiv.textContent = entry.definition;
+
                 dictionaryDiv.appendChild(wordDiv);
+                dictionaryDiv.appendChild(posDiv);
                 dictionaryDiv.appendChild(definitionDiv);
             }
         });
