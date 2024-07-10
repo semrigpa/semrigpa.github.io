@@ -1,5 +1,294 @@
 <!DOCTYPE html>
 <html>
+<body>
+<div class="content">
+
+<section id="page1" class="active">
+         <div class="w3-card w3-pale-grey">
+    <div class="w3-container">
+
+   <h2>Kréyòl Look Up</h2>
+   
+    </div>
+ </div>
+<br>
+  <div id="dictionary">
+ 
+        <input type="text" id="wordInput" placeholder="Type an English word..." oninput="lookupWord()">
+        <div id="definition" class="definition"></div>
+    </div>
+<br>
+<button onclick="showPage('lessons')" class="w3-btn w3-block w3-round w3-large w3-lime">Lesson Index</button>
+
+<br><br><br><br><br>
+  </section>
+ 
+  
+    <section id="lessons">
+
+  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3>Lesson Index</h3>
+
+  <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+   
+<h4>Unit 1: Basic Grammar</h4>
+
+
+
+<div class="w3-bar-block w3-light-grey">
+
+<h5 class="w3-bar-item w3-border-bottom">1. Nouns</h5>
+
+<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">Lesson 1</a>
+
+<h5 class="w3-bar-item w3-border-bottom">2. Adjectives</h5>
+
+<a onclick="showPage('lesson2_1')" class="w3-bar-item w3-pale-green w3-button">2.1 BANGS<span class="w3-right">✅</span></a>
+<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">More ➕</a>
+<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">Less ➖</a>
+<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">As 🟰</a>
+
+<h5 class="w3-bar-item w3-border-bottom">3. Pronouns</h5>
+<h5 class="w3-bar-item w3-border-bottom">4. Verbs</h5>
+<h5 class="w3-bar-item w3-border-bottom">5. Adverbs</h5>
+<h5 class="w3-bar-item w3-border-bottom">6. Questions</h5>
+
+</div>
+
+<br>
+
+
+<!--
+<div class="w3-bar-block">
+
+
+
+
+
+
+
+
+<a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.1 Pronouns</p></a>
+
+<a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.2 Object & Subject</p></a>
+
+<a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.3 Reflexives</p></a>
+
+<a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"> <p> 3.4 Possesives</p></a>
+
+</div>
+-->
+
+    </div>
+ </div>
+
+<br><br><br><br>
+    </section>
+    
+      <section id="lesson1">
+
+  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3>Lesson 1: Nouns</h3>
+
+  <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<div class="w3-panel w3-pale-yellow">
+
+<h4>Points to Remember:</h4>
+
+<ul>
+<li><p>Nouns in Creole have only one form.</p></li>
+
+<li><p>Whether a noun is singular or plural is based solely on context. <mark>shyin</mark> (a dog, some dogs, dogs)</p></li>
+
+
+<li><p>The suffix <mark>-la</mark> (the) emphasises nouns. <mark>shyin-la</mark> (the dog, the dogs)</p></li>
+
+</ul>
+
+</div>
+   
+<h4>Singulars & Plurals</h4>
+    <p>Test</p>
+<h4></h4>
+
+<div class="w3-panel w3-border w3-pale-green">
+  <p class="w3-serif">
+  Mo sòr o Shikago.</p>
+</div>
+
+<div class="w3-panel w3-border w3-pale-green">
+
+<div class="w3-row">
+  <div class="w3-col s6 w3-left"><p><b></b></p></div>
+  <div class="w3-col s6 w3-right"><p></p></div>
+</div>
+
+</div>
+
+
+
+    </div>
+ </div>
+<br><br><br><br>
+    </section>
+  
+    <section id="lesson2_1">
+
+  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
+
+    <h3>Lesson 2.1: BANGS</h3>
+
+  <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+<div class="w3-panel w3-pale-yellow">
+
+<h4>Points to Remember:</h4>
+
+<ul>
+<li><p>In <mark>Kréyòl</mark>, some adjectives come before the noun, but most come after the noun.</p></li>
+
+<li><p>There are adjectives that come before nouns. Remember this group of adjectives with the mnemonic: <b>BANGS</b> — beauty, age, newness, goodness, size.</p></li>
+
+
+<li><p>Apart from <b>BANGS</b> adjectives, all other adjectives come after the noun they describe.</p></li>
+
+</ul>
+
+</div>
+   
+<h4>Adjective Positions</h4>
+
+<div class="w3-panel w3-border w3-pale-green">
+
+<div class="w3-row">
+  <div class="w3-col s6 w3-left">
+<b>
+<p>
+bèl wazo<br>
+vyé boug<br>
+nouvo sha<br>
+bon tem<br>
+gran mézon
+</p>
+</b>
+</div>
+
+  <div class="w3-col s6 w3-right">
+<p>
+beautiful bird<br>
+old man<br>
+new car<br>
+good time<br>
+big house
+</p>
+</div>
+
+</div>
+</div>
+
+<p>But:</p>
+
+<div class="w3-panel w3-border w3-pale-green">
+
+<div class="w3-row">
+  <div class="w3-col s6 w3-left">
+<b>
+<p>
+shyin las<br>
+min gosh<br>
+gaçon gaya<br>
+shawi kanay<br>
+moun Kréyòl
+</p>
+</b>
+</div>
+
+  <div class="w3-col s6 w3-right">
+<p>
+tired dog<br>
+left hand<br>
+healthy biy<br>
+sly racoon<br>
+Creole people
+</p>
+</div>
+
+</div>
+</div>
+
+
+    </div>
+ </div>
+<br><br><br><br>
+    </section>
+  
+  
+
+</div>
+
+<!-- Fixed bar at the bottom with buttons -->
+<div class="bottom-bar">
+ 
+
+
+<button onclick="showPage('page1')" class="w3-btn w3-large w3-round w3-large w3-sand">🏠</a>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Function to show the specified page and hide others
+function showPage(pageId) {
+  // Hide all content sections
+  document.querySelectorAll('.content section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show the target content section
+  document.getElementById(pageId).classList.add('active');
+}
+</script>
+
+  <script>
+        const dictionary = {};
+
+        fetch('dictionary.csv')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                lines.forEach(line => {
+                    const [word, definition] = line.split(',');
+                    if (word && definition) {
+                        dictionary[word.trim().toLowerCase()] = definition.trim();
+                    }
+                });
+            });
+
+        function lookupWord() {
+            const input = document.getElementById('wordInput').value.trim().toLowerCase();
+            const definition = dictionary[input] || 'No definition found';
+            document.getElementById('definition').innerText = definition;
+        }
+    </script>
+
+</body>
+
 <head>
 <title>Kréyòl Look Up</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,7 +372,7 @@ font-weight: bold;
 }
 
 h4 { 
-color: #808000;
+color: purple;
 font-weight: bold;
 }
 
@@ -113,97 +402,8 @@ font-family: Georgia, serif;
             border-radius: 4px;
             background-color: #f9f9f9;
         }
-
+mark {font-weight:bold;}
 </style>
 </head>
-<body>
-  
 
-
-<!-- Content area -->
-<div class="content">
-  <!-- Page 1 content -->
-  
-  <!-- Page 2 content -->
-  
-
-  
-  
-
-  <!-- Page 3 content -->
-<section id="page1" class="active">
-         <div class="w3-card w3-pale-grey">
-    <div class="w3-container">
-
-   <h2>Kréyòl Look Up</h2>
-<h3></h3>
-    <p></p>
-    </div>
- </div>
-<br>
-  <div id="dictionary">
- 
-        <input type="text" id="wordInput" placeholder="Type a word..." oninput="lookupWord()">
-        <div id="definition" class="definition"></div>
-    </div>
-
-
-<br><br><br><br><br>
-  </section>
- 
-  
-  
-    
-    
-  
- 
-  
-  <!-- Repeat the content sections for additional pages -->
-</div>
-
-<!-- Fixed bar at the bottom with buttons -->
-<div class="bottom-bar">
- 
-
-
-<a href="https://semrigpa.github.io/menu" class="w3-btn w3-large w3-round w3-large w3-sand">➕</a>
-
-</div>
-
-<script>
-// Function to show the specified page and hide others
-function showPage(pageId) {
-  // Hide all content sections
-  document.querySelectorAll('.content section').forEach(section => {
-    section.classList.remove('active');
-  });
-  
-  // Show the target content section
-  document.getElementById(pageId).classList.add('active');
-}
-</script>
-
-  <script>
-        const dictionary = {};
-
-        fetch('dictionary.csv')
-            .then(response => response.text())
-            .then(data => {
-                const lines = data.split('\n');
-                lines.forEach(line => {
-                    const [word, definition] = line.split(',');
-                    if (word && definition) {
-                        dictionary[word.trim().toLowerCase()] = definition.trim();
-                    }
-                });
-            });
-
-        function lookupWord() {
-            const input = document.getElementById('wordInput').value.trim().toLowerCase();
-            const definition = dictionary[input] || 'No definition found';
-            document.getElementById('definition').innerText = definition;
-        }
-    </script>
-
-</body>
 </html>
