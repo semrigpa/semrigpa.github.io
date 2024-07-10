@@ -1,0 +1,5 @@
+<html>
+<body>
+<button href="https://semrigpa.github.io/app" download>Download the Semrigpa App</button>
+</body>
+</html>
