@@ -14,7 +14,7 @@
 <br>
   <div id="dictionary">
  
-        <input type="text" id="wordInput" placeholder="Type an English word..." oninput="lookupWord()">
+        <input type="text" id="wordInput" placeholder="Type an English word... (100 words)" oninput="lookupWord()">
         <div id="definition" class="definition"></div>
     </div>
 <br>
@@ -42,14 +42,14 @@
 
 <h5 class="w3-bar-item w3-border-bottom">1. Nouns</h5>
 
-<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">Lesson 1</a>
+<a onclick="showPage('lesson1_1')" class="w3-bar-item w3-blue-grey w3-button">Singular Articles<span class="w3-right w3-badge">1.1</span></a>
+<a onclick="showPage('lesson1_2')" class="w3-bar-item w3-blue-grey w3-button">Plural & Demonstrative Artices<span class="w3-right w3-badge">1.2</span></a>
 
 <h5 class="w3-bar-item w3-border-bottom">2. Adjectives</h5>
 
-<a onclick="showPage('lesson2_1')" class="w3-bar-item w3-pale-green w3-button">2.1 BANGS<span class="w3-right">✅</span></a>
-<a onclick="showPage('lesson2_2')" class="w3-bar-item w3-pale-green w3-button">More ➕<span class="w3-right">✅</span></a>
-<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">Less ➖</a>
-<a onclick="showPage('lesson1')" class="w3-bar-item w3-blue-grey w3-button">As 🟰</a>
+
+<a onclick="showPage('lesson2_1')" class="w3-bar-item w3-pale-green w3-button">BANGS<span class="w3-right w3-badge">2.1</span></a>
+<a onclick="showPage('lesson2_2')" class="w3-bar-item w3-pale-yellow w3-button">Comparatives<span class="w3-right w3-badge">2.2</span></a>
 
 <h5 class="w3-bar-item w3-border-bottom">3. Pronouns</h5>
 <h5 class="w3-bar-item w3-border-bottom">4. Verbs</h5>
@@ -71,7 +71,7 @@
 
 
 
-<a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.1 Pronouns</p></a>
+<a onclick="showPage('lesson1_1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.1 Pronouns</p></a>
 
 <a onclick="showPage('lesson1')" class="w3-btn w3-bar-item w3-left w3-block w3-large w3-border-bottom"><p> 3.2 Object & Subject</p></a>
 
@@ -88,11 +88,11 @@
 <br><br><br><br>
     </section>
     
-      <section id="lesson1">
+      <section id="lesson1_1">
 
   <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
 
-    <h3>Lesson 1: Nouns</h3>
+    <h3>1.1: Singular Articles</h3>
 
   <div class="w3-card w3-light-grey">
     <div class="w3-container">
@@ -102,37 +102,37 @@
 <h4>Points to Remember:</h4>
 
 <ul>
-<li><p>Nouns in Creole have only one form.</p></li>
+<li><p><mark>shyin</mark>  = (dog, dogs) Nouns have only one form for singular and plural.</p></li>
 
-<li><p>Whether a noun is singular or plural is based solely on context. <mark>shyin</mark> (a dog, some dogs, dogs)</p></li>
+<li><p><mark>in shyin</mark> = (a dog)</p></li>
 
 
-<li><p>The suffix <mark>-la</mark> (the) emphasises nouns. <mark>shyin-la</mark> (the dog, the dogs)</p></li>
+<li><p><mark>ènn ibou</mark> = (an owl) If <mark>in</mark> (a) comes before a vowel, it changes to <mark>ènn</mark> (an).</p></li>
 
-</ul>
+
+<li><p><mark>shyin-la</mark> = (the dog)</p></li>
+
 
 </div>
    
-<h4>Singulars & Plurals</h4>
-    <p>Test</p>
-<h4></h4>
-
-<div class="w3-panel w3-border w3-pale-green">
-  <p class="w3-serif">
-  Mo sòr o Shikago.</p>
-</div>
-
-<div class="w3-panel w3-border w3-pale-green">
+<h4>Articles</h4>
+   
+<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
 
 <div class="w3-row">
-  <div class="w3-col s6 w3-left"><p><b></b></p></div>
-  <div class="w3-col s6 w3-right"><p></p></div>
+  <div class="w3-col s6 w3-left"><p>
+<b>Yé gin <u>drwat-la</u> palé.<br><u>Fenm-la</u> shant.<br>On gin <u>poul</u>, é on limn yê <u>zèf</u>.
+</b></p></div>
+
+  <div class="w3-col s6 w3-right"><p>
+They have <u>the right</u> to speak.<br>
+<u>The woman</u> is singing.<br>
+We have <u>chickens</u>, and we like their <u>eggs</u>.
+</p></div>
 </div>
 
+
 </div>
-
-
-
     </div>
  </div>
 <br><br><br><br>
@@ -233,7 +233,7 @@ Creole people
 
   <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
 
-    <h3>Lesson 2.2: More ➕</h3>
+    <h3>2.2: Comparatives</h3>
 
   <div class="w3-card w3-light-grey">
     <div class="w3-container">
@@ -243,31 +243,59 @@ Creole people
 <h4>Points to Remember:</h4>
 
 <ul>
-<li><p><mark>pli</mark> = more</p></li>
+<li><p><mark>pli</mark> = more ➕</p></li>
 <li><p><mark>pli ... ke</mark> = more ... than</p></li>
+<li><p><mark>mwins</mark> = less ➖</p></li>
+<li><p><mark>mwins ... ke</mark> = less ... than</p></li>
+<li><p><mark>osi ... ke</mark> = as ... as 🟰</p></li>
 </ul>
-
 </div>
    
-
-<div class="w3-panel w3-small w3-border w3-pale-green">
+<h4>More</h4>
+<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
 
 <div class="w3-row">
-  <div class="w3-col s6 w3-left"><p><b>
-Je <u>pli</u> vyé <u>ke</u> twa.<br>
-Mâ fiy pli gran ke tâ fiy.
+  <div class="w3-col s6 w3-left"><p>
+<b>Je <u>pli</u> vyé <u>ke</u> twa.<br>Mô fiy <u>pli</u> gran <u>ke</u> tô fiy.
 </b></p></div>
+
   <div class="w3-col s6 w3-right"><p>
 I’m old<u>er than</u> you.<br>
 My daughter is tall<u>er than</u> your daughter.
+</b></p></div>
+</div>
+   
+
+</div>
+<h4>Less</h4>
+<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
+
+<div class="w3-row">
+  <div class="w3-col s6 w3-left"><p>
+<b>Vou <u>mwins</u> smat <u>ke</u> mwa.
+</b></p></div>
+
+  <div class="w3-col s6 w3-right"><p>
+You're <u>less</u> smart <u>than</u> me.
+</p></div>
+</div>
+</div>
+<h4>As</h4>
+<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
+
+<div class="w3-row">
+  <div class="w3-col s6 w3-left"><p>
+<b>Non, je <u>osi</u> smat <u>ke</u> twa!.
+</b></p></div>
+
+  <div class="w3-col s6 w3-right"><p>
+No, I'm <u>as</u> smart <u>as</u> you.
 </p></div>
 </div>
 
-</div>
-
-
     </div>
  </div>
+</div>
 <br><br><br><br>
     </section>
 
