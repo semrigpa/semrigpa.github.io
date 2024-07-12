@@ -60,7 +60,7 @@
         }
 
         function filterDictionary(query) {
-            return dictionary.filter(entry => entry.word.startsWith(query.toLowerCase()));
+            return dictionary.filter(entry => entry.word.includes(query.toLowerCase()));
         }
 
         function displayResults(results) {
@@ -75,7 +75,7 @@
         }
 
         document.getElementById('search').addEventListener('input', function() {
-            const query = this.value.trim();
+            const query = this.value.trim().toLowerCase();
             if (query.length > 0) {
                 const results = filterDictionary(query);
                 displayResults(results);
