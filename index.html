@@ -1,883 +1,153 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .container { max-width: 1200px; margin: auto; padding: 20px; }
+    .card { background: #f9f9f9; padding: 15px; margin: 10px 0; border-radius: 10px; }
+    .header { text-align: center; padding: 20px; background: #eee; }
+    .btn { display: block; width: 100%; padding: 10px; margin: 5px 0; text-align: center; border: none; border-radius: 5px; text-decoration: none; }
+    .btn-red { background: #f44336; color: white; }
+    .btn-blue { background: #2196f3; color: white; }
+    .btn-lime { background: #cddc39; color: white; }
+    .btn-green { background: #4caf50; color: white; }
+    .btn-yellow { background: #ffeb3b; color: black; }
+    .btn-lightblue { background: #03a9f4; color: white; }
+    .btn-small { width: auto; padding: 5px 10px; margin: 5px; }
+    .phrase, .dictionary, .lessons, .about, .form, .downloads, .lesson1_1, .lesson1_2, .lesson2_1, .lesson2_2 { display: none; }
+    .active { display: block; }
+    .content { margin: 20px 0; }
+    .w3-row { display: flex; justify-content: space-between; margin: 10px 0; }
+    .w3-col { flex: 1; padding: 5px; }
+    .w3-panel { margin: 10px 0; padding: 10px; background: #e0f7fa; border-radius: 5px; }
+    h2, h3, h4, h5, h6 { margin: 10px 0; }
+    ul { padding-left: 20px; }
+    iframe { width: 100%; height: 500px; border: none; }
+  </style>
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+  </script>
+</head>
 <body>
-<div class="content">
- <section id="phrasebook">
-
-  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>Phrasebook</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<h3>Conversational</h3>
-   <div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Hé!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Hi! / Hey!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Ça va?
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-How's it going?
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Wi. / Wé.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Yes. / Yeah.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Non.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-No.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Dakòr.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Agreed. / In agreement.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Si-ti-plé. / Si-vou-plé / Tanpri.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Please.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Mèrsi.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Thanks.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Byin sûr.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Of course. / Surely.
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Ça vo pa pèn-la.
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-It's not worth the trouble.
-</p></div>
-</div>
+  <div class="container">
+    <div class="header">
+      <h2>Learn Creole</h2>
     </div>
-
-<h3>Travel</h3>
-   <div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
+    <div id="page1" class="section active">
+      <a href="#" class="btn btn-red" onclick="showPage('dict')">Dictionary Look Up</a>
+      <button class="btn btn-blue" onclick="showPage('pro')">Pronunciation Trainer</button>
+      <button class="btn btn-lime" onclick="showPage('lessons')">Lesson Index</button>
+      <button class="btn btn-green" onclick="showPage('phrasebook')">Phrasebook</button>
+      <button class="btn btn-yellow" onclick="showPage('dl')">Downloads</button>
+      <button class="btn btn-lightblue" onclick="showPage('about')">About</button>
+    </div>
+    <div id="phrasebook" class="section phrase">
+      <button class="btn btn-small" onclick="showPage('page1')">Back</button>
+      <h3>Phrasebook</h3>
+      <div class="card">
+        <h3>Conversational</h3>
+        <div class="w3-panel">
+          <div class="w3-row"><div class="w3-col"><b>Hé!</b></div><div class="w3-col">Hi! / Hey!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Ça va?</b></div><div class="w3-col">How's it going?</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Wi. / Wé.</b></div><div class="w3-col">Yes. / Yeah.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Non.</b></div><div class="w3-col">No.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Dakòr.</b></div><div class="w3-col">Agreed. / In agreement.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Si-ti-plé. / Si-vou-plé / Tanpri.</b></div><div class="w3-col">Please.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Mèrsi.</b></div><div class="w3-col">Thanks.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Byin sûr.</b></div><div class="w3-col">Of course. / Surely.</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Ça vo pa pèn-la.</b></div><div class="w3-col">It's not worth the trouble.</div></div>
+        </div>
+        <h3>Travel</h3>
+        <div class="w3-panel">
+          <div class="w3-row"><div class="w3-col"><b>Bon vwayaj!</b></div><div class="w3-col">Bon voyage!</div></div>
+        </div>
+        <h3>Celebrations</h3>
+        <div class="w3-panel">
+          <div class="w3-row"><div class="w3-col"><b>Bon fèt!</b></div><div class="w3-col">Happy birthday!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Bon ané!</b></div><div class="w3-col">Happy New Year!</div></div>
+        </div>
+        <h3>Misc</h3>
+        <div class="w3-panel">
+          <div class="w3-row"><div class="w3-col"><b>Bonjou!</b></div><div class="w3-col">Hello! / Good morning!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Orévwar!</b></div><div class="w3-col">Goodbye!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Bonswa!</b></div><div class="w3-col">Good evening! / Good night!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Bon shans!</b></div><div class="w3-col">Good luck!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Salopri!</b></div><div class="w3-col">Damn it!</div></div>
+          <div class="w3-row"><div class="w3-col"><b>Lamèrd!</b></div><div class="w3-col">Shit!</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="dict" class="section dictionary">
+      <button class="btn btn-small" onclick="showPage('page1')">Back</button>
+      <h3>Dictionary Lookup</h3>
+      <input type="text" id="search" placeholder="Type an English word...">
+      <div class="card">
+        <ul id="results"></ul>
+      </div>
+    </div>
+    <div id="lessons" class="section lessons">
+      <button class="btn btn-small" onclick="showPage('page1')">Back</button>
+      <h3>Lesson Index</h3>
+      <div class="card">
+        <h4>Unit 1: Basic Grammar</h4>
+        <div>
+          <h5>1. Nouns</h5>
+          <a onclick="showPage('lesson1_1')" class="btn btn-small btn-green">Singular Articles<span>1.1</span></a>
+          <a onclick="showPage('lesson1_2')" class="btn btn-small btn-yellow">Plurals & Demonstratives<span>1.2</span></a>
+          <h5>2. Adjectives</h5>
+          <a onclick="showPage('lesson2_1')" class="btn btn-small btn-green">BANGS<span>2.1</span></a>
+          <a onclick="showPage('lesson2_2')" class="btn btn-small btn-yellow">Comparatives<span>2.2</span></a>
+          <h5>3. Pronouns</h5>
+          <a onclick="showPage('lessons')" class="btn btn-small btn-red">Object & Subject<span>3.1</span></a>
+          <a onclick="showPage('lessons')" class="btn btn-small btn-red">Possessives
+          w3-small w3-border w3-pale-green">
 
 <div class="w3-row">
   <div class="w3-col s6 w3-left"><p>
-<b>Bon vwayaj!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Bon voyage!
-</p></div>
-</div>
-
-    </div>
-
-<h3>Celebrations</h3>
-   <div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Bon fèt!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Happy birthday!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Bon ané!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Happy New Year!
-</p></div>
-</div>
-    </div>
-
-
-<h3>Misc</h3>
-   <div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Bonjou!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Hello! / Good morning!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Orévwar!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Goodbye!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Bonswa!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Good evening! / Good night!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Bon shans!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Good luck!
-</p></div>
-</div>
-    
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Salopri!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Damn it!
-</p></div>
-</div>
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Lamèrd!
-</b></p></div>
-  <div class="w3-col s6 w3-right">
-<p>
-Shit!
-</p></div>
-</div>
-
-    </div>
-
-    </div>
- </div>
-
-<br><br><br><br>
-    </section>
-
-<section id="dict">
-        
- <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
- <h3>Dictionary Lookup</h3>
-    <input type="text" id="search" placeholder="Type an English word...">
-  
-
-
-
-
- <div class="w3-card w3-pale-yellow">
-    <div class="w3-container">
-  <ul id="results"></ul>
-
-</div>
-</div>
-</section>
-
-
-<section id="page1" class="active">
-         <div class="w3-card w3-pale-yellow">
-    <div class="w3-container">
-
-   <h2>Kréyòl Look Up</h2>
-   
-    </div>
- </div>
-
-
-
-<br>
-<a href="https://semrigpa.github.io/test" class="w3-btn w3-block w3-round w3-large w3-red">Dictionary Look Up</a>
-<br>
-<button onclick="showPage('pro')" class="w3-btn w3-block w3-round w3-large w3-blue">Pronunciation Guide</button>
-<br>
-<button onclick="showPage('lessons')" class="w3-btn w3-block w3-round w3-large w3-lime">Lesson Index</button>
-<br>
-<button onclick="showPage('phrasebook')" class="w3-btn w3-block w3-round w3-large w3-light-green">Phrasebook</button>
-<br>
-<button onclick="showPage('dl')" class="w3-btn w3-block w3-round w3-large w3-pale-red">Downloads</button>
-<br>
-<button onclick="showPage('about')" class="w3-btn w3-block w3-round w3-large w3-light-blue">About</button>
-
-<br><br><br><br><br>
-  </section>
- 
-  
-    <section id="lessons">
-
-  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>Lesson Index</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-   
-<h4>Unit 1: Basic Grammar</h4>
-
-
-
-<div class="w3-bar-block w3-light-grey">
-
-<h5 class="w3-bar-item w3-border-bottom">1. Nouns</h5>
-
-<a onclick="showPage('lesson1_1')" class="w3-bar-item w3-pale-green w3-button">Singular Articles<span class="w3-right w3-badge">1.1</span></a>
-<a onclick="showPage('lesson1_2')" class="w3-bar-item w3-pale-yellow w3-button">Plurals & Demonstratives<span class="w3-right w3-badge">1.2</span></a>
-
-<h5 class="w3-bar-item w3-border-bottom">2. Adjectives</h5>
-
-
-<a onclick="showPage('lesson2_1')" class="w3-bar-item w3-pale-green w3-button">BANGS<span class="w3-right w3-badge">2.1</span></a>
-<a onclick="showPage('lesson2_2')" class="w3-bar-item w3-pale-yellow w3-button">Comparatives<span class="w3-right w3-badge">2.2</span></a>
-
-<h5 class="w3-bar-item w3-border-bottom">3. Pronouns</h5>
-
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Object & Subject<span class="w3-right w3-badge">3.1</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Possesives<span class="w3-right w3-badge">3.2</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Reflexives<span class="w3-right w3-badge">3.3</span></a>
-
-
-<h5 class="w3-bar-item w3-border-bottom">4. Verbs</h5>
-
-
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">One & Two Stem Verbs<span class="w3-right w3-badge">4.1</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Future & Conditional<span class="w3-right w3-badge">4.2</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Simple Past & Past Anterior<span class="w3-right w3-badge">4.3</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Auxiliary Verbs<span class="w3-right w3-badge">4.4</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">'To Be' & Imperatives<span class="w3-right w3-badge">4.5</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Negation<span class="w3-right w3-badge">4.6</span></a>
-
-<h5 class="w3-bar-item w3-border-bottom">5. Adverbs</h5>
-
-
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Adverbs<span class="w3-right w3-badge">5.1</span></a>
-
-<h5 class="w3-bar-item w3-border-bottom">6. Questions</h5>
-
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Yes-No Questions<span class="w3-right w3-badge">6.1</span></a>
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Wh-Questions<span class="w3-right w3-badge">6.2</span></a>
-
-
-<h5 class="w3-bar-item w3-border-bottom">7. Sentences</h5>
-
-<a onclick="showPage('lessons')" class="w3-bar-item w3-pale-red w3-button">Relative Clauses<span class="w3-right w3-badge">7.1</span></a>
-</div>
-
-<br>
-
-
-    </div>
- </div>
-
-<br><br><br><br>
-    </section>
-
-<section id="about">
-
-  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>About</h3>
-
-
-  <div class="w3-card w3-round w3-light-grey">
-    <div class="w3-container">
-
-
-<h4>Contact</h4>
-<ul>
-<li>Suggest updates or changes.</li>
-<li>Report any errors or concerns.</li>
-</ul>
-  <button onclick="showPage('form')" class="w3-btn w3-round w3-border w3-pale-blue w3-round w3-block">Feedback Form</button>
-<h4>Updates</h4>
-  <div class="w3-card w3-round w3-pale-yellow">
-    <div class="w3-container">
-<p>1.0 – Stable Release</p>
- </div>
- </div>
-<br>
-
-
-    </div>
- </div>
-
-<br><br><br><br>
-    </section>
-    <section id="form">
-
-
-
-  <div style="overflow: hidden;" class="w3-card w3-round w3-light-grey">
-    <div class="w3-container">
- 
-
-
-<iframe  style="position:absolute; left: 0; right: 0; bottom: 0; top: 0px;" src="https://docs.google.com/forms/d/e/1FAIpQLSd_JNctI5UUo_tSeh55n_s0qSCZaYIE89LYliNapV8V3F0pNw/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-
-
-    </div>
- </div>
-
-<br><br><br><br>
-    </section>
-<section id="dl">
-
-  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>Downloads</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<br>
-
-<div class="w3-bar-block w3-light-grey">
-<a href="https://semrigpa.github.io/" class="w3-bar-item w3-pale-red w3-button">Downlod Anki Deck (.apkg)</a>
-<br>
-<a href="https://semrigpa.github.io/semrigpa.apk" class="w3-bar-item w3-pale-red w3-button" download>Downlod Android App (.apk)</a>
-
-</div>
-
-<br>
-
-
-    </div>
- </div>
-
-<br><br><br><br>
-    </section>
-
-
-
-
-      <section id="lesson1_1">
-
-  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>1.1: Singular Articles</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<div class="w3-panel w3-pale-yellow">
-
-<h4>Points to Remember:</h4>
-
-<ul>
-<li><p><mark>shyin</mark>  = (dog, dogs) Nouns have only one form for singular and plural.</p></li>
-
-<li><p><mark>in shyin</mark> = (a dog)</p></li>
-
-
-<li><p><mark>ènn ibou</mark> = (an owl) If <mark>in</mark> (a) comes before a vowel, it changes to <mark>ènn</mark> (an).</p></li>
-
-
-<li><p><mark>shyin-la</mark> = (the dog)</p></li>
-
-
-</div>
-   
-<h4>Examples</h4>
-   <div class="w3-panel w3-border w3-pale-green w3-serif">
-<p><b>Yé gin <u>drwat-la</u> palé.</b></p>
-<p>They have <u>the right</u> to speak.</p>
-
-<p><b><u>Fenm-la</u> shant.</b></p>
-<p><u>The woman</u> is singing.</p>
-
-<p><b>On gin <u>poul</u>, é on limn yê <u>zèf</u>.</b></p>
-<p>We have <u>chickens</u>, and we like their <u>eggs</u>.</p>
-
-</p>
-</div>
-    </div>
- </div>
-<br><br><br><br>
-    </section>
-
-    
-      <section id="lesson1_2">
-
-  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>1.2: Plurals & Demonstratives</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<div class="w3-panel w3-pale-yellow">
-
-<h4>Points to Remember:</h4>
-
-<ul>
-<li><p><mark>shyin-yé</mark>  = (dogs)</p></li>
-
-<li><p><mark>shyin-layé</mark> = (the dogs)</p></li>
-
-<li><p><mark>dji tomat</mark> = (some tomatoes)</p></li>
-
-<li><p><mark>sink poul</mark> = (five chickens) When counting something, just add the number – no need to use <mark>-yé</mark> here.</p></li>
-
-<li><p><mark>nonm-çala</mark> = (this/that man)</p></li>
-
-<li><p><mark>nonm-çayé</mark> = (these/those men)</p></li>
-
-</div>
-   
-<h4>Examples</h4>
-   <div class="w3-panel w3-border w3-pale-green w3-serif">
-<p><b>Tou makak trouv sô <u>piti-yé</u> joli.</b></p>
-<p>Every monkey thinks her <u>children</u> are pretty.</p>
-
-<p><b>To volé <u>poul-layé</u>?</b></p>
-<p>Did you steal <u>the chickens</u>?</p>
-
-<p><b>Je mèt <u>dji tomat</u> dan mô gombo.</b></p>
-<p>I put <u>some tomatoes</u> in my gumbo.</p>
-
-
-<p><b>On gin <u>sink poul</u> é <u>trò koshon</u>.</b></p>
-<p>We have <u>five chickens</u> and <u>three pigs</u>.</p>
-
-
-</div>
-    </div>
- </div>
-<br><br><br><br>
-    </section>
-  
-    <section id="lesson2_1">
-
-  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>Lesson 2.1: BANGS</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<div class="w3-panel w3-pale-yellow">
-
-<h4>Points to Remember:</h4>
-
-<ul>
-<li><p>In <mark>Kréyòl</mark>, some adjectives come before the noun, but most come after the noun.</p></li>
-
-<li><p>There are adjectives that come before nouns. Remember this group of adjectives with the mnemonic: <b>BANGS</b> — beauty, age, newness, goodness, size.</p></li>
-
-
-<li><p>Apart from <b>BANGS</b> adjectives, all other adjectives come after the noun they describe.</p></li>
-
-</ul>
-
-</div>
-   
-<h4>Adjective Positions</h4>
-
-<div class="w3-panel w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left">
-<b>
-<p>
-bèl wazo<br>
-vyé boug<br>
-nouvo sha<br>
-bon tem<br>
-gran mézon
-</p>
-</b>
-</div>
-
-  <div class="w3-col s6 w3-right">
-<p>
-beautiful bird<br>
-old man<br>
-new car<br>
-good time<br>
-big house
-</p>
-</div>
-
-</div>
-</div>
-
-<p>But:</p>
-
-<div class="w3-panel w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left">
-<b>
-<p>
-shyin las<br>
-min gosh<br>
-gaçon gaya<br>
-shawi kanay<br>
-moun Kréyòl
-</p>
-</b>
-</div>
-
-  <div class="w3-col s6 w3-right">
-<p>
-tired dog<br>
-left hand<br>
-healthy biy<br>
-sly racoon<br>
-Creole people
-</p>
-</div>
-
-</div>
-</div>
-
-
-    </div>
- </div>
-<br><br><br><br>
-    </section>
-  
-  <section id="lesson2_2">
-
-  <button onclick="showPage('lessons')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
-
-    <h3>2.2: Comparatives</h3>
-
-  <div class="w3-card w3-light-grey">
-    <div class="w3-container">
-
-<div class="w3-panel w3-pale-yellow">
-
-<h4>Points to Remember:</h4>
-
-<ul>
-<li><p><mark>pli</mark> = more ➕</p></li>
-<li><p><mark>pli ... ke</mark> = more ... than</p></li>
-<li><p><mark>mwins</mark> = less ➖</p></li>
-<li><p><mark>mwins ... ke</mark> = less ... than</p></li>
-<li><p><mark>osi ... ke</mark> = as ... as 🟰</p></li>
-</ul>
-</div>
-   
-<h4>More</h4>
-<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Je <u>pli</u> vyé <u>ke</u> twa.<br>Mô fiy <u>pli</u> gran <u>ke</u> tô fiy.
+<b>Mwa osi bon ke twa.
 </b></p></div>
 
   <div class="w3-col s6 w3-right"><p>
-I’m old<u>er than</u> you.<br>
-My daughter is tall<u>er than</u> your daughter.
-</b></p></div>
-</div>
-   
-
-</div>
-<h4>Less</h4>
-<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Vou <u>mwins</u> smat <u>ke</u> mwa.
-</b></p></div>
-
-  <div class="w3-col s6 w3-right"><p>
-You're <u>less</u> smart <u>than</u> me.
+I'm as good as you.
 </p></div>
 </div>
-</div>
-<h4>As</h4>
-<div class="w3-panel w3-serif w3-small w3-border w3-pale-green">
-
-<div class="w3-row">
-  <div class="w3-col s6 w3-left"><p>
-<b>Non, je <u>osi</u> smat <u>ke</u> twa!.
-</b></p></div>
-
-  <div class="w3-col s6 w3-right"><p>
-No, I'm <u>as</u> smart <u>as</u> you.
-</p></div>
 </div>
 
     </div>
-
  </div>
-</div>
 <br><br><br><br>
     </section>
+  
+    <section id="pro">
 
-</div>
+  <button onclick="showPage('page1')" class="w3-btn w3-black w3-right w3-round w3-small">Back</button>
 
-<!-- Fixed bar at the bottom with buttons -->
-<div class="bottom-bar">
- 
+    <h3>Pronunciation Trainer</h3>
 
-
-<button onclick="showPage('page1')" class="w3-btn w3-large w3-round w3-large w3-sand">🏠</a>
-
-</div>
-
-
-
-
-
-
-
-
-
-
+  <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+        <p>Coming Soon!</p>
+    </div>
+ </div>
+<br><br><br><br>
+    </section>
 
 <script>
-// Function to show the specified page and hide others
 function showPage(pageId) {
-  // Hide all content sections
-  document.querySelectorAll('.content section').forEach(section => {
-    section.classList.remove('active');
+  const pages = document.querySelectorAll('section');
+  pages.forEach(page => {
+    page.style.display = 'none';
   });
-  
-  // Show the target content section
-  document.getElementById(pageId).classList.add('active');
+  document.getElementById(pageId).style.display = 'block';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  showPage('page1');
+});
 </script>
 
-<script>
-        const dictionary = [];
-
-        async function loadCSV() {
-            try {
-                const response = await fetch('dictionary.csv');
-                const csv = await response.text();
-                parseCSV(csv);
-            } catch (error) {
-                console.error('Error loading CSV:', error);
-            }
-        }
-
-        function parseCSV(csv) {
-            const lines = csv.trim().split('\n');
-            const headers = lines[0].split(',');
-
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',');
-                const entry = {};
-                headers.forEach((header, index) => {
-                    entry[header.trim()] = values[index].trim();
-                });
-                dictionary.push(entry);
-            }
-        }
-
-        function filterDictionary(query) {
-            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
-        }
-
-        function displayResults(results) {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';
-
-            results.forEach(entry => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="word">${entry.word}</span> (<span class="pos">${entry.part_of_speech}</span>): ${entry.definition}`;
-                resultsContainer.appendChild(li);
-            });
-        }
-
-        document.getElementById('search').addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            if (query.length > 0) {
-                const results = filterDictionary(query);
-                displayResults(results);
-            } else {
-                document.getElementById('results').innerHTML = '';
-            }
-        });
-
-        loadCSV();
-    </script>
-
 </body>
-
-<head>
-<title>Kréyòl Look Up</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="w3.css">
-<link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<style>
-
-/* Style for fixed green top bar */
-.top-bar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #7393B3;
-  color: white;
-  padding: 15px 0; /* Adjust top padding */
-  text-align: center; /* Center header text */
-}
-
-/* Style for fixed bar at the bottom */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #7393B3; /* Same color as the top bar */
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Style for scrollable content */
-.content {
-  margin-top: 10px; /* Adjust this margin to avoid content overlap with headers */
-  padding: 20px;
-}
-
-/* Hide content sections by default */
-.content section {
-  display: none;
-}
-
-/* Show active content section */
-.content section.active {
-  display: block;
-}
-
-/* Button style */
-.bottom-bar button {
-  background-color: transparent;
-  color: white;
-  padding: 10px 20px;
-  border: 2px solid white; /* Add border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer;
-  margin: 0 6px; /* Adjust button margin */
-}
-
-/* Remove default button styles */
-.bottom-bar button:focus {
-  outline: none;
-}
-
-/* Increase top header text size */
-.top-bar span {
-  font-size: 20px; /* Adjust font size */
-}
-
-h2 { 
-
-color: #808000; 
-
-font-family: Georgia, serif;
-
-}
-
-h3 {
-
-font-weight: bold;
-
-}
-
-h4 { 
-color: purple;
-font-weight: bold;
-}
-
-
-
-body {
-
-font-family: Georgia, serif;
-
-}
-        #search {
-            width: 300px;
-            padding: 10px;
-            margin-bottom: 5px; /* Reduced margin */
-            font-size: 16px;
-        }
-        #results {
-            list-style-type: none;
-            padding: 0;
-            margin: 0; /* Removed margin */
-        }
-        #results li {
-            padding: 5px 0;
-        }
-        .word {
-            font-weight: bold;
-        }
-        .pos {
-            font-style: italic;
-        }
-h
-mark {font-weight:bold;}
-</style>
-</head>
-
 </html>
