@@ -38,11 +38,14 @@
     <script>
         const dictionary = [];
 
-        function loadCSV() {
-            fetch('dictionary.csv')
-                .then(response => response.text())
-                .then(csv => parseCSV(csv))
-                .catch(error => console.error('Error loading CSV:', error));
+        async function loadCSV() {
+            try {
+                const response = await fetch('dictionary.csv');
+                const csv = await response.text();
+                parseCSV(csv);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+            }
         }
 
         function parseCSV(csv) {
@@ -60,7 +63,7 @@
         }
 
         function filterDictionary(query) {
-            return dictionary.filter(entry => entry.word.includes(query.toLowerCase()));
+            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
         }
 
         function displayResults(results) {
