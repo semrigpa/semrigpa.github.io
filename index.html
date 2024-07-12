@@ -12,11 +12,20 @@
     </div>
  </div>
 <br>
-  <div id="dictionary">
- 
-        <input type="text" id="wordInput" placeholder="Type an English word... (100 words)" oninput="lookupWord()">
-        <div id="definition" class="definition"></div>
+<div class="w3-containerw3 w3-centre">
+   <input type="text" id="search" placeholder="Type a word...">
+</div>
+ <div class="w3-card w3-light-grey">
+    <div class="w3-container">
+
+     <ul id="results"></ul>
+   
     </div>
+ </div>
+
+
+
+
 <br>
 <button onclick="showPage('pro')" class="w3-btn w3-block w3-round w3-large w3-blue">Pronunciation Guide</button>
 <br>
@@ -500,26 +509,59 @@ function showPage(pageId) {
 }
 </script>
 
-  <script>
-        const dictionary = {};
+<script>
+        const dictionary = [];
 
-        fetch('dictionary.csv')
-            .then(response => response.text())
-            .then(data => {
-                const lines = data.split('\n');
-                lines.forEach(line => {
-                    const [word, definition] = line.split(',');
-                    if (word && definition) {
-                        dictionary[word.trim().toLowerCase()] = definition.trim();
-                    }
-                });
-            });
-
-        function lookupWord() {
-            const input = document.getElementById('wordInput').value.trim().toLowerCase();
-            const definition = dictionary[input] || 'No definition found';
-            document.getElementById('definition').innerText = definition;
+        async function loadCSV() {
+            try {
+                const response = await fetch('dictionary.csv');
+                const csv = await response.text();
+                parseCSV(csv);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+            }
         }
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const entry = {};
+                headers.forEach((header, index) => {
+                    entry[header.trim()] = values[index].trim();
+                });
+                dictionary.push(entry);
+            }
+        }
+
+        function filterDictionary(query) {
+            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            results.forEach(entry => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="word">${entry.word}</span> (<span class="pos">${entry.part_of_speech}</span>): ${entry.definition}`;
+                resultsContainer.appendChild(li);
+            });
+        }
+
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            if (query.length > 0) {
+                const results = filterDictionary(query);
+                displayResults(results);
+            } else {
+                document.getElementById('results').innerHTML = '';
+            }
+        });
+
+        loadCSV();
     </script>
 
 </body>
@@ -618,25 +660,27 @@ body {
 font-family: Georgia, serif;
 
 }
+        #search {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 5px; /* Reduced margin */
+            font-size: 16px;
+        }
+        #results {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Removed margin */
+        }
+        #results li {
+            padding: 5px 0;
+        }
+        .word {
+            font-weight: bold;
+        }
+        .pos {
+            font-style: italic;
+        }
 
- #dictionary {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .definition {
-            font-size: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
 mark {font-weight:bold;}
 </style>
 </head>
