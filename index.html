@@ -798,12 +798,18 @@ function showPage(pageId) {
 
         loadCSV();
     </script>
-    <script>
-        function playSound() {
-            var sound = document.getElementById('sound');
-            sound.play();
+<script>
+    function playSound() {
+        var sound = document.getElementById('sound');
+        if (sound) {
+            sound.play().catch(error => {
+                console.error("Error playing sound:", error);
+            });
+        } else {
+            console.error("Audio element not found.");
         }
-    </script>
+    }
+</script>
 </body>
 
 <head>
