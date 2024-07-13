@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="w3.css">
+<link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Lookup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: grey;
+        }
+        #search {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 5px; /* Reduced margin */
+            font-size: 16px;
+        }
+        #results {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Removed margin */
+        }
+        #results li {
+            padding: 5px 0;
+        }
+        .word {
+            font-weight: bold;
+        }
+        .pos {
+            font-style: italic;
+        }
+input {
+    font-size: 1em;
+    padding: 0.25em;
+    margin: 0.25em;
+    width: 100%;
+    min-width: 100%; }
+    </style>
+</head>
+<body>
+ <a href="https://semrigpa.github.io" class="w3-btn w3-black w3-right w3-round w3-small">Back</a>
+    <h3>Lexicon</h3>
+      <div class="w3-light-grey w3-container">
+        <h3>Grammar</h3>
+        </div>
+    <input type="text" id="search" placeholder="Type a word...">
+        <div class="w3-light-grey w3-container">
+    <ul id="results"></ul>
+    
+</div>
+    <script>
+        const dictionary = [];
+
+        async function loadCSV() {
+            try {
+                const response = await fetch('dict.csv');
+                const csv = await response.text();
+                parseCSV(csv);
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+            }
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                const entry = {};
+                headers.forEach((header, index) => {
+                    entry[header.trim()] = values[index].trim();
+                });
+                dictionary.push(entry);
+            }
+        }
+
+        function filterDictionary(query) {
+            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            results.forEach(entry => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="word">${entry.word}</span> (<span class="pos">${entry.part_of_speech}</span>): ${entry.definition}`;
+                resultsContainer.appendChild(li);
+            });
+        }
+
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            if (query.length > 0) {
+                const results = filterDictionary(query);
+                displayResults(results);
+            } else {
+                document.getElementById('results').innerHTML = '';
+            }
+        });
+
+        loadCSV();
+    </script>
+</body>
+</html>
