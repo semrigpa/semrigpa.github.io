@@ -2,110 +2,172 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="w3.css">
 <link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Lookup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: grey;
-        }
-        #search {
-            width: 300px;
-            padding: 10px;
-            margin-bottom: 5px; /* Reduced margin */
-            font-size: 16px;
-        }
-        #results {
-            list-style-type: none;
-            padding: 0;
-            margin: 0; /* Removed margin */
-        }
-        #results li {
-            padding: 5px 0;
-        }
-        .word {
-            color: red;
-        }
-        .pos {
-            font-style: italic;
-        }
-        .definition {
-            font-weight: bold
-            color: red
-            }
-input {
-    font-size: 1em;
-    padding: 0.25em;
-    margin: 0.25em;
-    width: 100%;
-    min-width: 100%; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionary Lookup</title>
+<style>
+    body {
+        font-family: 'EB Garamond', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    header, footer {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        background-color: #333;
+        color: #fff;
+    }
+    #main {
+        text-align: center;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    #search {
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    #results {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px 0 0 0;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    #results li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        transition: background-color 0.3s;
+    }
+    #results li:hover {
+        background-color: #f9f9f9;
+    }
+    .word {
+        color: lightyellow;
+    }
+    .pos {
+        font-style: italic;
+    }
+    .definition {
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .highlight {
+        background-color: yellow;
+    }
+    .loading, .error {
+        margin: 10px 0;
+        color: #333;
+    }
+    .clear-btn {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 6px 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .clear-btn:hover {
+        background-color: #555;
+    }
+</style>
 </head>
 <body>
- <a href="https://semrigpa.github.io" class="w3-btn w3-black w3-right w3-round w3-small">Back</a>
-    <h3>Dictionary Lookup</h3>
+<header>
+    <h1>Dictionary Lookup</h1>
+</header>
+<main id="main">
     <input type="text" id="search" placeholder="Type a word...">
-        <div class="w3-light-grey w3-container">
-    <ul id="results"></ul>
-    
-</div>
-    <script>
-        const dictionary = [];
+    <button class="clear-btn" onclick="clearSearch()">Clear</button>
+    <div class="loading" id="loading" style="display:none;">Loading...</div>
+    <div class="error" id="error" style="display:none;">Error loading dictionary data.</div>
+    <div class="w3-light-grey w3-container">
+        <ul id="results"></ul>
+    </div>
+</main>
+<footer>
+    <a href="https://semrigpa.github.io" class="w3-btn w3-black w3-round">Back</a>
+</footer>
+<script>
+    const dictionary = [];
 
-        async function loadCSV() {
-            try {
-                const response = await fetch('dictionary.csv');
-                const csv = await response.text();
-                parseCSV(csv);
-            } catch (error) {
-                console.error('Error loading CSV:', error);
-            }
+    async function loadCSV() {
+        document.getElementById('loading').style.display = 'block';
+        try {
+            const response = await fetch('dictionary.csv');
+            const csv = await response.text();
+            parseCSV(csv);
+            document.getElementById('loading').style.display = 'none';
+        } catch (error) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            console.error('Error loading CSV:', error);
         }
+    }
 
-        function parseCSV(csv) {
-            const lines = csv.trim().split('\n');
-            const headers = lines[0].split(',');
+    function parseCSV(csv) {
+        const lines = csv.trim().split('\n');
+        const headers = lines[0].split(',');
 
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',');
-                const entry = {};
-                headers.forEach((header, index) => {
-                    entry[header.trim()] = values[index].trim();
-                });
-                dictionary.push(entry);
-            }
-        }
-
-        function filterDictionary(query) {
-            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
-        }
-
-        function displayResults(results) {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';
-
-            results.forEach(entry => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="word">${entry.word}</span> (<span class="pos">${entry.part_of_speech}</span>): ${entry.definition}`;
-                resultsContainer.appendChild(li);
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            const entry = {};
+            headers.forEach((header, index) => {
+                entry[header.trim()] = values[index].trim();
             });
+            dictionary.push(entry);
         }
+    }
 
-        document.getElementById('search').addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            if (query.length > 0) {
-                const results = filterDictionary(query);
-                displayResults(results);
-            } else {
-                document.getElementById('results').innerHTML = '';
-            }
+    function filterDictionary(query) {
+        return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
+    }
+
+    function displayResults(results, query) {
+        const resultsContainer = document.getElementById('results');
+        resultsContainer.innerHTML = '';
+
+        results.forEach(entry => {
+            const li = document.createElement('li');
+            const highlightedWord = entry.word.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
+            li.innerHTML = `<span class="definition">${entry.definition}</span> <span class="pos">(${entry.part_of_speech})</span> <span class="word">${highlightedWord}</span>`;
+            resultsContainer.appendChild(li);
         });
+    }
 
-        loadCSV();
-    </script>
+    document.getElementById('search').addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        if (query.length > 0) {
+            const results = filterDictionary(query);
+            displayResults(results, query);
+        } else {
+            document.getElementById('results').innerHTML = '';
+        }
+    });
+
+    function clearSearch() {
+        document.getElementById('search').value = '';
+        document.getElementById('results').innerHTML = '';
+    }
+
+    loadCSV();
+</script>
 </body>
 </html>
