@@ -5,7 +5,7 @@
 <link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creole Lookup@</title>
+<title>Creole Lookup</title>
 <style>
     body {
         font-family: 'EB Garamond', Arial, sans-serif;
@@ -42,6 +42,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         text-align: center;
+        overflow-y: auto; /* Scroll if content overflows */
     }
     #search {
         width: calc(100% - 22px);
@@ -73,8 +74,6 @@
         list-style-type: none;
         padding: 0;
         margin: 20px 0 0 0;
-        max-height: 300px;
-        overflow-y: auto;
         text-align: left; /* Aligning results to the left */
     }
     #results li {
@@ -87,15 +86,19 @@
     #results li:hover {
         background-color: #f9f9f9;
     }
-    .word {
-        color: black;
-        margin-left: 5px; /* Space between part of speech and word */
-    }
-    .pos {
-        font-style: italic;
+    .definition-pos {
+        display: flex;
+        justify-content: space-between;
     }
     .definition {
         font-weight: bold;
+    }
+    .word {
+        color: black;
+        margin-top: 5px;
+    }
+    .pos {
+        font-style: italic;
     }
     .highlight {
         background-color: #ccffcc; /* Pale green */
@@ -104,7 +107,7 @@
 </head>
 <body>
 <header>
-    <h1>Creole Lookup@</h1>
+    <h1>Creole Lookup</h1>
 </header>
 <main>
     <input type="text" id="search" placeholder="Type a word...">
@@ -160,7 +163,12 @@
         results.forEach(entry => {
             const li = document.createElement('li');
             const highlightedWord = entry.word.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-            li.innerHTML = `<span class="definition">${entry.definition}</span> <span class="pos">(${entry.part_of_speech})</span> <span class="word">${highlightedWord}</span>`;
+            li.innerHTML = `
+                <div class="definition-pos">
+                    <span class="definition">${entry.definition}</span>
+                    <span class="pos">(${entry.part_of_speech})</span>
+                </div>
+                <div class="word">${highlightedWord}</div>`;
             resultsContainer.appendChild(li);
         });
     }
