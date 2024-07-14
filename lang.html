@@ -52,59 +52,64 @@ input {
     <ul id="results"></ul>
     
 </div>
-    <script>
-        const dictionary = [];
+ <script>
+    const dictionary = [];
 
-        async function loadCSV() {
-            try {
-                const response = await fetch('dict.csv');
-                const csv = await response.text();
-                parseCSV(csv);
-            } catch (error) {
-                console.error('Error loading CSV:', error);
-            }
+    async function loadCSV() {
+        try {
+            const response = await fetch('dict.csv');
+            const csv = await response.text();
+            parseCSV(csv);
+        } catch (error) {
+            console.error('Error loading CSV:', error);
         }
+    }
 
-        function parseCSV(csv) {
-            const lines = csv.trim().split('\n');
-            const headers = lines[0].split(',');
+    function parseCSV(csv) {
+        const lines = csv.trim().split('\n');
+        const headers = lines[0].split(',');
 
-            for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(',');
-                const entry = {};
-                headers.forEach((header, index) => {
-                    entry[header.trim()] = values[index].trim();
-                });
-                dictionary.push(entry);
-            }
-        }
-
-        function filterDictionary(query) {
-            return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
-        }
-
-        function displayResults(results) {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '';
-
-            results.forEach(entry => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="word">${entry.word}</span> (<span class="pos">${entry.part_of_speech}</span>): ${entry.definition}`;
-                resultsContainer.appendChild(li);
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            const entry = {};
+            headers.forEach((header, index) => {
+                entry[header.trim()] = values[index].trim();
             });
+            dictionary.push(entry);
         }
+    }
 
-        document.getElementById('search').addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            if (query.length > 0) {
-                const results = filterDictionary(query);
-                displayResults(results);
-            } else {
-                document.getElementById('results').innerHTML = '';
-            }
+    function filterDictionary(query) {
+        return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
+    }
+
+    function displayResults(results) {
+        const resultsContainer = document.getElementById('results');
+        resultsContainer.innerHTML = '';
+
+        results.forEach(entry => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="word"><strong>Word:</strong> ${entry.word}</span><br>
+                <span class="meaning"><strong>Meaning:</strong> ${entry.meaning}</span><br>
+                <span class="example_sentence"><strong>Example Sentence:</strong> ${entry.example_sentence}</span><br>
+                <span class="sentence"><strong>Sentence:</strong> ${entry.sentence}</span>
+            `;
+            resultsContainer.appendChild(li);
         });
+    }
 
-        loadCSV();
-    </script>
+    document.getElementById('search').addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        if (query.length > 0) {
+            const results = filterDictionary(query);
+            displayResults(results);
+        } else {
+            document.getElementById('results').innerHTML = '';
+        }
+    });
+
+    loadCSV();
+</script>
 </body>
 </html>
