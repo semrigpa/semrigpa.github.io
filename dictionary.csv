@@ -1,117 +1,104 @@
 word,part_of_speech,definition
-dust,n,pousyèr
-light,n,limyèr
-birthday | party | holiday,n,fèt 🎉
-beer,n,byèr 🍺
-fence,n,baryè
-God,n,Djè
-when,ad/cnj,kan ❓
-escape | get away,v,shapé (shap)
-diarrhea,n,chirout
-roast | stew,n,dob
-ash | ashes,n, senn
-chair,n,shèj 🪑
-table,n,tab
-head,n,tèt 👨‍🦲
-violin | fiddle,n,vyolon 🎻
-work,n,ouvraj | travay
-shards of glass,n,èr-boutéy
-buy,v,ashté (ashèt)
-sit,v,asit
-now,ad,astœr
-right now,ad,astœr-la
-stagger,v,baloté (balot)
-before,ad,avan
-April,n,avri
-broom,n,balé 🧹
-sweep | clean out,v,balé (bal)
-ring,n,bag 💍
-aubergine | eggplant,n,brenm 🍆
-box,n,bwat 📦
-sugar,n,sik
-glass | glass (for drinking),n,vèr
-vermin | pest | germs,n, vèrminn
-version,n,vèrzyon
-vagabond,n,vakabon
-swallow,v,valé (val)
-cow,n,vash 🐄
-van,n,vann 🚚
-waltz,n,vals
-good | great | excellent | nice,a,vayan
-Friday,n,vendrédi
-stomach | belly,n,vent
-sign,n,siñ 🪧
-suck,v,sisé (sis)
-nap,n/v,singgo
-five | 5,num,sink
-fifty | 50,num,sinkant
-sister,n,sœr
-sofa | couch,n,sofa 🛋️
-smart,a,smat
-sixty | 60,num,swasant
-tiger,n,tig 🐅
-understand,v,komprenn
-know | be able | know how| do regularly,v/aux,koné
-how many,ad,konmyin
-advice,n,konsèy
-consonant,n,konsonn
-police officer,n,konstab 👮‍♂️
-context,n,kontèks
-happy,a,konten 😁
-continue,v,kontini
-conversation,n,konvèrsasyon
-hit | strike | bump,v,konyé (kony)?
-wood shavings,n,kopo
-tune (an instrument),v,kòrdé (kòrd)
-snow,n,nèj
-frostbite,n,langré?
-fishhook,n,anmçon
-year,n,ané
-run after | chase away | lance | throw,v,lansé (lans)
-night-time,n,nwit
-paw,n,pat
-straw | husk,n,pay
-peace,n,pé
-shovel,n,pèl
-69
-fly | steal,v,volé (vol)
+eye,n,zyé
+bird,n,zwazo
+tool,n,zouti
+toe,n,zòtey
+ear,n,zòrey
+trash,n,zòdi
+orange (fruit),n,zoranj
+orange,a,zoranj
+onion,n,zònyon
+indian,a,zindyin
+Indian,n,Zindyin
+zigzag,n,zigzag
+floor (of building),n,zétaj
+shoulder,n,zépol
+spice,n,zépis
+child,n,piti
+lightning,n,zéklè
+egg,n,zèf
+spider,n,zayin
+article,n,zatik
+beans,n,zariko
+year (with a number/counting),n,zan
+grass,n,zèb
+eight 8,num,wit
+their,det,yê
+to be (questions/relative),v,yê
+they/them (sbj & obj),prn,yé
+last night,nphr,yèr-oswa
+yesterday,ad,yèr
+yes,intj,wè
+see,v,war (wa)
+violet (flower),n,vyolèt
+violet,a,vyolèt
+old,a,vyé
+neighbourhood - vicinity,n,vwazinaj
+neighbour (m/f),n,vwazin
+neighbour (f),n,vwazinn
+travel,v,vwayajé (vwayaj)
+voyage - trip,n,vwayaj
+true ,a,vré
+vowel,n,voyèl
+send - deliver,v,voyé (vòy)
+fly - steal,v,volé (vol)
 vomit,v,vomi
 sell,v,venn
-you (plural, formal),prn (obj & sbj),vou
-send | throw | deliver,v,voyé (vòy)
-vowel,n,voyèl
-true,a,vré
-voilà,intj,vwala
-voyage | trip,n,vwayaj
-travel,v,vwayajé (vwayaj)
-neighbour,n,vwazin (m/f) | vwazinn (f)
-neighbourhood | vicinity,n,vwazinaj
-old,a,vyé
-violet (flower & colour),n/a,vyolèt
-see,v,war (wa)
-hoof,n,sabo
-sermon | (religious) lesson,n,sèrmon
-use,v,sèrvi (sèr)
-eat (for animals) | eat like an animal (for humans),v,safré (saf)
-cockroach,n,ravé
-harvest | crop,n,rékòlt
-remedy | medicine,n,rémèd
-enter | return | bring in | come home,v,rentré (rent)
-answer | respond,v,réponn
-answer | response,n,répons
-respect,n,rèspé
-leftovers | remainder,n,rèstan
-
-,n,
-,n,
-,n,
-,n,
-,n,
-,n,
-,n,
-,n,
-,n,
-
-
-
-
+you (formal/plural) (sbj & obj),prn,vou
+glass - glass (for drinking),n,vèr
+"vermin, pest, germs",n,vèminn
+version,n,vèzyon
+swallow,v,valé (val)
+van,n,vann
+cow,n,vash
+"great, excellent, nice",a,vayan
+Friday,n,vendrédi
+"stomach, belly, gut",n,vent
+empty,a,vid
+video,n,vidyo
+town,n,vilaj
+vinegar,n,vinég
+live - dwell,v,viv
+visit,v,vizité (vizit)
+living - alive,a,vivan
+mean - nasty,a,vilin
+spry - lively - alert,a,vif
+twenty-two,num,vin-de
+twenty,num,vin
+come - become,v,vini (vyin)
+fast - quick | quickly,a/ad,vit
+twenty-one,num,vint-é-ènn
+to be worth,v,vo
+your (formal/plural),det,vô
+prefer,v,vo-myé?
+to be worthless,v,vo pa ayin
+green,a,vèr
+humid - wet,a,umid
+every day,ad,tou-lê-jour
+tractor,n,trèkta
+"always, still",a/ad,toujou
+cough,n,tous
+cough,v,tousé (tous)
+worry,v,trakasé (trakas)
+work,v,travayé (travay)
+thirteen 13,num,trèz
+treasure,n,trézòr
+sad,a,tris
+too,a,tro
+truck,n,tròk
+trust,v,tròs
+three 3,num,trwa
+you (informal/singular) (obj),prn,twa
+roof,n,twa
+dresser,n,twalèt
+peaceful - quiet - calm,a,trankil
+thirty 30,num,trent
+thirty-one 31,num,trent-é-ènn
+to get wet,v,trempé (tremp)
+"trail, drag (along)",v,trènné (trènn)
+nerve,n,toupé
+"difficulty, problem, trouble",n,traka
+worry about,vphr,trakasé apré
+"too many, too much",nphr,tro bokou
+"get, fetch, catch, reach, trap, find",v,trapé (trap)
+noise | train,n,trin
