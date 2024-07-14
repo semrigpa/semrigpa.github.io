@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet'>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creole Lookup</title>
@@ -16,7 +16,7 @@
         flex-direction: column;
         min-height: 100vh;
     }
-    header, footer {
+    footer {
         width: 100%;
         text-align: center;
         padding: 10px 0;
@@ -24,25 +24,19 @@
         color: #fff;
         position: fixed;
         left: 0;
-    }
-    header {
-        top: 0;
-        font-size: 20px;
-    }
-    footer {
         bottom: 0;
     }
     main {
         flex: 1;
         width: 90%;
         max-width: 600px;
-        margin: 60px auto 40px auto; /* Adjusted for fixed header and footer */
+        margin: 20px auto 60px auto;
         background: #fff;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         text-align: center;
-        overflow-y: auto; /* Scroll if content overflows */
+        overflow-y: auto;
     }
     #search {
         width: calc(100% - 22px);
@@ -74,7 +68,7 @@
         list-style-type: none;
         padding: 0;
         margin: 20px 0 0 0;
-        text-align: left; /* Aligning results to the left */
+        text-align: left;
     }
     #results li {
         padding: 10px;
@@ -101,16 +95,13 @@
         font-style: italic;
     }
     .highlight {
-        background-color: #ccffcc; /* Pale green */
+        background-color: #ccffcc;
     }
 </style>
 </head>
 <body>
-<header>
-    <h1>Creole Lookup</h1>
-</header>
-<br><br>
 <main>
+    <h1>Creole Lookup</h1>
     <input type="text" id="search" placeholder="Type a word...">
     <button class="clear-btn" onclick="clearSearch()">Clear</button>
     <div class="loading" id="loading" style="display:none;">Loading...</div>
