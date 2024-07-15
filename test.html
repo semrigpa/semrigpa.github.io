@@ -56,6 +56,7 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        text-decoration: none;
     }
     .clear-btn:hover {
         background-color: #555;
@@ -101,17 +102,21 @@
 </head>
 <body>
 <main>
-    <h1>Creole Lookup</h1>
     <input type="text" id="search" placeholder="Type a word...">
+
     <button class="clear-btn" onclick="clearSearch()">Clear</button>
+
+
+
     <div class="loading" id="loading" style="display:none;">Loading...</div>
     <div class="error" id="error" style="display:none;">Error loading dictionary data.</div>
     <div class="w3-light-grey w3-container">
         <ul id="results"></ul>
     </div>
 </main>
-<footer>
-    <a href="https://semrigpa.github.io" class="w3-btn w3-black w3-round">Back</a>
+<footer style="padding-left: 10px;padding-right: 10px;">
+    <button onclick="clearSearch()" class="w3-button w3-tiny w3-black w3-right">Clear</button>
+    <a href="https://semrigpa.github.io" class="w3-button w3-tiny w3-black w3-left">Back</a>
 </footer>
 <script>
     const dictionary = [];
