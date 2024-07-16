@@ -152,7 +152,7 @@
     }
 
     function parseTSV(tsv) {
-        const lines = tsv.trim().split('\n');
+        const lines = tsv.trim().split('\n').filter(line => line.trim() !== '');
         const headers = lines[0].split('\t');
 
         for (let i = 1; i < lines.length; i++) {
