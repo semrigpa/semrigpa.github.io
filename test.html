@@ -46,21 +46,6 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-    .clear-btn {
-        display: inline-block;
-        margin-bottom: 20px;
-        padding: 10px 15px;
-        background-color: #333;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        text-decoration: none;
-    }
-    .clear-btn:hover {
-        background-color: #555;
-    }
     .loading {
         margin: 10px 0;
         color: #333;
@@ -98,11 +83,9 @@
     .highlight {
         background-color: #ccffcc;
     }
-    /* Hide content sections by default */
     section {
         display: none;
     }
-    /* Show active content section */
     section.active {
         display: block;
     }
@@ -113,7 +96,6 @@
 <section id="home" class="active">
     <main>
         <input type="text" id="search" placeholder="Type a word...">
-        <button onclick="clearSearch()" class="w3-button w3-padding w3-round-large w3-tiny w3-black w3-middle">Clear</button>
         <div class="loading" id="loading" style="display:none;">Loading...</div>
         <div class="w3-light-grey w3-container">
             <ul id="results"></ul>
@@ -136,79 +118,7 @@
 </section>
 
 <script>
-    const dictionary = [];
-
-    async function loadTSV() {
-        document.getElementById('loading').style.display = 'block';
-        try {
-            const response = await fetch('dictionary.tsv');
-            const tsv = await response.text();
-            parseTSV(tsv);
-            document.getElementById('loading').style.display = 'none';
-        } catch (error) {
-            document.getElementById('loading').style.display = 'none';
-            console.error('Error loading TSV:', error);
-        }
-    }
-
-    function parseTSV(tsv) {
-        const lines = tsv.trim().split('\n').filter(line => line.trim() !== '');
-        const headers = lines[0].split('\t');
-
-        for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split('\t');
-            const entry = {};
-            headers.forEach((header, index) => {
-                entry[header.trim()] = values[index].trim();
-            });
-            dictionary.push(entry);
-        }
-    }
-
-    function filterDictionary(query) {
-        return dictionary.filter(entry => entry.word.toLowerCase().includes(query));
-    }
-
-    function displayResults(results, query) {
-        const resultsContainer = document.getElementById('results');
-        resultsContainer.innerHTML = '';
-
-        results.forEach(entry => {
-            const li = document.createElement('li');
-            const highlightedWord = entry.word.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-            li.innerHTML = `
-                <div class="definition-pos">
-                    <span class="definition">${entry.definition}</span>
-                    <span class="pos">(${entry.part_of_speech})</span>
-                </div>
-                <div class="word">${highlightedWord}</div>`;
-            resultsContainer.appendChild(li);
-        });
-    }
-
-    document.getElementById('search').addEventListener('input', function() {
-        const query = this.value.trim().toLowerCase();
-        if (query.length > 0) {
-            const results = filterDictionary(query);
-            displayResults(results, query);
-        } else {
-            document.getElementById('results').innerHTML = '';
-        }
-    });
-
-    function clearSearch() {
-        document.getElementById('search').value = '';
-        document.getElementById('results').innerHTML = '';
-    }
-
-    function showPage(pageId) {
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(pageId).classList.add('active');
-    }
-
-    loadTSV();
+const dictionary=[];async function loadTSV(){document.getElementById('loading').style.display='block';try{const response=await fetch('dictionary.tsv');const tsv=await response.text();parseTSV(tsv);document.getElementById('loading').style.display='none'}catch(error){document.getElementById('loading').style.display='none';console.error('Error loading TSV:',error)}}function parseTSV(tsv){const lines=tsv.trim().split('\n').filter(line=>line.trim()!=='');const headers=lines[0].split('\t');for(let i=1;i<lines.length;i++){const values=lines[i].split('\t');const entry={};headers.forEach((header,index)=>{entry[header.trim()]=values[index].trim()});dictionary.push(entry)}}function filterDictionary(query){return dictionary.filter(entry=>entry.word.toLowerCase().includes(query))}function displayResults(results,query){const resultsContainer=document.getElementById('results');resultsContainer.innerHTML='';results.forEach(entry=>{const li=document.createElement('li');const highlightedWord=entry.word.replace(new RegExp(query,'gi'),match=>`<span class="highlight">${match}</span>`);li.innerHTML=`<div class="definition-pos"><span class="definition">${entry.definition}</span><span class="pos">(${entry.part_of_speech})</span></div><div class="word">${highlightedWord}</div>`;resultsContainer.appendChild(li)})}document.getElementById('search').addEventListener('input',function(){const query=this.value.trim().toLowerCase();if(query.length>0){const results=filterDictionary(query);displayResults(results,query)}else{document.getElementById('results').innerHTML=''}});function showPage(pageId){document.querySelectorAll('section').forEach(section=>{section.classList.remove('active')});document.getElementById(pageId).classList.add('active')}loadTSV();
 </script>
 </body>
 </html>
