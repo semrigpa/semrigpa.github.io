@@ -139,26 +139,26 @@
 <script>
     const dictionary = [];
 
-    async function loadCSV() {
+    async function loadTSV() {
         document.getElementById('loading').style.display = 'block';
         try {
-            const response = await fetch('dictionary.csv');
-            const csv = await response.text();
-            parseCSV(csv);
+            const response = await fetch('dictionary.tsv');
+            const tsv = await response.text();
+            parseTSV(tsv);
             document.getElementById('loading').style.display = 'none';
         } catch (error) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('error').style.display = 'block';
-            console.error('Error loading CSV:', error);
+            console.error('Error loading TSV:', error);
         }
     }
 
-    function parseCSV(csv) {
-        const lines = csv.trim().split('\n');
-        const headers = lines[0].split(',');
+    function parseTSV(tsv) {
+        const lines = tsv.trim().split('\n');
+        const headers = lines[0].split('\t');
 
         for (let i = 1; i < lines.length; i++) {
-            const values = lines[i].split(',');
+            const values = lines[i].split('\t');
             const entry = {};
             headers.forEach((header, index) => {
                 entry[header.trim()] = values[index].trim();
@@ -210,7 +210,7 @@
         document.getElementById(pageId).classList.add('active');
     }
 
-    loadCSV();
+    loadTSV();
 </script>
 </body>
 </html>
