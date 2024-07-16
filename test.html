@@ -61,7 +61,7 @@
     .clear-btn:hover {
         background-color: #555;
     }
-    .loading, .error {
+    .loading {
         margin: 10px 0;
         color: #333;
     }
@@ -115,7 +115,6 @@
         <input type="text" id="search" placeholder="Type a word...">
         <button onclick="clearSearch()" class="w3-button w3-padding w3-round-large w3-tiny w3-black w3-middle">Clear</button>
         <div class="loading" id="loading" style="display:none;">Loading...</div>
-        <div class="error" id="error" style="display:none;">Error loading dictionary data.</div>
         <div class="w3-light-grey w3-container">
             <ul id="results"></ul>
         </div>
@@ -148,7 +147,6 @@
             document.getElementById('loading').style.display = 'none';
         } catch (error) {
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'block';
             console.error('Error loading TSV:', error);
         }
     }
