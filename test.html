@@ -1,148 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet'>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creole Lookup</title>
-    <style>
-        body {
-            font-family: 'EB Garamond', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            background-color: #333;
-            color: #fff;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-        }
-        main {
-            flex: 1;
-            width: 90%;
-            max-width: 600px;
-            margin: 20px auto 60px auto;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-            overflow-y: auto;
-        }
-        #search {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .clear-btn {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-        }
-        .clear-btn:hover {
-            background-color: #555;
-        }
-        .loading, .error {
-            margin: 10px 0;
-            color: #333;
-        }
-        #results {
-            list-style-type: none;
-            padding: 0;
-            margin: 20px 0 0 0;
-            text-align: left;
-        }
-        #results li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            transition: background-color 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-        #results li:hover {
-            background-color: #f9f9f9;
-        }
-        .definition-pos {
-            display: flex;
-            justify-content: space-between;
-        }
-        .definition {
-            font-weight: bold;
-        }
-        .word {
-            color: black;
-            margin-top: 5px;
-        }
-        .pos {
-            font-style: italic;
-        }
-        .highlight {
-            background-color: #ccffcc;
-        }
-    </style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creole Lookup</title>
+<style>
+    body {
+        font-family: 'EB Garamond', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    footer {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        background-color: #333;
+        color: #fff;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+    }
+    main {
+        flex: 1;
+        width: 90%;
+        max-width: 600px;
+        margin: 20px auto 60px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: center;
+        overflow-y: auto;
+    }
+    #search {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .clear-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .clear-btn:hover {
+        background-color: #555;
+    }
+    .loading, .error {
+        margin: 10px 0;
+        color: #333;
+    }
+    #results {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px 0 0 0;
+        text-align: left;
+    }
+    #results li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        transition: background-color 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+    #results li:hover {
+        background-color: #f9f9f9;
+    }
+    .definition-pos {
+        display: flex;
+        justify-content: space-between;
+    }
+    .definition {
+        font-weight: bold;
+    }
+    .word {
+        color: black;
+        margin-top: 5px;
+    }
+    .pos {
+        font-style: italic;
+    }
+    .highlight {
+        background-color: #ccffcc;
+    }
+    /* Hide content sections by default */
+    section {
+        display: none;
+    }
+    /* Show active content section */
+    section.active {
+        display: block;
+    }
+</style>
 </head>
 <body>
-<main>
-    <input type="text" id="search" placeholder="Type a word...">
 
-    <button class="clear-btn" onclick="clearSearch()">Clear</button>
+<section id="home" class="active">
+    <main>
+        <input type="text" id="search" placeholder="Type a word...">
+        <button onclick="clearSearch()" class="w3-button w3-padding w3-round-large w3-tiny w3-black w3-middle">Clear</button>
+        <div class="loading" id="loading" style="display:none;">Loading...</div>
+        <div class="error" id="error" style="display:none;">Error loading dictionary data.</div>
+        <div class="w3-light-grey w3-container">
+            <ul id="results"></ul>
+        </div>
+    </main>
+    <footer style="padding-left: 10px;padding-right: 10px;">
+        <button onclick="showPage('gram')" class="w3-button w3-tiny w3-black w3-right">Grammar</button>
+        <a href="https://semrigpa.github.io" class="w3-button w3-tiny w3-black w3-left">Back</a>
+    </footer>
+</section>
 
-    <div class="loading" id="loading" style="display:none;">Loading...</div>
-    <div class="error" id="error" style="display:none;">Error loading dictionary data.</div>
-    <div class="w3-light-grey w3-container">
-        <ul id="results"></ul>
-    </div>
-</main>
-<footer style="padding-left: 10px;padding-right: 10px;">
-    <button onclick="clearSearch()" class="w3-button w3-tiny w3-black w3-right">Clear</button>
-    <a href="https://semrigpa.github.io" class="w3-button w3-tiny w3-black w3-left">Back</a>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<section id="gram">
+    <main>
+        <h2>Grammar Page</h2>
+        <h3>Nouns</h3>
+    </main>
+    <footer style="padding-left: 10px;padding-right: 10px;">
+        <button onclick="showPage('home')" class="w3-button w3-tiny w3-black w3-right">Home</button>
+    </footer>
+</section>
+
 <script>
     const dictionary = [];
 
-    async function loadXLSX() {
+    async function loadCSV() {
         document.getElementById('loading').style.display = 'block';
         try {
-            const response = await fetch('dictionary.xlsx');
-            const arrayBuffer = await response.arrayBuffer();
-            const data = new Uint8Array(arrayBuffer);
-            const workbook = XLSX.read(data, { type: 'array' });
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet);
-            parseXLSX(jsonData);
+            const response = await fetch('dictionary.csv');
+            const csv = await response.text();
+            parseCSV(csv);
             document.getElementById('loading').style.display = 'none';
         } catch (error) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('error').style.display = 'block';
-            console.error('Error loading XLSX:', error);
+            console.error('Error loading CSV:', error);
         }
     }
 
-    function parseXLSX(data) {
-        data.forEach(entry => {
+    function parseCSV(csv) {
+        const lines = csv.trim().split('\n');
+        const headers = lines[0].split(',');
+
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            const entry = {};
+            headers.forEach((header, index) => {
+                entry[header.trim()] = values[index].trim();
+            });
             dictionary.push(entry);
-        });
+        }
     }
 
     function filterDictionary(query) {
@@ -181,7 +203,14 @@
         document.getElementById('results').innerHTML = '';
     }
 
-    loadXLSX();
+    function showPage(pageId) {
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    loadCSV();
 </script>
 </body>
 </html>
