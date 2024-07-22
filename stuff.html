@@ -1,76 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Voice of the Silence</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
-    .container { padding: 20px; max-width: 900px; margin: auto; }
-    header { text-align: center; padding: 20px; }
-    header h1 { margin: 0; font-size: 2.5em; }
-    .section { display: none; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; background: #fff; }
-    .section.active { display: block; }
-    .section h2 { font-size: 1.8em; margin-top: 0; }
-    .nav-buttons { text-align: center; margin-top: 20px; }
-    .nav-buttons button { padding: 10px 20px; margin: 5px; cursor: pointer; background-color: #333; color: #fff; border: none; border-radius: 5px; }
-    .symbol { font-size: 1.5em; margin-right: 10px; }
-    .highlight { background-color: #f0f8ff; padding: 5px; border-left: 5px solid #333; }
-    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Messaging App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(to right, #000046, #1cb5e0);
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #app {
+            max-width: 800px;
+            margin: auto;
+            position: relative;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        #nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            position: relative;
+        }
+        #nav button {
+            background: #444;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        #nav button:hover {
+            background: #555;
+            transform: scale(1.1);
+        }
+        #content {
+            padding: 20px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+        .hidden {
+            display: none;
+        }
+        input {
+            padding: 10px;
+            width: calc(100% - 22px);
+            border-radius: 5px;
+            border: none;
+            margin: 5px 0;
+            transition: background 0.3s;
+        }
+        input:focus {
+            background: #222;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #005a5a;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background: #004040;
+            transform: scale(1.1);
+        }
+        h1, p {
+            margin: 0;
+            padding: 10px 0;
+        }
+        #message-list div {
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 5px 0;
+            transition: background 0.3s;
+        }
+        #message-list div:hover {
+            background: #444;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #settings .toggle {
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            background: #005a5a;
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #settings .toggle::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s;
+        }
+        #settings .toggle.active {
+            background: #004040;
+        }
+        #settings .toggle.active::before {
+            transform: translateX(25px);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>The Voice of the Silence</h1>
-    </header>
-    <div class="section active" id="section-1">
-      <h2>Introduction</h2>
-      <p>The text of "The Voice of the Silence" offers profound spiritual guidance. Below, we explore various sections and chapters.</p>
-      <p>Explore the teachings and wisdom in the following sections.</p>
+    <div id="app">
+        <div id="nav">
+            <button onclick="showPage('home')">🛸 Home</button>
+            <button onclick="showPage('messages')">📡 Messages</button>
+            <button onclick="showPage('settings')">⚙️ Settings</button>
+        </div>
+        <div id="content">
+            <div id="home" class="page">
+                <h1>👽 Welcome to Alien Chat 🌌</h1>
+                <p>Connect with extraterrestrial beings!</p>
+                <p>🌠 Explore the universe of alien emojis!</p>
+            </div>
+            <div id="messages" class="page hidden">
+                <h1>📡 Alien Messages</h1>
+                <div id="message-list"></div>
+                <input type="text" id="message-input" placeholder="Enter your alien message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+            <div id="settings" class="page hidden">
+                <h1>⚙️ Settings</h1>
+                <p>Customize your alien experience.</p>
+                <div class="toggle" onclick="toggleSwitch(this)"></div>
+                <p id="theme-status">🌑 Dark Mode</p>
+            </div>
+        </div>
     </div>
-    <div class="section" id="section-2">
-      <h2>Section 1: Instructions for Disciples</h2>
-      <p>These instructions are for those ignorant of the dangers of the lower IDDHI.</p>
-      <p>He who would hear the voice of Nada, "the Soundless Sound," and comprehend it, has to learn the nature of Dharana.</p>
-      <p>Having become indifferent to objects of perception, the pupil must seek out the Rajah of the senses, the Thought-Producer, who awakes illusion.</p>
-      <div class="highlight">The Mind is the great Slayer of the Real. Let the Disciple slay the Slayer.</div>
-    </div>
-    <div class="section" id="section-3">
-      <h2>Section 2: Inner Sound and Perception</h2>
-      <p>When to himself his form appears unreal, as do on waking all the forms he sees in dreams;</p>
-      <p>When he has ceased to hear the many, he may discern the ONE - the inner sound which kills the outer.</p>
-      <p>Then only, not till then, shall he forsake the region of Asat, the false, to come unto the realm of Sat, the true.</p>
-    </div>
-    <!-- Add more sections here -->
-    <div class="nav-buttons">
-      <button onclick="prevSection()">Previous</button>
-      <button onclick="nextSection()">Next</button>
-    </div>
-  </div>
-  <script>
-    let currentSection = 0;
-    const sections = document.querySelectorAll(".section");
-    
-    function showSection(index) {
-      sections.forEach((section, i) => {
-        section.classList.toggle("active", i === index);
-      });
-    }
-    
-    function prevSection() {
-      if (currentSection > 0) {
-        currentSection--;
-        showSection(currentSection);
-      }
-    }
-    
-    function nextSection() {
-      if (currentSection < sections.length - 1) {
-        currentSection++;
-        showSection(currentSection);
-      }
-    }
-  </script>
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const messageList = document.getElementById('message-list');
+            if (input.value.trim()) {
+                const newMessage = document.createElement('div');
+                newMessage.textContent = `👽 ${input.value}`;
+                newMessage.classList.add('animated');
+                messageList.appendChild(newMessage);
+                input.value = '';
+                setTimeout(() => newMessage.classList.remove('animated'), 1000);
+            }
+        }
+
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+            document.getElementById('theme-status').textContent = element.classList.contains('active') ? '🌕 Light Mode' : '🌑 Dark Mode';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => showPage('home'));
+        
+        document.querySelectorAll('#message-list div').forEach(div => {
+            div.addEventListener('click', () => div.classList.toggle('highlight'));
+        });
+    </script>
 </body>
 </html>
