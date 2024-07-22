@@ -1,1 +1,70 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The Voice of the Silence</title><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"><style>body{background:linear-gradient(to right,#000428,#004e92);color:#fff;font-family:'Courier New',Courier,monospace;text-align:center;padding:20px}.hidden{display:none}.page{min-height:100vh}.btn{margin:20px;padding:10px 20px;border:none;background:#fff;color:#004e92;font-size:18px;cursor:pointer;transition:background 0.3s}.btn:hover{background:#004e92;color:#fff}.symbol{font-size:50px;animation:symbolAnimation 4s infinite}@keyframes symbolAnimation{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}</style></head><body><div id="page1" class="page"><h1>The Path of Silence</h1><p>Welcome to the journey of the Voice of the Silence.</p><p class="symbol">&#x268A;</p><button class="btn" onclick="showPage('page2')">Begin</button></div><div id="page2" class="page hidden"><h2>Step 1: Meditation</h2><p>Focus on the stillness within.</p><p class="symbol">&#x272F;</p><button class="btn" onclick="showPage('page3')">Next</button></div><div id="page3" class="page hidden"><h2>Step 2: Knowledge</h2><p>Seek wisdom and understanding.</p><p class="symbol">&#x2734;</p><button class="btn" onclick="showPage('page4')">Next</button></div><div id="page4" class="page hidden"><h2>Step 3: Compassion</h2><p>Embrace love and empathy for all beings.</p><p class="symbol">&#x2766;</p><button class="btn" onclick="showPage('page5')">Next</button></div><div id="page5" class="page hidden"><h2>Step 4: Enlightenment</h2><p>Achieve unity with the divine.</p><p class="symbol">&#x2721;</p><button class="btn" onclick="showPage('page1')">Restart</button></div><script>function showPage(pageId){var pages=document.getElementsByClassName('page');for(var i=0;i<pages.length;i++){pages[i].classList.add('hidden')}document.getElementById(pageId).classList.remove('hidden')}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Voice of the Silence</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+    .container { padding: 20px; max-width: 800px; margin: auto; }
+    .chapter { display: none; animation: fadeIn 1s ease-in-out; }
+    .chapter.active { display: block; }
+    .nav-buttons { text-align: center; margin-top: 20px; }
+    .nav-buttons button { padding: 10px 20px; margin: 5px; cursor: pointer; background-color: #333; color: #fff; border: none; border-radius: 5px; }
+    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="chapter active" id="chapter-1">
+      <h2>Chapter 1</h2>
+      <p>These instructions are for those ignorant of the dangers of the lower IDDHI.</p>
+      <p>He who would hear the voice of Nada, "the Soundless Sound," and comprehend it, he has to learn the nature of Dharana.</p>
+      <p>Having become indifferent to objects of perception, the pupil must seek out the Rajah of the senses, the Thought-Producer, he who awakes illusion.</p>
+      <p>The Mind is the great Slayer of the Real.</p>
+      <p>Let the Disciple slay the Slayer.</p>
+    </div>
+    <div class="chapter" id="chapter-2">
+      <h2>Chapter 2</h2>
+      <p>When to himself his form appears unreal, as do on waking all the forms he sees in dreams;</p>
+      <p>When he has ceased to hear the many, he may discern the ONE - the inner sound which kills the outer.</p>
+      <p>Then only, not till then, shall he forsake the region of Asat, the false, to come unto the realm of Sat, the true.</p>
+    </div>
+    <!-- Add more chapters here -->
+    <div class="chapter" id="chapter-3">
+      <h2>Chapter 3</h2>
+      <p>Before the soul can see, the Harmony within must be attained, and fleshly eyes be rendered blind to all illusion.</p>
+      <p>Before the soul can hear, the image (man) has to become as deaf to roarings as to whispers, to cries of bellowing elephants as to the silvery buzzing of the golden fire-fly.</p>
+    </div>
+    <!-- Add more chapters here as needed -->
+    <div class="nav-buttons">
+      <button onclick="prevChapter()">Previous</button>
+      <button onclick="nextChapter()">Next</button>
+    </div>
+  </div>
+  <script>
+    let currentChapter = 0;
+    const chapters = document.querySelectorAll(".chapter");
+    
+    function showChapter(index) {
+      chapters.forEach((chapter, i) => {
+        chapter.classList.toggle("active", i === index);
+      });
+    }
+    
+    function prevChapter() {
+      if (currentChapter > 0) {
+        currentChapter--;
+        showChapter(currentChapter);
+      }
+    }
+    
+    function nextChapter() {
+      if (currentChapter < chapters.length - 1) {
+        currentChapter++;
+        showChapter(currentChapter);
+      }
+    }
+  </script>
+</body>
+</html>
