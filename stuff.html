@@ -3,16 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle Game</title>
+    <title>Afrihili Lesson 1</title>
     <style>
-        body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f0f0f0}.puzzle{display:grid;grid-template-columns:repeat(4,100px);gap:5px}.tile{width:100px;height:100px;background:#ccc;display:flex;align-items:center;justify-content:center;font-size:24px;color:#333;cursor:pointer}.tile.blank{background:#fff;cursor:default}.puzzle-button{display:block;width:120px;height:30px;margin:20px auto;cursor:pointer;background:#007bff;color:#fff;border:none;border-radius:5px;font-size:16px}.puzzle-button:hover{background:#0056b3}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .phrase-container {
+            margin-top: 20px;
+        }
+
+        .phrase {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .user-input {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        .grammar-notes {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <div class="puzzle" id="puzzle"></div>
-    <button class="puzzle-button" onclick="shuffle()">Shuffle</button>
+    <header>
+        <h1>Afrihili Lesson 1</h1>
+    </header>
+    <main>
+        <div class="section">
+            <h2>Introduction</h2>
+            <p>Welcome to Afrihili Lesson 1! In this lesson, we will cover basic greetings and simple sentence structures.</p>
+        </div>
+
+        <div class="section grammar-notes">
+            <h2>Grammar Notes</h2>
+            <p><strong>Greetings:</strong> The most common greetings in Afrihili are:</p>
+            <ul>
+                <li>"Habari" - Hello</li>
+                <li>"Nzuri" - Good (response to "Habari")</li>
+                <li>"Jambo" - How are you?</li>
+            </ul>
+            <p><strong>Sentence Structure:</strong> In Afrihili, sentences follow a Subject-Verb-Object (SVO) structure similar to English. For example:</p>
+            <ul>
+                <li>"Mimi ninasoma vitabu." - I read books.</li>
+            </ul>
+        </div>
+
+        <div class="section phrase-container">
+            <h2>Practice Translation</h2>
+            <p class="phrase">Translate the following phrase into Afrihili:</p>
+            <p class="phrase">"Hello, how are you?"</p>
+            <input type="text" id="user-input" class="user-input" placeholder="Your translation here">
+            <button id="submit-btn" class="submit-btn">Submit</button>
+            <p id="feedback" class="feedback"></p>
+        </div>
+    </main>
     <script>
-        const size=4,puzzle=document.getElementById('puzzle');let tiles=[];function init(){puzzle.innerHTML='';tiles=[];for(let i=0;i<size*size;i++){const tile=document.createElement('div');tile.className='tile';tile.textContent=i+1;tile.dataset.index=i;tile.onclick=move;tiles.push(tile);puzzle.appendChild(tile)}tiles[size*size-1].classList.add('blank');tiles[size*size-1].textContent=''}function move(e){const index=Number(e.target.dataset.index),blankIndex=tiles.findIndex(tile=>tile.classList.contains('blank'));if([index-1,index+1,index-size,index+size].includes(blankIndex)){[tiles[index].textContent,tiles[blankIndex].textContent]=[tiles[blankIndex].textContent,tiles[index].textContent];tiles[index].classList.toggle('blank');tiles[blankIndex].classList.toggle('blank');tiles[index].dataset.index=blankIndex;tiles[blankIndex].dataset.index=index}}function shuffle(){for(let i=0;i<100;i++){const blankIndex=tiles.findIndex(tile=>tile.classList.contains('blank')),possibleMoves=[blankIndex-1,blankIndex+1,blankIndex-size,blankIndex+size].filter(index=>index>=0&&index<size*size);const moveIndex=possibleMoves[Math.floor(Math.random()*possibleMoves.length)];if(moveIndex!==undefined){[tiles[blankIndex].textContent,tiles[moveIndex].textContent]=[tiles[moveIndex].textContent,tiles[blankIndex].textContent];tiles[blankIndex].classList.toggle('blank');tiles[moveIndex].classList.toggle('blank');tiles[blankIndex].dataset.index=moveIndex;tiles[moveIndex].dataset.index=blankIndex}}}init();
+        document.addEventListener('DOMContentLoaded', () => {
+            const submitBtn = document.getElementById('submit-btn');
+            const userInput = document.getElementById('user-input');
+            const feedback = document.getElementById('feedback');
+
+            const correctAnswer = "Habari, habari gani?";
+
+            submitBtn.addEventListener('click', () => {
+                const userAnswer = userInput.value.trim();
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = "Correct! Well done.";
+                    feedback.className = "feedback correct";
+                } else {
+                    feedback.textContent = "Incorrect. Try again!";
+                    feedback.className = "feedback incorrect";
+                }
+                userInput.value = ''; // Clear input field
+            });
+        });
     </script>
 </body>
 </html>
