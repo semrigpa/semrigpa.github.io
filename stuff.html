@@ -6,63 +6,69 @@
   <title>The Voice of the Silence</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
-    .container { padding: 20px; max-width: 800px; margin: auto; }
-    .chapter { display: none; animation: fadeIn 1s ease-in-out; }
-    .chapter.active { display: block; }
+    .container { padding: 20px; max-width: 900px; margin: auto; }
+    header { text-align: center; padding: 20px; }
+    header h1 { margin: 0; font-size: 2.5em; }
+    .section { display: none; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; background: #fff; }
+    .section.active { display: block; }
+    .section h2 { font-size: 1.8em; margin-top: 0; }
     .nav-buttons { text-align: center; margin-top: 20px; }
     .nav-buttons button { padding: 10px 20px; margin: 5px; cursor: pointer; background-color: #333; color: #fff; border: none; border-radius: 5px; }
+    .symbol { font-size: 1.5em; margin-right: 10px; }
+    .highlight { background-color: #f0f8ff; padding: 5px; border-left: 5px solid #333; }
     @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="chapter active" id="chapter-1">
-      <h2>Chapter 1</h2>
-      <p>These instructions are for those ignorant of the dangers of the lower IDDHI.</p>
-      <p>He who would hear the voice of Nada, "the Soundless Sound," and comprehend it, he has to learn the nature of Dharana.</p>
-      <p>Having become indifferent to objects of perception, the pupil must seek out the Rajah of the senses, the Thought-Producer, he who awakes illusion.</p>
-      <p>The Mind is the great Slayer of the Real.</p>
-      <p>Let the Disciple slay the Slayer.</p>
+    <header>
+      <h1>The Voice of the Silence</h1>
+    </header>
+    <div class="section active" id="section-1">
+      <h2>Introduction</h2>
+      <p>The text of "The Voice of the Silence" offers profound spiritual guidance. Below, we explore various sections and chapters.</p>
+      <p>Explore the teachings and wisdom in the following sections.</p>
     </div>
-    <div class="chapter" id="chapter-2">
-      <h2>Chapter 2</h2>
+    <div class="section" id="section-2">
+      <h2>Section 1: Instructions for Disciples</h2>
+      <p>These instructions are for those ignorant of the dangers of the lower IDDHI.</p>
+      <p>He who would hear the voice of Nada, "the Soundless Sound," and comprehend it, has to learn the nature of Dharana.</p>
+      <p>Having become indifferent to objects of perception, the pupil must seek out the Rajah of the senses, the Thought-Producer, who awakes illusion.</p>
+      <div class="highlight">The Mind is the great Slayer of the Real. Let the Disciple slay the Slayer.</div>
+    </div>
+    <div class="section" id="section-3">
+      <h2>Section 2: Inner Sound and Perception</h2>
       <p>When to himself his form appears unreal, as do on waking all the forms he sees in dreams;</p>
       <p>When he has ceased to hear the many, he may discern the ONE - the inner sound which kills the outer.</p>
       <p>Then only, not till then, shall he forsake the region of Asat, the false, to come unto the realm of Sat, the true.</p>
     </div>
-    <!-- Add more chapters here -->
-    <div class="chapter" id="chapter-3">
-      <h2>Chapter 3</h2>
-      <p>Before the soul can see, the Harmony within must be attained, and fleshly eyes be rendered blind to all illusion.</p>
-      <p>Before the soul can hear, the image (man) has to become as deaf to roarings as to whispers, to cries of bellowing elephants as to the silvery buzzing of the golden fire-fly.</p>
-    </div>
-    <!-- Add more chapters here as needed -->
+    <!-- Add more sections here -->
     <div class="nav-buttons">
-      <button onclick="prevChapter()">Previous</button>
-      <button onclick="nextChapter()">Next</button>
+      <button onclick="prevSection()">Previous</button>
+      <button onclick="nextSection()">Next</button>
     </div>
   </div>
   <script>
-    let currentChapter = 0;
-    const chapters = document.querySelectorAll(".chapter");
+    let currentSection = 0;
+    const sections = document.querySelectorAll(".section");
     
-    function showChapter(index) {
-      chapters.forEach((chapter, i) => {
-        chapter.classList.toggle("active", i === index);
+    function showSection(index) {
+      sections.forEach((section, i) => {
+        section.classList.toggle("active", i === index);
       });
     }
     
-    function prevChapter() {
-      if (currentChapter > 0) {
-        currentChapter--;
-        showChapter(currentChapter);
+    function prevSection() {
+      if (currentSection > 0) {
+        currentSection--;
+        showSection(currentSection);
       }
     }
     
-    function nextChapter() {
-      if (currentChapter < chapters.length - 1) {
-        currentChapter++;
-        showChapter(currentChapter);
+    function nextSection() {
+      if (currentSection < sections.length - 1) {
+        currentSection++;
+        showSection(currentSection);
       }
     }
   </script>
