@@ -44,7 +44,7 @@
 
     document.getElementById('flipModeBtn').onclick = () => {
       searchMode = searchMode === 'english' ? 'conlang' : 'english';
-      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Switch to Conlang Mode' : 'Switch to English Mode';
+      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'English Mode' : 'Conlang Mode';
       document.getElementById('searchInput').value = '';
       displayResults([]);
     };
