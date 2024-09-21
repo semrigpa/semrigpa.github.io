@@ -6,20 +6,30 @@
   <title>Conlang Dictionary</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
-    body { font-family: Arial, sans-serif; }
+    body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
     .header { text-align: center; margin: 20px 0; }
     .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .card { margin: 10px; width: 200px; background-color: #f0f0f0; border-radius: 10px; }
-    .conlang-word { font-size: 2em; font-weight: bold; }
+    .card { margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
+    .card:hover { transform: scale(1.05); }
+    .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { color: #555; }
-    .english-word { font-size: 1.2em; }
+    .english-word { font-size: 1.2em; color: #007bff; }
+    .w3-button { margin-top: 20px; }
+    input { border-radius: 5px; }
   </style>
 </head>
 <body>
   <div class="w3-container">
-    <div class="header"><h1>Conlang <-> English Dictionary</h1></div>
-    <div class="w3-center"><button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button></div>
-    <div class="w3-center w3-padding"><input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search..."></div>
+    <div class="header">
+      <h1>Conlang <-> English Dictionary</h1>
+      <p>A minimalistic approach to exploring constructed languages.</p>
+    </div>
+    <div class="w3-center">
+      <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button>
+    </div>
+    <div class="w3-center w3-padding">
+      <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
+    </div>
     <div id="resultContainer" class="result-container"></div>
   </div>
 
@@ -41,7 +51,9 @@
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchValue = e.target.value.toLowerCase();
-      const filtered = dictionary.filter(entry => entry[searchMode].toLowerCase().startsWith(searchValue));
+      const filtered = dictionary.filter(entry =>
+        entry[searchMode].toLowerCase().includes(searchValue)
+      );
       displayResults(searchValue === '' ? [] : filtered);
     });
 
