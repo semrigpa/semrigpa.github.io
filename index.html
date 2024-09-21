@@ -35,9 +35,9 @@
 
   <script>
     let dictionary = [], searchMode = 'english';
-    fetch('dictionary.csv').then(res => res.text()).then(data => {
+    fetch('dictionary.tsv').then(res => res.text()).then(data => {
       dictionary = data.trim().split('\n').slice(1).map(row => {
-        const [english, conlang] = row.split(';');
+        const [english, conlang] = row.split('\t'); // Changed to split by tab
         return { english, conlang };
       });
     });
