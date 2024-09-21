@@ -5,17 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conlang Dictionary</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="icon" href="favicon.png"> <!-- Change to your language-related icon -->
   <style>
-    body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
+    body { font-family: 'Roboto', sans-serif; background-color: #fff; color: #333; }
     .header { text-align: center; margin: 20px 0; }
-    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .card { margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
+    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
+    .card { width: 100%; max-width: 250px; background-color: #ffcccc; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
     .card:hover { transform: scale(1.05); }
-    .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
+    .conlang-word { font-size: 1.8em; font-weight: bold; color: #b30000; transition: color 0.3s; }
     .english-definition { color: #555; }
-    .english-word { font-size: 1.2em; color: #007bff; }
-    .w3-button { margin-top: 20px; }
-    input { border-radius: 5px; }
+    .english-word { font-size: 1.2em; color: #990000; }
+    .w3-button { margin-top: 20px; background-color: #b30000; }
+    input { border-radius: 5px; max-width: 250px; }
+    .suggestions { background-color: #fff; border: 1px solid #ddd; position: absolute; z-index: 1000; width: 100%; max-width: 250px; }
+    .suggestion-item { padding: 10px; cursor: pointer; transition: background-color 0.2s; }
+    .suggestion-item:hover { background-color: #f0f0f0; }
+    .feedback-message { text-align: center; margin-top: 20px; color: #999; }
   </style>
 </head>
 <body>
@@ -25,12 +31,14 @@
       <p>A minimalistic approach to exploring constructed languages.</p>
     </div>
     <div class="w3-center">
-      <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button>
+      <button id="flipModeBtn" class="w3-button w3-round">Conlang</button>
     </div>
     <div class="w3-center w3-padding">
       <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
+      <div id="suggestions" class="suggestions" style="display: none;"></div>
     </div>
     <div id="resultContainer" class="result-container"></div>
+    <div id="feedbackMessage" class="feedback-message" style="display: none;"></div>
   </div>
 
   <script>
@@ -44,17 +52,24 @@
 
     document.getElementById('flipModeBtn').onclick = () => {
       searchMode = searchMode === 'english' ? 'conlang' : 'english';
-      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Switch to Conlang Mode' : 'Switch to English Mode';
+      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Conlang' : 'English';
       document.getElementById('searchInput').value = '';
       displayResults([]);
+      hideSuggestions();
     };
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchValue = e.target.value.toLowerCase();
-      const filtered = dictionary.filter(entry =>
-        entry[searchMode].toLowerCase().includes(searchValue)
-      );
-      displayResults(searchValue === '' ? [] : filtered);
+      if (searchValue) {
+        const filtered = dictionary.filter(entry =>
+          entry[searchMode].toLowerCase().includes(searchValue)
+        );
+        displayResults(searchValue === '' ? [] : filtered);
+        showSuggestions(filtered, searchValue);
+      } else {
+        displayResults([]);
+        hideSuggestions();
+      }
     });
 
     function displayResults(entries) {
@@ -67,6 +82,40 @@
           </div>
         </div>
       `).join('');
+      if (entries.length === 0) {
+        showFeedbackMessage("No results found. Try another search!");
+      } else {
+        hideFeedbackMessage();
+      }
+    }
+
+    function showSuggestions(entries, searchValue) {
+      const suggestions = document.getElementById('suggestions');
+      suggestions.innerHTML = entries.map(entry => `
+        <div class="suggestion-item">${searchMode === 'english' ? entry.conlang : entry.english}</div>
+      `).join('');
+      suggestions.style.display = 'block';
+      suggestions.querySelectorAll('.suggestion-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.getElementById('searchInput').value = item.textContent;
+          displayResults(entries);
+          hideSuggestions();
+        });
+      });
+    }
+
+    function hideSuggestions() {
+      document.getElementById('suggestions').style.display = 'none';
+    }
+
+    function showFeedbackMessage(message) {
+      const feedbackMessage = document.getElementById('feedbackMessage');
+      feedbackMessage.innerText = message;
+      feedbackMessage.style.display = 'block';
+    }
+
+    function hideFeedbackMessage() {
+      document.getElementById('feedbackMessage').style.display = 'none';
     }
   </script>
 </body>
