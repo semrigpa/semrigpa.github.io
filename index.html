@@ -6,122 +6,55 @@
   <title>Conlang Dictionary</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .flip-button {
-      margin-bottom: 20px;
-    }
-    .result-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .card {
-      margin: 10px;
-      width: 200px;
-      background-color: #f0f0f0;
-      border-radius: 10px;
-    }
-    .conlang-word {
-      font-size: 2em;
-      font-weight: bold;
-    }
-    .english-definition {
-      color: #555;
-    }
-    .card .english-word {
-      font-size: 1.2em; /* Smaller text size for English words */
-    }
+    body { font-family: Arial, sans-serif; }
+    .header { text-align: center; margin: 20px 0; }
+    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .card { margin: 10px; width: 200px; background-color: #f0f0f0; border-radius: 10px; }
+    .conlang-word { font-size: 2em; font-weight: bold; }
+    .english-definition { color: #555; }
+    .english-word { font-size: 1.2em; }
   </style>
 </head>
 <body>
-
   <div class="w3-container">
-    <div class="header">
-      <h1>Conlang <-> English Dictionary</h1>
-    </div>
-
-    <div class="w3-center flip-button">
-      <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button>
-    </div>
-
-    <div class="w3-center w3-padding">
-      <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
-    </div>
-
+    <div class="header"><h1>Conlang <-> English Dictionary</h1></div>
+    <div class="w3-center"><button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button></div>
+    <div class="w3-center w3-padding"><input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search..."></div>
     <div id="resultContainer" class="result-container"></div>
   </div>
 
   <script>
-    let dictionary = []; // This will store the dictionary loaded from the .csv file
-    let searchMode = 'english'; // Default mode
-
-    // Fetch the CSV file
-    fetch('dictionary.csv')
-      .then(response => response.text())
-      .then(data => {
-        dictionary = parseCSV(data);
-      })
-      .catch(error => {
-        console.error('Error fetching the CSV file:', error);
-      });
-
-    // Parse semicolon-delimited CSV data into an array of objects
-    function parseCSV(data) {
-      const rows = data.trim().split('\n');
-      const parsedData = rows.slice(1).map(row => {
+    let dictionary = [], searchMode = 'english';
+    fetch('dictionary.csv').then(res => res.text()).then(data => {
+      dictionary = data.trim().split('\n').slice(1).map(row => {
         const [english, conlang] = row.split(';');
         return { english, conlang };
       });
-      return parsedData;
-    }
-
-    // Flip between English and Conlang mode
-    document.getElementById('flipModeBtn').addEventListener('click', () => {
-      searchMode = searchMode === 'english' ? 'conlang' : 'english';
-      document.getElementById('flipModeBtn').innerText = 
-        searchMode === 'english' ? 'Switch to Conlang Mode' : 'Switch to English Mode';
-      document.getElementById('searchInput').value = ''; // Clear search input
-      document.getElementById('resultContainer').innerHTML = ''; // Clear results
     });
 
-    // Search functionality
+    document.getElementById('flipModeBtn').onclick = () => {
+      searchMode = searchMode === 'english' ? 'conlang' : 'english';
+      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Switch to Conlang Mode' : 'Switch to English Mode';
+      document.getElementById('searchInput').value = '';
+      displayResults([]);
+    };
+
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchValue = e.target.value.toLowerCase();
-      const filtered = dictionary.filter(entry => 
-        entry[searchMode].toLowerCase().startsWith(searchValue)
-      );
-      displayResults(filtered);
+      const filtered = dictionary.filter(entry => entry[searchMode].toLowerCase().startsWith(searchValue));
+      displayResults(searchValue === '' ? [] : filtered);
     });
 
-    // Display results as cards
     function displayResults(entries) {
       const resultContainer = document.getElementById('resultContainer');
-      resultContainer.innerHTML = ''; // Clear previous results
-
-      entries.forEach(entry => {
-        const card = document.createElement('div');
-        card.className = 'w3-card-4 card';
-
-        const content = `
+      resultContainer.innerHTML = entries.map(entry => `
+        <div class="w3-card-4 card">
           <div class="w3-container w3-padding">
-            <h3 class="${searchMode === 'english' ? 'conlang-word' : 'english-word'}">
-              ${searchMode === 'english' ? entry.english : entry.conlang}
-            </h3>
-            <p class="english-definition">
-              ${searchMode === 'english' ? entry.conlang : entry.english}
-            </p>
+            <h3 class="${searchMode === 'english' ? 'conlang-word' : 'english-word'}">${searchMode === 'english' ? entry.english : entry.conlang}</h3>
+            <p class="english-definition">${searchMode === 'english' ? entry.conlang : entry.english}</p>
           </div>
-        `;
-        card.innerHTML = content;
-        resultContainer.appendChild(card);
-      });
+        </div>
+      `).join('');
     }
   </script>
 </body>
