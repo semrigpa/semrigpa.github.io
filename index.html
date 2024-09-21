@@ -9,9 +9,6 @@
     body {
       font-family: Arial, sans-serif;
     }
-    .card {
-      margin: 10px;
-    }
     .header {
       text-align: center;
       margin-bottom: 20px;
@@ -19,12 +16,27 @@
     .flip-button {
       margin-bottom: 20px;
     }
+    .result-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      margin: 10px;
+      width: 200px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+    }
     .conlang-word {
       font-size: 2em;
       font-weight: bold;
     }
     .english-definition {
       color: #555;
+    }
+    .card .english-word {
+      font-size: 1.2em; /* Smaller text size for English words */
     }
   </style>
 </head>
@@ -43,7 +55,7 @@
       <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
     </div>
 
-    <div id="resultContainer" class="w3-row-padding w3-margin-top"></div>
+    <div id="resultContainer" class="result-container"></div>
   </div>
 
   <script>
@@ -95,12 +107,16 @@
 
       entries.forEach(entry => {
         const card = document.createElement('div');
-        card.className = 'w3-card-4 w3-col l3 m6 card';
+        card.className = 'w3-card-4 card';
 
         const content = `
           <div class="w3-container w3-padding">
-            <h3 class="conlang-word">${searchMode === 'english' ? entry.english : entry.conlang}</h3>
-            <p class="english-definition">${searchMode === 'english' ? entry.conlang : entry.english}</p>
+            <h3 class="${searchMode === 'english' ? 'conlang-word' : 'english-word'}">
+              ${searchMode === 'english' ? entry.english : entry.conlang}
+            </h3>
+            <p class="english-definition">
+              ${searchMode === 'english' ? entry.conlang : entry.english}
+            </p>
           </div>
         `;
         card.innerHTML = content;
