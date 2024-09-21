@@ -8,15 +8,13 @@
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
     .header { text-align: center; margin: 20px 0; }
-    .result-container, .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
     .card { margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
     .card:hover { transform: scale(1.05); }
     .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { font-size: 0.9em; color: #555; }
     .w3-button { margin-top: 20px; }
     input { border-radius: 5px; }
-    .grid-container { display: none; }
-    .grid-card { width: 150px; } /* Smaller card size for grid */
   </style>
 </head>
 <body>
@@ -27,13 +25,11 @@
     </div>
     <div class="w3-center">
       <button id="flipModeBtn" class="w3-button w3-blue w3-round">English Mode</button>
-      <button id="viewGridBtn" class="w3-button w3-green w3-round">View All Words</button>
     </div>
     <div class="w3-center w3-padding">
       <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
     </div>
     <div id="resultContainer" class="result-container"></div>
-    <div id="gridContainer" class="grid-container"></div> <!-- New grid container -->
   </div>
 
   <script>
@@ -43,13 +39,15 @@
         const [english, conlang] = row.split('\t');
         return { english, conlang };
       });
+      // Display all results after loading the dictionary
+      displayResults(dictionary);
     });
 
     document.getElementById('flipModeBtn').onclick = () => {
       searchMode = searchMode === 'english' ? 'conlang' : 'english';
       document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'English Mode' : 'Conlang Mode';
       document.getElementById('searchInput').value = '';
-      displayResults([]);
+      displayResults(dictionary); // Show all entries on mode switch
     };
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -57,22 +55,8 @@
       const filtered = dictionary.filter(entry =>
         entry[searchMode].toLowerCase().includes(searchValue)
       );
-      displayResults(searchValue === '' ? [] : filtered);
+      displayResults(searchValue === '' ? dictionary : filtered); // Show all if search is empty
     });
-
-    document.getElementById('viewGridBtn').onclick = () => {
-      const gridContainer = document.getElementById('gridContainer');
-      gridContainer.innerHTML = dictionary.map(entry => `
-        <div class="w3-card-4 grid-card">
-          <div class="w3-container w3-padding">
-            <h3 class="conlang-word">${entry.conlang}</h3>
-            <p class="english-definition">${entry.english}</p>
-          </div>
-        </div>
-      `).join('');
-      document.getElementById('resultContainer').style.display = 'none';
-      gridContainer.style.display = 'flex'; // Show grid
-    };
 
     function displayResults(entries) {
       const resultContainer = document.getElementById('resultContainer');
@@ -84,7 +68,6 @@
           </div>
         </div>
       `).join('');
-      document.getElementById('gridContainer').style.display = 'none'; // Hide grid if searching
     }
   </script>
 </body>
