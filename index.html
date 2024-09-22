@@ -8,8 +8,26 @@
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
     .header { text-align: center; margin: 20px 0; }
-    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .card { margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
+    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 10px; }
+    .card {
+      margin: 10px;
+      flex: 1 1 calc(100% - 40px); /* Full width on smaller screens */
+      max-width: 250px; /* Max width for cards */
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    @media (min-width: 600px) {
+      .card {
+        flex: 1 1 calc(50% - 40px); /* 2 cards per row on medium screens */
+      }
+    }
+    @media (min-width: 900px) {
+      .card {
+        flex: 1 1 calc(33.33% - 40px); /* 3 cards per row on large screens */
+      }
+    }
     .card:hover { transform: scale(1.05); }
     .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { font-size: 0.9em; color: #555; }
@@ -61,7 +79,7 @@
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchValue = e.target.value.toLowerCase();
       const filtered = dictionary.filter(entry =>
-        entry[searchMode].toLowerCase().includes(searchValue)
+        (searchMode === 'english' ? entry.english : entry.conlang).toLowerCase().includes(searchValue)
       );
       displayResults(searchValue === '' ? dictionary : filtered);
     });
