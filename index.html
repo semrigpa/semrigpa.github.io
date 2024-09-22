@@ -21,7 +21,7 @@
   <div class="w3-container">
     <div class="header">
       <h1>Lisa Dictionary</h1>
-      <p>A 100 root minimalistic constructed langauge.</p>
+      <p>A 100 root minimalistic constructed language.</p>
     </div>
     <div class="w3-center">
       <button id="flipModeBtn" class="w3-button w3-blue w3-round">English Mode</button>
@@ -35,9 +35,9 @@
   <script>
     let dictionary = [], searchMode = 'english';
     fetch('dictionary.tsv').then(res => res.text()).then(data => {
-      dictionary = data.trim().split('\n').slice(1).map(row => {
-        const [english, conlang] = row.split('\t');
-        return { english, conlang };
+      dictionary = data.trim().split('\n').map(row => {
+        const [conlang, english] = row.split('\t'); // Adjusted order: conlang first, English second
+        return { conlang, english };
       });
       // Display all results after loading the dictionary
       displayResults(dictionary);
