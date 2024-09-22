@@ -3,27 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conlang Dictionary</title>
+  <title>Nasu Dictionary</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
-    .header { text-align: center; margin: 20px 0; }
     .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .card { position: relative; margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
+    .card { margin: 10px; width: 100%; max-width: 400px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
     .card:hover { transform: scale(1.05); }
     .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { font-size: 0.9em; color: #555; }
     .w3-button { margin-top: 20px; }
     input { border-radius: 5px; width: 100%; max-width: 400px; }
-    .card-number { position: absolute; top: -10px; right: -10px; background-color: #ff5722; color: white; padding: 5px 10px; border-radius: 50%; font-size: 1.2em; }
     .mode-display { font-size: 1.2em; font-weight: bold; margin: 10px 0; }
+    /* Stylish Title */
+    .title-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .title {
+      font-size: 3em;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #ff5722;
+      text-transform: uppercase;
+      border-bottom: 2px solid #ff5722;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="w3-container">
-    <div class="header">
-      <h1>Lisa Dictionary</h1>
-      <p>A 100 root minimalistic constructed language.</p>
+    <div class="title-container">
+      <h1 class="title">Nasu</h1>
     </div>
     <div class="w3-center">
       <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button>
@@ -69,9 +81,8 @@
 
     function displayResults(entries) {
       const resultContainer = document.getElementById('resultContainer');
-      resultContainer.innerHTML = entries.map((entry, index) => `
+      resultContainer.innerHTML = entries.map(entry => `
         <div class="w3-card-4 card">
-          <div class="card-number">${index + 1}</div>
           <div class="w3-container w3-padding">
             <h3 class="conlang-word">${searchMode === 'english' ? highlight(entry.conlang, document.getElementById('searchInput').value) : highlight(entry.conlang, document.getElementById('searchInput').value)}</h3>
             <p class="english-definition">${searchMode === 'english' ? highlight(entry.english, document.getElementById('searchInput').value) : highlight(entry.english, document.getElementById('searchInput').value)}</p>
