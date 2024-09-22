@@ -12,13 +12,13 @@
     .card:hover { transform: scale(1.05); }
     .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { font-size: 0.9em; color: #555; }
-    .w3-button { margin-top: 20px; }
+    .w3-button { margin-top: 10px; } /* Reduced margin */
     input { border-radius: 5px; width: 100%; max-width: 400px; }
     .mode-display { font-size: 1.2em; font-weight: bold; margin: 10px 0; }
     /* Stylish Title */
     .title-container {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 5px; /* Reduced margin to reduce space */
     }
     .title {
       font-size: 3em;
@@ -38,7 +38,7 @@
       <h1 class="title">Nasu</h1>
     </div>
     <div class="w3-center">
-      <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Conlang Mode</button>
+      <button id="flipModeBtn" class="w3-button w3-blue w3-round">Switch to Nasu Mode</button>
     </div>
     <div class="w3-center mode-display" id="modeDisplay">English Mode</div>
     <div class="w3-center w3-padding">
@@ -59,8 +59,8 @@
 
     document.getElementById('flipModeBtn').onclick = () => {
       searchMode = searchMode === 'english' ? 'conlang' : 'english';
-      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Switch to Conlang Mode' : 'Switch to English Mode';
-      document.getElementById('modeDisplay').innerText = searchMode === 'english' ? 'English Mode' : 'Conlang Mode';
+      document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'Switch to Nasu Mode' : 'Switch to English Mode';
+      document.getElementById('modeDisplay').innerText = searchMode === 'english' ? 'English Mode' : 'Nasu Mode';
       document.getElementById('searchInput').value = '';
       displayResults(dictionary); 
     };
