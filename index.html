@@ -3,48 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lisa Wordbook</title>
+  <title>Conlang Dictionary</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; color: #333; }
     .header { text-align: center; margin: 20px 0; }
-    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 10px; }
-    .card {
-      margin: 10px;
-      flex: 1 1 calc(100% - 40px); /* Full width on smaller screens */
-      max-width: 250px; /* Max width for cards */
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-    @media (min-width: 600px) {
-      .card {
-        flex: 1 1 calc(50% - 40px); /* 2 cards per row on medium screens */
-      }
-    }
-    @media (min-width: 900px) {
-      .card {
-        flex: 1 1 calc(33.33% - 40px); /* 3 cards per row on large screens */
-      }
-    }
+    .result-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .card { margin: 10px; width: 250px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
     .card:hover { transform: scale(1.05); }
     .conlang-word { font-size: 1.8em; font-weight: bold; color: #0056b3; }
     .english-definition { font-size: 0.9em; color: #555; }
     .w3-button { margin-top: 20px; }
-    .phrase-button { background-color: #28a745 !important; }
-    .card-phrase { background-color: #d4edda; }
+    input { border-radius: 5px; }
   </style>
 </head>
 <body>
   <div class="w3-container">
     <div class="header">
-      <h1>Lisa Wordbook</h1>
+      <h1>Lisa Dictionary</h1>
       <p>A 100 root minimalistic constructed language.</p>
     </div>
     <div class="w3-center">
       <button id="flipModeBtn" class="w3-button w3-blue w3-round">English Mode</button>
-      <button id="switchToPhraseBtn" class="w3-button w3-round phrase-button">Switch to Phrases</button>
     </div>
     <div class="w3-center w3-padding">
       <input type="text" id="searchInput" class="w3-input w3-border" placeholder="Search...">
@@ -53,9 +33,13 @@
   </div>
 
   <script>
-    let dictionary = [], searchMode = 'english', file = 'dictionary.tsv';
-    fetch(file).then(res => res.text()).then(data => {
-      dictionary = parseData(data);
+    let dictionary = [], searchMode = 'english';
+    fetch('dictionary.tsv').then(res => res.text()).then(data => {
+      dictionary = data.trim().split('\n').map(row => {
+        const [conlang, english] = row.split('\t'); // Adjusted order: conlang first, English second
+        return { conlang, english };
+      });
+      // Display all results after loading the dictionary
       displayResults(dictionary);
     });
 
@@ -63,62 +47,27 @@
       searchMode = searchMode === 'english' ? 'conlang' : 'english';
       document.getElementById('flipModeBtn').innerText = searchMode === 'english' ? 'English Mode' : 'Conlang Mode';
       document.getElementById('searchInput').value = '';
-      displayResults(dictionary);
-    };
-
-    document.getElementById('switchToPhraseBtn').onclick = () => {
-      file = file === 'dictionary.tsv' ? 'phrase.tsv' : 'dictionary.tsv';
-      document.getElementById('switchToPhraseBtn').innerText = file === 'dictionary.tsv' ? 'Switch to Phrases' : 'Switch to Dictionary';
-      fetch(file).then(res => res.text()).then(data => {
-        dictionary = parseData(data);
-        document.getElementById('searchInput').value = '';
-        displayResults(dictionary);
-      });
+      displayResults(dictionary); // Show all entries on mode switch
     };
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const searchValue = e.target.value.toLowerCase();
       const filtered = dictionary.filter(entry =>
-        (searchMode === 'english' ? entry.english : entry.conlang).toLowerCase().includes(searchValue)
+        entry[searchMode].toLowerCase().includes(searchValue)
       );
-      displayResults(searchValue === '' ? dictionary : filtered);
+      displayResults(searchValue === '' ? dictionary : filtered); // Show all if search is empty
     });
-
-    function parseData(data) {
-      if (file === 'dictionary.tsv') {
-        return data.trim().split('\n').map(row => {
-          const [conlang, english] = row.split('\t');
-          return { conlang, english };
-        });
-      } else {
-        return data.trim().split('\n').map(row => {
-          const [phrase, literal, english] = row.split('\t');
-          return { phrase, literal, english };
-        });
-      }
-    }
 
     function displayResults(entries) {
       const resultContainer = document.getElementById('resultContainer');
-      if (file === 'dictionary.tsv') {
-        resultContainer.innerHTML = entries.map(entry => `
-          <div class="w3-card-4 card">
-            <div class="w3-container w3-padding">
-              <h3 class="conlang-word">${searchMode === 'english' ? entry.conlang : entry.conlang}</h3>
-              <p class="english-definition">${searchMode === 'english' ? entry.english : entry.english}</p>
-            </div>
+      resultContainer.innerHTML = entries.map(entry => `
+        <div class="w3-card-4 card">
+          <div class="w3-container w3-padding">
+            <h3 class="conlang-word">${searchMode === 'english' ? entry.conlang : entry.conlang}</h3>
+            <p class="english-definition">${searchMode === 'english' ? entry.english : entry.english}</p>
           </div>
-        `).join('');
-      } else {
-        resultContainer.innerHTML = entries.map(entry => `
-          <div class="w3-card-4 card card-phrase">
-            <div class="w3-container w3-padding">
-              <h3 class="conlang-word">${entry.phrase}</h3>
-              <p class="english-definition">${entry.literal} - ${entry.english}</p>
-            </div>
-          </div>
-        `).join('');
-      }
+        </div>
+      `).join('');
     }
   </script>
 </body>
