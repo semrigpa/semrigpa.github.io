@@ -7,43 +7,50 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         body {
-            background-color: #e8d89f; /* Light khaki background */
-            color: #222; /* Darker text for readability */
+            background-color: #e8d89f;
+            color: #222;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
         .w3-teal {
-            background-color: #a40e0e; /* Dark red for the title bar */
+            background-color: #a40e0e;
+            padding: 10px;
+        }
+        h1, h2 {
+            margin: 10px 0;
+        }
+        h1 img {
+            vertical-align: middle;
         }
         .w3-button {
-            background-color: #a40e0e; /* Dark red for buttons */
-            color: white; /* Button text color */
-            font-size: 14px; /* Smaller button size */
-            padding: 8px 16px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-            transition: background-color 0.3s ease; /* Smooth hover effect */
+            background-color: #a40e0e;
+            color: white;
+            font-size: 14px;
+            padding: 12px;
+            margin: 5px 0;
+            width: 100%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            white-space: normal;
+            word-wrap: break-word;
         }
         .w3-button:hover {
-            background-color: #850b0b; /* Darker shade on hover */
+            background-color: #850b0b;
         }
         pre {
             white-space: pre-wrap;
             word-wrap: break-word;
-            background-color: #fff; /* White background for text content */
-            color: #000; /* Black text for content */
+            background-color: #fff;
+            color: #000;
             padding: 15px;
             border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for content box */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
         #back, #exit {
             margin-top: 20px;
         }
-        /* Highlight the selected file button */
         .active-button {
-            border: 2px solid #fff; /* White border for the active file */
-        }
-        /* Add logo styling (if you add an icon) */
-        .logo {
-            margin-right: 10px;
-            vertical-align: middle;
+            border: 2px solid #fff;
         }
     </style>
 </head>
@@ -51,28 +58,25 @@
 
     <div class="w3-container w3-teal">
         <h1 class="w3-center">
-            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/note.png" alt="logo" class="logo"> <!-- Note icon added -->
-            Josiah's Notes
+            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/note.png" alt="logo"> Josiah's Notes
         </h1>
     </div>
 
     <div id="menu" class="w3-container">
         <h2>Available Text Files:</h2>
-        <div class="w3-row-padding" id="fileButtons"></div>
+        <div id="fileButtons"></div>
     </div>
 
     <div id="content" class="w3-container" style="display:none;">
         <h2 id="contentTitle" class="w3-center"></h2>
-        <a id="exit" class="w3-button w3-margin-bottom" href="#" onclick="showMenu()">Back to Menu</a>
-        <pre id="textContent" class="w3-border w3-padding">Loading content...</pre>
-        <a id="back" class="w3-button w3-margin-top" href="#" onclick="showMenu()">Back to Menu</a>
+        <a id="exit" class="w3-button" href="#" onclick="showMenu()">Back to Menu</a>
+        <pre id="textContent">Loading content...</pre>
+        <a id="back" class="w3-button" href="#" onclick="showMenu()">Back to Menu</a>
     </div>
 
     <script>
-        // List of text files
-        const textFiles = ['file1.txt', 'file2.txt', 'file3.txt']; // Add more files as needed
+        const textFiles = ['file1.txt', 'file2.txt', 'file3.txt'];
 
-        // Dynamically create buttons based on the first line of each text file
         function createButtons() {
             const fileButtonsContainer = document.getElementById('fileButtons');
             textFiles.forEach(file => {
@@ -82,11 +86,9 @@
                         return response.text();
                     })
                     .then(text => {
-                        const title = text.split('\n')[0]; // Get the first line for the button title
-                        const buttonHtml = `<div class="w3-col m4">
-                                                <a href="#" class="w3-button w3-margin-bottom" onclick="loadText('${file}', this)">${title}</a>
-                                            </div>`;
-                        fileButtonsContainer.innerHTML += buttonHtml; // Add the button to the container
+                        const title = text.split('\n')[0];
+                        const buttonHtml = `<a href="#" class="w3-button" onclick="loadText('${file}', this)">${title}</a>`;
+                        fileButtonsContainer.innerHTML += buttonHtml;
                     })
                     .catch(error => console.error(`Error loading file for button: ${error.message}`));
             });
@@ -96,7 +98,6 @@
             document.getElementById('menu').style.display = 'none';
             document.getElementById('content').style.display = 'block';
 
-            // Remove active class from all buttons and add to clicked button
             document.querySelectorAll('.w3-button').forEach(button => button.classList.remove('active-button'));
             element.classList.add('active-button');
 
@@ -122,7 +123,6 @@
             document.getElementById('content').style.display = 'none';
         }
 
-        // Initialize the buttons when the page loads
         window.onload = createButtons;
     </script>
 
