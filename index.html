@@ -6,8 +6,29 @@
     <title>Josiah's Notes</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        pre { white-space: pre-wrap; word-wrap: break-word; }
-        #back, #exit { margin-top: 20px; }
+        body {
+            background-color: #e8d89f; /* Light khaki background */
+            color: #333; /* Default text color */
+        }
+        .w3-teal {
+            background-color: #a40e0e; /* Dark red for the title bar */
+        }
+        .w3-button {
+            background-color: #a40e0e; /* Dark red for buttons */
+            color: white; /* Button text color */
+        }
+        .w3-button:hover {
+            background-color: #850b0b; /* Darker shade on hover */
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #fff; /* White background for text content */
+            color: #000; /* Black text for content */
+        }
+        #back, #exit {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +64,7 @@
                     .then(text => {
                         const title = text.split('\n')[0]; // Get the first line for the button title
                         const buttonHtml = `<div class="w3-col m4">
-                                                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('${file}')">${title}</a>
+                                                <a href="#" class="w3-button w3-margin-bottom" onclick="loadText('${file}')">${title}</a>
                                             </div>`;
                         fileButtonsContainer.innerHTML += buttonHtml; // Add the button to the container
                     })
