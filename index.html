@@ -52,9 +52,11 @@
                     const lines = text.split('\n');
                     // Use the first line as the title
                     const title = lines[0] || "Untitled";
+                    // Use the remaining lines as content
+                    const content = lines.slice(1).join('\n'); // Join remaining lines
                     // Update the title and content
                     document.getElementById('contentTitle').textContent = title;
-                    document.getElementById('textContent').textContent = text;
+                    document.getElementById('textContent').textContent = content; // Set content without first line
                 })
                 .catch(error => {
                     document.getElementById('textContent').textContent = `Error loading file: ${error.message}`;
