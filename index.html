@@ -32,8 +32,6 @@
         #back, #exit {
             margin-top: 0; /* Remove top margin */
             margin-bottom: 20px; /* Add bottom margin to separate from bottom */
-            font-size: 0.8em; /* Smaller font size for buttons */
-            padding: 6px 12px; /* Smaller padding for buttons */
         }
         h2 {
             margin-bottom: 0; /* Remove bottom margin from h2 */
@@ -53,63 +51,4 @@
 
     <div id="content" class="w3-container" style="display:none;">
         <h2 id="contentTitle" class="w3-center" style="margin-bottom: 0;"></h2> <!-- No margin below title -->
-        <pre id="textContent" class="w3-border w3-padding">Loading content...</pre>
-        <a id="exit" class="w3-button w3-red" href="#" onclick="showMenu()">Exit to Menu</a>
-        <a id="back" class="w3-button w3-red" href="#" onclick="showMenu()">Back to Menu</a>
-    </div>
-
-    <script>
-        // List of text files
-        const textFiles = ['file1.txt', 'file2.txt', 'file3.txt']; // Add more files as needed
-
-        // Dynamically create buttons based on the first line of each text file
-        function createButtons() {
-            const fileButtonsContainer = document.getElementById('fileButtons');
-            textFiles.forEach(file => {
-                fetch(file)
-                    .then(response => {
-                        if (!response.ok) throw new Error('File not found');
-                        return response.text();
-                    })
-                    .then(text => {
-                        const title = text.split('\n')[0]; // Get the first line for the button title
-                        const buttonHtml = `<div class="w3-col m4">
-                                                <a href="#" class="w3-button w3-margin-bottom" onclick="loadText('${file}')">${title}</a>
-                                            </div>`;
-                        fileButtonsContainer.innerHTML += buttonHtml; // Add the button to the container
-                    })
-                    .catch(error => console.error(`Error loading file for button: ${error.message}`));
-            });
-        }
-
-        function loadText(filename) {
-            document.getElementById('menu').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            fetch(filename)
-                .then(response => {
-                    if (!response.ok) throw new Error('File not found');
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n');
-                    const title = lines[0] || "Untitled";
-                    const content = lines.slice(1).join('\n');
-                    document.getElementById('contentTitle').textContent = title;
-                    document.getElementById('textContent').textContent = content;
-                })
-                .catch(error => {
-                    document.getElementById('textContent').textContent = `Error loading file: ${error.message}`;
-                });
-        }
-
-        function showMenu() {
-            document.getElementById('menu').style.display = 'block';
-            document.getElementById('content').style.display = 'none';
-        }
-
-        // Initialize the buttons when the page loads
-        window.onload = createButtons;
-    </script>
-
-</body>
-</html>
+        <a id="exit" class="w3-button w3-red" href="#" onclick
