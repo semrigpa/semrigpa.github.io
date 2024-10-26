@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text File Viewer</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+        #back { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="w3-container w3-teal">
+        <h1 class="w3-center">Text File Menu</h1>
+    </div>
+
+    <div id="menu" class="w3-container">
+        <h2>Available Text Files:</h2>
+        <div class="w3-row-padding">
+            <div class="w3-col m4">
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file1.txt', 'Text File 1')">Text File 1</a>
+            </div>
+            <div class="w3-col m4">
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file2.txt', 'Text File 2')">Text File 2</a>
+            </div>
+            <div class="w3-col m4">
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file3.txt', 'Text File 3')">Text File 3</a>
+            </div>
+            
+            <!-- Add more buttons as needed in a similar format -->
+        </div>
+    </div>
+
+    <div id="content" class="w3-container" style="display:none;">
+        <h2 id="contentTitle" class="w3-center"></h2>
+        <pre id="textContent" class="w3-border w3-padding">Loading content...</pre>
+        <a id="back" class="w3-button w3-red" href="#" onclick="showMenu()">Back to Menu</a>
+    </div>
+
+    <script>
+        function loadText(filename, title) {
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('contentTitle').textContent = title;
+            fetch(`texts/${filename}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('File not found');
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById('textContent').textContent = text;
+                })
+                .catch(error => {
+                    document.getElementById('textContent').textContent = `Error loading file: ${error.message}`;
+                });
+        }
+
+        function showMenu() {
+            document.getElementById('menu').style.display = 'block';
+            document.getElementById('content').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
