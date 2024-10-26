@@ -20,15 +20,14 @@
         <h2>Available Text Files:</h2>
         <div class="w3-row-padding">
             <div class="w3-col m4">
-                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file1.txt', 'Text File 1')">Text File 1</a>
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file1.txt')">Text File 1</a>
             </div>
             <div class="w3-col m4">
-                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file2.txt', 'Text File 2')">Text File 2</a>
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file2.txt')">Text File 2</a>
             </div>
             <div class="w3-col m4">
-                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file3.txt', 'Text File 3')">Text File 3</a>
+                <a href="#" class="w3-button w3-blue w3-margin-bottom" onclick="loadText('file3.txt')">Text File 3</a>
             </div>
-            
             <!-- Add more buttons as needed in a similar format -->
         </div>
     </div>
@@ -40,16 +39,21 @@
     </div>
 
     <script>
-        function loadText(filename, title) {
+        function loadText(filename) {
             document.getElementById('menu').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-            document.getElementById('contentTitle').textContent = title;
-            fetch(`texts/${filename}`)
+            fetch(filename) // Changed to fetch from the same folder
                 .then(response => {
                     if (!response.ok) throw new Error('File not found');
                     return response.text();
                 })
                 .then(text => {
+                    // Split the text into lines
+                    const lines = text.split('\n');
+                    // Use the first line as the title
+                    const title = lines[0] || "Untitled";
+                    // Update the title and content
+                    document.getElementById('contentTitle').textContent = title;
                     document.getElementById('textContent').textContent = text;
                 })
                 .catch(error => {
