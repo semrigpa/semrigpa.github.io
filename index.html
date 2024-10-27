@@ -3,144 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Josiah's Notes</title>
+    <title>Kalisantaraṇopaniṣadsār - The Essence of the Kali-Santarana Upanishad</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Garamond:wght@400&display=swap');
-
         body {
-            background-color: #e8d89f;
-            color: #222;
-            margin: 0;
-            font-family: 'Garamond', serif; /* Change to Garamond */
-            font-size: 12px; /* Make font smaller */
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            font-family: 'Georgia', serif;
+            background-color: #F5DEB3; /* light sandy khaki */
+            color: #333;
         }
-        h1, h2 {
-            margin: 10px 0;
-            font-size: 14px; /* Make headings smaller */
-        }
-        h1 img {
-            vertical-align: middle;
-        }
-        .w3-button {
-            background-color: #a40e0e;
+        .header {
+            background-color: #8B0000; /* dark red */
             color: white;
-            font-size: 12px; /* Make button font smaller */
-            padding: 12px; /* Padding inside the button */
-            width: 100%; /* Set width to 100% to fill the container */
-            margin: 5px 0; /* Add vertical margin between buttons */
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
+            padding: 20px;
             text-align: center;
-            white-space: normal; /* Allow text to wrap */
-            overflow-wrap: break-word; /* Break long words if necessary */
         }
-        .w3-button:hover {
-            background-color: #850b0b;
+        .content {
+            background-color: #F5DEB3; /* pale khaki background for content */
+            padding: 40px;
         }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background-color: #fff;
-            color: #000;
-            padding: 2px; /* Add minimal padding */
-            border: 1px solid #ccc;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 0; /* Ensure no margin */
-            font-family: 'Garamond', serif; /* Set to Garamond */
+        .section-title {
+            font-size: 1.5em;
+            color: #8B0000;
+            margin-top: 10px; /* Reduced from 20px to 10px */
+            margin-bottom: 20px;
         }
-        .content-container {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 50px; /* Space for the fixed bottom bar */
+        .sanskrit {
+            color: #8B0000;
+            font-weight: bold; /* bold Sanskrit text */
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 1.2em;
+            margin-top: 10px;
         }
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #a40e0e;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        .transliteration {
+            color: #8B0000;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+        .translation {
+            font-size: 1em;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
 
-    <div class="w3-container w3-teal">
-        <h1 class="w3-center">
-            <img src="https://img.icons8.com/ios-filled/50/FFFFFF/note.png" alt="logo"> Josiah's Notes
-        </h1>
+<div class="header w3-center">
+    <h1>Kalisantaraṇopaniṣadsār</h1>
+    <h2>The Essence of the Kali-Santarana Upanishad</h2>
+    <h3>By Josiah A. Lai</h3>
+    <p>A commentary based on a reinterpretation of the original text.</p>
+</div>
+
+<div class="content w3-container">
+    <div class="section-title">Original Sanskrit Verses</div>
+
+    <div class="verse">
+        <div class="sanskrit">सरव श्रुति रहस्यं गोप्यं तत् शृणु येन कलि संसारं तरिष्यसि |</div>
+        <div class="transliteration">sarva śruti rahasyaṃ gopyaṃ tat śṛṇu yena kali saṃsāram tariṣyasi |</div>
+    </div>
+    
+    <div class="verse">
+        <div class="sanskrit">भगवत् आदिपुरुषस्य नारायणस्य नामोच्चारण मात्रेण निर्दूत कलिर्भवति |</div>
+        <div class="transliteration">bhagavat ādipuruṣasya nārāyaṇasya nāmoccāraṇa mātreṇa nirdhūta kalir bhavati |</div>
     </div>
 
-    <div id="menu" class="w3-container content-container">
-        <h2>Text Files:</h2>
-        <div id="fileButtons"></div>
+    <div class="verse">
+        <div class="sanskrit">इति षोडश कला वृत्तस्य जीवस्य आवरण विनाशनं ततः प्रकाशते परम ब्रह्म मेघापये रविरश्मि मण्डलीवेति |</div>
+        <div class="transliteration">iti ṣoḍaśa kalāvṛtasya jīvasya āvaraṇa vināśanam tataḥ prakāśate param brahma meghāpaye raviraśmi maṇdalīveti |</div>
     </div>
 
-    <div id="content" class="w3-container content-container" style="display:none;">
-        <h2 id="contentTitle" class="w3-center"></h2>
-        <pre id="textContent">Loading content...</pre>
+    <div class="verse">
+        <div class="sanskrit">नास्य विधिरिति सर्वदा शुचिरशुचिर्वा पठन् ब्रह्माणः सल्लोक्यं समीप्यं सारूप्यता सायुज्यं एति |</div>
+        <div class="transliteration">nāsya vidhir iti sarvadā śucir aśucir vā paṭhan brahmāṇaḥ sālōkyaṁ sāmīpyaṁ sārūpyatāṁ sāyujyam eti |</div>
     </div>
 
-    <div class="bottom-bar" style="display:none;">
-        <a id="back" class="w3-button" href="#" onclick="showMenu()">Back to Menu</a>
+    <div class="verse">
+        <div class="sanskrit">सर्वधर्म परित्याग पापात् सद्यः शुचिताम् आप्नुयात् सद्यो मुच्यते सद्यो मुच्यते इत्युपनिषद् |</div>
+        <div class="transliteration">sarvadharma parityāga pāpāt sadyaḥ śucitām āpnuyāt sadyo mucyate sadyo mucyate ityupaniṣad |</div>
     </div>
 
-    <script>
-        const textFiles = ['file1.txt', 'file2.txt', 'file3.txt'];
+    <div class="section-title">English Translation</div>
 
-        function createButtons() {
-            const fileButtonsContainer = document.getElementById('fileButtons');
-            textFiles.forEach(file => {
-                fetch(file)
-                    .then(response => {
-                        if (!response.ok) throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
-                        return response.text();
-                    })
-                    .then(text => {
-                        const title = text.split('\n')[0] || "Untitled";
-                        const buttonHtml = `<a href="#" class="w3-button" onclick="loadText('${file}', this)">${title}</a>`;
-                        fileButtonsContainer.innerHTML += buttonHtml;
-                    })
-                    .catch(error => console.error(`Error loading file for button: ${error.message}`));
-            });
-        }
+    <div class="translation">
+        <p>1. Listen to the secret which all Vēdas keep hidden, by which one may overcome Saṃsāra in the Kali-Yug.</p>
+        <p>2. Just by reciting the name of Lord Nārāyaṇa, the Original Being, the Kali-Yug is shaken off.</p>
+        <p>3. Thus the sixteen coverings of the soul are removed/dissolved, and the Supreme Reality shines forth, like how the sun's rays appear when the clouds disperse.</p>
+        <p>4. There is no rule for this, always, whether pure or impure, by reciting the name of God, one attains residence with God, and the same intimacy, form, and oneness with Him.</p>
+        <p>5. In the abandonment of all religious duties, at once one attains purity from misfortune and vice. Immediately one is liberated; thus says the Upaniṣad.</p>
+    </div>
 
-        function loadText(filename, element) {
-            document.getElementById('menu').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            document.querySelectorAll('.w3-button').forEach(button => button.classList.remove('active-button'));
-            element.classList.add('active-button');
+    <div class="section-title">Commentary</div>
 
-            fetch(filename)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
-                    return response.text();
-                })
-                .then(text => {
-                    const lines = text.split('\n');
-                    const title = lines[0] || "Untitled";
-                    const content = lines.slice(1).join('\n');
-                    document.getElementById('contentTitle').textContent = title;
-                    document.getElementById('textContent').textContent = content;
-                    document.querySelector('.bottom-bar').style.display = 'block'; // Show bottom bar when content loads
-                })
-                .catch(error => {
-                    console.error(`Error loading file: ${error.message}`);
-                    document.getElementById('textContent').textContent = `Error loading file: ${error.message}`;
-                });
-        }
-
-        function showMenu() {
-            document.getElementById('menu').style.display = 'block';
-            document.getElementById('content').style.display = 'none';
-            document.querySelector('.bottom-bar').style.display = 'none'; // Hide bottom bar when showing menu
-        }
-
-        window.onload = createButtons;
-    </script>
+    <div class="translation">
+        <p>The core (sāra) of the Upaniṣad is clear: reciting the holy names of God, lovingly and joyfully, is the only path to mokṣa (liberation) in this current age of Kali. I sometimes call this 'bhakti japa' (reciting with devotion) to Lord Nārāyaṇa. It is a simple, but profound and effective means of communing with God.</p>
+    </div>
+</div>
 
 </body>
 </html>
