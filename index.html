@@ -94,11 +94,11 @@
             textFiles.forEach(file => {
                 fetch(file)
                     .then(response => {
-                        if (!response.ok) throw new Error('File not found');
+                        if (!response.ok) throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
                         return response.text();
                     })
                     .then(text => {
-                        const title = text.split('\n')[0];
+                        const title = text.split('\n')[0] || "Untitled";
                         const buttonHtml = `<a href="#" class="w3-button" onclick="loadText('${file}', this)">${title}</a>`;
                         fileButtonsContainer.innerHTML += buttonHtml;
                     })
@@ -114,7 +114,7 @@
 
             fetch(filename)
                 .then(response => {
-                    if (!response.ok) throw new Error('File not found');
+                    if (!response.ok) throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
                     return response.text();
                 })
                 .then(text => {
@@ -126,6 +126,7 @@
                     document.querySelector('.bottom-bar').style.display = 'block'; // Show bottom bar when content loads
                 })
                 .catch(error => {
+                    console.error(`Error loading file: ${error.message}`);
                     document.getElementById('textContent').textContent = `Error loading file: ${error.message}`;
                 });
         }
