@@ -30,7 +30,8 @@
             color: white;
             font-size: 12px; /* Make button font smaller */
             padding: 12px;
-            width: 100%;
+            width: calc(100% - 20px); /* Adjust width to allow for margin */
+            margin: 5px 0; /* Add vertical spacing between buttons */
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease;
             text-align: center;
@@ -74,7 +75,6 @@
     </div>
 
     <div id="menu" class="w3-container content-container">
-        <h2>Text Files:</h2>
         <div id="fileButtons"></div>
     </div>
 
