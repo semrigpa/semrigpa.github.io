@@ -6,29 +6,73 @@
     <title>El Canson del Deo</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        .theme-background { background-color: #6a0dad; color: #f5f5f5; }
-        .card { background-color: #4b0082; color: #e0e0e0; }
+        body {
+            background-color: #f9f9f9; /* Subtle light grey background */
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+        }
+        .card {
+            background-color: #6a0dad; /* Soft purple */
+            color: #f5f5f5; /* Light text */
+            border-radius: 15px; /* Rounded corners for soft look */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 30px;
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift effect on hover */
+        }
+        h1, h2 {
+            font-family: 'Arial', sans-serif;
+            color: #4b0082; /* Dark purple */
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8em; /* Slightly larger */
+            margin-top: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        i {
+            font-style: italic;
+        }
+        .w3-button {
+            background-color: #d4a017; /* Yellow button */
+            color: black;
+            border-radius: 6px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .w3-button:hover {
+            background-color: #b38d12; /* Slightly darker yellow on hover */
+        }
+        .w3-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body class="theme-background w3-padding">
 
     <div class="w3-container w3-card w3-round-large w3-padding-large w3-margin-top card">
-        <h1 class="w3-center w3-border-bottom">El Canson del Deo</h1>
+        <h1 class="w3-border-bottom">El Canson del Deo</h1>
         
-        <div class="w3-center w3-margin">
-            <a href="index.html" class="w3-button w3-round-small" style="background-color: #d4a017; color: black;">
+        <div class="w3-center">
+            <a href="index.html" class="w3-button w3-round-small">
                 Back to Index
             </a>
         </div>
 
-        <h2 class="w3-center w3-margin-top">Partie II</h2>
+        <h2>Partie II</h2>
 
-        <p class="w3-large w3-margin-top">
-            Krishna, on benediqué, plen d’amor, compassion e commiser pro Arjuna qui era percuté con culp, e cui oculs era plen de lacrimes de griv, parlav lo ist parols:
-        </p>
-        <p class="w3-large w3-margin-top">
-            <i>Krishna, the Blessed One, full of love, compassion and pity for Arjuna who was struck with guilt, and whose eyes were full of tears of grief, spoke to him these words:</i>
-        </p>
+        <p>Krishna, on benediqué, plen d’amor, compassion e commiser pro Arjuna qui era percuté con culp, e cui oculs era plen de lacrimes de griv, parlav lo ist parols:</p>
+        <p><i>Krishna, the Blessed One, full of love, compassion and pity for Arjuna who was struck with guilt, and whose eyes were full of tears of grief, spoke to him these words:</i></p>
     </div>
 
 </body>
