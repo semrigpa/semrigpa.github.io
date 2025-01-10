@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input {
+            width: calc(100% - 24px);
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #333;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+        input:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background-color: #2d2d2d;
+            color: #4a9eff;
+        }
+        tr:hover {
+            background-color: #2d2d2d;
+        }
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+        .italic {
+            font-style: italic;
+            font-family: 'Cinzel', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search Angelic or English terms...">
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Angelic</th>
+                <th>English</th>
+                <th>Part of Speech</th>
+            </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const resultsBody = document.getElementById('resultsBody');
+        let data = [];
+
+        // Parse TSV data
+        const parseData = (tsv) => {
+            const lines = tsv.trim().split('\n');
+            return lines.slice(1).map(line => {
+                const values = line.split('\t');
+                return {
+                    lang: values[0],
+                    pos: values[1],
+                    eng: values[2]
+                };
+            });
+        };
+
+        // Fetch and load the TSV file
+        const loadTSV = async () => {
+            try {
+                const response = await fetch('dictionary.tsv');
+                if (!response.ok) throw new Error('Failed to load dictionary.tsv');
+                const tsvText = await response.text();
+                data = parseData(tsvText);
+                displayResults(data); // Initial display
+            } catch (error) {
+                console.error('Error loading TSV file:', error);
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-results">Failed to load dictionary file</td>
+                    </tr>`;
+            }
+        };
+
+        // Search function
+        const searchDictionary = (query) => {
+            query = query.toLowerCase();
+            return data.filter(item => 
+                item.eng.toLowerCase().includes(query) ||
+                item.lang.toLowerCase().includes(query)
+            );
+        };
+
+        // Display results
+        const displayResults = (results) => {
+            if (results.length === 0) {
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-results">No matching results found</td>
+                    </tr>`;
+                return;
+            }
+
+            resultsBody.innerHTML = results.map(item => `
+                <tr>
+                    <td class="italic">${item.lang}</td>
+                    <td>${item.eng}</td>
+                    <td>${item.pos}</td>
+                </tr>
+            `).join('');
+        };
+
+        // Event listener for search input
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            const results = searchDictionary(query);
+            displayResults(results);
+        });
+
+        // Load the TSV file on page load
+        loadTSV();
+    </script>
+</body>
+</html>
