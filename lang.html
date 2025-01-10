@@ -37,7 +37,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-bottom: 30px;
         }
         th, td {
             padding: 10px;
@@ -59,12 +59,99 @@
         .italic {
             font-family: 'Cinzel', serif;
         }
+
+        /* Results counter */
+        .results-counter {
+            background-color: #2d2d2d;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-align: right;
+            color: #888;
+        }
+        .results-number {
+            color: #ff4a4a;
+            font-weight: bold;
+        }
+
+        /* Grammar section styles */
+        .grammar-section {
+            margin-top: 20px;
+            background-color: #2d2d2d;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .grammar-header {
+            background-color: #333;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .grammar-title {
+            color: #ff4a4a;
+            margin: 0;
+            font-size: 18px;
+        }
+        .grammar-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .grammar-content.active {
+            max-height: 1000px;
+        }
+        .grammar-table {
+            margin: 15px;
+            width: calc(100% - 30px);
+        }
+        .grammar-table th {
+            background-color: #333;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+        .grammar-table td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: center;
+        }
+        .pos-header {
+            background-color: #444 !important;
+            color: #ff4a4a;
+            font-size: 1.1em;
+            text-align: left !important;
+        }
+        .suffix {
+            color: #ffa07a;
+            font-weight: bold;
+        }
+        .note {
+            color: #888;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 4px;
+        }
+        .dropdown-icon {
+            color: #ff4a4a;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .dropdown-icon.active {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search Nagai or English terms...">
+        <div class="results-counter">
+            Entries: <span class="results-number" id="searchResults">0</span>
+        </div>
     </div>
+
     <table>
         <thead>
             <tr>
@@ -76,10 +163,75 @@
         <tbody id="resultsBody"></tbody>
     </table>
 
+    <!-- Grammar Cheat Sheet -->
+    <div class="grammar-section">
+        <div class="grammar-header" id="grammarToggle">
+            <h2 class="grammar-title">Grammar Cheat Sheet</h2>
+            <span class="dropdown-icon">▼</span>
+        </div>
+        <div class="grammar-content" id="grammarContent">
+            <table class="grammar-table">
+                <tbody>
+                    <tr>
+                        <td colspan="3" class="pos-header">Nouns can become:</td>
+                    </tr>
+                    <tr>
+                        <td>Verb</td>
+                        <td><span class="suffix">-he</span></td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Adjective</td>
+                        <td><span class="suffix">-i</span></td>
+                        <td><span class="note">becomes -ī if word ends in -i</span></td>
+                    </tr>
+                    <tr>
+                        <td>Adverb</td>
+                        <td><span class="suffix">-ya</span></td>
+                        <td>-</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="3" class="pos-header">Verbs can become:</td>
+                    </tr>
+                    <tr>
+                        <td>Noun</td>
+                        <td><span class="suffix">-(a)n</span></td>
+                        <td><span class="note">(a) disappears after vowels</span></td>
+                    </tr>
+                    <tr>
+                        <td>Adjective</td>
+                        <td><span class="suffix">-i</span></td>
+                        <td><span class="note">becomes -ī if word ends in -i</span></td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="3" class="pos-header">Adjectives can become:</td>
+                    </tr>
+                    <tr>
+                        <td>Noun</td>
+                        <td><span class="suffix">-(a)n</span></td>
+                        <td><span class="note">(a) disappears after vowels</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script>
         const searchInput = document.getElementById('searchInput');
         const resultsBody = document.getElementById('resultsBody');
+        const grammarToggle = document.getElementById('grammarToggle');
+        const grammarContent = document.getElementById('grammarContent');
+        const dropdownIcon = document.querySelector('.dropdown-icon');
+        const searchResultsElement = document.getElementById('searchResults');
         let data = [];
+
+        // Grammar dropdown toggle
+        grammarToggle.addEventListener('click', () => {
+            grammarContent.classList.toggle('active');
+            dropdownIcon.classList.toggle('active');
+        });
 
         // Parse CSV data
         const parseData = (csv) => {
@@ -101,7 +253,7 @@
                 if (!response.ok) throw new Error('Failed to load dictionary.csv');
                 const csvText = await response.text();
                 data = parseData(csvText);
-                displayResults(data); // Initial display
+                displayResults(data);
             } catch (error) {
                 console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
@@ -114,10 +266,12 @@
         // Search function
         const searchDictionary = (query) => {
             query = query.toLowerCase();
-            return data.filter(item => 
+            const results = data.filter(item => 
                 item.eng.toLowerCase().includes(query) ||
                 item.lang.toLowerCase().includes(query)
             );
+            searchResultsElement.textContent = results.length;
+            return results;
         };
 
         // Display results
@@ -137,6 +291,7 @@
                     <td>${item.eng}</td>
                 </tr>
             `).join('');
+            searchResultsElement.textContent = results.length;
         };
 
         // Event listener for search input
