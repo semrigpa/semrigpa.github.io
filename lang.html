@@ -68,7 +68,7 @@
     <table>
         <thead>
             <tr>
-                <th>X-Lang</th>
+                <th>Naganji</th>
                 <th>POS</th>
                 <th>English</th>
             </tr>
@@ -88,8 +88,9 @@
                 const values = line.split(',');
                 return {
                     lang: values[0],
-                    pos: values[1],
-                    eng: values[2]
+                    old: values[1], // Keep old for reference
+                    pos: values[2],
+                    eng: values[3]
                 };
             });
         };
