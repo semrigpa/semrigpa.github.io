@@ -3,231 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nagaii Dexija</title>
+    <title>Nagaii Desida</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
-
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+        :root {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --background: #111827;
+            --surface: #1f2937;
+            --border: #374151;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
         }
-        .search-container {
-            margin-bottom: 20px;
-            width: 100%;
+
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-        input {
-            width: calc(100% - 24px);
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #333;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            background-color: #2d2d2d;
-            color: #e0e0e0;
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
         }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.2s;
+        }
+
+        .back-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-container {
+            flex-grow: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
         input:focus {
             outline: none;
-            border-color: #ff4a4a;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-        }
-        th {
-            background-color: #2d2d2d;
-            color: #ff4a4a;
-        }
-        tr:hover {
-            background-color: #2d2d2d;
-        }
-        .no-results {
-            text-align: center;
-            padding: 20px;
-            color: #888;
-        }
-        .italic {
-            font-family: 'Cinzel', serif;
+            border-color: var(--primary);
         }
 
         .results-counter {
-            background-color: #2d2d2d;
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            text-align: right;
-            color: #888;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
         }
+
         .results-number {
-            color: #ff4a4a;
-            font-weight: bold;
+            color: var(--primary);
+            font-weight: 600;
         }
 
         .grammar-section {
-            margin-top: 20px;
-            background-color: #2d2d2d;
-            border-radius: 4px;
+            background-color: var(--surface);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
             overflow: hidden;
         }
+
         .grammar-header {
-            background-color: #333;
-            padding: 12px 15px;
-            cursor: pointer;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
             user-select: none;
         }
+
         .grammar-title {
-            color: #ff4a4a;
-            margin: 0;
-            font-size: 18px;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
         }
+
         .grammar-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            display: none;
+            padding: 1rem;
         }
+
         .grammar-content.active {
-            max-height: 1000px;
-        }
-        .grammar-table {
-            margin: 15px;
-            width: calc(100% - 30px);
-        }
-        .grammar-table th {
-            background-color: #333;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #444;
-        }
-        .grammar-table td {
-            padding: 12px;
-            border: 1px solid #444;
-            text-align: center;
-        }
-        .pos-header {
-            background-color: #444 !important;
-            color: #ff4a4a;
-            font-size: 1.1em;
-            text-align: left !important;
-        }
-        .suffix {
-            color: #ffa07a;
-            font-weight: bold;
-        }
-        .note {
-            color: #888;
-            font-size: 0.9em;
             display: block;
-            margin-top: 4px;
         }
-        .dropdown-icon {
-            color: #ff4a4a;
-            font-size: 20px;
+
+        .dropdown-arrow {
+            color: var(--primary);
             transition: transform 0.3s ease;
         }
-        .dropdown-icon.active {
+
+        .dropdown-arrow.active {
             transform: rotate(180deg);
+        }
+
+        .phonology-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .phonology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
+            gap: 0.5rem;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 1rem;
+        }
+
+        .phonology-item {
+            text-align: center;
+            padding: 0.5rem;
+            background-color: var(--background);
+            border-radius: 0.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .special-combos {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .grammar-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--background);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .grammar-table th,
+        .grammar-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+
+        .grammar-table th {
+            background-color: var(--surface);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .grammar-table td:first-child {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .dictionary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
+        .dictionary-table th {
+            background-color: var(--surface);
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dictionary-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--background);
+        }
+
+        .dictionary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .nagai-text {
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+        }
+
+        .pos-tag {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .header {
+                padding: 0.5rem 0;
+            }
+
+            .grammar-table {
+                margin: 1rem 0;
+            }
+
+            .grammar-table th,
+            .grammar-table td {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .dictionary-table th,
+            .dictionary-table td {
+                padding: 0.75rem;
+            }
+
+            .phonology-grid {
+                grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search Nagai or English terms...">
-        <div class="results-counter">
-            Entries: <span class="results-number" id="searchResults">0</span>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="history.back()">←</button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search Nagai or English terms...">
+                <div class="results-counter">
+                    Entries: <span class="results-number" id="searchResults">0</span>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="grammar-section">
-        <div class="grammar-header" id="grammarToggle">
-            <h2 class="grammar-title">Grammar Cheat Sheet</h2>
-            <span class="dropdown-icon">▼</span>
-        </div>
-        <div class="grammar-content" id="grammarContent">
-            <table class="grammar-table">
-                <tbody>
-                    <tr>
-                        <td colspan="3" class="pos-header">Nouns can become:</td>
-                    </tr>
-                    <tr>
-                        <td>Verb</td>
-                        <td><span class="suffix">-he</span></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>Adjective</td>
-                        <td><span class="suffix">-i</span></td>
-                        <td><span class="note">becomes -ī if word ends in -i</span></td>
-                    </tr>
-                    <tr>
-                        <td>Adverb</td>
-                        <td><span class="suffix">-ya</span></td>
-                        <td>-</td>
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="3" class="pos-header">Verbs can become:</td>
-                    </tr>
-                    <tr>
-                        <td>Noun</td>
-                        <td><span class="suffix">-(a)n</span></td>
-                        <td><span class="note">(a) disappears after vowels</span></td>
-                    </tr>
-                    <tr>
-                        <td>Adjective</td>
-                        <td><span class="suffix">-i</span></td>
-                        <td><span class="note">becomes -ī if word ends in -i</span></td>
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="3" class="pos-header">Adjectives can become:</td>
-                    </tr>
-                    <tr>
-                        <td>Noun</td>
-                        <td><span class="suffix">-(a)n</span></td>
-                        <td><span class="note">(a) disappears after vowels</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-<br>
+        <div class="grammar-section">
+            <div class="grammar-header" id="grammarToggle">
+                <h2 class="grammar-title">Grammar & Phonology Guide</h2>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="grammar-content" id="grammarContent">
+                <div class="phonology-section">
+                    <h3 class="section-title">Phonology</h3>
+                    <div class="phonology-grid">
+                        <div class="phonology-item">a</div>
+                        <div class="phonology-item">b</div>
+                        <div class="phonology-item">d</div>
+                        <div class="phonology-item">e</div>
+                        <div class="phonology-item">g</div>
+                        <div class="phonology-item">h</div>
+                        <div class="phonology-item">i</div>
+                        <div class="phonology-item">k</div>
+                        <div class="phonology-item">l</div>
+                        <div class="phonology-item">m</div>
+                        <div class="phonology-item">n</div>
+                        <div class="phonology-item">o</div>
+                        <div class="phonology-item">p</div>
+                        <div class="phonology-item">r</div>
+                        <div class="phonology-item">s</div>
+                        <div class="phonology-item">t</div>
+                        <div class="phonology-item">u</div>
+                        <div class="phonology-item">w</div>
+                        <div class="phonology-item">y</div>
+                    </div>
+                    <div class="special-combos">
+                        <span>sh = S</span>
+                        <span>th = T</span>
+                    </div>
+                </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nagai</th>
-                <th>POS</th>
-                <th>English</th>
-            </tr>
-        </thead>
-        <tbody id="resultsBody"></tbody>
-    </table>
+                <table class="grammar-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nouns</th>
+                            <th>Verbs</th>
+                            <th>Adjectives</th>
+                            <th>Adverbs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nouns</td>
+                            <td>-</td>
+                            <td>-he</td>
+                            <td>-i</td>
+                            <td>-ya</td>
+                        </tr>
+                        <tr>
+                            <td>Verbs</td>
+                            <td>-(a)n</td>
+                            <td>-</td>
+                            <td>-i</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Adjectives</td>
+                            <td>-(a)n</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <table class="dictionary-table">
+            <thead>
+                <tr>
+                    <th>Nagai</th>
+                    <th>POS</th>
+                    <th>English</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+        </table>
+    </div>
 
     <script>
         const searchInput = document.getElementById('searchInput');
         const resultsBody = document.getElementById('resultsBody');
         const grammarToggle = document.getElementById('grammarToggle');
         const grammarContent = document.getElementById('grammarContent');
-        const dropdownIcon = document.querySelector('.dropdown-icon');
+        const dropdownArrow = document.querySelector('.dropdown-arrow');
         const searchResultsElement = document.getElementById('searchResults');
         let data = [];
 
+        // Fixed dropdown toggle
         grammarToggle.addEventListener('click', () => {
             grammarContent.classList.toggle('active');
-            dropdownIcon.classList.toggle('active');
+            dropdownArrow.classList.toggle('active');
         });
 
         const parseData = (csv) => {
@@ -240,8 +393,6 @@
                     eng: values[3]
                 };
             });
-            
-            // Sort entries alphabetically by lang (Nagai terms)
             return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
 
@@ -256,7 +407,9 @@
                 console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" class="no-results">Failed to load dictionary file</td>
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            Failed to load dictionary
+                        </td>
                     </tr>`;
             }
         };
@@ -267,7 +420,6 @@
                 item.eng.toLowerCase().includes(query) ||
                 item.lang.toLowerCase().includes(query)
             );
-            // No need to sort here as data is already sorted
             searchResultsElement.textContent = results.length;
             return results;
         };
@@ -276,15 +428,17 @@
             if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" class="no-results">No matching results found</td>
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            No matching results found
+                        </td>
                     </tr>`;
                 return;
             }
 
             resultsBody.innerHTML = results.map(item => `
                 <tr>
-                    <td class="italic">${item.lang}</td>
-                    <td>${item.pos}</td>
+                    <td class="nagai-text">${item.lang}</td>
+                    <td class="pos-tag">${item.pos}</td>
                     <td>${item.eng}</td>
                 </tr>
             `).join('');
