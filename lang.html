@@ -70,8 +70,8 @@
         <thead>
             <tr>
                 <th>X-Lang</th>
-                <th>English</th>
                 <th>Part of Speech</th>
+                <th>English</th>
             </tr>
         </thead>
         <tbody id="resultsBody"></tbody>
@@ -82,11 +82,11 @@
         const resultsBody = document.getElementById('resultsBody');
         let data = [];
 
-        // Parse TSV data
-        const parseData = (tsv) => {
-            const lines = tsv.trim().split('\n');
+        // Parse CSV data
+        const parseData = (csv) => {
+            const lines = csv.trim().split('\n');
             return lines.slice(1).map(line => {
-                const values = line.split('\t');
+                const values = line.split(',');
                 return {
                     lang: values[0],
                     pos: values[1],
@@ -95,16 +95,16 @@
             });
         };
 
-        // Fetch and load the TSV file
-        const loadTSV = async () => {
+        // Fetch and load the CSV file
+        const loadCSV = async () => {
             try {
-                const response = await fetch('dictionary.tsv');
-                if (!response.ok) throw new Error('Failed to load dictionary.tsv');
-                const tsvText = await response.text();
-                data = parseData(tsvText);
+                const response = await fetch('dictionary.csv');
+                if (!response.ok) throw new Error('Failed to load dictionary.csv');
+                const csvText = await response.text();
+                data = parseData(csvText);
                 displayResults(data); // Initial display
             } catch (error) {
-                console.error('Error loading TSV file:', error);
+                console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
                         <td colspan="3" class="no-results">Failed to load dictionary file</td>
@@ -134,8 +134,8 @@
             resultsBody.innerHTML = results.map(item => `
                 <tr>
                     <td class="italic">${item.lang}</td>
-                    <td>${item.eng}</td>
                     <td>${item.pos}</td>
+                    <td>${item.eng}</td>
                 </tr>
             `).join('');
         };
@@ -147,8 +147,8 @@
             displayResults(results);
         });
 
-        // Load the TSV file on page load
-        loadTSV();
+        // Load the CSV file on page load
+        loadCSV();
     </script>
 </body>
 </html>
