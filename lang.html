@@ -60,7 +60,6 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Results counter */
         .results-counter {
             background-color: #2d2d2d;
             padding: 8px 12px;
@@ -74,7 +73,6 @@
             font-weight: bold;
         }
 
-        /* Grammar section styles */
         .grammar-section {
             margin-top: 20px;
             background-color: #2d2d2d;
@@ -152,8 +150,6 @@
         </div>
     </div>
 
-
-<!-- Grammar Cheat Sheet -->
     <div class="grammar-section">
         <div class="grammar-header" id="grammarToggle">
             <h2 class="grammar-title">Grammar Cheat Sheet</h2>
@@ -209,7 +205,6 @@
     </div>
 <br>
 
-
     <table>
         <thead>
             <tr>
@@ -221,7 +216,6 @@
         <tbody id="resultsBody"></tbody>
     </table>
 
-    
     <script>
         const searchInput = document.getElementById('searchInput');
         const resultsBody = document.getElementById('resultsBody');
@@ -231,26 +225,23 @@
         const searchResultsElement = document.getElementById('searchResults');
         let data = [];
 
-        // Grammar dropdown toggle
         grammarToggle.addEventListener('click', () => {
             grammarContent.classList.toggle('active');
             dropdownIcon.classList.toggle('active');
         });
 
-        // Parse CSV data
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
             return lines.slice(1).map(line => {
                 const values = line.split(',');
                 return {
-                    lang: values[0],
-                    pos: values[1],
-                    eng: values[2]
+                    lang: values[1],  // Changed from 0 to 1 to skip proto
+                    pos: values[2],   // Changed from 1 to 2
+                    eng: values[3]    // Changed from 2 to 3
                 };
             });
         };
 
-        // Fetch and load the CSV file
         const loadCSV = async () => {
             try {
                 const response = await fetch('dictionary.csv');
@@ -267,7 +258,6 @@
             }
         };
 
-        // Search function
         const searchDictionary = (query) => {
             query = query.toLowerCase();
             const results = data.filter(item => 
@@ -278,7 +268,6 @@
             return results;
         };
 
-        // Display results
         const displayResults = (results) => {
             if (results.length === 0) {
                 resultsBody.innerHTML = `
@@ -298,14 +287,12 @@
             searchResultsElement.textContent = results.length;
         };
 
-        // Event listener for search input
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value;
             const results = searchDictionary(query);
             displayResults(results);
         });
 
-        // Load the CSV file on page load
         loadCSV();
     </script>
 </body>
