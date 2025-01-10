@@ -232,14 +232,17 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            return lines.slice(1).map(line => {
+            const entries = lines.slice(1).map(line => {
                 const values = line.split(',');
                 return {
-                    lang: values[1],  // Changed from 0 to 1 to skip proto
-                    pos: values[2],   // Changed from 1 to 2
-                    eng: values[3]    // Changed from 2 to 3
+                    lang: values[1],
+                    pos: values[2],
+                    eng: values[3]
                 };
             });
+            
+            // Sort entries alphabetically by lang (Nagai terms)
+            return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
 
         const loadCSV = async () => {
@@ -264,6 +267,7 @@
                 item.eng.toLowerCase().includes(query) ||
                 item.lang.toLowerCase().includes(query)
             );
+            // No need to sort here as data is already sorted
             searchResultsElement.textContent = results.length;
             return results;
         };
