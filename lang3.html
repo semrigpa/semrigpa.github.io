@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <style>
+        :root {
+            --primary: #a855f7;
+            --primary-dark: #9333ea;
+            --background: #0f172a;
+            --surface: #1e1b4b;
+            --border: #312e81;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.2s;
+        }
+
+        .back-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-container {
+            flex-grow: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .results-counter {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .results-number {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .dictionary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
+        .dictionary-table th {
+            background-color: var(--surface);
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dictionary-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--background);
+        }
+
+        .dictionary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lang-text {
+            color: var(--primary);
+        }
+
+        .pos-tag {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .header {
+                padding: 0.5rem 0;
+            }
+
+            .dictionary-table th,
+            .dictionary-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="history.back()">←</button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search language, English terms, or theme...">
+                <div class="results-counter">
+                    Entries: <span class="results-number" id="searchResults">0</span>
+                </div>
+            </div>
+        </div>
+
+        <table class="dictionary-table">
+            <thead>
+                <tr>
+                    <th>Language</th>
+                    <th>POS</th>
+                    <th>English</th>
+                    <th>Theme</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const resultsBody = document.getElementById('resultsBody');
+        const searchResultsElement = document.getElementById('searchResults');
+        let data = [];
+
+        const parseData = (csv) => {
+            const lines = csv.trim().split('\n');
+            const entries = lines.map(line => {
+                const [lang, pos, eng, theme] = line.split(',').map(val => val.trim());
+                return { lang, pos, eng, theme };
+            });
+            return entries.sort((a, b) => a.lang.localeCompare(b.lang));
+        };
+
+        const loadCSV = async () => {
+            try {
+                const response = await fetch('dictionary.csv');
+                if (!response.ok) throw new Error('Failed to load dictionary.csv');
+                const csvText = await response.text();
+                data = parseData(csvText);
+                displayResults(data);
+            } catch (error) {
+                console.error('Error loading CSV file:', error);
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            Failed to load dictionary
+                        </td>
+                    </tr>`;
+            }
+        };
+
+        const searchDictionary = (query) => {
+            query = query.toLowerCase();
+            const results = data.filter(item => 
+                item.eng.toLowerCase().includes(query) ||
+                item.lang.toLowerCase().includes(query) ||
+                item.theme.toLowerCase().includes(query)
+            );
+            return results;
+        };
+
+        const displayResults = (results) => {
+            if (results.length === 0) {
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            No matching results found
+                        </td>
+                    </tr>`;
+                searchResultsElement.textContent = '0';
+                return;
+            }
+
+            resultsBody.innerHTML = results.map(item => `
+                <tr>
+                    <td class="lang-text">${item.lang}</td>
+                    <td class="pos-tag">${item.pos}</td>
+                    <td>${item.eng}</td>
+                    <td>${item.theme}</td>
+                </tr>
+            `).join('');
+            searchResultsElement.textContent = results.length;
+        };
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            const results = searchDictionary(query);
+            displayResults(results);
+        });
+
+        loadCSV();
+    </script>
+</body>
+</html>
