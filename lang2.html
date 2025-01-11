@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nagai Dictionary</title>
+    <title>X-Lang Dictionary</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -159,7 +159,7 @@
         <div class="header">
             <button class="back-button" onclick="history.back()">←</button>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search Nagai or English terms...">
+                <input type="text" id="searchInput" placeholder="Search X-Lang or English terms...">
                 <div class="results-counter">
                     Entries: <span class="results-number" id="searchResults">0</span>
                 </div>
@@ -169,7 +169,7 @@
         <table class="dictionary-table">
             <thead>
                 <tr>
-                    <th>Nagai</th>
+                    <th>X-Lang</th>
                     <th>POS</th>
                     <th>English</th>
                 </tr>
@@ -195,8 +195,8 @@
 
         const loadCSV = async () => {
             try {
-                const response = await fetch('dictionary.csv');
-                if (!response.ok) throw new Error('Failed to load dictionary.csv');
+                const response = await fetch('dict.csv');
+                if (!response.ok) throw new Error('Failed to load dict.csv');
                 const csvText = await response.text();
                 data = parseData(csvText);
                 displayResults(data);
