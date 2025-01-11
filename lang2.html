@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nagaii Dexija</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <title>Safi Dictionary</title>
     <style>
         :root {
-            --primary: #a855f7;
-            --primary-dark: #9333ea;
-            --background: #0f172a;
-            --surface: #1e1b4b;
-            --border: #312e81;
-            --text: #f3f4f6;
-            --text-secondary: #9ca3af;
+            --background: #f4f1ea;
+            --paper: #fff;
+            --text: #2c1810;
+            --accent: #8b7355;
+            --border: #d3cec4;
+            --shadow: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -23,50 +21,55 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: "Crimson Text", Georgia, serif;
             background-color: var(--background);
             color: var(--text);
-            line-height: 1.5;
+            line-height: 1.6;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 115, 85, 0.03) 2px,
+                    rgba(139, 115, 85, 0.03) 4px
+                );
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0.5rem;
         }
 
         .header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            background-color: var(--background);
-            z-index: 10;
-            border-bottom: 1px solid var(--border);
+            gap: 0.5rem;
+            padding: 1rem;
+            background-color: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px var(--shadow);
+            margin-bottom: 1rem;
         }
 
         .back-button {
-            background: var(--primary);
-            color: white;
+            background: var(--accent);
+            color: var(--paper);
             border: none;
-            border-radius: 0.5rem;
-            width: 2.5rem;
-            height: 2.5rem;
+            border-radius: 4px;
+            width: 2rem;
+            height: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: background-color 0.2s;
+            font-size: 1rem;
+            transition: all 0.2s;
         }
 
         .back-button:hover {
-            background: var(--primary-dark);
+            background: #6b5741;
         }
 
         .search-container {
@@ -75,82 +78,114 @@
 
         input {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.5rem;
             border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            background-color: var(--surface);
+            border-radius: 4px;
+            background-color: var(--paper);
             color: var(--text);
+            font-family: inherit;
             font-size: 1rem;
-            transition: border-color 0.2s;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--accent);
         }
 
         .results-counter {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        .results-number {
-            color: var(--primary);
-            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 0.25rem;
         }
 
         .dictionary-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border-radius: 0.75rem;
-            overflow: hidden;
+            background: var(--paper);
+            border-radius: 4px;
             border: 1px solid var(--border);
-            background-color: var(--surface);
+            box-shadow: 0 2px 4px var(--shadow);
+            border-collapse: collapse;
         }
 
         .dictionary-table th {
-            background-color: var(--surface);
-            color: var(--primary);
+            background-color: var(--background);
+            color: var(--text);
             font-weight: 600;
             text-align: left;
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--border);
+            font-variant: small-caps;
+            letter-spacing: 0.05em;
         }
 
         .dictionary-table td {
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--border);
-            background-color: var(--background);
+            background-color: var(--paper);
         }
 
         .dictionary-table tr:last-child td {
             border-bottom: none;
         }
 
-        .lang-text {
-            font-family: 'Cinzel', serif;
+        .dictionary-table tr:hover td {
+            background-color: #fbf9f6;
+        }
+
+        .nagai-text {
+            color: var(--text);
+            font-weight: 500;
         }
 
         .pos-tag {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--accent);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Paper texture effect */
+        .header, .dictionary-table {
+            background-image: 
+                repeating-linear-gradient(
+                    var(--paper) 0px,
+                    var(--paper) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            background-size: 100% 2px;
         }
 
         @media (max-width: 640px) {
             .container {
+                margin: 0.5rem auto;
+            }
+            
+            .dictionary-table th,
+            .dictionary-table td {
                 padding: 0.5rem;
             }
 
             .header {
-                padding: 0.5rem 0;
+                padding: 0.5rem;
             }
+        }
 
-            .dictionary-table th,
-            .dictionary-table td {
-                padding: 0.75rem;
-            }
+        /* Decorative elements */
+        .header::before,
+        .dictionary-table::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(139, 115, 85, 0.1),
+                transparent
+            );
         }
     </style>
 </head>
@@ -159,9 +194,9 @@
         <div class="header">
             <button class="back-button" onclick="history.back()">←</button>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search Nagai or English terms...">
+                <input type="text" id="searchInput" placeholder="Search entries...">
                 <div class="results-counter">
-                    Entries: <span class="results-number" id="searchResults">0</span>
+                    Showing <span id="searchResults">0</span> entries
                 </div>
             </div>
         </div>
@@ -169,9 +204,9 @@
         <table class="dictionary-table">
             <thead>
                 <tr>
-                    <th>Nagai</th>
-                    <th>POS</th>
-                    <th>English</th>
+                    <th>Term</th>
+                    <th>Type</th>
+                    <th>Definition</th>
                 </tr>
             </thead>
             <tbody id="resultsBody"></tbody>
@@ -186,26 +221,30 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            const entries = lines.slice(1).map(line => {
-                const [, lang, pos, eng] = line.split(',').map(val => val.trim());
-                return { lang, pos, eng };
-            });
-            return entries.sort((a, b) => a.lang.localeCompare(b.lang));
+            const headers = lines[0].toLowerCase().split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',').map(val => val.trim());
+                return {
+                    lang: values[headers.indexOf('lang')],
+                    pos: values[headers.indexOf('pos')],
+                    eng: values[headers.indexOf('eng')]
+                };
+            }).sort((a, b) => a.lang.localeCompare(b.lang));
         };
 
         const loadCSV = async () => {
             try {
-                const response = await fetch('dictionary.csv');
-                if (!response.ok) throw new Error('Failed to load dictionary.csv');
+                const response = await fetch('dict.csv');
+                if (!response.ok) throw new Error('Failed to load dict.csv');
                 const csvText = await response.text();
                 data = parseData(csvText);
                 displayResults(data);
             } catch (error) {
-                console.error('Error loading CSV file:', error);
+                console.error('Error loading CSV:', error);
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
-                            Failed to load dictionary
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--accent); font-style: italic;">
+                            Unable to load dictionary entries
                         </td>
                     </tr>`;
             }
@@ -213,19 +252,20 @@
 
         const searchDictionary = (query) => {
             query = query.toLowerCase();
-            const results = data.filter(item => 
+            return data.filter(item => 
                 item.eng.toLowerCase().includes(query) ||
                 item.lang.toLowerCase().includes(query)
             );
-            return results;
         };
 
         const displayResults = (results) => {
+            searchResultsElement.textContent = results.length;
+            
             if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
-                            No matching results found
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--accent); font-style: italic;">
+                            No matching entries found
                         </td>
                     </tr>`;
                 return;
@@ -233,17 +273,15 @@
 
             resultsBody.innerHTML = results.map(item => `
                 <tr>
-                    <td class="lang-text">${item.lang}</td>
+                    <td class="nagai-text">${item.lang}</td>
                     <td class="pos-tag">${item.pos}</td>
                     <td>${item.eng}</td>
                 </tr>
             `).join('');
-            searchResultsElement.textContent = results.length;
         };
 
         searchInput.addEventListener('input', (e) => {
-            const query = e.target.value;
-            const results = searchDictionary(query);
+            const results = searchDictionary(e.target.value);
             displayResults(results);
         });
 
