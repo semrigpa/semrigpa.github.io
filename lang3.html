@@ -219,35 +219,32 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            // Skip empty lines and parse each line
-            const entries = lines.filter(line => line.trim()).map(line => {
-                const [proto, lang, pos, eng, theme] = line.split(',').map(val => val.trim());
-                return { proto, lang, pos, eng, theme };
+            const headers = lines[0].split(',').map(h => h.trim());
+            const entries = lines.slice(1).map(line => {
+                const values = line.split(',').map(val => val.trim());
+                // Create an object mapping headers to values
+                const entry = {};
+                headers.forEach((header, index) => {
+                    entry[header] = values[index] || '';
+                });
+                return entry;
             });
             return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
 
         const loadCSV = async () => {
             try {
-                const response = await fetch('/dictionary.csv');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                const response = await fetch('dictionary.csv');
+                if (!response.ok) throw new Error('Failed to load dictionary.csv');
                 const csvText = await response.text();
-                if (!csvText.trim()) {
-                    throw new Error('CSV file is empty');
-                }
                 data = parseData(csvText);
-                if (data.length === 0) {
-                    throw new Error('No valid entries found in CSV');
-                }
                 displayResults(data);
             } catch (error) {
                 console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
                         <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
-                            Failed to load dictionary. Please make sure dictionary.csv exists in the correct location.
+                            Failed to load dictionary
                         </td>
                     </tr>`;
             }
@@ -256,15 +253,15 @@
         const searchDictionary = (query) => {
             query = query.toLowerCase();
             const results = data.filter(item => 
-                (item.eng || '').toLowerCase().includes(query) ||
-                (item.lang || '').toLowerCase().includes(query) ||
-                (item.theme || '').toLowerCase().includes(query)
+                item.eng.toLowerCase().includes(query) ||
+                item.lang.toLowerCase().includes(query) ||
+                item.theme.toLowerCase().includes(query)
             );
             return results;
         };
 
         const displayResults = (results) => {
-            if (!results || results.length === 0) {
+            if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
                         <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
@@ -277,10 +274,10 @@
 
             resultsBody.innerHTML = results.map(item => `
                 <tr>
-                    <td class="lang-text">${item.lang || ''}</td>
-                    <td class="pos-tag">${item.pos || ''}</td>
-                    <td>${item.eng || ''}</td>
-                    <td class="theme-tag">${item.theme || ''}</td>
+                    <td class="lang-text">${item.lang}</td>
+                    <td class="pos-tag">${item.pos}</td>
+                    <td>${item.eng}</td>
+                    <td class="theme-tag">${item.theme}</td>
                 </tr>
             `).join('');
             searchResultsElement.textContent = results.length;
