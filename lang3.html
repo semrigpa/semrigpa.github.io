@@ -219,15 +219,9 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim());
-            const entries = lines.slice(1).map(line => {
-                const values = line.split(',').map(val => val.trim());
-                // Create an object mapping headers to values
-                const entry = {};
-                headers.forEach((header, index) => {
-                    entry[header] = values[index] || '';
-                });
-                return entry;
+            const entries = lines.map(line => {
+                const [lang, pos, eng, theme] = line.split(',').map(val => val.trim());
+                return { lang, pos, eng, theme };
             });
             return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
