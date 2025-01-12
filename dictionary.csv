@@ -1,39 +1,39 @@
-didi,n,younger brother,family
-heng; hengheng,n,older brother,family
-hengdi,n,brothers; siblings in general,family
-maimai,n,younger sister,family
-jiji,n,older sister,family
-jimai,n,sisters,family
-baba,n,father; dad,family
-joba,n,grandfather; grandpa,family
-mama,n,mother; mum, family
-joma,n,grandmother; grandma,family
-jobama,n,grandparents; elders,family
-jinyo,n,daughter,family
-jinam,n,son,family
-sonji,n,grandchild,family
-aka,n,baby; infant; toddler,family
-ihengdi,n,cousin,family
-gyashok,n,family,family
-shonyo,n,girl,family
-shonen,n,boy,family
-sachi,n;a,woman; female,family
-nara,n;a,man; male,family
-iba,n,uncle,family
-ima,n,aunt,family
-shanga,n,tusk,anatomy
-namgon,n,penis,anatomy
-dongmut,n,animal,animal
-cono,n,wolf,animal
-ponchiku,n,squirrel,animal
-honi,n,sheep,animal
-kambing,n,goat,animal
-koshirai,n,whale,sea creature
-penyu,n,turtle,sea creature
-daiha,n,shrimp,sea creature
-ojeko,n,squid,sea creature
-pabo,n,turkey,bird
-chichimi,n,sparrow,bird
-olashi,n,snake,reptile
-hoitak,n,snail; slug,insect
-komoi,n,spider,insect
+deydey,didi,n,younger brother,family
+heng; hengheng,heng; hengheng,n,older brother,family
+hengdey,hengdi,n,brothers; siblings in general,family
+maymay,maimai,n,younger sister,family
+jiji,jiji,n,older sister,family
+jimay,jimai,n,sisters,family
+baba,baba,n,father; dad,family
+joba,joba,n,grandfather; grandpa,family
+mama,mama,n,mother; mum, family
+joma,joma,n,grandmother; grandma,family
+jobama,jobama,n,grandparents; elders,family
+jinyo,jinyo,n,daughter,family
+jinam,jinam,n,son,family
+sonji,sonji,n,grandchild,family
+aka,aka,n,baby; infant; toddler,family
+ihengdey,ihengdi,n,cousin,family
+gyashok,gyashok,n,family,family
+syawnyo,shonyo,n,girl,family
+syawnen,shonen,n,boy,family
+saci,sachi,n;a,woman; female,family
+nala,,nara,n;a,man; male,family
+iba,iba,n,uncle,family
+ima,ima,n,aunt,family
+syanga,shanga,n,tusk,anatomy
+namgon,namgon,n,penis,anatomy
+dongmut,dongmut,n,animal,animal
+cono,cono,n,wolf,animal
+pontiku,ponchiku,n,squirrel,animal
+honi,honi,n,sheep,animal
+kambing,kambing,n,goat,animal
+kosilay,koshirai,n,whale,sea creature
+penyu,penyu,n,turtle,sea creature
+dayha,daiha,n,shrimp,sea creature
+ojeko,ojeko,n,squid,sea creature
+pabo,pabo,n,turkey,bird
+cicimi,chichimi,n,sparrow,bird
+olasi,olashi,n,snake,reptile
+hoytak,hoitak,n,snail; slug,insect
+komoy,komoi,n,spider,insect
