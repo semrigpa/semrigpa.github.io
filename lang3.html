@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary</title>
+    <title>Manmino Dictionary</title>
     <style>
         :root {
-            --primary: #a855f7;
-            --primary-dark: #9333ea;
-            --background: #0f172a;
-            --surface: #1e1b4b;
-            --border: #312e81;
-            --text: #f3f4f6;
-            --text-secondary: #9ca3af;
+            --primary: #0ea5e9;  /* Changed to blue */
+            --primary-dark: #0284c7;
+            --background: #042f2e;  /* Changed to dark teal */
+            --surface: #134e4a;     /* Changed to teal */
+            --border: #115e59;      /* Changed to lighter teal */
+            --text: #f0fdfa;        /* Changed to teal-tinted white */
+            --text-secondary: #99f6e4;
         }
 
         * {
@@ -26,9 +26,11 @@
             background-color: var(--background);
             color: var(--text);
             line-height: 1.5;
+            font-size: clamp(14px, 2vw, 16px);
         }
 
         .container {
+            width: 100%;
             max-width: 1100px;
             margin: 0 auto;
             padding: 1rem;
@@ -61,6 +63,7 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1.2rem;
+            flex-shrink: 0;
             transition: background-color 0.2s;
         }
 
@@ -70,6 +73,7 @@
 
         .search-container {
             flex-grow: 1;
+            min-width: 0;
         }
 
         input {
@@ -99,14 +103,18 @@
             font-weight: 600;
         }
 
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
         .dictionary-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background-color: var(--surface);
         }
 
         .dictionary-table th {
@@ -116,12 +124,17 @@
             text-align: left;
             padding: 1rem;
             border-bottom: 1px solid var(--border);
+            white-space: nowrap;
         }
 
         .dictionary-table td {
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             background-color: var(--background);
+            max-width: 300px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         .dictionary-table tr:last-child td {
@@ -130,20 +143,16 @@
 
         .lang-text {
             color: var(--primary);
+            white-space: nowrap;
         }
 
         .pos-tag {
             font-size: 0.875rem;
             color: var(--text-secondary);
+            white-space: nowrap;
         }
 
-        .theme-tag {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .container {
                 padding: 0.5rem;
             }
@@ -156,6 +165,16 @@
             .dictionary-table td {
                 padding: 0.75rem;
             }
+
+            .dictionary-table td {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dictionary-table td {
+                max-width: 150px;
+            }
         }
     </style>
 </head>
@@ -164,24 +183,25 @@
         <div class="header">
             <button class="back-button" onclick="history.back()">←</button>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search language, English terms, or themes...">
+                <input type="text" id="searchInput" placeholder="Search Manmino or English...">
                 <div class="results-counter">
                     Entries: <span class="results-number" id="searchResults">0</span>
                 </div>
             </div>
         </div>
 
-        <table class="dictionary-table">
-            <thead>
-                <tr>
-                    <th>Language</th>
-                    <th>POS</th>
-                    <th>English</th>
-                    <th>Theme</th>
-                </tr>
-            </thead>
-            <tbody id="resultsBody"></tbody>
-        </table>
+        <div class="table-container">
+            <table class="dictionary-table">
+                <thead>
+                    <tr>
+                        <th>Manmino</th>
+                        <th>POS</th>
+                        <th>English</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -192,9 +212,10 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            const entries = lines.map(line => {
-                const [lang, pos, eng, theme] = line.split(',').map(val => val.trim());
-                return { lang, pos, eng, theme };
+            // Skip the header row
+            const entries = lines.slice(1).map(line => {
+                const [proto, lang, pos, eng] = line.split(',').map(val => val.trim());
+                return { lang, pos, eng }; // Ignore proto as specified
             });
             return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
@@ -210,7 +231,7 @@
                 console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             Failed to load dictionary
                         </td>
                     </tr>`;
@@ -221,8 +242,7 @@
             query = query.toLowerCase();
             const results = data.filter(item => 
                 item.eng.toLowerCase().includes(query) ||
-                item.lang.toLowerCase().includes(query) ||
-                item.theme.toLowerCase().includes(query)
+                item.lang.toLowerCase().includes(query)
             );
             return results;
         };
@@ -231,7 +251,7 @@
             if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             No matching results found
                         </td>
                     </tr>`;
@@ -244,7 +264,6 @@
                     <td class="lang-text">${item.lang}</td>
                     <td class="pos-tag">${item.pos}</td>
                     <td>${item.eng}</td>
-                    <td class="theme-tag">${item.theme}</td>
                 </tr>
             `).join('');
             searchResultsElement.textContent = results.length;
