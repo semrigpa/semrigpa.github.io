@@ -6,13 +6,13 @@
     <title>Manmino Dictionary</title>
     <style>
         :root {
-            --primary: #0ea5e9;  /* Changed to blue */
-            --primary-dark: #0284c7;
-            --background: #042f2e;  /* Changed to dark teal */
-            --surface: #134e4a;     /* Changed to teal */
-            --border: #115e59;      /* Changed to lighter teal */
-            --text: #f0fdfa;        /* Changed to teal-tinted white */
-            --text-secondary: #99f6e4;
+            --primary: #a855f7;
+            --primary-dark: #9333ea;
+            --background: #0f172a;
+            --surface: #1e1b4b;
+            --border: #312e81;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
         }
 
         * {
@@ -152,6 +152,12 @@
             white-space: nowrap;
         }
 
+        .theme-tag {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0.5rem;
@@ -183,7 +189,7 @@
         <div class="header">
             <button class="back-button" onclick="history.back()">←</button>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search Manmino or English...">
+                <input type="text" id="searchInput" placeholder="Search Manmino, terms, or themes...">
                 <div class="results-counter">
                     Entries: <span class="results-number" id="searchResults">0</span>
                 </div>
@@ -197,6 +203,7 @@
                         <th>Manmino</th>
                         <th>POS</th>
                         <th>English</th>
+                        <th>Theme</th>
                     </tr>
                 </thead>
                 <tbody id="resultsBody"></tbody>
@@ -212,10 +219,15 @@
 
         const parseData = (csv) => {
             const lines = csv.trim().split('\n');
-            // Skip the header row
+            const headers = lines[0].split(',').map(h => h.trim());
             const entries = lines.slice(1).map(line => {
-                const [proto, lang, pos, eng] = line.split(',').map(val => val.trim());
-                return { lang, pos, eng }; // Ignore proto as specified
+                const values = line.split(',').map(val => val.trim());
+                // Create an object with all columns
+                const entry = {};
+                headers.forEach((header, index) => {
+                    entry[header] = values[index] || '';
+                });
+                return entry;
             });
             return entries.sort((a, b) => a.lang.localeCompare(b.lang));
         };
@@ -231,7 +243,7 @@
                 console.error('Error loading CSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             Failed to load dictionary
                         </td>
                     </tr>`;
@@ -242,7 +254,8 @@
             query = query.toLowerCase();
             const results = data.filter(item => 
                 item.eng.toLowerCase().includes(query) ||
-                item.lang.toLowerCase().includes(query)
+                item.lang.toLowerCase().includes(query) ||
+                item.theme.toLowerCase().includes(query)
             );
             return results;
         };
@@ -251,7 +264,7 @@
             if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             No matching results found
                         </td>
                     </tr>`;
@@ -264,6 +277,7 @@
                     <td class="lang-text">${item.lang}</td>
                     <td class="pos-tag">${item.pos}</td>
                     <td>${item.eng}</td>
+                    <td class="theme-tag">${item.theme}</td>
                 </tr>
             `).join('');
             searchResultsElement.textContent = results.length;
