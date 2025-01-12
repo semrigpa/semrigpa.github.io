@@ -12,7 +12,7 @@ kadai,n,shop; store,place
 matagi,n,grasshopper,insect
 fuca,n,grass,nature
 naga,n,dragon,religion
-cele,n,dragonfly,insect
+cere,n,dragonfly,insect
 sikko,n,food; meal,food
 meju,n,beer,drink
 tensya,n,heaven,religion
@@ -93,7 +93,7 @@ sungojo,n,rhinoceros beetle,insect
 co,a,very,adjective
 kamisa,n,shirt; top,clothing
 bong,n,stick; staff,misc
-bihengi,n,aeroplane;airplane,vehicle
+bengi,n,aeroplane;airplane,vehicle
 syumen,v,sleep,verb
 jimun,v,ask,verb
 boku,v,boil,verb
