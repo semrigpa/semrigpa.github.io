@@ -97,8 +97,8 @@ bihengi,n,aeroplane;airplane,vehicle
 syumen,v,sleep,verb
 jimun,v,ask,verb
 boku,v,boil,verb
-dongmu,n,animal,animal
-dongmuwan,n,zoo,place
+domu,n,animal,animal
+domuwan,n,zoo,place
 sunya,n,zero; hole,misc
 nita,prn,you (pl); you all,pronoun
 ni,prn,you (sg),pronoun
@@ -109,6 +109,10 @@ mong,v,dream,verb
 gi,v,give,verb
 misu,n,water,nature
 syegwa,n,watermelon,fruit
+yong,v,use; employ,verb
+soko,v,whisper; murmur,speech verb
+gaja,n,elephant,animal
+
 
 
 
