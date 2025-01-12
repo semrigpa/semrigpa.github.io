@@ -1,131 +1,21 @@
-hoita,n,snail; slug,insect
-ga,n,house; home,place
-mori,n,horse,animal
-joya,v,jump,verb
-jomu,v,dance,verb
-moji,n,hat,clothing
-oto,v/n,sing; song,verbal noun
-satai,v,kill; murder,verb
-bojo,n,ladybird; ladybug,insect
-gomai,v,buy,verb
-kadai,n,shop; store,place
-matagi,n,grasshopper,insect
-fuca,n,grass,nature
-naga,n,dragon,religion
-cere,n,dragonfly,insect
-sikko,n,food; meal,food
-meju,n,beer,drink
-tensya,n,heaven,religion
-yosyo,a,young,adjective
-sija,n,market,place
-samuso,n,office,place
-hido,n,nose,anatomy
-mata,n,eye,anatomy
-pak,n,mouth,anatomy
-gamgyu,n,orange; mandarin,fruit
-gamga,v,feel; sense,verb
-labi,n,lip,anatomy
-langi,n,sky,nature
-tosagi,n,rabbit; hare,animal
-hode,n,butterfly,insect
-gam,n,gold,metal
-panya,n,wisdom,abstract
-goyu,v,tell; teach; inform,verb
-sode,n,sleeve,clothing
-kawi,n,chair; seat,furnitire
-pom; mo; pomo,n,hair,anatomy
-boti,n,star,astronomy
-sisim,n,deer,animal
-boyu,v,have; possess; hold,verb
-sena,a/n,happy; happiness; joy, feeling
-duka,a/n,sad; painful/difficult (emotionally);sadness; sorrow; grief,feeling
-cimja,n,bed,furniture
-syu,n,milk,drink
-inha,n,the milky way,astronomy
-canda,n,moon; month,astronomy
-sip'o,num,fifteen (15),numeral
-sipbat,num,eighteen (18),numeral
-nifa,n,tooth; teeth,anatomy
-sin,a,new,adj
-syonen,n,boy,people
-syonyo,n,girl,people
-nehoi,n,smell; scent,misc
-unci,n,shit; poop,misc
-muko,n,octopus,sea creature
-ojeko,n,squid,sea creature
-can,n,plate,misc
-pilo,n,pillow,furniture
-hanga,a,warm; hot,feeling
-yacai,n,vegetable,food
-tara,n,table,furniture
-gonki,n,air,nature
-ikan,n,fish,sea creature
-syuma,n,jellyfish,sea creature
-kata,n,paper,office
-kibi,v,write,verb
-dogu,n,tool; tools,misc
-jike,v/n,work; job; career,misc
-kara,a,spicy,adjective
-monye,n,monkey,animal
-koma,n,bear,animal
-jangu,n,beard,anatomy
-dagu,n,chin,anatomy
-gyohai,n,church,religion
-ceha,n,face,anatomy
-gao,n,river,nature
-tansi,n,spoon,misc
-ojo,v,smile; laugh,verb
-yasu,v,promise,verb
-penyu,n,turtle,sea creature
-dosyowan,n,library,place
-masiji,n,mosque,religion
-nyamu,n,mosquito,insect
-kubi,n,neck,anatomy
-tonga,n,throat,anatomy
-kem,n,cheek,anatomy
-manku,n,bowl,misc
-syowe,n,lesson; class,misc
-jwa,v,sit,verb
-loha,v,visit; travel,movement
-bada,n,rhino,animal
-gajo,n,beetle,insect
-sungojo,n,rhinoceros beetle,insect
-co,a,very,adjective
-kamisa,n,shirt; top,clothing
-bong,n,stick; staff,misc
-bengi,n,aeroplane;airplane,vehicle
-syumen,v,sleep,verb
-jimun,v,ask,verb
-boku,v,boil,verb
-domu,n,animal,animal
-domuwan,n,zoo,place
-sunya,n,zero; hole,misc
-nita,prn,you (pl); you all,pronoun
-ni,prn,you (sg),pronoun
-lenkenko,n,wrist,anatomy
-ifa,n,leaf; page,nature
-bodo,n,grapes,fruit
-mong,v,dream,verb
-gi,v,give,verb
-misu,n,water,nature
-syegwa,n,watermelon,fruit
-yong,v,use; employ,verb
-soko,v,whisper; murmur,communication verb
-gaja,n,elephant,animal
-kosirai,n,whale,sea creature
-seikai,n,world,misc
-seide,v,wash; clean,verb
-lensi,v,practice,verb
-hak,v,learn; study,knowledge verb
-siko,v,think,knowledge verb
-jana,v/n,meditate; meditation,verbal noun
-singa,n,lion,animal
-bek,num,hundred (100),numeral
-kami,n,god (polytheism),religion
+didi,n,younger brother,family
+heng; hengheng,n,older brother,family
+hengdi,n,brothers; siblings in general,family
+maimai,n,younger sister,family
+jiji,n,older sister,family
+jimai,n,sisters,family
+baba,n,father; dad,family
+joba,n,grandfather; grandpa,family
+mama,n,mother; mum, family
+joma,n,grandmother; grandma,family
+jobama,n,grandparents; elders,family
+jinyo,n,daughter,family
+jinam,n,son,family
 sonji,n,grandchild,family
-hatai,n,heart,anatomy
-saci,n/a,woman; female,people
-nara,n/a,man; male,people
-biku,n,monk,religion
-sampa,n,rubbish; trash; garbage,misc
-
+aka,n,baby; infant; toddler,family
+ihengdi,n,cousin,family
+gyashok,n,family,family
+shonyo,n,girl,family
+shonen,n,boy,family
+sachi,n;a,woman; female,family
+nara,n;a,man; male,family
