@@ -6,20 +6,20 @@ jomu,v,dance,verb
 moji,n,hat,clothing
 oto,v/n,sing; song,verbal noun
 satai,v,kill; murder,verb
-bojong,n,ladybird; ladybug,insect
+bojo,n,ladybird; ladybug,insect
 gomai,v,buy,verb
 kadai,n,shop; store,place
 matagi,n,grasshopper,insect
 fuca,n,grass,nature
 naga,n,dragon,religion
-cengleng,n,dragonfly,insect
+cele,n,dragonfly,insect
 sikko,n,food; meal,food
 meju,n,beer,drink
-tensyang,n,heaven,religion
+tensya,n,heaven,religion
 yosyo,a,young,adjective
-sijang,n,market,place
+sija,n,market,place
 samuso,n,office,place
-hidong,n,nose,anatomy
+hido,n,nose,anatomy
 mata,n,eye,anatomy
 pak,n,mouth,anatomy
 gamgyu,n,orange; mandarin,fruit
@@ -36,11 +36,11 @@ kawi,n,chair; seat,furnitire
 pom; mo; pomo,n,hair,anatomy
 boti,n,star,astronomy
 sisim,n,deer,animal
-yu,v,have; possess; hold,verb
-senang,a/n,happy; happiness; joy, feeling
+boyu,v,have; possess; hold,verb
+sena,a/n,happy; happiness; joy, feeling
 duka,a/n,sad; painful/difficult (emotionally);sadness; sorrow; grief,feeling
-cimjang,n,bed,furniture
-syo,n,milk,drink
+cimja,n,bed,furniture
+syu,n,milk,drink
 inha,n,the milky way,astronomy
 canda,n,moon; month,astronomy
 sip'o,num,fifteen (15),numeral
@@ -57,8 +57,8 @@ can,n,plate,misc
 pilo,n,pillow,furniture
 hanga,a,warm; hot,feeling
 yacai,n,vegetable,food
-tarang,n,table,furniture
-gongki,n,air,nature
+tara,n,table,furniture
+gonki,n,air,nature
 ikan,n,fish,sea creature
 syuma,n,jellyfish,sea creature
 kata,n,paper,office
@@ -66,4 +66,31 @@ kibi,v,write,verb
 dogu,n,tool; tools,misc
 jike,v/n,work; job; career,misc
 kara,a,spicy,adjective
-
+monye,n,monkey,animal
+koma,n,bear,animal
+jangu,n,beard,anatomy
+dagu,n,chin,anatomy
+gyohai,n,church,religion
+ceha,n,face,anatomy
+gao,n,river,nature
+tangsi,n,spoon,misc
+ojo,v,smile; laugh,verb
+yasu,v,promise,verb
+penyu,n,turtle,sea creature
+dosyowan,library,place
+masiji,n,mosque,religion
+nyamu,n,mosquito,insect
+kubi,n,neck,anatomy
+tonga,n,throat,anatomy
+kem,n,cheek,anatomy
+manku,n,bowl,misc
+syowe,n,lesson; class,misc
+jwa,v,sit,verb
+loha,v,visit; travel,movement
+bada,n,rhino,animal
+gajo,n,beetle,insect
+sungojo,n,rhinoceros beetle,insect
+co,a,very,adjective
+kamisa,n,shirt; top,clothing
+bong,n,stick; staff,misc
+bihengi,n,aeroplane;airplane,vehicle
