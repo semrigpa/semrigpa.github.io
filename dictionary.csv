@@ -22,10 +22,12 @@ saci,sachi,n;a,woman; female,family
 nala,nara,n;a,man; male,family
 iba,iba,n,uncle,family
 ima,ima,n,aunt,family
+oton,oton,n,adult,family
+kom; koma,kom,n,child; children; kid,family
 syanga,shanga,n,tusk,anatomy
 namgon,namgon,n,penis,anatomy
 dongmut,dongmut,n,animal,animal
-cono,cono,n,wolf,animal
+cono,chono,n,wolf,animal
 pontiku,ponchiku,n,squirrel,animal
 honi,honi,n,sheep,animal
 kambing,kambing,n,goat,animal
@@ -38,3 +40,4 @@ cicimi,chichimi,n,sparrow,bird
 olasi,olashi,n,snake,reptile
 hoytak,hoitak,n,snail; slug,insect
 komoy,komoi,n,spider,insect
+kepala,kepala,n,head; skull,anatomy
