@@ -16,8 +16,8 @@ sonji,sonji,n,grandchild,family
 aka,aka,n,baby; infant; toddler,family
 ihengdey,ihengdi,n,cousin,family
 gyashok,gyashok,n,family,family
-syawnyo,shaonyo,n,girl,family
-syawnen,shaonen,n,boy,family
+syawnyo,shaunyo,n,girl,family
+syawnen,shaunen,n,boy,family
 saci,sachi,n;a,woman; female,family
 nala,nara,n;a,man; male,family
 iba,iba,n,uncle,family
@@ -54,3 +54,23 @@ syawmoligi,shaumoligi,n,wheat,plant
 gyaw,gyau,a,high,adjective
 syaw,shau,a,small; less,adjective
 buwaya,buwaya,n,alligator,reptile
+bodaw,bodau,n,grapes,fruit
+sokosoko,soko,v,whisper; murmur,verb
+jaket,jaket,n,jacket,clothing
+gudu,gudu,n,shoes; boots; footwear,clothing
+pantalon,pantalon,n,pants,clothing
+-,jinsu,n,jeans,clothing
+yawwan,yauwan,a,far,adjective
+maha,maha,a,expensive,adjective
+tuk,tuk,a,cheap,adjective
+mula,mula,a,cheap,adjective
+benghwan,benghwan,n,hospital,place
+nakyat,nakyat,a,ugly,adjective
+miley,mirei,a,beautiful,adjective
+syeygwa,sheigwa,n,watermelon,fruit
+melon,melon,n,(western) melon,fruit
+konok,konok,n,feather,anatomy
+batsip,batship,num,eighty (80),numeral
+pagway,pagwai,v,break; destroy,verb
+-,pagwayem,n,destruction,misc
+pati,pati,n,party,misc
