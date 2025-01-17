@@ -142,18 +142,22 @@
             border-bottom: none;
         }
 
-        .lang-text {
+        .manmino-text {
             color: var(--primary);
             white-space: nowrap;
         }
 
-        .pos-tag {
+        .function-tag {
             font-size: 0.875rem;
             color: var(--text-secondary);
             white-space: nowrap;
         }
 
-        .theme-tag {
+        .hanzi-text {
+            font-size: 1.1rem;
+        }
+
+        .notes-text {
             font-size: 0.875rem;
             color: var(--text-secondary);
             font-style: italic;
@@ -190,7 +194,7 @@
         <div class="header">
             <a class="back-button" href="index.html">←</a>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search Manmino, terms, or themes...">
+                <input type="text" id="searchInput" placeholder="Search Manmino or definitions...">
                 <div class="results-counter">
                     Entries: <span class="results-number" id="searchResults">0</span>
                 </div>
@@ -202,9 +206,10 @@
                 <thead>
                     <tr>
                         <th>Manmino</th>
-                        <th>POS</th>
-                        <th>English</th>
-                        <th>Theme</th>
+                        <th>Function</th>
+                        <th>Definition</th>
+                        <th>Hànzì</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody id="resultsBody"></tbody>
@@ -218,28 +223,28 @@
         const searchResultsElement = document.getElementById('searchResults');
         let data = [];
 
-        const parseData = (csv) => {
-            const lines = csv.trim().split('\n');
+        const parseData = (tsv) => {
+            const lines = tsv.trim().split('\n');
             // Skip the header line and process the rest
             const entries = lines.slice(1).map(line => {
-                const [proto, lang, pos, eng, theme] = line.split(',').map(val => val.trim());
-                return { lang, pos, eng, theme }; // We don't include proto as it's not needed
+                const [manmino, func, definition, hanzi, notes] = line.split('\t').map(val => val.trim());
+                return { manmino, func, definition, hanzi, notes };
             });
-            return entries.sort((a, b) => a.lang.localeCompare(b.lang));
+            return entries.sort((a, b) => a.manmino.localeCompare(b.manmino));
         };
 
-        const loadCSV = async () => {
+        const loadTSV = async () => {
             try {
-                const response = await fetch('dictionary.csv');
-                if (!response.ok) throw new Error('Failed to load dictionary.csv');
-                const csvText = await response.text();
-                data = parseData(csvText);
+                const response = await fetch('manmino.tsv');
+                if (!response.ok) throw new Error('Failed to load manmino.tsv');
+                const tsvText = await response.text();
+                data = parseData(tsvText);
                 displayResults(data);
             } catch (error) {
-                console.error('Error loading CSV file:', error);
+                console.error('Error loading TSV file:', error);
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             Failed to load dictionary
                         </td>
                     </tr>`;
@@ -249,9 +254,8 @@
         const searchDictionary = (query) => {
             query = query.toLowerCase();
             const results = data.filter(item => 
-                item.eng?.toLowerCase().includes(query) ||
-                item.lang?.toLowerCase().includes(query) ||
-                item.theme?.toLowerCase().includes(query)
+                item.manmino?.toLowerCase().includes(query) ||
+                item.definition?.toLowerCase().includes(query)
             );
             return results;
         };
@@ -260,7 +264,7 @@
             if (results.length === 0) {
                 resultsBody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
                             No matching results found
                         </td>
                     </tr>`;
@@ -270,10 +274,11 @@
 
             resultsBody.innerHTML = results.map(item => `
                 <tr>
-                    <td class="lang-text">${item.lang || ''}</td>
-                    <td class="pos-tag">${item.pos || ''}</td>
-                    <td>${item.eng || ''}</td>
-                    <td class="theme-tag">${item.theme || ''}</td>
+                    <td class="manmino-text">${item.manmino || ''}</td>
+                    <td class="function-tag">${item.func || ''}</td>
+                    <td>${item.definition || ''}</td>
+                    <td class="hanzi-text">${item.hanzi || ''}</td>
+                    <td class="notes-text">${item.notes || ''}</td>
                 </tr>
             `).join('');
             searchResultsElement.textContent = results.length;
@@ -285,7 +290,7 @@
             displayResults(results);
         });
 
-        loadCSV();
+        loadTSV();
     </script>
 </body>
 </html>
