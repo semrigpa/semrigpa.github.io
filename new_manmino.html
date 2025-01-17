@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manmino Dictionary</title>
+    <style>
+        :root {
+            --primary: #a855f7;
+            --primary-dark: #9333ea;
+            --background: #0f172a;
+            --surface: #1e1b4b;
+            --border: #312e81;
+            --text: #f3f4f6;
+            --text-secondary: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-container {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background-color: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .results-counter {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .results-number {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
+        .dictionary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .dictionary-table th {
+            background-color: var(--surface);
+            color: var(--primary);
+            font-weight: 600;
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .dictionary-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--background);
+            max-width: 300px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .dictionary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lang-text {
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .pos-tag {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .theme-tag {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .header {
+                padding: 0.5rem 0;
+            }
+
+            .dictionary-table th,
+            .dictionary-table td {
+                padding: 0.75rem;
+            }
+
+            .dictionary-table td {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dictionary-table td {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="back-button" href="index.html">←</a>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search Manmino, terms, or themes...">
+                <div class="results-counter">
+                    Entries: <span class="results-number" id="searchResults">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="dictionary-table">
+                <thead>
+                    <tr>
+                        <th>Manmino</th>
+                        <th>POS</th>
+                        <th>English</th>
+                        <th>Theme</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const resultsBody = document.getElementById('resultsBody');
+        const searchResultsElement = document.getElementById('searchResults');
+        let data = [];
+
+        const parseData = (csv) => {
+            const lines = csv.trim().split('\n');
+            // Skip the header line and process the rest
+            const entries = lines.slice(1).map(line => {
+                const [proto, lang, pos, eng, theme] = line.split(',').map(val => val.trim());
+                return { lang, pos, eng, theme }; // We don't include proto as it's not needed
+            });
+            return entries.sort((a, b) => a.lang.localeCompare(b.lang));
+        };
+
+        const loadCSV = async () => {
+            try {
+                const response = await fetch('dictionary.csv');
+                if (!response.ok) throw new Error('Failed to load dictionary.csv');
+                const csvText = await response.text();
+                data = parseData(csvText);
+                displayResults(data);
+            } catch (error) {
+                console.error('Error loading CSV file:', error);
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            Failed to load dictionary
+                        </td>
+                    </tr>`;
+            }
+        };
+
+        const searchDictionary = (query) => {
+            query = query.toLowerCase();
+            const results = data.filter(item => 
+                item.eng?.toLowerCase().includes(query) ||
+                item.lang?.toLowerCase().includes(query) ||
+                item.theme?.toLowerCase().includes(query)
+            );
+            return results;
+        };
+
+        const displayResults = (results) => {
+            if (results.length === 0) {
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            No matching results found
+                        </td>
+                    </tr>`;
+                searchResultsElement.textContent = '0';
+                return;
+            }
+
+            resultsBody.innerHTML = results.map(item => `
+                <tr>
+                    <td class="lang-text">${item.lang || ''}</td>
+                    <td class="pos-tag">${item.pos || ''}</td>
+                    <td>${item.eng || ''}</td>
+                    <td class="theme-tag">${item.theme || ''}</td>
+                </tr>
+            `).join('');
+            searchResultsElement.textContent = results.length;
+        };
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            const results = searchDictionary(query);
+            displayResults(results);
+        });
+
+        loadCSV();
+    </script>
+</body>
+</html>
