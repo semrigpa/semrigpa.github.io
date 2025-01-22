@@ -1,76 +1,123 @@
-proto,lang,pos,eng,theme
-deydey,didi,n,younger brother,family
-heng; hengheng,heng; hengheng,n,older brother,family
-hengdey,hengdi,n,brothers; siblings in general,family
-maymay,maimai,n,younger sister,family
-jiji,jiji,n,older sister,family
-jimay,jimai,n,sisters,family
-baba,baba,n,father; dad,family
-joba,joba,n,grandfather; grandpa,family
-mama,mama,n,mother; mum, family
-joma,joma,n,grandmother; grandma,family
-jobama,jobama,n,grandparents; elders,family
-jinyo,jinyo,n,daughter,family
-jinam,jinam,n,son,family
-sonji,sonji,n,grandchild,family
-aka,aka,n,baby; infant; toddler,family
-ihengdey,ihengdi,n,cousin,family
-gyashok,gyashok,n,family,family
-syawnyo,shaunyo,n,girl,family
-syawnen,shaunen,n,boy,family
-saci,sachi,n;a,woman; female,family
-nala,nara,n;a,man; male,family
-iba,iba,n,uncle,family
-ima,ima,n,aunt,family
-oton,oton,n,adult,family
-kom; koma,kom,n,child; children; kid,family
-syanga,shanga,n,tusk,anatomy
-namgon,namgon,n,penis,anatomy
-dongmut,dongmut,n,animal,animal
-cono,chono,n,wolf,animal
-pontiku,ponchiku,n,squirrel,animal
-honi,honi,n,sheep,animal
-kambing,kambing,n,goat,animal
-kosilay,koshirai,n,whale,sea creature
-penyu,penyu,n,turtle,sea creature
-dayha,daiha,n,shrimp,sea creature
-ojeko,ojeko,n,squid,sea creature
-pabo,pabo,n,turkey,bird
-cicimi,chichimi,n,sparrow,bird
-olasi,olashi,n,snake,reptile
-hoytak,hoitak,n,snail; slug,insect
-komoy,komoi,n,spider,insect
-kepala,kepala,n,head; skull,anatomy
-syow,sho,n,milk,liquid
-inha,inha,n,the milky way,astronomy
-kompyuta,kompyuta,n,computer,computing
-supika,supika,n,speaker,computing
-mawsu,mausu,n,mouse,computing
-enki,enki,n,smoke,misc
-nitat,nita,prn,you (pl); you all,pronoun
-denki,denki,n,electricity,technology
-uwi,uwi,n,cucumber; squash; Korean melon; gourd,vegetable
-syawmoligi,shaumoligi,n,wheat,plant
-gyaw,gyau,a,high,adjective
-syaw,shau,a,small; less,adjective
-buwaya,buwaya,n,alligator,reptile
-bodaw,bodau,n,grapes,fruit
-sokosoko,soko,v,whisper; murmur,verb
-jaket,jaket,n,jacket,clothing
-gudu,gudu,n,shoes; boots; footwear,clothing
-pantalon,pantalon,n,pants,clothing
--,jinsu,n,jeans,clothing
-yawwan,yauwan,a,far,adjective
-maha,maha,a,expensive,adjective
-tuk,tuk,a,cheap,adjective
-mula,mula,a,cheap,adjective
-benghwan,benghwan,n,hospital,place
-nakyat,nakyat,a,ugly,adjective
-miley,mirei,a,beautiful,adjective
-syeygwa,sheigwa,n,watermelon,fruit
-melon,melon,n,(western) melon,fruit
-konok,konok,n,feather,anatomy
-batsip,batship,num,eighty (80),numeral
-pagway,pagwai,v,break; destroy,verb
--,pagwayem,n,destruction,misc
-pati,pati,n,party,misc
+ibok,o/c,clothing; clothes,clothing
+jaket,o/c,jacket,clothing
+kamisa,o/c,shirt; top,clothing
+pantalon,o/c,pants,clothing
+moji,o/c,hat,clothing
+gudu,o/c,shoes; boots; footwear,clothing
+panyo,o/c,handkerchief,clothing
+olasi,o/c,snake,animal
+ayam,o/c,chicken,animal
+babey,o/c,pig,animal
+badak,o/c,rhino,animal
+halimaw,o/c,tiger,animal
+moli,o/c,horse,animal
+kambing,o/c,goat,animal
+kucing,o/c,cat; other felines,animal
+cono,o/c,wolf,animal
+koma,o/c,bear,animal
+singa,o/c,lion,animal
+sisim,o/c,deer,animal
+monyet,o/c,monkey,animal
+toli,o/c,bird,animal
+syonghol,o/c,bird of prey,animal
+pontiku,o/c,squirrel,animal
+towsagi,o/c,rabbit,animal
+kicune,o/c,fox,animal
+yawho,o/c,demon fox / fox spirit,animal
+haybyaw,o/c,seal,animal
+haydon,o/c,dolphin,animal
+laotsinga,o/c,sea lion,animal
+longha,o/c,lobster,animal
+kangi,o/c,crab,animal
+ikan,o/c,fish,animal
+pating,o/c,shark,animal
+penyu,o/c,turtles,animal
+cikcak,o/c,lizard; gecko,animal
+katak,o/c,frog,animal
+kampukampu,o/c,moth,animal
+jakajan,o/c,cicada,animal
+mattagi,o/c,grasshopper,animal
+lipasi,o/c,cockroach,animal
+nemuk,o/c,mosquito,animal
+niknik,o/c,gnat,animal
+kuto,o/c,louse; lice; ticks,animal
+hodep,o/c,butterfly,animal
+honi,o/c,sheep,animal
+ananasi,o/c,pineapple,fruit
+gamgyut,o/c,orange (fruit); mandarin (fruit),fruit
+ceng limaw,o/c,lime (fruit),fruit
+lweng limaw,o/c,lemon (fruit),fruit
+day limaw,o/c,grapefruit; pomelo,fruit
+dayday gamgyut,o/c,bitter orange (fruit),fruit
+cawmay,o/c,strawberry,fruit
+lammay,o/c,blueberry,fruit
+pisaging,o/c,banana,fruit
+pinggwa,o/c,apple,fruit
+siji,o/c,persimmon,fruit
+bodaw,o/c,grapes,fruit
+melon,o/c,(western) melon,fruit
+pokbonji,o/c,blackberry; raspberry,fruit
+banmey,o/c,cooked rice,food
+bongmit,o/c,honey,food
+sadang,o/c,brown sugar,food
+setdang,o/c,white sugar,food
+syoka,o/c,salt,food
+syokamwisu,o/c,fermented sauces (fish sauce, soy sauce, etc.),food
+bambu,o/c,bamboo,plant
+bunga,o/c,flower,plant
+kalapipal,o/c,chile pepper,plant
+kawlang,o/c,sorghum,plant
+moligi,o/c,dry grains,plant
+pon,o/c,tree,plant
+syawmoligi,o/c,wheat,plant
+syoksyo,o/c,millet,plant
+fuca,o/c,grass,plant
+kulat,o/c,fungi; fungus; mushroom,plant
+sikmut,o/c,plant; vegetation,plant
+biay,o/c,sad; sorrow; grief,emotion
+benci,o/c,hate,emotion
+senang,o/c,joy; happiness; being happy,emotion
+takut,o/c,afraid; scared,emotion
+howhway,o/c,regret,emotion
+himwang,o/c,hope,emotion
+duka,o/c,sadness; painful,emotion
+mala,o/c,angry; mad; upset,emotion
+along,o/c,color; stain,color
+beksik,o/c,white,color
+bek,q,white,color
+cenglamsik,o/c,blue,color
+cenglam,q,blue,color
+cengloksik,o/c,blue-green,color
+cenglok,q,blue-green,color
+cengsik,o/c,green,color
+ceng,q,green,color
+haka,o/c,red,color
+haka,q,red,color
+heksik,o/c,black,color
+hek,q,black,color
+hongsik,o/c,red,color
+hong,q,red,color
+hwangsik,o/c,yellow,color
+hwang,q,yellow,color
+hwaysik,o/c,grey,color
+hway,q,grey,color
+jenghwangsik,o/c,orange (color),color
+jenghwang,q,orange,color
+aca,o/c,morning; AM,time
+acaji sikko,o/c,breakfast,time
+bam,o/c,evening; night,time
+bamji sikko,o/c,dinner,time
+gimnit,o/c,today,time
+gimsi,o/c,now,time
+gimya,o/c,tonight,time
+hali,o/c,sun / day,time
+haliji sikko,o/c,lunch,time
+iknit,o/c,tomorrow,time
+jaknit,o/c,yesterday,time
+jengo,o/c,noon,time
+jisi,o/c,midnight,time
+maynen,o/c,yearly; every year,time
+maynit,o/c,everyday; daily,time
+nit,o/c,sun (compounds),time
+nitcut,o/c,sunrise,time
+ohow,o/c,P.M; afternoon,time
