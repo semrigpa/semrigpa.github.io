@@ -1,123 +1,15 @@
-ibok,o/c,clothing; clothes,clothing
-jaket,o/c,jacket,clothing
-kamisa,o/c,shirt; top,clothing
-pantalon,o/c,pants,clothing
-moji,o/c,hat,clothing
-gudu,o/c,shoes; boots; footwear,clothing
-panyo,o/c,handkerchief,clothing
-olasi,o/c,snake,animal
-ayam,o/c,chicken,animal
-babey,o/c,pig,animal
-badak,o/c,rhino,animal
-halimaw,o/c,tiger,animal
-moli,o/c,horse,animal
-kambing,o/c,goat,animal
-kucing,o/c,cat; other felines,animal
-cono,o/c,wolf,animal
-koma,o/c,bear,animal
-singa,o/c,lion,animal
-sisim,o/c,deer,animal
-monyet,o/c,monkey,animal
-toli,o/c,bird,animal
-syonghol,o/c,bird of prey,animal
-pontiku,o/c,squirrel,animal
-towsagi,o/c,rabbit,animal
-kicune,o/c,fox,animal
-yawho,o/c,demon fox / fox spirit,animal
-haybyaw,o/c,seal,animal
-haydon,o/c,dolphin,animal
-laotsinga,o/c,sea lion,animal
-longha,o/c,lobster,animal
-kangi,o/c,crab,animal
-ikan,o/c,fish,animal
-pating,o/c,shark,animal
-penyu,o/c,turtles,animal
-cikcak,o/c,lizard; gecko,animal
-katak,o/c,frog,animal
-kampukampu,o/c,moth,animal
-jakajan,o/c,cicada,animal
-mattagi,o/c,grasshopper,animal
-lipasi,o/c,cockroach,animal
-nemuk,o/c,mosquito,animal
-niknik,o/c,gnat,animal
-kuto,o/c,louse; lice; ticks,animal
-hodep,o/c,butterfly,animal
-honi,o/c,sheep,animal
-ananasi,o/c,pineapple,fruit
-gamgyut,o/c,orange (fruit); mandarin (fruit),fruit
-ceng limaw,o/c,lime (fruit),fruit
-lweng limaw,o/c,lemon (fruit),fruit
-day limaw,o/c,grapefruit; pomelo,fruit
-dayday gamgyut,o/c,bitter orange (fruit),fruit
-cawmay,o/c,strawberry,fruit
-lammay,o/c,blueberry,fruit
-pisaging,o/c,banana,fruit
-pinggwa,o/c,apple,fruit
-siji,o/c,persimmon,fruit
-bodaw,o/c,grapes,fruit
-melon,o/c,(western) melon,fruit
-pokbonji,o/c,blackberry; raspberry,fruit
-banmey,o/c,cooked rice,food
-bongmit,o/c,honey,food
-sadang,o/c,brown sugar,food
-setdang,o/c,white sugar,food
-syoka,o/c,salt,food
-syokamwisu,o/c,fermented sauces (fish sauce, soy sauce, etc.),food
-bambu,o/c,bamboo,plant
-bunga,o/c,flower,plant
-kalapipal,o/c,chile pepper,plant
-kawlang,o/c,sorghum,plant
-moligi,o/c,dry grains,plant
-pon,o/c,tree,plant
-syawmoligi,o/c,wheat,plant
-syoksyo,o/c,millet,plant
-fuca,o/c,grass,plant
-kulat,o/c,fungi; fungus; mushroom,plant
-sikmut,o/c,plant; vegetation,plant
-biay,o/c,sad; sorrow; grief,emotion
-benci,o/c,hate,emotion
-senang,o/c,joy; happiness; being happy,emotion
-takut,o/c,afraid; scared,emotion
-howhway,o/c,regret,emotion
-himwang,o/c,hope,emotion
-duka,o/c,sadness; painful,emotion
-mala,o/c,angry; mad; upset,emotion
-along,o/c,color; stain,color
-beksik,o/c,white,color
-bek,q,white,color
-cenglamsik,o/c,blue,color
-cenglam,q,blue,color
-cengloksik,o/c,blue-green,color
-cenglok,q,blue-green,color
-cengsik,o/c,green,color
-ceng,q,green,color
-haka,o/c,red,color
-haka,q,red,color
-heksik,o/c,black,color
-hek,q,black,color
-hongsik,o/c,red,color
-hong,q,red,color
-hwangsik,o/c,yellow,color
-hwang,q,yellow,color
-hwaysik,o/c,grey,color
-hway,q,grey,color
-jenghwangsik,o/c,orange (color),color
-jenghwang,q,orange,color
-aca,o/c,morning; AM,time
-acaji sikko,o/c,breakfast,time
-bam,o/c,evening; night,time
-bamji sikko,o/c,dinner,time
-gimnit,o/c,today,time
-gimsi,o/c,now,time
-gimya,o/c,tonight,time
-hali,o/c,sun / day,time
-haliji sikko,o/c,lunch,time
-iknit,o/c,tomorrow,time
-jaknit,o/c,yesterday,time
-jengo,o/c,noon,time
-jisi,o/c,midnight,time
-maynen,o/c,yearly; every year,time
-maynit,o/c,everyday; daily,time
-nit,o/c,sun (compounds),time
-nitcut,o/c,sunrise,time
-ohow,o/c,P.M; afternoon,time
+lohang,action,visit; travel
+nadang,o/c,window
+nêng,action,able; can
+cwên,action,wear
+dai,qual,big, large
+hau,qual,good; pleasing; enjoyable
+kepala,o/c,head; skull
+langkai,o/c,body, torso
+mata,o/c,eye; eyes
+-nêng,action,Denotes a positive capability to execute, similar to English can (potential mood marker)
+seidêk,action,wash, clean
+sin,qual,new
+singli,action,win
+syau,qual,small, less
+tai,o/c,hand
