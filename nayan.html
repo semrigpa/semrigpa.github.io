@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Nayan Dictionary</title>
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --primary-dark: #FF4757;
+            --secondary: #4ECDC4;
+            --background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            --surface: rgba(255, 255, 255, 0.95);
+            --border: rgba(0, 0, 0, 0.1);
+            --text: #2d3436;
+            --text-secondary: #636e72;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ... (keep previous reset styles) */
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            gap: 2rem;
+        }
+
+        .header {
+            padding: 1rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Table */
+        .table-wrapper {
+            overflow-x: auto;
+            background: var(--surface);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .dictionary-table th,
+            .dictionary-table td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .back-button {
+                width: 2rem;
+                height: 2rem;
+            }
+            
+            input {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="history.back()">←</button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search Nayan or English terms...">
+                <div class="results-counter">
+                    Entries: <span class="results-number" id="searchResults">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="dictionary-table">
+                <thead>
+                    <tr>
+                        <th>Nayan</th>
+                        <th>POS</th>
+                        <th>English</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+        </div>
+        <div class="loader" id="loader"></div>
+    </div>
+</body>
+</html>
