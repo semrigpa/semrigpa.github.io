@@ -1,0 +1,201 @@
+Theme,Part of Speech,Word
+Family & People,noun,mother
+Family & People,noun,father
+Family & People,noun,child
+Family & People,noun,brother
+Family & People,noun,sister
+Family & People,noun,family
+Family & People,noun,friend
+Family & People,noun,man
+Family & People,noun,woman
+Family & People,noun,baby
+Home & Household,noun,house
+Home & Household,noun,room
+Home & Household,noun,door
+Home & Household,noun,window
+Home & Household,noun,bed
+Home & Household,noun,table
+Home & Household,noun,chair
+Home & Household,noun,kitchen
+Home & Household,noun,bathroom
+Home & Household,noun,floor
+Food & Eating,noun,food
+Food & Eating,noun,water
+Food & Eating,noun,bread
+Food & Eating,noun,meat
+Food & Eating,noun,fruit
+Food & Eating,noun,vegetable
+Food & Eating,noun,milk
+Food & Eating,noun,meal
+Food & Eating,noun,restaurant
+Food & Eating,noun,plate
+Nature & Environment,noun,sun
+Nature & Environment,noun,moon
+Nature & Environment,noun,tree
+Nature & Environment,noun,fire
+Nature & Environment,noun,earth
+Nature & Environment,noun,air
+Nature & Environment,noun,mountain
+Nature & Environment,noun,river
+Nature & Environment,noun,flower
+Nature & Environment,noun,cloud
+Time & Calendar,noun,time
+Time & Calendar,noun,day
+Time & Calendar,noun,night
+Time & Calendar,noun,year
+Time & Calendar,noun,month
+Time & Calendar,noun,week
+Time & Calendar,noun,hour
+Time & Calendar,noun,minute
+Time & Calendar,noun,season
+Time & Calendar,noun,moment
+Work & Education,noun,work
+Work & Education,noun,job
+Work & Education,noun,school
+Work & Education,noun,teacher
+Work & Education,noun,student
+Work & Education,noun,book
+Work & Education,noun,pen
+Work & Education,noun,paper
+Work & Education,noun,office
+Work & Education,noun,money
+Transportation & Travel,noun,car
+Transportation & Travel,noun,road
+Transportation & Travel,noun,street
+Transportation & Travel,noun,city
+Transportation & Travel,noun,country
+Transportation & Travel,noun,bus
+Transportation & Travel,noun,train
+Transportation & Travel,noun,airport
+Transportation & Travel,noun,map
+Transportation & Travel,noun,journey
+Health & Body,noun,body
+Health & Body,noun,head
+Health & Body,noun,hand
+Health & Body,noun,eye
+Health & Body,noun,mouth
+Health & Body,noun,doctor
+Health & Body,noun,hospital
+Health & Body,noun,medicine
+Health & Body,noun,health
+Health & Body,noun,pain
+Society & Community,noun,government
+Society & Community,noun,law
+Society & Community,noun,police
+Society & Community,noun,tax
+Society & Community,noun,power
+Society & Community,noun,war
+Society & Community,noun,peace
+Society & Community,noun,problem
+Society & Community,noun,community
+Society & Community,noun,leader
+Abstract Concepts,noun,idea
+Abstract Concepts,noun,life
+Abstract Concepts,noun,death
+Abstract Concepts,noun,love
+Abstract Concepts,noun,truth
+Abstract Concepts,noun,name
+Abstract Concepts,noun,number
+Abstract Concepts,noun,system
+Abstract Concepts,noun,language
+Abstract Concepts,noun,world
+Family & People,verb,love
+Family & People,verb,help
+Family & People,verb,meet
+Family & People,verb,talk
+Family & People,verb,marry
+Home & Household,verb,live
+Home & Household,verb,sit
+Home & Household,verb,sleep
+Home & Household,verb,cook
+Home & Household,verb,clean
+Food & Eating,verb,eat
+Food & Eating,verb,drink
+Food & Eating,verb,prepare
+Food & Eating,verb,taste
+Food & Eating,verb,feed
+Nature & Environment,verb,grow
+Nature & Environment,verb,burn
+Nature & Environment,verb,flow
+Nature & Environment,verb,plant
+Nature & Environment,verb,rain
+Time & Calendar,verb,wait
+Time & Calendar,verb,begin
+Time & Calendar,verb,end
+Time & Calendar,verb,continue
+Time & Calendar,verb,spend
+Work & Education,verb,work
+Work & Education,verb,learn
+Work & Education,verb,teach
+Work & Education,verb,write
+Work & Education,verb,earn
+Transportation & Travel,verb,go
+Transportation & Travel,verb,travel
+Transportation & Travel,verb,drive
+Transportation & Travel,verb,fly
+Transportation & Travel,verb,arrive
+Health & Body,verb,see
+Health & Body,verb,hear
+Health & Body,verb,feel
+Health & Body,verb,heal
+Health & Body,verb,hurt
+Society & Community,verb,rule
+Society & Community,verb,protect
+Society & Community,verb,fight
+Society & Community,verb,solve
+Society & Community,verb,support
+Abstract Concepts,verb,think
+Abstract Concepts,verb,understand
+Abstract Concepts,verb,believe
+Abstract Concepts,verb,create
+Abstract Concepts,verb,exist
+Family & People,adjective,kind
+Family & People,adjective,happy
+Family & People,adjective,friendly
+Family & People,adjective,young
+Family & People,adjective,old
+Home & Household,adjective,clean
+Home & Household,adjective,comfortable
+Home & Household,adjective,warm
+Home & Household,adjective,empty
+Home & Household,adjective,modern
+Food & Eating,adjective,delicious
+Food & Eating,adjective,fresh
+Food & Eating,adjective,hot
+Food & Eating,adjective,cold
+Food & Eating,adjective,sweet
+Nature & Environment,adjective,natural
+Nature & Environment,adjective,beautiful
+Nature & Environment,adjective,green
+Nature & Environment,adjective,dry
+Nature & Environment,adjective,wet
+Time & Calendar,adjective,early
+Time & Calendar,adjective,late
+Time & Calendar,adjective,new
+Time & Calendar,adjective,past
+Time & Calendar,adjective,recent
+Work & Education,adjective,important
+Work & Education,adjective,difficult
+Work & Education,adjective,easy
+Work & Education,adjective,busy
+Work & Education,adjective,professional
+Transportation & Travel,adjective,far
+Transportation & Travel,adjective,near
+Transportation & Travel,adjective,fast
+Transportation & Travel,adjective,slow
+Transportation & Travel,adjective,public
+Health & Body,adjective,healthy
+Health & Body,adjective,sick
+Health & Body,adjective,strong
+Health & Body,adjective,weak
+Health & Body,adjective,tired
+Society & Community,adjective,free
+Society & Community,adjective,safe
+Society & Community,adjective,powerful
+Society & Community,adjective,legal
+Society & Community,adjective,social
+Abstract Concepts,adjective,real
+Abstract Concepts,adjective,possible
+Abstract Concepts,adjective,true
+Abstract Concepts,adjective,good
+Abstract Concepts,adjective,bad
