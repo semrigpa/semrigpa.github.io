@@ -1,0 +1,13 @@
+1. add words
+
+2. Use word function nodifers to bulk updictimary and renive synonyms
+
+3. add grammar section
+
+Use indonesian grammar
+
+
+execot
+copulas always come at end of sentence
+modal verbs attach as suffixs to verbs
+no na, ru particles
