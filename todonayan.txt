@@ -6,6 +6,9 @@ Get atleast 100 nouns, 50 verbs, 50 adjectives see '200words.csv'
 
 2. Use word function nodifers to bulk updictimary and renive synonyms
 
+Quality -> Noun -êm
+
+
 3. add grammar section
 
 Use indonesian grammar
