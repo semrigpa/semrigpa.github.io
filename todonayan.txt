@@ -1,3 +1,11 @@
+TRANSLATION MATRUX
+
+1. Ogden
+2. Generatpr
+
+
+
+
 FOCUS ON ANKI FOR NOW
 
 Get atleast 100 nouns, 50 verbs, 50 adjectives see '200words.csv'
