@@ -1,28 +1,15 @@
-TRANSLATION MATRUX
-
-1. Ogden
-2. Generatpr
+Deriviration Matrix
+use uropi pdf
 
 
+1. Remove repetitive and unneeded words.
+2. Fix orthography.
+3. Add new grammar section (Xin Munhap)
 
-
-FOCUS ON ANKI FOR NOW
-
-Get atleast 100 nouns, 50 verbs, 50 adjectives see '200words.csv'
-
-1. add words
-
-2. Use word function nodifers to bulk updictimary and renive synonyms
-
-Quality -> Noun -êm
-
-
-3. add grammar section
-
-Use indonesian grammar
+Use a kind of indonesian grammar
 
 
 execot
 copulas always come at end of sentence
 modal verbs attach as suffixs to verbs
-no na, ru particles
+no na, ru particles?
