@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Morphological Dictionary</title>
+    <style>
+        .node { cursor: pointer; }
+        .link { stroke: #999; }
+        .search-box { margin: 20px; }
+        #graph { border: 1px solid #ccc; }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search words or roots...">
+    </div>
+    <svg id="graph" width="800" height="600"></svg>
+
+    <script>
+        // Sample data structure
+        const words = [
+            { word: "gyauhai", root: "gyau", group: "religion", definition: "church" },
+            { word: "jonggyau", root: "jong", group: "religion", definition: "religion" },
+            { word: "jongyaudêk", root: "jong", group: "religion", definition: "religious" },
+            { word: "moksi", root: "mok", group: "religion", definition: "pastor" },
+            { word: "gapjong", root: "jong", group: "insects", definition: "beetle" },
+            { word: "sungojong", root: "jong", group: "insects", definition: "rhinoceros beetle" },
+            { word: "byaujong", root: "jong", group: "insects", definition: "ladybird" }
+        ];
+
+        // Create hierarchical data structure
+        const rootGroups = d3.group(words, d => d.root);
+        const links = [];
+        
+        words.forEach(word => {
+            links.push({
+                source: word.root,
+                target: word.word,
+                value: 1
+            });
+        });
+
+        // Set up D3 force simulation
+        const svg = d3.select("#graph");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-1000))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Draw graph
+        let link = svg.append("g")
+            .selectAll(".link")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link");
+
+        let node = svg.append("g")
+            .selectAll(".node")
+            .data([...rootGroups.keys(), ...words.map(d => d.word)])
+            .enter().append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("circle")
+            .attr("r", d => rootGroups.has(d) ? 10 : 6)
+            .attr("fill", d => rootGroups.has(d) ? "#ff7f0e" : "#1f77b4");
+
+        node.append("text")
+            .text(d => d)
+            .attr("x", 8)
+            .attr("y", "0.31em");
+
+        simulation.nodes([...rootGroups.keys(), ...words.map(d => d.word)])
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(links);
+
+        // Search functionality
+        document.getElementById("search").addEventListener("input", function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            node.style("display", d => 
+                d.toLowerCase().includes(searchTerm) ? "inline" : "none"
+            );
+        });
+
+        // Tooltip
+        node.append("title")
+            .text(d => words.find(w => w.word === d)?.definition || `Root: ${d}`);
+
+        function ticked() {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        }
+
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+    </script>
+</body>
+</html>
