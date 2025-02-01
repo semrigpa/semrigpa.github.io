@@ -1,126 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Morphological Dictionary</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Religion Dictionary Explorer</title>
     <style>
-        .node { cursor: pointer; }
-        .link { stroke: #999; }
-        .search-box { margin: 20px; }
-        #graph { border: 1px solid #ccc; }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .visualization {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .word-bubble {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+        }
+
+        .word-bubble:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+            color: white;
+        }
+
+        .definition-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
     </style>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <div class="search-box">
-        <input type="text" id="search" placeholder="Search words or roots...">
+    <div class="container">
+        <input type="text" class="search-box" placeholder="Search religious terms..." autofocus>
+        
+        <div class="visualization" id="wordCloud"></div>
+        
+        <div id="results">
+            <!-- Definitions will be inserted here -->
+        </div>
     </div>
-    <svg id="graph" width="800" height="600"></svg>
 
     <script>
-        // Sample data structure
-        const words = [
-            { word: "gyauhai", root: "gyau", group: "religion", definition: "church" },
-            { word: "jonggyau", root: "jong", group: "religion", definition: "religion" },
-            { word: "jongyaudêk", root: "jong", group: "religion", definition: "religious" },
-            { word: "moksi", root: "mok", group: "religion", definition: "pastor" },
-            { word: "gapjong", root: "jong", group: "insects", definition: "beetle" },
-            { word: "sungojong", root: "jong", group: "insects", definition: "rhinoceros beetle" },
-            { word: "byaujong", root: "jong", group: "insects", definition: "ladybird" }
+        const dictionary = [
+            { word: "jonggyau", definition: "religion" },
+            { word: "jonggyaudêk", definition: "religious" },
+            { word: "gyauhai", definition: "church" },
+            { word: "mokxi", definition: "pastor; minister (Christian)" }
         ];
 
-        // Create hierarchical data structure
-        const rootGroups = d3.group(words, d => d.root);
-        const links = [];
-        
-        words.forEach(word => {
-            links.push({
-                source: word.root,
-                target: word.word,
-                value: 1
+        const searchBox = document.querySelector('.search-box');
+        const wordCloud = document.getElementById('wordCloud');
+        const resultsDiv = document.getElementById('results');
+
+        // Initialize word cloud
+        function createWordCloud() {
+            dictionary.forEach(entry => {
+                const bubble = document.createElement('div');
+                bubble.className = 'word-bubble';
+                bubble.textContent = entry.word;
+                bubble.addEventListener('click', () => showDefinition(entry));
+                wordCloud.appendChild(bubble);
             });
-        });
+        }
 
-        // Set up D3 force simulation
-        const svg = d3.select("#graph");
-        const width = +svg.attr("width");
-        const height = +svg.attr("height");
+        function showDefinition(entry) {
+            resultsDiv.innerHTML = `
+                <div class="definition-card">
+                    <h2>${entry.word}</h2>
+                    <p>${entry.definition}</p>
+                </div>
+            `;
+            resultsDiv.querySelector('.definition-card').style.display = 'block';
+        }
 
-        const simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(d => d.id).distance(100))
-            .force("charge", d3.forceManyBody().strength(-1000))
-            .force("center", d3.forceCenter(width / 2, height / 2));
-
-        // Draw graph
-        let link = svg.append("g")
-            .selectAll(".link")
-            .data(links)
-            .enter().append("line")
-            .attr("class", "link");
-
-        let node = svg.append("g")
-            .selectAll(".node")
-            .data([...rootGroups.keys(), ...words.map(d => d.word)])
-            .enter().append("g")
-            .attr("class", "node")
-            .call(d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
-
-        node.append("circle")
-            .attr("r", d => rootGroups.has(d) ? 10 : 6)
-            .attr("fill", d => rootGroups.has(d) ? "#ff7f0e" : "#1f77b4");
-
-        node.append("text")
-            .text(d => d)
-            .attr("x", 8)
-            .attr("y", "0.31em");
-
-        simulation.nodes([...rootGroups.keys(), ...words.map(d => d.word)])
-            .on("tick", ticked);
-
-        simulation.force("link")
-            .links(links);
-
-        // Search functionality
-        document.getElementById("search").addEventListener("input", function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            node.style("display", d => 
-                d.toLowerCase().includes(searchTerm) ? "inline" : "none"
+        function searchHandler() {
+            const searchTerm = searchBox.value.toLowerCase();
+            
+            // Filter dictionary
+            const filtered = dictionary.filter(entry => 
+                entry.word.toLowerCase().includes(searchTerm) ||
+                entry.definition.toLowerCase().includes(searchTerm)
             );
-        });
 
-        // Tooltip
-        node.append("title")
-            .text(d => words.find(w => w.word === d)?.definition || `Root: ${d}`);
+            // Update word cloud
+            wordCloud.innerHTML = '';
+            filtered.forEach(entry => {
+                const bubble = document.createElement('div');
+                bubble.className = 'word-bubble';
+                bubble.textContent = entry.word;
+                bubble.addEventListener('click', () => showDefinition(entry));
+                wordCloud.appendChild(bubble);
+            });
 
-        function ticked() {
-            link
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y);
-
-            node
-                .attr("transform", d => `translate(${d.x},${d.y})`);
+            // Highlight matches in definitions
+            if (searchTerm) {
+                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                resultsDiv.innerHTML = filtered.map(entry => `
+                    <div class="definition-card">
+                        <h2>${entry.word.replace(regex, '<span class="highlight">$1</span>')}</h2>
+                        <p>${entry.definition.replace(regex, '<span class="highlight">$1</span>')}</p>
+                    </div>
+                `).join('');
+            }
         }
 
-        function dragstarted(event) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            event.subject.fx = event.subject.x;
-            event.subject.fy = event.subject.y;
-        }
-
-        function dragged(event) {
-            event.subject.fx = event.x;
-            event.subject.fy = event.y;
-        }
-
-        function dragended(event) {
-            if (!event.active) simulation.alphaTarget(0);
-            event.subject.fx = null;
-            event.subject.fy = null;
-        }
+        searchBox.addEventListener('input', searchHandler);
+        createWordCloud();
     </script>
 </body>
 </html>
