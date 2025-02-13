@@ -4,162 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mā Vāṇi</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-    
-    <!-- React -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .search-box, select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+        select {
+            min-width: 150px;
+            flex: 0 1 auto;
+        }
+        .quote-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .quote-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .quote-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .quote-meta {
+            font-size: 14px;
+            color: #666;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0 2px;
+        }
+        .theme-tag {
+            background: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
+    <h1>Mā Vāṇi</h1>
+    <div class="controls">
+        <input type="text" class="search-box" placeholder="Search quotes...">
+        <select id="theme-filter">
+            <option value="">All Themes</option>
+        </select>
+        <select id="source-filter">
+            <option value="">All Sources</option>
+        </select>
+        <select id="number-filter">
+            <option value="">All Numbers</option>
+        </select>
+    </div>
+    <div class="quote-container" id="quotes"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { Search, Book, Hash, Tag } = lucide;
+    <script>
+        let quotes = [];
+        let themes = new Set();
+        let sources = new Set();
+        let numbers = new Set();
 
-        const QuoteSearch = () => {
-            const [quotes, setQuotes] = useState([]);
-            const [searchTerm, setSearchTerm] = useState('');
-            const [selectedTheme, setSelectedTheme] = useState('all');
-            const [selectedSource, setSelectedSource] = useState('all');
-            const [selectedNumber, setSelectedNumber] = useState('all');
-            const [themes, setThemes] = useState(new Set());
-            const [sources, setSources] = useState(new Set());
-            const [numbers, setNumbers] = useState(new Set());
+        // Fetch and parse TSV
+        fetch('vani.tsv')
+            .then(response => response.text())
+            .then(data => {
+                // Parse TSV
+                const lines = data.split('\n');
+                const headers = lines[0].split('\t');
+                
+                quotes = lines.slice(1).map(line => {
+                    const values = line.split('\t');
+                    const quote = {
+                        theme: values[0],
+                        source: values[1],
+                        number: values[2],
+                        quote: values[3]
+                    };
+                    
+                    themes.add(quote.theme);
+                    sources.add(quote.source);
+                    numbers.add(quote.number);
+                    
+                    return quote;
+                });
 
-            useEffect(() => {
-                fetch('vani.tsv')
-                    .then(response => response.text())
-                    .then(data => {
-                        const rows = data.split('\n').slice(1); // Skip header
-                        const parsedQuotes = rows.map(row => {
-                            const [theme, source, number, quote] = row.split('\t');
-                            return { theme, source, number, quote };
-                        });
-                        setQuotes(parsedQuotes);
-                        
-                        // Extract unique values for filters
-                        setThemes(new Set(parsedQuotes.map(q => q.theme)));
-                        setSources(new Set(parsedQuotes.map(q => q.source)));
-                        setNumbers(new Set(parsedQuotes.map(q => q.number)));
-                    })
-                    .catch(error => {
-                        console.error('Error loading quotes:', error);
-                    });
-            }, []);
+                // Populate filter dropdowns
+                populateDropdown('theme-filter', themes);
+                populateDropdown('source-filter', sources);
+                populateDropdown('number-filter', numbers);
 
-            const highlightText = (text, highlight) => {
-                if (!highlight.trim()) return text;
-                const regex = new RegExp(`(${highlight})`, 'gi');
-                return text.split(regex).map((part, i) => 
-                    regex.test(part) ? <mark key={i} className="bg-yellow-200">{part}</mark> : part
-                );
-            };
+                // Initial render
+                renderQuotes();
+            });
+
+        function populateDropdown(id, values) {
+            const select = document.getElementById(id);
+            [...values].sort().forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        }
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function renderQuotes() {
+            const container = document.getElementById('quotes');
+            const searchTerm = document.querySelector('.search-box').value.toLowerCase();
+            const themeFilter = document.getElementById('theme-filter').value;
+            const sourceFilter = document.getElementById('source-filter').value;
+            const numberFilter = document.getElementById('number-filter').value;
 
             const filteredQuotes = quotes.filter(quote => {
-                const matchesSearch = quote.quote.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesTheme = selectedTheme === 'all' || quote.theme === selectedTheme;
-                const matchesSource = selectedSource === 'all' || quote.source === selectedSource;
-                const matchesNumber = selectedNumber === 'all' || quote.number === selectedNumber;
+                const matchesSearch = !searchTerm || 
+                    quote.quote.toLowerCase().includes(searchTerm) ||
+                    quote.theme.toLowerCase().includes(searchTerm) ||
+                    quote.source.toLowerCase().includes(searchTerm);
+                
+                const matchesTheme = !themeFilter || quote.theme === themeFilter;
+                const matchesSource = !sourceFilter || quote.source === sourceFilter;
+                const matchesNumber = !numberFilter || quote.number === numberFilter;
+
                 return matchesSearch && matchesTheme && matchesSource && matchesNumber;
             });
 
-            return (
-                <div className="container mx-auto p-4">
-                    <h1 className="text-3xl font-bold text-center mb-8">Mā Vāṇi</h1>
-                    
-                    <div className="mb-6 space-y-4">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-3 text-gray-400" size={20} />
-                            <input
-                                type="text"
-                                placeholder="Search quotes..."
-                                className="w-full pl-10 pr-4 py-2 border rounded-lg"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="flex items-center space-x-2">
-                                <Tag size={20} className="text-gray-400" />
-                                <select
-                                    className="w-full p-2 border rounded-lg"
-                                    value={selectedTheme}
-                                    onChange={(e) => setSelectedTheme(e.target.value)}
-                                >
-                                    <option value="all">All Themes</option>
-                                    {[...themes].map(theme => (
-                                        <option key={theme} value={theme}>{theme}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            
-                            <div className="flex items-center space-x-2">
-                                <Book size={20} className="text-gray-400" />
-                                <select
-                                    className="w-full p-2 border rounded-lg"
-                                    value={selectedSource}
-                                    onChange={(e) => setSelectedSource(e.target.value)}
-                                >
-                                    <option value="all">All Sources</option>
-                                    {[...sources].map(source => (
-                                        <option key={source} value={source}>{source}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            
-                            <div className="flex items-center space-x-2">
-                                <Hash size={20} className="text-gray-400" />
-                                <select
-                                    className="w-full p-2 border rounded-lg"
-                                    value={selectedNumber}
-                                    onChange={(e) => setSelectedNumber(e.target.value)}
-                                >
-                                    <option value="all">All Numbers</option>
-                                    {[...numbers].map(number => (
-                                        <option key={number} value={number}>{number}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredQuotes.map((quote, index) => (
-                            <div key={index} className="p-4 border rounded-lg shadow hover:shadow-md transition-shadow">
-                                <div className="text-lg mb-3">{highlightText(quote.quote, searchTerm)}</div>
-                                <div className="text-sm text-gray-600 space-y-1">
-                                    <div className="flex items-center space-x-2">
-                                        <Tag size={16} />
-                                        <span>{quote.theme}</span>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <Book size={16} />
-                                        <span>{quote.source}</span>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <Hash size={16} />
-                                        <span>{quote.number}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            container.innerHTML = filteredQuotes.map(quote => `
+                <div class="quote-card">
+                    <div class="theme-tag">${quote.theme}</div>
+                    <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
+                    <div class="quote-meta">
+                        ${quote.source} ${quote.number}
                     </div>
                 </div>
-            );
-        };
+            `).join('');
+        }
 
-        // Render the app
-        ReactDOM.render(<QuoteSearch />, document.getElementById('root'));
+        // Event listeners
+        document.querySelector('.search-box').addEventListener('input', renderQuotes);
+        document.getElementById('theme-filter').addEventListener('change', renderQuotes);
+        document.getElementById('source-filter').addEventListener('change', renderQuotes);
+        document.getElementById('number-filter').addEventListener('change', renderQuotes);
     </script>
 </body>
 </html>
