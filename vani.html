@@ -1,65 +1,58 @@
+<!-- Updated HTML with error handling -->
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        /* (Keep the same CSS styles from previous answer) */
-    </style>
+    <style>[Same CSS as before]</style>
 </head>
 <body>
-    <!-- (Keep the same HTML filter elements from previous answer) -->
+    <div id="filters">[Same filters as before]</div>
     <div id="quoteContainer" class="grid"></div>
+    <div id="error" style="color: red; padding: 20px;"></div>
 
     <script>
-        // File loading and parsing
         async function loadTSV() {
-            const response = await fetch('quotes.tsv');
-            const data = await response.text();
-            const rows = data.split('\n').slice(1); // Remove header row
-            
-            return rows.map(row => {
-                const [theme, source, number, quote] = row.split('\t');
-                return {
-                    theme: theme.trim(),
-                    source: source.trim(),
-                    number: number.trim(),
-                    quote: quote.trim()
-                };
-            });
-        }
-
-        // Initialize application
-        async function initApp() {
-            const quotes = await loadTSV();
-            
-            // Initialize filters
-            function initFilters() {
-                const unique = (arr) => [...new Set(arr)];
+            try {
+                const response = await fetch('quotes.tsv');
                 
-                // Theme filter
-                const themes = unique(quotes.map(q => q.theme));
-                themes.forEach(t => 
-                    themeFilter.innerHTML += `<option>${t}</option>`);
-
-                // Source filter
-                const sources = unique(quotes.map(q => q.source));
-                sources.forEach(s => 
-                    sourceFilter.innerHTML += `<option>${s}</option>`);
-
-                // Number filter
-                const numbers = unique(quotes.map(q => q.number));
-                numbers.forEach(n => 
-                    numberFilter.innerHTML += `<option>${n}</option>`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.text();
+                return data.split('\n')
+                    .slice(1) // Skip header
+                    .filter(row => row.trim()) // Remove empty lines
+                    .map(row => {
+                        const [theme, source, number, quote] = row.split('\t');
+                        return {
+                            theme: theme?.trim() || '',
+                            source: source?.trim() || '',
+                            number: number?.trim() || '',
+                            quote: quote?.trim() || ''
+                        };
+                    });
+            } catch (error) {
+                document.getElementById('error').textContent = 
+                    `Failed to load quotes: ${error.message}`;
+                return [];
             }
-
-            // (Keep the same highlight and updateDisplay functions from previous answer)
-            
-            // Initialize event listeners
-            initFilters();
-            updateDisplay();
-            document.addEventListener('input', updateDisplay);
         }
 
-        window.onload = initApp;
+        // [Rest of the previous code with this addition:]
+        async function initApp() {
+            try {
+                const quotes = await loadTSV();
+                if (quotes.length === 0) {
+                    document.getElementById('error').textContent = 
+                        'No quotes found in TSV file';
+                    return;
+                }
+                // [Rest of init code]
+            } catch (e) {
+                document.getElementById('error').textContent = 
+                    `Initialization error: ${e.message}`;
+            }
+        }
     </script>
 </body>
 </html>
