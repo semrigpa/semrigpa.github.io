@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* (Keep the same CSS styles from previous answer) */
+    </style>
+</head>
+<body>
+    <!-- (Keep the same HTML filter elements from previous answer) -->
+    <div id="quoteContainer" class="grid"></div>
+
+    <script>
+        // File loading and parsing
+        async function loadTSV() {
+            const response = await fetch('quotes.tsv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1); // Remove header row
+            
+            return rows.map(row => {
+                const [theme, source, number, quote] = row.split('\t');
+                return {
+                    theme: theme.trim(),
+                    source: source.trim(),
+                    number: number.trim(),
+                    quote: quote.trim()
+                };
+            });
+        }
+
+        // Initialize application
+        async function initApp() {
+            const quotes = await loadTSV();
+            
+            // Initialize filters
+            function initFilters() {
+                const unique = (arr) => [...new Set(arr)];
+                
+                // Theme filter
+                const themes = unique(quotes.map(q => q.theme));
+                themes.forEach(t => 
+                    themeFilter.innerHTML += `<option>${t}</option>`);
+
+                // Source filter
+                const sources = unique(quotes.map(q => q.source));
+                sources.forEach(s => 
+                    sourceFilter.innerHTML += `<option>${s}</option>`);
+
+                // Number filter
+                const numbers = unique(quotes.map(q => q.number));
+                numbers.forEach(n => 
+                    numberFilter.innerHTML += `<option>${n}</option>`);
+            }
+
+            // (Keep the same highlight and updateDisplay functions from previous answer)
+            
+            // Initialize event listeners
+            initFilters();
+            updateDisplay();
+            document.addEventListener('input', updateDisplay);
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
