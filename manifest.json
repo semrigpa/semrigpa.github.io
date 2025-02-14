@@ -1,4 +1,6 @@
 {
+  "manifest_version": 2,
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "name": "Ma Vani",
@@ -41,10 +43,13 @@
   "orientation": "portrait",
   "description": "Ma Vani is your gateway to the profound spiritual teachings of Sri Sri Anandamayi Ma.",
   "lang": "en",
+  "dir": "ltr",
   "categories": [
     "books",
     "education",
     "lifestyle",
     "utilities"
   ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }
