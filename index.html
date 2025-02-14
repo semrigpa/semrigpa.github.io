@@ -39,6 +39,7 @@
         select {
             min-width: 150px;
             flex: 0 1 auto;
+            -webkit-tap-highlight-color: transparent;
         }
         .quote-container {
             display: grid;
@@ -104,15 +105,19 @@
             }
         }, { passive: false });
 
-        // Prevent zooming on keyboard focus
+        // Handle focus/blur on inputs to improve scrolling
         const inputs = document.querySelectorAll('input, select');
         inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                document.documentElement.style.touchAction = 'none';
+            input.addEventListener('change', function() {
+                this.blur(); // Remove focus after selection
             });
-            input.addEventListener('blur', function() {
-                document.documentElement.style.touchAction = '';
-            });
+        });
+
+        // Handle background click to blur active elements
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('input, select')) {
+                document.activeElement.blur();
+            }
         });
 
         // Fetch and parse TSV
