@@ -3,7 +3,7 @@
 <head>
 <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mā Vāṇi</title>
     <style>
         body {
@@ -12,6 +12,7 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #FFE5EB;
+            touch-action: pan-x pan-y;
         }
         h1 {
             text-align: center;
@@ -95,6 +96,24 @@
         let themes = new Set();
         let sources = new Set();
         let numbers = new Set();
+
+        // Prevent zooming on double tap
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent zooming on keyboard focus
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                document.documentElement.style.touchAction = 'none';
+            });
+            input.addEventListener('blur', function() {
+                document.documentElement.style.touchAction = '';
+            });
+        });
 
         // Fetch and parse TSV
         fetch('vani.tsv')
