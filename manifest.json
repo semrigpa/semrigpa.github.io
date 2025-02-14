@@ -1,7 +1,18 @@
 {
-  "start_url": "semrigpa.github.io",
+  "start_url": "/",
+  "scope": "/",
   "name": "Mā Vāṇi",
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "short_name": "Mā Vāṇi"
+  "short_name": "Mā Vāṇi",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#FFE5EB",
+  "theme_color": "#FF6EB4",
+  "orientation": "portrait"
 }
