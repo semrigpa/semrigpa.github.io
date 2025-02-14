@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
 <link rel="icon" type="image/png" href="favicon.png">
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mā Vāṇi</title>
@@ -19,8 +17,8 @@
             text-align: center;
             color: #333;
             margin-bottom: 30px;
-}
-       h2 {
+        }
+        h2 {
             text-align: center;
             margin-bottom: 25px;
         }
@@ -77,7 +75,7 @@
 </head>
 <body>
     <h1>Mā Vāṇi</h1>
-<h2>🌸 Oṃ Mā Śrī Mā Jai Jai Mā 🌸</h2>
+    <h2>🌸 Oṃ Mā Śrī Mā Jai Jai Mā 🌸</h2>
     <div class="controls">
         <input type="text" class="search-box" placeholder="Search quotes...">
         <select id="theme-filter">
@@ -120,6 +118,14 @@
                     numbers.add(quote.number);
                     
                     return quote;
+                });
+
+                // Sort quotes by number
+                quotes.sort((a, b) => {
+                    // Convert to numbers for proper numeric sorting
+                    const numA = parseInt(a.number, 10) || 0;
+                    const numB = parseInt(b.number, 10) || 0;
+                    return numA - numB;
                 });
 
                 // Populate filter dropdowns
@@ -172,7 +178,7 @@
                     <div class="theme-tag">${quote.theme}</div>
                     <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
                     <div class="quote-meta">
-                        ${quote.source} ${quote.number}
+                        ${quote.source}, ${quote.number}
                     </div>
                 </div>
             `).join('');
