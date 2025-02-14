@@ -1,8 +1,8 @@
 {
   "start_url": "/",
   "scope": "/",
-  "name": "Mā Vāṇi",
-  "short_name": "Mā Vāṇi",
+  "name": "Ma Vani",
+  "short_name": "Ma Vani",
   "icons": [
     {
       "src": "/android/android-launchericon-48-48.png",
@@ -38,5 +38,18 @@
   "display": "standalone",
   "background_color": "#FFE5EB",
   "theme_color": "#FF6EB4",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "description": "Ma Vani is your gateway to the profound spiritual teachings of Sri Sri Anandamayi Ma.",
+  "lang": "en",
+  "categories": [
+    "books",
+    "education",
+    "lifestyle",
+    "utilities"
+  ],
+  "display_override": [
+    "fullscreen",
+    "minimal-ui",
+    "window-controls-overlay"
+  ]
 }
