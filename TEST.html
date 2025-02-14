@@ -49,6 +49,12 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .quote-content {
+            flex: 1;
         }
         .quote-text {
             font-size: 16px;
@@ -58,6 +64,8 @@
         .quote-meta {
             font-size: 14px;
             color: #666;
+            margin-top: auto;
+            padding-top: 15px;
         }
         .highlight {
             background-color: #fff3cd;
@@ -175,8 +183,10 @@
 
             container.innerHTML = filteredQuotes.map(quote => `
                 <div class="quote-card">
-                    <div class="theme-tag">${quote.theme}</div>
-                    <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
+                    <div class="quote-content">
+                        <div class="theme-tag">${quote.theme}</div>
+                        <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
+                    </div>
                     <div class="quote-meta">
                         ${quote.source}, ${quote.number}
                     </div>
