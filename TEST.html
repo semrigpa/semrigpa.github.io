@@ -247,6 +247,29 @@
             margin: 0 auto 10px;
         }
 
+        .view-toggle {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        .view-toggle:hover {
+            background-color: #ff4da1;
+        }
+
+        .view-toggle-icon {
+            font-size: 16px;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -300,6 +323,7 @@
             <p>Mā Vāṇi is a collection of spiritual teachings and quotes. This application allows you to search and filter through these valuable insights.</p>
             <p>Use the search box to find specific words or phrases, and use the dropdown filters to narrow down by theme, source, or number.</p>
             <p>You can save your favorite quotes by clicking the heart icon, and they will be stored in your browser for future visits.</p>
+            <p>Click the "View Favorites" button to show only your saved quotes, or "View All" to return to the complete collection.</p>
         </div>
     </div>
 
@@ -314,6 +338,10 @@
         <select id="number-filter">
             <option value="">All Numbers</option>
         </select>
+        <button id="view-toggle" class="view-toggle">
+            <span class="view-toggle-icon">❤️</span>
+            <span id="toggle-text">View Favorites</span>
+        </button>
     </div>
     
     <div class="quote-container" id="quotes">
@@ -323,14 +351,6 @@
         </div>
     </div>
 
-    <div class="saved-container" id="saved-container">
-        <div class="saved-heading">
-            <h3>Saved Quotes</h3>
-            <button class="clear-saved" id="clear-saved">Clear All Saved</button>
-        </div>
-        <div class="quote-container" id="saved-quotes"></div>
-    </div>
-
     <script>
         let quotes = [];
         let themes = new Set();
@@ -338,6 +358,7 @@
         let numbers = new Set();
         let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]');
         let currentQuotes = [];
+        let viewingFavorites = false;
 
         // Prevent zooming
         document.addEventListener('touchstart', function(event) {
@@ -379,17 +400,6 @@
             }
         });
 
-        // Clear saved quotes
-        document.getElementById('clear-saved').addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear all saved quotes?')) {
-                savedQuotes = [];
-                localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-                renderSavedQuotes();
-                toggleSavedContainer();
-                renderQuotes(); // Re-render to update heart icons
-            }
-        });
-
         // Save/unsave quote
         function toggleSave(quoteId) {
             const index = savedQuotes.findIndex(id => id === quoteId);
@@ -402,15 +412,24 @@
             
             localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
             renderQuotes();
-            renderSavedQuotes();
-            toggleSavedContainer();
         }
 
-        // Check if saved container should be shown
-        function toggleSavedContainer() {
-            const container = document.getElementById('saved-container');
-            container.style.display = savedQuotes.length > 0 ? 'block' : 'none';
-        }
+        // Toggle between all quotes and favorites
+        document.getElementById('view-toggle').addEventListener('click', () => {
+            viewingFavorites = !viewingFavorites;
+            const toggleButton = document.getElementById('view-toggle');
+            const toggleText = document.getElementById('toggle-text');
+            
+            if (viewingFavorites) {
+                toggleText.textContent = 'View All';
+                toggleButton.querySelector('.view-toggle-icon').textContent = '📚';
+            } else {
+                toggleText.textContent = 'View Favorites';
+                toggleButton.querySelector('.view-toggle-icon').textContent = '❤️';
+            }
+            
+            renderQuotes();
+        });
 
         // Fetch and parse TSV with improved error handling
         fetch('vani.tsv')
@@ -457,8 +476,6 @@
 
                     // Initial render
                     renderQuotes();
-                    renderSavedQuotes();
-                    toggleSavedContainer();
                 } catch (error) {
                     console.error('Error parsing TSV data:', error);
                     document.getElementById('quotes').innerHTML = `
@@ -514,7 +531,7 @@
             const sourceFilter = document.getElementById('source-filter').value;
             const numberFilter = document.getElementById('number-filter').value;
 
-            const filteredQuotes = quotes.filter(quote => {
+            let filteredQuotes = quotes.filter(quote => {
                 const matchesSearch = !searchTerm || 
                     quote.quote.toLowerCase().includes(searchTerm) ||
                     quote.theme.toLowerCase().includes(searchTerm) ||
@@ -527,12 +544,19 @@
                 return matchesSearch && matchesTheme && matchesSource && matchesNumber;
             });
 
+            // Filter by favorites if viewing favorites is active
+            if (viewingFavorites) {
+                filteredQuotes = filteredQuotes.filter(quote => savedQuotes.includes(quote.id));
+            }
+
             currentQuotes = filteredQuotes;
 
             if (filteredQuotes.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <p>No quotes found matching your criteria. Try adjusting your search or filters.</p>
+                        <p>${viewingFavorites ? 
+                            'No saved quotes found matching your criteria. Try saving some quotes first or adjust your filters.' : 
+                            'No quotes found matching your criteria. Try adjusting your search or filters.'}</p>
                     </div>
                 `;
                 return;
@@ -554,27 +578,6 @@
                     </div>
                 `;
             }).join('');
-        }
-
-        function renderSavedQuotes() {
-            const container = document.getElementById('saved-quotes');
-            const savedQuotesData = quotes.filter(quote => savedQuotes.includes(quote.id));
-            
-            if (savedQuotesData.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No saved quotes yet.</p></div>';
-                return;
-            }
-
-            container.innerHTML = savedQuotesData.map(quote => `
-                <div class="quote-card" data-id="${quote.id}">
-                    <div class="theme-tag">${quote.theme}</div>
-                    <div class="quote-text">${quote.quote}</div>
-                    <div class="quote-meta">
-                        <span>${quote.source}, ${quote.number}</span>
-                    </div>
-                    <button class="save-button saved" onclick="toggleSave('${quote.id}')">❤️</button>
-                </div>
-            `).join('');
         }
 
         // Event listeners with debounce for search
