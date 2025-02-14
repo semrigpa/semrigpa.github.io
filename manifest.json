@@ -47,8 +47,4 @@
     "lifestyle",
     "utilities"
   ],
-  "display_override": [
-    "window-controls-overlay",
-    "fullscreen"
-  ]
 }
