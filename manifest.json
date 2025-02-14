@@ -35,7 +35,7 @@
       "type": "image/png"
     }
   ],
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "background_color": "#FFE5EB",
   "theme_color": "#FF6EB4",
   "orientation": "portrait",
@@ -48,8 +48,7 @@
     "utilities"
   ],
   "display_override": [
-    "fullscreen",
-    "minimal-ui",
-    "window-controls-overlay"
+    "window-controls-overlay",
+    "fullscreen"
   ]
 }
