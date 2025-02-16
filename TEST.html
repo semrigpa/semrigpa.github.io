@@ -352,252 +352,262 @@
         </div>
     </div>
 
-    <script>
-      let quotes = [];
-let themes = new Set();
-let sources = new Set();
-let numbers = new Set();
-let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]');
-let currentQuotes = [];
-let viewingFavorites = false;
-
-// Prevent zooming
-document.addEventListener('touchstart', function(event) {
-    if (event.touches.length > 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
-
-// Handle dropdowns and click outside to blur
-document.addEventListener('click', function(event) {
-    if (!event.target.matches('input, select')) {
-        document.activeElement.blur();
-    }
-});
-
-const inputs = document.querySelectorAll('input, select');
-inputs.forEach(input => {
-    input.addEventListener('change', function() {
-        this.blur();
-    });
-});
-
-// Info modal
-const infoButton = document.getElementById('info-button');
-const infoModal = document.getElementById('info-modal');
-const closeModal = document.getElementById('close-modal');
-
-infoButton.addEventListener('click', () => {
-    infoModal.style.display = 'flex';
-});
-
-closeModal.addEventListener('click', () => {
-    infoModal.style.display = 'none';
-});
-
-infoModal.addEventListener('click', (e) => {
-    if (e.target === infoModal) {
-        infoModal.style.display = 'none';
-    }
-});
-
-// Save/unsave quote
-function toggleSave(quoteId) {
-    const index = savedQuotes.findIndex(id => id === quoteId);
-    
-    if (index > -1) {
-        savedQuotes.splice(index, 1);
-    } else {
-        savedQuotes.push(quoteId);
-    }
-    
-    localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-    renderQuotes();
-}
-
-// Toggle between all quotes and favorites
-document.getElementById('view-toggle').addEventListener('click', () => {
-    viewingFavorites = !viewingFavorites;
-    const toggleButton = document.getElementById('view-toggle');
-    const toggleText = document.getElementById('toggle-text');
-    
-    if (viewingFavorites) {
-        toggleText.textContent = 'View All';
-        toggleButton.querySelector('.view-toggle-icon').textContent = '📚';
-    } else {
-        toggleText.textContent = 'View Favorites';
-        toggleButton.querySelector('.view-toggle-icon').textContent = '❤️';
-    }
-    
-    renderQuotes();
-});
-
-// Fetch and parse TSV with improved error handling
-fetch('vani.tsv')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        try {
-            // Parse TSV
-            const lines = data.split('\n');
-            const headers = lines[0].split('\t');
+ 
             
-            quotes = lines.slice(1).filter(line => line.trim()).map((line, index) => {
-                const values = line.split('\t');
-                const quote = {
-                    id: `quote-${index}`,
-                    theme: values[0]?.trim() || 'Unknown',
-                    source: values[1]?.trim() || 'Unknown',
-                    number: values[2]?.trim() || 'Unknown',
-                    quote: values[3]?.trim() || 'No content available'
-                };
-                
-                themes.add(quote.theme);
-                sources.add(quote.source);
-                numbers.add(quote.number);
-                
-                return quote;
-            });
+  <script>
+    let quotes = [];
+    let themes = new Set();
+    let sources = new Set();
+    let numbers = new Set();
+    let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]');
+    let currentQuotes = [];
+    let viewingFavorites = false;
 
-            // Sort quotes by number
-            quotes.sort((a, b) => {
-                const numA = parseInt(a.number, 10) || 0;
-                const numB = parseInt(b.number, 10) || 0;
-                return numA - numB;
-            });
+    // Prevent zooming
+    document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
 
-            // Populate filter dropdowns (after quotes are loaded)
-            populateDropdown('theme-filter', themes);
-            populateDropdown('source-filter', sources);
-            populateDropdown('number-filter', numbers);
+    // Handle dropdowns and click outside to blur
+    document.addEventListener('click', function(event) {
+        if (!event.target.matches('input, select')) {
+            document.activeElement.blur();
+        }
+    });
 
-            // Initial render
-            renderQuotes();
-        } catch (error) {
-            console.error('Error parsing TSV data:', error);
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('change', function() {
+            this.blur();
+        });
+    });
+
+    // Info modal
+    const infoButton = document.getElementById('info-button');
+    const infoModal = document.getElementById('info-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    infoButton.addEventListener('click', () => {
+        infoModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+        infoModal.style.display = 'none';
+    });
+
+    infoModal.addEventListener('click', (e) => {
+        if (e.target === infoModal) {
+            infoModal.style.display = 'none';
+        }
+    });
+
+    // Save/unsave quote
+    function toggleSave(quoteId) {
+        const index = savedQuotes.findIndex(id => id === quoteId);
+        
+        if (index > -1) {
+            savedQuotes.splice(index, 1);
+        } else {
+            savedQuotes.push(quoteId);
+        }
+        
+        localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+        renderQuotes();
+    }
+
+    // Toggle between all quotes and favorites
+    document.getElementById('view-toggle').addEventListener('click', () => {
+        viewingFavorites = !viewingFavorites;
+        const toggleButton = document.getElementById('view-toggle');
+        const toggleText = document.getElementById('toggle-text');
+        
+        if (viewingFavorites) {
+            toggleText.textContent = 'View All';
+            toggleButton.querySelector('.view-toggle-icon').textContent = '📚';
+        } else {
+            toggleText.textContent = 'View Favorites';
+            toggleButton.querySelector('.view-toggle-icon').textContent = '❤️';
+        }
+        
+        renderQuotes();
+    });
+
+    // Fetch and parse TSV with improved error handling
+    fetch('vani.tsv')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            try {
+                // Parse TSV
+                const lines = data.split('\n');
+                const headers = lines[0].split('\t');
+
+                // Create a map to count quotes per theme
+                const themeCounts = new Map();
+
+                quotes = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+                    const values = line.split('\t');
+                    const quote = {
+                        id: `quote-${index}`,
+                        theme: values[0]?.trim() || 'Unknown',
+                        source: values[1]?.trim() || 'Unknown',
+                        number: values[2]?.trim() || 'Unknown',
+                        quote: values[3]?.trim() || 'No content available'
+                    };
+
+                    // Update theme count
+                    if (themeCounts.has(quote.theme)) {
+                        themeCounts.set(quote.theme, themeCounts.get(quote.theme) + 1);
+                    } else {
+                        themeCounts.set(quote.theme, 1);
+                    }
+
+                    themes.add(quote.theme);
+                    sources.add(quote.source);
+                    numbers.add(quote.number);
+
+                    return quote;
+                });
+
+                // Sort quotes by number
+                quotes.sort((a, b) => {
+                    const numA = parseInt(a.number, 10) || 0;
+                    const numB = parseInt(b.number, 10) || 0;
+                    return numA - numB;
+                });
+
+                // Populate filter dropdowns
+                populateDropdown('theme-filter', themes, themeCounts);
+                populateDropdown('source-filter', sources);
+                populateDropdown('number-filter', numbers);
+
+                // Initial render
+                renderQuotes();
+            } catch (error) {
+                console.error('Error parsing TSV data:', error);
+                document.getElementById('quotes').innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading quotes. Please try again later.</p>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching TSV file:', error);
             document.getElementById('quotes').innerHTML = `
                 <div class="empty-state">
-                    <p>Error loading quotes. Please try again later.</p>
+                    <p>Could not load quotes. Please check your internet connection and try again.</p>
                 </div>
             `;
+        });
+
+    // Updated populateDropdown function to include counts
+    function populateDropdown(id, values, counts) {
+        const select = document.getElementById(id);
+        const sortedValues = [...values].sort();
+        const fragment = document.createDocumentFragment();
+
+        sortedValues.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            // Include count in the option text if counts are provided
+            if (counts && counts.has(value)) {
+                option.textContent = `${value} (${counts.get(value)})`;
+            } else {
+                option.textContent = value;
+            }
+            fragment.appendChild(option);
+        });
+
+        select.appendChild(fragment);
+    }
+
+    function highlightText(text, searchTerm) {
+        if (!searchTerm) return text;
+        const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    function renderQuotes() {
+        const container = document.getElementById('quotes');
+        const searchTerm = document.getElementById('search-box').value.toLowerCase();
+        const themeFilter = document.getElementById('theme-filter').value;
+        const sourceFilter = document.getElementById('source-filter').value;
+        const numberFilter = document.getElementById('number-filter').value;
+
+        let filteredQuotes = quotes.filter(quote => {
+            const matchesSearch = !searchTerm || 
+                quote.quote.toLowerCase().includes(searchTerm) ||
+                quote.theme.toLowerCase().includes(searchTerm) ||
+                quote.source.toLowerCase().includes(searchTerm);
+            
+            const matchesTheme = !themeFilter || quote.theme === themeFilter;
+            const matchesSource = !sourceFilter || quote.source === sourceFilter;
+            const matchesNumber = !numberFilter || quote.number === numberFilter;
+
+            return matchesSearch && matchesTheme && matchesSource && matchesNumber;
+        });
+
+        // Filter by favorites if viewing favorites is active
+        if (viewingFavorites) {
+            filteredQuotes = filteredQuotes.filter(quote => savedQuotes.includes(quote.id));
         }
-    })
-    .catch(error => {
-        console.error('Error fetching TSV file:', error);
-        document.getElementById('quotes').innerHTML = `
-            <div class="empty-state">
-                <p>Could not load quotes. Please check your internet connection and try again.</p>
-            </div>
-        `;
-    });
 
-function populateDropdown(id, values) {
-    const select = document.getElementById(id);
-    const sortedValues = [...values].sort();
-    const fragment = document.createDocumentFragment();
+        currentQuotes = filteredQuotes;
 
-    sortedValues.forEach(value => {
-        const option = document.createElement('option');
-        option.value = value;
-
-        // Count occurrences of the theme in the quotes array
-        const count = quotes.filter(quote => quote.theme === value).length;
-        option.textContent = `${value} (${count})`; // Add count in brackets
-
-        fragment.appendChild(option);
-    });
-
-    select.innerHTML = ''; // Clear existing options before adding new ones
-    select.appendChild(fragment);
-}
-
-
-function highlightText(text, searchTerm) {
-    if (!searchTerm) return text;
-    const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-}
-
-function renderQuotes() {
-    const container = document.getElementById('quotes');
-    const searchTerm = document.getElementById('search-box').value.toLowerCase();
-    const themeFilter = document.getElementById('theme-filter').value;
-    const sourceFilter = document.getElementById('source-filter').value;
-    const numberFilter = document.getElementById('number-filter').value;
-
-    let filteredQuotes = quotes.filter(quote => {
-        const matchesSearch = !searchTerm || 
-            quote.quote.toLowerCase().includes(searchTerm) ||
-            quote.theme.toLowerCase().includes(searchTerm) ||
-            quote.source.toLowerCase().includes(searchTerm);
-        
-        const matchesTheme = !themeFilter || quote.theme === themeFilter;
-        const matchesSource = !sourceFilter || quote.source === sourceFilter;
-        const matchesNumber = !numberFilter || quote.number === numberFilter;
-
-        return matchesSearch && matchesTheme && matchesSource && matchesNumber;
-    });
-
-    // Filter by favorites if viewing favorites is active
-    if (viewingFavorites) {
-        filteredQuotes = filteredQuotes.filter(quote => savedQuotes.includes(quote.id));
-    }
-
-    currentQuotes = filteredQuotes;
-
-    if (filteredQuotes.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <p>${viewingFavorites ? 
-                    'No saved quotes found matching your criteria. Try saving some quotes first or adjust your filters.' : 
-                    'No quotes found matching your criteria. Try adjusting your search or filters.'}</p>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = filteredQuotes.map(quote => {
-        const isSaved = savedQuotes.includes(quote.id);
-        return `
-            <div class="quote-card" data-id="${quote.id}">
-                <div class="theme-tag">${quote.theme}</div>
-                <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
-                <div class="quote-meta">
-                    <span>${quote.source}, ${quote.number}</span>
+        if (filteredQuotes.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <p>${viewingFavorites ? 
+                        'No saved quotes found matching your criteria. Try saving some quotes first or adjust your filters.' : 
+                        'No quotes found matching your criteria. Try adjusting your search or filters.'}</p>
                 </div>
-                <button class="save-button ${isSaved ? 'saved' : ''}" 
-                        onclick="toggleSave('${quote.id}')">
-                    ${isSaved ? '❤️' : '🤍'}
-                </button>
-            </div>
-        `;
-    }).join('');
-}
+            `;
+            return;
+        }
 
-// Event listeners with debounce for search
-document.getElementById('search-box').addEventListener('input', 
-    debounce(renderQuotes, 300));
-document.getElementById('theme-filter').addEventListener('change', renderQuotes);
-document.getElementById('source-filter').addEventListener('change', renderQuotes);
-document.getElementById('number-filter').addEventListener('change', renderQuotes);
+        container.innerHTML = filteredQuotes.map(quote => {
+            const isSaved = savedQuotes.includes(quote.id);
+            return `
+                <div class="quote-card" data-id="${quote.id}">
+                    <div class="theme-tag">${quote.theme}</div>
+                    <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
+                    <div class="quote-meta">
+                        <span>${quote.source}, ${quote.number}</span>
+                    </div>
+                    <button class="save-button ${isSaved ? 'saved' : ''}" 
+                            onclick="toggleSave('${quote.id}')">
+                        ${isSaved ? '❤️' : '🤍'}
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
 
-// Make toggle save function available in global scope
-window.toggleSave = toggleSave;
+    // Event listeners with debounce for search
+    document.getElementById('search-box').addEventListener('input', 
+        debounce(renderQuotes, 300));
+    document.getElementById('theme-filter').addEventListener('change', renderQuotes);
+    document.getElementById('source-filter').addEventListener('change', renderQuotes);
+    document.getElementById('number-filter').addEventListener('change', renderQuotes);
 
-
-    </script>
+    // Make toggle save function available in global scope
+    window.toggleSave = toggleSave;
+</script>      
 </body>
 </html>
