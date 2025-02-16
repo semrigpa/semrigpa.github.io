@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I want to add a button to my webapp that downloads it as an app since I have a complete manifest.json file: <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="manifest" href="/manifest.json">
@@ -307,31 +307,23 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #bbb;
         }
-        .install-button {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+        #install-button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 8px 15px;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
     cursor: pointer;
-    z-index: 1000;
-    font-size: 16px;
+    transition: var(--transition);
+    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
+    font-size: 14px;
+    margin-left: 10px;
 }
 
-.install-button:hover {
+#install-button:hover {
     background-color: #ff4da1;
-}
-
-.install-icon {
-    font-size: 20px;
 }
     </style>
 </head>
@@ -365,6 +357,10 @@
         <select id="number-filter">
             <option value="">All Numbers</option>
         </select>
+<button id="install-button" class="view-toggle" style="display: none;">
+    <span class="view-toggle-icon">📲</span>
+    <span>Install App</span>
+</button>
         <button id="view-toggle" class="view-toggle">
             <span class="view-toggle-icon">❤️</span>
             <span id="toggle-text">View Favorites</span>
@@ -377,11 +373,6 @@
             <p>Loading quotes...</p>
         </div>
     </div>
-
-<button id="installButton" class="install-button">
-    <span class="install-icon">📱</span>
-    Add to Home Screen
-</button>
 
     <script>
         let quotes = [];
@@ -622,42 +613,41 @@
         // Make toggle save function available in global scope
         window.toggleSave = toggleSave;
 
-// PWA install functionality
-let deferredPrompt;
-const installButton = document.getElementById('installButton');
+let deferredPrompt; // Stores the beforeinstallprompt event
 
+// Listen for the beforeinstallprompt event
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    // Prevent the default prompt
     e.preventDefault();
-    // Stash the event so it can be triggered later
+    // Store the event for later use
     deferredPrompt = e;
     // Show the install button
+    const installButton = document.getElementById('install-button');
     installButton.style.display = 'flex';
 });
 
-installButton.addEventListener('click', async () => {
+// Handle the install button click
+document.getElementById('install-button').addEventListener('click', async () => {
     if (deferredPrompt) {
-        // Show the install prompt
+        // Trigger the installation prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
         const { outcome } = await deferredPrompt.userChoice;
-        // We no longer need the prompt. Clear it up
+        // Log the result (optional)
+        console.log(`User response: ${outcome}`);
+        // Hide the install button after installation
+        document.getElementById('install-button').style.display = 'none';
+        // Clear the deferredPrompt variable
         deferredPrompt = null;
-        // Hide the install button
-        installButton.style.display = 'none';
     }
 });
 
-// Hide the install button if app is already installed
+// Track successful installation (optional)
 window.addEventListener('appinstalled', () => {
-    installButton.style.display = 'none';
-    deferredPrompt = null;
+    console.log('App was successfully installed.');
+    // Hide the install button
+    document.getElementById('install-button').style.display = 'none';
 });
-
-// Check if running in standalone mode (already installed)
-if (window.matchMedia('(display-mode: standalone)').matches) {
-    installButton.style.display = 'none';
-}
     </script>
 </body>
 </html>
