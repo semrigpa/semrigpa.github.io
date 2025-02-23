@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ReferenceWiki</title>
+    <title>Reference Wiki</title>
     <style>
         :root {
             --bg-color: #1a1a1a;
@@ -32,18 +32,26 @@
 
         header {
             margin-bottom: 16px;
+            display: flex;
+            align-items: baseline;
         }
 
-        h1 {
+        .title-reference {
             font-size: 24px;
             font-weight: 600;
             color: var(--text-color);
-            margin-bottom: 16px;
+        }
+
+        .title-wiki {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-left: 4px;
         }
 
         .controls {
             display: flex;
-            gap: 12px;
+            gap: 8px;
             margin-bottom: 16px;
             flex-wrap: wrap;
         }
@@ -64,16 +72,6 @@
             padding-right: 32px;
         }
 
-        .search-box {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #404040;
-            border-radius: var(--border-radius);
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
         .quote-container {
             display: flex;
             flex-direction: column;
@@ -85,6 +83,11 @@
             padding: 16px;
             border-radius: var(--border-radius);
             border: 1px solid #333;
+            transition: transform 0.2s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-2px);
         }
 
         .quote-title {
@@ -118,6 +121,7 @@
             cursor: pointer;
             font-size: 16px;
             padding: 4px;
+            transition: color 0.2s ease;
         }
 
         .saved {
@@ -154,13 +158,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .highlight {
-            background-color: rgba(79, 118, 199, 0.2);
-            color: var(--accent-color);
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -177,11 +174,10 @@
 </head>
 <body>
     <header>
-        <h1>ReferenceWiki</h1>
+        <h1><span class="title-reference">Reference</span><span class="title-wiki">Wiki</span></h1>
     </header>
 
     <div class="controls">
-        <input type="text" class="search-box" placeholder="Search references..." id="search-box">
         <select id="section-filter">
             <option value="">All Sections</option>
         </select>
@@ -200,7 +196,7 @@
     <script>
     let references = [];
     let sections = new Set();
-    let titles = new Map(); // Map to store section -> titles relationship
+    let titles = new Map();
     let savedRefs = JSON.parse(localStorage.getItem('savedRefs') || '[]');
 
     function populateSectionDropdown() {
@@ -228,29 +224,15 @@
             ).join('');
     }
 
-    function highlightText(text, searchTerm) {
-        if (!searchTerm) return text;
-        const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-        return text.replace(regex, '<span class="highlight">$1</span>');
-    }
-
     function renderReferences() {
         const container = document.getElementById('quotes');
-        const searchTerm = document.getElementById('search-box').value.toLowerCase();
         const sectionFilter = document.getElementById('section-filter').value;
         const titleFilter = document.getElementById('title-filter').value;
 
         let filteredRefs = references.filter(ref => {
-            const matchesSearch = !searchTerm || 
-                ref.title.toLowerCase().includes(searchTerm) ||
-                ref.text.toLowerCase().includes(searchTerm) ||
-                ref.section.toLowerCase().includes(searchTerm);
-            
             const matchesSection = !sectionFilter || ref.section === sectionFilter;
             const matchesTitle = !titleFilter || ref.title === titleFilter;
-
-            return matchesSearch && matchesSection && matchesTitle;
+            return matchesSection && matchesTitle;
         });
 
         if (filteredRefs.length === 0) {
@@ -266,8 +248,8 @@
             const isSaved = savedRefs.includes(ref.id);
             return `
                 <div class="quote-card" data-id="${ref.id}">
-                    <div class="quote-title">${highlightText(ref.title, searchTerm)}</div>
-                    <div class="quote-text">${highlightText(ref.text, searchTerm)}</div>
+                    <div class="quote-title">${ref.title}</div>
+                    <div class="quote-text">${ref.text}</div>
                     <div class="quote-meta">
                         <span>${ref.section}</span>
                         <button class="save-button ${isSaved ? 'saved' : ''}" 
@@ -291,18 +273,7 @@
         renderReferences();
     }
 
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-    }
-
     // Event listeners
-    document.getElementById('search-box').addEventListener('input', 
-        debounce(renderReferences, 300));
-
     document.getElementById('section-filter').addEventListener('change', (e) => {
         updateTitleDropdown(e.target.value);
         renderReferences();
@@ -324,7 +295,6 @@
                     .map((line, index) => {
                         const [section, title, text] = line.split('\t').map(val => val?.trim() || '');
                         
-                        // Collect unique sections and titles
                         sections.add(section);
                         if (!titles.has(section)) {
                             titles.set(section, new Set());
@@ -355,8 +325,8 @@
             document.getElementById('quotes').innerHTML = `
                 <div class="empty-state">
                     <p>Could not load references. Please check your connection.</p>
-                </div>
-            `;
+                    </div>
+                `;
         });
 
     window.toggleSave = toggleSave;
