@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "id": "/",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/info.html",
+  "scope": "/info.html",
   "name": "ReferenceWiki",
   "short_name": "RefWiki",
   "display": "fullscreen",
