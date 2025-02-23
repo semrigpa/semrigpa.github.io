@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "name": "ReferenceWiki",
+  "short_name": "RefWiki",
+  "display": "fullscreen",
+  "background_color": "#1a1a1a",
+  "theme_color": "#4f76c7",
+  "orientation": "portrait",
+  "description": "ReferenceWiki",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "productivity",
+    "reference",
+    "utilities"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
