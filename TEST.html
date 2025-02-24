@@ -534,7 +534,8 @@
                 const entry = {};
                 
                 headers.forEach((header, index) => {
-                    entry[header] = values[index] || '';
+                    // Make sure to handle all columns including Links (which may be the last column)
+                    entry[header] = values[index] !== undefined ? values[index] : '';
                 });
                 
                 return entry;
@@ -549,11 +550,9 @@
             
             if (linksDiv.classList.contains('show')) {
                 linksDiv.classList.remove('show');
-                button.textContent = 'Show References ↓';
                 button.innerHTML = 'Show References <span class="toggle-icon">↓</span>';
             } else {
                 linksDiv.classList.add('show');
-                button.textContent = 'Hide References ↑';
                 button.innerHTML = 'Hide References <span class="toggle-icon">↑</span>';
             }
         }
@@ -577,6 +576,9 @@
                 
                 const tsvData = await response.text();
                 verses = parseTSV(tsvData);
+                
+                // Debug: log the first verse to see if Links are present
+                console.log("First verse data:", verses[0]);
                 
                 // Extract unique verse and line numbers
                 verses.forEach(verse => {
@@ -637,18 +639,25 @@
             }
 
             container.innerHTML = filteredVerses.map(verse => {
+                // Debug: Log each verse to inspect Links
+                console.log(`Verse ${verse.Verse}, Line ${verse.Line}, Links:`, verse.Links);
+                
                 // Process links (if they exist)
                 let linksSection = '';
                 if (verse.Links && verse.Links.trim()) {
                     const linkItems = verse.Links.split(',').map(link => {
+                        const linkTrimmed = link.trim();
+                        let linkText;
+                        
                         try {
-                            const linkTrimmed = link.trim();
                             const url = new URL(linkTrimmed);
-                            return `<a href="${linkTrimmed}" class="link-item" target="_blank">${url.pathname.split('/').pop() || url.hostname}</a>`;
+                            linkText = url.pathname.split('/').pop() || url.hostname;
                         } catch (e) {
-                            // If link is not a valid URL
-                            return `<a href="${link.trim()}" class="link-item" target="_blank">${link.trim()}</a>`;
+                            // If not a valid URL, use the text as is
+                            linkText = linkTrimmed;
                         }
+                        
+                        return `<a href="${linkTrimmed}" class="link-item" target="_blank">${linkText}</a>`;
                     }).join('');
                     
                     linksSection = `
