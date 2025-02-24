@@ -538,7 +538,7 @@
                 
                 headers.forEach((header, index) => {
                     // Make sure to handle all columns including Links
-                    entry[header] = values[index] !== undefined ? values[index] : '';
+                    entry[header.trim()] = values[index] !== undefined ? values[index].trim() : '';
                 });
                 
                 return entry;
@@ -648,7 +648,7 @@
                 console.log(`Verse ${verse.Verse}, Line ${verse.Line}, Links:`, verse.Links);
                 
                 // Fix for using the right Sanskrit field - it could be Sasnkrit or Sanskrit
-                const sanskritField = verse.Sasnkrit || verse.Sanskrit;
+                const sanskritField = verse.Sanskrit || verse.Sasnkrit || '';
                 
                 // Process links (if they exist)
                 let linksSection = '';
@@ -690,17 +690,17 @@
                     <div class="verse-card">
                         <div class="verse-number">Verse ${verse.Verse}, Line ${verse.Line}</div>
                         <div class="sanskrit-text">${sanskritField}</div>
-                        <div class="iast-text">${verse.IAST}</div>
-                        <div class="literal-text">${verse.Literal}</div>
+                        <div class="iast-text">${verse.IAST || ''}</div>
+                        <div class="literal-text">${verse.Literal || ''}</div>
                         
                         <div class="meaning">
                             <div class="meaning-label">Literal Translation:</div>
-                            <div class="meaning-text">${verse.Meaning1}</div>
+                            <div class="meaning-text">${verse.Meaning1 || ''}</div>
                         </div>
                         
                         <div class="meaning">
                             <div class="meaning-label">Poetic Translation:</div>
-                            <div class="meaning-text">${verse.Meaning2}</div>
+                            <div class="meaning-text">${verse.Meaning2 || ''}</div>
                         </div>
                         
                         ${linksSection}
