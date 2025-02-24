@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="/manifest2.json">
+    <link rel="icon" type="image/png" href="favicon2.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mā Vāṇi</title>
+    <title>Śrī Rudrāṣṭakam</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap');
+
         :root {
-            --primary-color: #FF6EB4;
-            --bg-color: #FFE5EB;
+            --primary-color: #0D47A1; /* Deep Shiva Blue */
+            --accent-color: #FFC107; /* Vibrant Gold accent */
+            --bg-color: #F8F8F2; /* Parchment-like background */
             --card-bg: #FFFFFF;
             --text-color: #333;
-            --secondary-text: #666;
+            --secondary-text: #555;
             --border-radius: 8px;
             --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
@@ -20,28 +23,53 @@
 
         * {
             box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Open Sans', 'Roboto', sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L50 0M50 50L100 50M50 50L50 100M50 50L0 50' stroke='%230D47A122' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 20px 20px;
             touch-action: pan-x pan-y;
             line-height: 1.6;
             color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
         }
 
         header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-decoration {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            margin: 0 auto;
+            width: 80%;
         }
 
         h1 {
-            color: var(--text-color);
+            color: var(--primary-color);
             margin-bottom: 10px;
             font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-weight: 600;
         }
 
         h2 {
@@ -49,6 +77,7 @@
             font-weight: normal;
             margin-bottom: 30px;
             font-size: 1.2rem;
+            font-family: 'Noto Sans Devanagari', sans-serif;
         }
 
         .info-button {
@@ -60,6 +89,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
+            z-index: 10;
         }
 
         .modal {
@@ -82,6 +112,9 @@
             max-width: 600px;
             width: 90%;
             position: relative;
+            border-top: 4px solid var(--primary-color);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-button {
@@ -99,28 +132,18 @@
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            justify-content: center;
         }
 
-        .search-box, select {
+        select {
             padding: 12px;
             font-size: 16px;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
-            flex: 1;
-            min-width: 0;
+            min-width: 200px;
             outline: none;
             transition: var(--transition);
-        }
-
-        .search-box:focus, select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(255, 110, 180, 0.2);
-        }
-
-        select {
-            min-width: 120px;
-            flex: 0 1 auto;
             -webkit-tap-highlight-color: transparent;
             background-color: white;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
@@ -128,75 +151,120 @@
             background-position: right 10px center;
             padding-right: 30px;
             appearance: none;
+            font-family: 'Open Sans', sans-serif;
         }
 
-        .quote-container {
+        select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.2);
+        }
+
+        .verse-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
 
-        .quote-card {
+        .verse-card {
             background: var(--card-bg);
             padding: 25px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             position: relative;
+            border-left: 3px solid var(--primary-color);
         }
 
-        .quote-card:hover {
+        .verse-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .quote-text {
-            font-size: 16px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .quote-meta {
-            font-size: 14px;
-            color: var(--secondary-text);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .highlight {
-            background-color: rgba(255, 235, 59, 0.5);
-            border-radius: 2px;
-            padding: 0 3px;
-        }
-
-        .theme-tag {
-            background: #f3f4f6;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-bottom: 15px;
-            display: inline-block;
-            color: var(--secondary-text);
-        }
-
-        .save-button {
+        .verse-number {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: none;
-            border: none;
+            top: 15px;
+            right: 15px;
+            font-size: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1; /* Ensure it's above other content */
+        }
+
+        .sanskrit-text {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--primary-color);
+            line-height: 1.5;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            padding-right: 60px; /* Make space for the verse number tag */
+        }
+
+        .iast-text {
+            font-size: 16px;
+            margin-bottom: 15px;
             color: var(--secondary-text);
-            cursor: pointer;
-            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .literal-text {
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .meaning {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .meaning-label {
+            font-size: 12px;
+            color: var(--secondary-text);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .meaning-text {
+            font-size: 15px;
+            position: relative;
+            background-color: rgba(232, 234, 246, 0.2);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .links {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .link-item {
+            font-size: 13px;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 4px 10px;
+            border: 1px solid var(--primary-color);
+            border-radius: 16px;
             transition: var(--transition);
         }
 
-        .save-button:hover {
-            color: var(--primary-color);
+        .link-item:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
 
-        .saved {
+        .om-symbol {
+            display: inline-block;
+            font-size: 22px;
             color: var(--primary-color);
+            margin: 0 5px;
+            vertical-align: middle;
         }
 
         .empty-state {
@@ -206,30 +274,6 @@
             background: var(--card-bg);
             border-radius: var(--border-radius);
             grid-column: 1 / -1;
-        }
-
-        .saved-container {
-            margin-top: 40px;
-            display: none;
-        }
-
-        .saved-heading {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .saved-heading h3 {
-            margin: 0;
-        }
-
-        .clear-saved {
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            cursor: pointer;
-            font-size: 14px;
         }
 
         .loading {
@@ -248,29 +292,6 @@
             margin: 0 auto 10px;
         }
 
-        .view-toggle {
-            margin-left: auto;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 14px;
-        }
-
-        .view-toggle:hover {
-            background-color: #ff4da1;
-        }
-
-        .view-toggle-icon {
-            font-size: 16px;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -278,15 +299,39 @@
 
         @media (max-width: 768px) {
             .controls {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            select {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .verse-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            body {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .controls {
                 flex-direction: column;
             }
-            
-            .search-box, select {
+
+            select {
                 width: 100%;
             }
-            
-            .quote-container {
-                grid-template-columns: 1fr;
+
+            h1 {
+                font-size: 1.8rem;
             }
         }
 
@@ -300,19 +345,40 @@
         }
         
         ::-webkit-scrollbar-thumb {
-            background: #ccc;
+            background: var(--primary-color);
+            opacity: 0.7;
             border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #bbb;
+            background: #0a3b82;
+        }
+
+        /* Trishul icon for bullet points */
+        ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        ul li::before {
+            content: "🔱";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Mā Vāṇi</h1>
-        <h2>🌸 Oṃ Mā Śrī Mā Jai Jai Mā 🌸</h2>
+        <div class="header-decoration"></div>
+        <h1>Śrī Rudrāṣṭakam</h1>
     </header>
 
     <button class="info-button" id="info-button">ℹ️</button>
@@ -320,294 +386,242 @@
     <div class="modal" id="info-modal">
         <div class="modal-content">
             <button class="close-button" id="close-modal">✕</button>
-            <h3>About Mā Vāṇi</h3>
-            <p>Mā Vāṇi is a collection of spiritual teachings from <b>Śrī Śrī Ānandamayī Mā</b>. This application allows you to search and filter through these valuable insights.</p>
-            <p>Use the search box to find specific words or phrases, and use the dropdown filters to narrow down by theme, source, or number.</p>
-            <p>You can save your favorite quotes by clicking the heart icon, and they will be stored in your browser for future visits.</p>
-            <p>Click the "View Favorites" button to show only your saved quotes, or "View All" to return to the complete collection.</p>
+            <h3>About Śrī Rudrāṣṭakam</h3>
+            <p>The Rudrashtakam is a sacred hymn dedicated to Lord Shiva (Rudra). It consists of eight verses that praise the various aspects of Lord Shiva.</p>
+            <p>This application allows you to explore these powerful Sanskrit verses with their translations and meanings.</p>
+            <p>Use the dropdown menus to filter by verse number and line to find specific content.</p>
+            <p>Each card shows:</p>
+            <ul>
+                <li>The original Sanskrit text in Devanagari</li>
+                <li>IAST transliteration</li>
+                <li>Word-by-word literal meaning</li>
+                <li>Two different translations (literal and poetic)</li>
+                <li>Links to resources for further study</li>
+            </ul>
+            <p><em>ॐ नमः शिवाय</em> — Om Namah Shivaya</p>
         </div>
     </div>
 
     <div class="controls">
-        <input type="text" class="search-box" placeholder="Search quotes..." id="search-box">
-        <select id="theme-filter">
-            <option value="">All Themes</option>
+        <select id="verse-filter">
+            <option value="">All Verses</option>
         </select>
-        <select id="source-filter">
-            <option value="">All Sources</option>
+        <select id="line-filter">
+            <option value="">All Lines</option>
         </select>
-        <select id="number-filter">
-            <option value="">All Numbers</option>
-        </select>
-        <button id="view-toggle" class="view-toggle">
-            <span class="view-toggle-icon">❤️</span>
-            <span id="toggle-text">View Favorites</span>
-        </button>
     </div>
     
-    <div class="quote-container" id="quotes">
+    <div class="verse-container" id="verses">
         <div class="loading">
             <div class="spinner"></div>
-            <p>Loading quotes...</p>
+            <p>Loading verses...</p>
         </div>
     </div>
 
- 
-            
-  <script>
-    let quotes = [];
-    let themes = new Set();
-    let sources = new Set();
-    let numbers = new Set();
-    let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]');
-    let currentQuotes = [];
-    let viewingFavorites = false;
+    <script>
+        let verses = [];
+        let verseNumbers = new Set();
+        let lineNumbers = new Set();
 
-    // Prevent zooming
-    document.addEventListener('touchstart', function(event) {
-        if (event.touches.length > 1) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-
-    // Handle dropdowns and click outside to blur
-    document.addEventListener('click', function(event) {
-        if (!event.target.matches('input, select')) {
-            document.activeElement.blur();
-        }
-    });
-
-    const inputs = document.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        input.addEventListener('change', function() {
-            this.blur();
-        });
-    });
-
-    // Info modal
-    const infoButton = document.getElementById('info-button');
-    const infoModal = document.getElementById('info-modal');
-    const closeModal = document.getElementById('close-modal');
-
-    infoButton.addEventListener('click', () => {
-        infoModal.style.display = 'flex';
-    });
-
-    closeModal.addEventListener('click', () => {
-        infoModal.style.display = 'none';
-    });
-
-    infoModal.addEventListener('click', (e) => {
-        if (e.target === infoModal) {
-            infoModal.style.display = 'none';
-        }
-    });
-
-    // Save/unsave quote
-    function toggleSave(quoteId) {
-        const index = savedQuotes.findIndex(id => id === quoteId);
-        
-        if (index > -1) {
-            savedQuotes.splice(index, 1);
-        } else {
-            savedQuotes.push(quoteId);
-        }
-        
-        localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-        renderQuotes();
-    }
-
-    // Toggle between all quotes and favorites
-    document.getElementById('view-toggle').addEventListener('click', () => {
-        viewingFavorites = !viewingFavorites;
-        const toggleButton = document.getElementById('view-toggle');
-        const toggleText = document.getElementById('toggle-text');
-        
-        if (viewingFavorites) {
-            toggleText.textContent = 'View All';
-            toggleButton.querySelector('.view-toggle-icon').textContent = '📚';
-        } else {
-            toggleText.textContent = 'View Favorites';
-            toggleButton.querySelector('.view-toggle-icon').textContent = '❤️';
-        }
-        
-        renderQuotes();
-    });
-
-    // Fetch and parse TSV with improved error handling
-    fetch('vani.tsv')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        // Prevent zooming
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
             }
-            return response.text();
-        })
-        .then(data => {
+        }, { passive: false });
+
+        // Prevent copy and paste
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Handle dropdowns and click outside to blur
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('select')) {
+                document.activeElement.blur();
+            }
+        });
+
+        const inputs = document.querySelectorAll('select');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                this.blur();
+            });
+        });
+
+        // Info modal
+        const infoButton = document.getElementById('info-button');
+        const infoModal = document.getElementById('info-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        infoButton.addEventListener('click', () => {
+            infoModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+
+        // Fix for any scrolling issues
+        window.addEventListener('resize', function() {
+            document.body.style.height = window.innerHeight + 'px';
+        });
+        
+        document.body.style.height = window.innerHeight + 'px';
+
+        // Function to parse TSV data
+        function parseTSV(tsvData) {
+            const rows = tsvData.trim().split('\n');
+            const headers = rows[0].split('\t');
+            
+            return rows.slice(1).map(row => {
+                const values = row.split('\t');
+                const entry = {};
+                
+                headers.forEach((header, index) => {
+                    entry[header] = values[index] || '';
+                });
+                
+                return entry;
+            });
+        }
+
+        // Load TSV data
+        async function loadData() {
             try {
-                // Parse TSV
-                const lines = data.split('\n');
-                const headers = lines[0].split('\t');
-
-                // Create a map to count quotes per theme
-                const themeCounts = new Map();
-
-                quotes = lines.slice(1).filter(line => line.trim()).map((line, index) => {
-                    const values = line.split('\t');
-                    const quote = {
-                        id: `quote-${index}`,
-                        theme: values[0]?.trim() || 'Unknown',
-                        source: values[1]?.trim() || 'Unknown',
-                        number: values[2]?.trim() || 'Unknown',
-                        quote: values[3]?.trim() || 'No content available'
-                    };
-
-                    // Update theme count
-                    if (themeCounts.has(quote.theme)) {
-                        themeCounts.set(quote.theme, themeCounts.get(quote.theme) + 1);
-                    } else {
-                        themeCounts.set(quote.theme, 1);
-                    }
-
-                    themes.add(quote.theme);
-                    sources.add(quote.source);
-                    numbers.add(quote.number);
-
-                    return quote;
+                const response = await fetch('rudrashtakam.tsv');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+                }
+                
+                const tsvData = await response.text();
+                verses = parseTSV(tsvData);
+                
+                // Extract unique verse and line numbers
+                verses.forEach(verse => {
+                    if (verse.Verse) verseNumbers.add(verse.Verse);
+                    if (verse.Line) lineNumbers.add(verse.Line);
                 });
-
-                // Sort quotes by number
-                quotes.sort((a, b) => {
-                    const numA = parseInt(a.number, 10) || 0;
-                    const numB = parseInt(b.number, 10) || 0;
-                    return numA - numB;
-                });
-
+                
                 // Populate filter dropdowns
-                populateDropdown('theme-filter', themes, themeCounts);
-                populateDropdown('source-filter', sources);
-                populateDropdown('number-filter', numbers);
-
+                populateDropdown('verse-filter', verseNumbers);
+                populateDropdown('line-filter', lineNumbers);
+                
                 // Initial render
-                renderQuotes();
+                renderVerses();
             } catch (error) {
-                console.error('Error parsing TSV data:', error);
-                document.getElementById('quotes').innerHTML = `
+                console.error('Error loading data:', error);
+                document.getElementById('verses').innerHTML = `
                     <div class="empty-state">
-                        <p>Error loading quotes. Please try again later.</p>
+                        <p>Error loading verses: ${error.message}</p>
+                        <p>Please ensure the file "rudrashtakam.tsv" is in the correct location.</p>
                     </div>
                 `;
             }
-        })
-        .catch(error => {
-            console.error('Error fetching TSV file:', error);
-            document.getElementById('quotes').innerHTML = `
-                <div class="empty-state">
-                    <p>Could not load quotes. Please check your internet connection and try again.</p>
-                </div>
-            `;
-        });
-
-    // Updated populateDropdown function to include counts
-    function populateDropdown(id, values, counts) {
-        const select = document.getElementById(id);
-        const sortedValues = [...values].sort();
-        const fragment = document.createDocumentFragment();
-
-        sortedValues.forEach(value => {
-            const option = document.createElement('option');
-            option.value = value;
-            // Include count in the option text if counts are provided
-            if (counts && counts.has(value)) {
-                option.textContent = `${value} (${counts.get(value)})`;
-            } else {
-                option.textContent = value;
-            }
-            fragment.appendChild(option);
-        });
-
-        select.appendChild(fragment);
-    }
-
-    function highlightText(text, searchTerm) {
-        if (!searchTerm) return text;
-        const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-        return text.replace(regex, '<span class="highlight">$1</span>');
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-    }
-
-    function renderQuotes() {
-        const container = document.getElementById('quotes');
-        const searchTerm = document.getElementById('search-box').value.toLowerCase();
-        const themeFilter = document.getElementById('theme-filter').value;
-        const sourceFilter = document.getElementById('source-filter').value;
-        const numberFilter = document.getElementById('number-filter').value;
-
-        let filteredQuotes = quotes.filter(quote => {
-            const matchesSearch = !searchTerm || 
-                quote.quote.toLowerCase().includes(searchTerm) ||
-                quote.theme.toLowerCase().includes(searchTerm) ||
-                quote.source.toLowerCase().includes(searchTerm);
-            
-            const matchesTheme = !themeFilter || quote.theme === themeFilter;
-            const matchesSource = !sourceFilter || quote.source === sourceFilter;
-            const matchesNumber = !numberFilter || quote.number === numberFilter;
-
-            return matchesSearch && matchesTheme && matchesSource && matchesNumber;
-        });
-
-        // Filter by favorites if viewing favorites is active
-        if (viewingFavorites) {
-            filteredQuotes = filteredQuotes.filter(quote => savedQuotes.includes(quote.id));
         }
 
-        currentQuotes = filteredQuotes;
+        function populateDropdown(id, values) {
+            const select = document.getElementById(id);
+            const sortedValues = [...values].sort((a, b) => parseInt(a) - parseInt(b));
+            const fragment = document.createDocumentFragment();
 
-        if (filteredQuotes.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <p>${viewingFavorites ? 
-                        'No saved quotes found matching your criteria. Try saving some quotes first or adjust your filters.' : 
-                        'No quotes found matching your criteria. Try adjusting your search or filters.'}</p>
-                </div>
-            `;
-            return;
+            sortedValues.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = id === 'verse-filter' ? `Verse ${value}` : `Line ${value}`;
+                fragment.appendChild(option);
+            });
+
+            select.appendChild(fragment);
         }
 
-        container.innerHTML = filteredQuotes.map(quote => {
-            const isSaved = savedQuotes.includes(quote.id);
-            return `
-                <div class="quote-card" data-id="${quote.id}">
-                    <div class="theme-tag">${quote.theme}</div>
-                    <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
-                    <div class="quote-meta">
-                        <span>${quote.source}, ${quote.number}</span>
+        function renderVerses() {
+            const container = document.getElementById('verses');
+            const verseFilter = document.getElementById('verse-filter').value;
+            const lineFilter = document.getElementById('line-filter').value;
+
+            let filteredVerses = verses.filter(verse => {
+                const matchesVerse = !verseFilter || verse.Verse === verseFilter;
+                const matchesLine = !lineFilter || verse.Line === lineFilter;
+                return matchesVerse && matchesLine;
+            });
+
+            if (filteredVerses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No verses found matching your criteria. Try adjusting your filters.</p>
                     </div>
-                    <button class="save-button ${isSaved ? 'saved' : ''}" 
-                            onclick="toggleSave('${quote.id}')">
-                        ${isSaved ? '❤️' : '🤍'}
-                    </button>
-                </div>
-            `;
-        }).join('');
-    }
+                `;
+                return;
+            }
 
-    // Event listeners with debounce for search
-    document.getElementById('search-box').addEventListener('input', 
-        debounce(renderQuotes, 300));
-    document.getElementById('theme-filter').addEventListener('change', renderQuotes);
-    document.getElementById('source-filter').addEventListener('change', renderQuotes);
-    document.getElementById('number-filter').addEventListener('change', renderQuotes);
+            container.innerHTML = filteredVerses.map(verse => {
+                // Process links (if they exist)
+                let linkItems = '';
+                if (verse.Links) {
+                    const links = verse.Links.split(',').map(link => link.trim());
+                    
+                    linkItems = links.map(link => {
+                        // Check if it's a valid URL
+                        let linkText;
+                        try {
+                            const url = new URL(link);
+                            // Extract a meaningful name from the URL
+                            linkText = url.hostname.replace('www.', '') + url.pathname.split('/').pop();
+                            if (linkText.length > 20) {
+                                linkText = linkText.substring(0, 20) + '...';
+                            }
+                        } catch (e) {
+                            // If it's not a valid URL, use the link text as is
+                            linkText = link;
+                        }
+                        
+                        return `<a href="${link}" class="link-item" target="_blank">${linkText}</a>`;
+                    }).join('');
+                }
 
-    // Make toggle save function available in global scope
-    window.toggleSave = toggleSave;
-</script>      
+                return `
+                    <div class="verse-card">
+                        <div class="verse-number">Verse ${verse.Verse}, Line ${verse.Line}</div>
+                        <div class="sanskrit-text">${verse.Sanskrit}</div>
+                        <div class="iast-text">${verse.IAST}</div>
+                        <div class="literal-text">${verse.Literal}</div>
+                        
+                        <div class="meaning">
+                            <div class="meaning-label">Literal Translation:</div>
+                            <div class="meaning-text">${verse.Meaning1}</div>
+                        </div>
+                        
+                        <div class="meaning">
+                            <div class="meaning-label">Poetic Translation:</div>
+                            <div class="meaning-text">${verse.Meaning2}</div>
+                        </div>
+                        
+                        ${linkItems ? `<div class="links">${linkItems}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Event listeners for filters
+        document.getElementById('verse-filter').addEventListener('change', renderVerses);
+        document.getElementById('line-filter').addEventListener('change', renderVerses);
+
+        // Initialize the app
+        loadData();
+    </script>
 </body>
 </html>
