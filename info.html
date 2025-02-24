@@ -13,6 +13,9 @@
             --text-secondary: #8a8a8a;
             --accent-color: #4f76c7;
             --border-radius: 8px;
+            --tag-bg: rgba(79, 118, 199, 0.15);
+            --tag-color: #4f76c7;
+            --border-color: #333;
         }
 
         * {
@@ -26,14 +29,13 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.5;
-            padding: 12px;
+            padding: 16px;
             max-width: 800px;
             margin: 0 auto;
--webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
-            user-select: none; /* Standard */
-
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         header {
@@ -51,7 +53,7 @@
         .title-wiki {
             font-size: 24px;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--text-color);
             margin-left: 4px;
         }
 
@@ -88,19 +90,45 @@
             background: var(--card-bg);
             padding: 16px;
             border-radius: var(--border-radius);
-            border: 1px solid #333;
-            transition: transform 0.2s ease;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .quote-card:hover {
             transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .quote-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
         }
 
         .quote-title {
             font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: 600;
             color: var(--text-color);
+            letter-spacing: 0.3px;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            background: var(--tag-bg);
+            border-radius: 12px;
+            color: var(--tag-color);
+            font-weight: 500;
+            white-space: nowrap;
             letter-spacing: 0.3px;
         }
 
@@ -190,6 +218,9 @@
         <select id="title-filter" disabled>
             <option value="">All Titles</option>
         </select>
+        <select id="tag-filter">
+            <option value="">All Tags</option>
+        </select>
     </div>
     
     <div class="quote-container" id="quotes">
@@ -203,6 +234,7 @@
     let references = [];
     let sections = new Set();
     let titles = new Map();
+    let tags = new Map(); // Map to store tag counts
     let savedRefs = JSON.parse(localStorage.getItem('savedRefs') || '[]');
 
     function populateSectionDropdown() {
@@ -230,15 +262,29 @@
             ).join('');
     }
 
+    function populateTagDropdown() {
+        const select = document.getElementById('tag-filter');
+        const sortedTags = [...tags.entries()]
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .filter(([tag]) => tag); // Filter out empty tags
+        
+        select.innerHTML = '<option value="">All Tags</option>' + 
+            sortedTags.map(([tag, count]) => 
+                `<option value="${tag}">${tag} (${count})</option>`
+            ).join('');
+    }
+
     function renderReferences() {
         const container = document.getElementById('quotes');
         const sectionFilter = document.getElementById('section-filter').value;
         const titleFilter = document.getElementById('title-filter').value;
+        const tagFilter = document.getElementById('tag-filter').value;
 
         let filteredRefs = references.filter(ref => {
             const matchesSection = !sectionFilter || ref.section === sectionFilter;
             const matchesTitle = !titleFilter || ref.title === titleFilter;
-            return matchesSection && matchesTitle;
+            const matchesTag = !tagFilter || ref.tag === tagFilter;
+            return matchesSection && matchesTitle && matchesTag;
         });
 
         if (filteredRefs.length === 0) {
@@ -254,7 +300,10 @@
             const isSaved = savedRefs.includes(ref.id);
             return `
                 <div class="quote-card" data-id="${ref.id}">
-                    <div class="quote-title">${ref.title}</div>
+                    <div class="quote-header">
+                        <div class="quote-title">${ref.title}</div>
+                        ${ref.tag ? `<span class="tag">${ref.tag}</span>` : ''}
+                    </div>
                     <div class="quote-text">${ref.text}</div>
                     <div class="quote-meta">
                         <span>${ref.section}</span>
@@ -286,6 +335,7 @@
     });
 
     document.getElementById('title-filter').addEventListener('change', renderReferences);
+    document.getElementById('tag-filter').addEventListener('change', renderReferences);
 
     // Fetch and process TSV
     fetch('ref.tsv')
@@ -299,7 +349,7 @@
                 references = lines.slice(1)
                     .filter(line => line.trim())
                     .map((line, index) => {
-                        const [section, title, text] = line.split('\t').map(val => val?.trim() || '');
+                        const [section, title, text, tag] = line.split('\t').map(val => val?.trim() || '');
                         
                         sections.add(section);
                         if (!titles.has(section)) {
@@ -307,15 +357,22 @@
                         }
                         titles.get(section).add(title);
 
+                        // Count tags
+                        if (tag) {
+                            tags.set(tag, (tags.get(tag) || 0) + 1);
+                        }
+
                         return {
                             id: `ref-${index}`,
                             section,
                             title,
-                            text
+                            text,
+                            tag
                         };
                     });
 
                 populateSectionDropdown();
+                populateTagDropdown();
                 renderReferences();
             } catch (error) {
                 console.error('Error parsing TSV:', error);
@@ -331,8 +388,8 @@
             document.getElementById('quotes').innerHTML = `
                 <div class="empty-state">
                     <p>Could not load references. Please check your connection.</p>
-                    </div>
-                `;
+                </div>
+            `;
         });
 
     window.toggleSave = toggleSave;
