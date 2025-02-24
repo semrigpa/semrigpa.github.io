@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mā Vāṇi</title>
+    <style>
+        :root {
+            --primary-color: #FF6EB4;
+            --bg-color: #FFE5EB;
+            --card-bg: #FFFFFF;
+            --text-color: #333;
+            --secondary-text: #666;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            touch-action: pan-x pan-y;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: var(--secondary-text);
+            font-weight: normal;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .info-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-box, select {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            flex: 1;
+            min-width: 0;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-box:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 110, 180, 0.2);
+        }
+
+        select {
+            min-width: 120px;
+            flex: 0 1 auto;
+            -webkit-tap-highlight-color: transparent;
+            background-color: white;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            appearance: none;
+        }
+
+        .quote-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .quote-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quote-meta {
+            font-size: 14px;
+            color: var(--secondary-text);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .highlight {
+            background-color: rgba(255, 235, 59, 0.5);
+            border-radius: 2px;
+            padding: 0 3px;
+        }
+
+        .theme-tag {
+            background: #f3f4f6;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: inline-block;
+            color: var(--secondary-text);
+        }
+
+        .save-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .save-button:hover {
+            color: var(--primary-color);
+        }
+
+        .saved {
+            color: var(--primary-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--secondary-text);
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            grid-column: 1 / -1;
+        }
+
+        .saved-container {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .saved-heading {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .saved-heading h3 {
+            margin: 0;
+        }
+
+        .clear-saved {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        .view-toggle {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        .view-toggle:hover {
+            background-color: #ff4da1;
+        }
+
+        .view-toggle-icon {
+            font-size: 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .search-box, select {
+                width: 100%;
+            }
+            
+            .quote-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mā Vāṇi</h1>
+        <h2>🌸 Oṃ Mā Śrī Mā Jai Jai Mā 🌸</h2>
+    </header>
+
+    <button class="info-button" id="info-button">ℹ️</button>
+    
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <button class="close-button" id="close-modal">✕</button>
+            <h3>About Mā Vāṇi</h3>
+            <p>Mā Vāṇi is a collection of spiritual teachings from <b>Śrī Śrī Ānandamayī Mā</b>. This application allows you to search and filter through these valuable insights.</p>
+            <p>Use the search box to find specific words or phrases, and use the dropdown filters to narrow down by theme, source, or number.</p>
+            <p>You can save your favorite quotes by clicking the heart icon, and they will be stored in your browser for future visits.</p>
+            <p>Click the "View Favorites" button to show only your saved quotes, or "View All" to return to the complete collection.</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <input type="text" class="search-box" placeholder="Search quotes..." id="search-box">
+        <select id="theme-filter">
+            <option value="">All Themes</option>
+        </select>
+        <select id="source-filter">
+            <option value="">All Sources</option>
+        </select>
+        <select id="number-filter">
+            <option value="">All Numbers</option>
+        </select>
+        <button id="view-toggle" class="view-toggle">
+            <span class="view-toggle-icon">❤️</span>
+            <span id="toggle-text">View Favorites</span>
+        </button>
+    </div>
+    
+    <div class="quote-container" id="quotes">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading quotes...</p>
+        </div>
+    </div>
+
+ 
+            
+  <script>
+    let quotes = [];
+    let themes = new Set();
+    let sources = new Set();
+    let numbers = new Set();
+    let savedQuotes = JSON.parse(localStorage.getItem('savedQuotes') || '[]');
+    let currentQuotes = [];
+    let viewingFavorites = false;
+
+    // Prevent zooming
+    document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    // Handle dropdowns and click outside to blur
+    document.addEventListener('click', function(event) {
+        if (!event.target.matches('input, select')) {
+            document.activeElement.blur();
+        }
+    });
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('change', function() {
+            this.blur();
+        });
+    });
+
+    // Info modal
+    const infoButton = document.getElementById('info-button');
+    const infoModal = document.getElementById('info-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    infoButton.addEventListener('click', () => {
+        infoModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+        infoModal.style.display = 'none';
+    });
+
+    infoModal.addEventListener('click', (e) => {
+        if (e.target === infoModal) {
+            infoModal.style.display = 'none';
+        }
+    });
+
+    // Save/unsave quote
+    function toggleSave(quoteId) {
+        const index = savedQuotes.findIndex(id => id === quoteId);
+        
+        if (index > -1) {
+            savedQuotes.splice(index, 1);
+        } else {
+            savedQuotes.push(quoteId);
+        }
+        
+        localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+        renderQuotes();
+    }
+
+    // Toggle between all quotes and favorites
+    document.getElementById('view-toggle').addEventListener('click', () => {
+        viewingFavorites = !viewingFavorites;
+        const toggleButton = document.getElementById('view-toggle');
+        const toggleText = document.getElementById('toggle-text');
+        
+        if (viewingFavorites) {
+            toggleText.textContent = 'View All';
+            toggleButton.querySelector('.view-toggle-icon').textContent = '📚';
+        } else {
+            toggleText.textContent = 'View Favorites';
+            toggleButton.querySelector('.view-toggle-icon').textContent = '❤️';
+        }
+        
+        renderQuotes();
+    });
+
+    // Fetch and parse TSV with improved error handling
+    fetch('vani.tsv')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            try {
+                // Parse TSV
+                const lines = data.split('\n');
+                const headers = lines[0].split('\t');
+
+                // Create a map to count quotes per theme
+                const themeCounts = new Map();
+
+                quotes = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+                    const values = line.split('\t');
+                    const quote = {
+                        id: `quote-${index}`,
+                        theme: values[0]?.trim() || 'Unknown',
+                        source: values[1]?.trim() || 'Unknown',
+                        number: values[2]?.trim() || 'Unknown',
+                        quote: values[3]?.trim() || 'No content available'
+                    };
+
+                    // Update theme count
+                    if (themeCounts.has(quote.theme)) {
+                        themeCounts.set(quote.theme, themeCounts.get(quote.theme) + 1);
+                    } else {
+                        themeCounts.set(quote.theme, 1);
+                    }
+
+                    themes.add(quote.theme);
+                    sources.add(quote.source);
+                    numbers.add(quote.number);
+
+                    return quote;
+                });
+
+                // Sort quotes by number
+                quotes.sort((a, b) => {
+                    const numA = parseInt(a.number, 10) || 0;
+                    const numB = parseInt(b.number, 10) || 0;
+                    return numA - numB;
+                });
+
+                // Populate filter dropdowns
+                populateDropdown('theme-filter', themes, themeCounts);
+                populateDropdown('source-filter', sources);
+                populateDropdown('number-filter', numbers);
+
+                // Initial render
+                renderQuotes();
+            } catch (error) {
+                console.error('Error parsing TSV data:', error);
+                document.getElementById('quotes').innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading quotes. Please try again later.</p>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching TSV file:', error);
+            document.getElementById('quotes').innerHTML = `
+                <div class="empty-state">
+                    <p>Could not load quotes. Please check your internet connection and try again.</p>
+                </div>
+            `;
+        });
+
+    // Updated populateDropdown function to include counts
+    function populateDropdown(id, values, counts) {
+        const select = document.getElementById(id);
+        const sortedValues = [...values].sort();
+        const fragment = document.createDocumentFragment();
+
+        sortedValues.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            // Include count in the option text if counts are provided
+            if (counts && counts.has(value)) {
+                option.textContent = `${value} (${counts.get(value)})`;
+            } else {
+                option.textContent = value;
+            }
+            fragment.appendChild(option);
+        });
+
+        select.appendChild(fragment);
+    }
+
+    function highlightText(text, searchTerm) {
+        if (!searchTerm) return text;
+        const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    function renderQuotes() {
+        const container = document.getElementById('quotes');
+        const searchTerm = document.getElementById('search-box').value.toLowerCase();
+        const themeFilter = document.getElementById('theme-filter').value;
+        const sourceFilter = document.getElementById('source-filter').value;
+        const numberFilter = document.getElementById('number-filter').value;
+
+        let filteredQuotes = quotes.filter(quote => {
+            const matchesSearch = !searchTerm || 
+                quote.quote.toLowerCase().includes(searchTerm) ||
+                quote.theme.toLowerCase().includes(searchTerm) ||
+                quote.source.toLowerCase().includes(searchTerm);
+            
+            const matchesTheme = !themeFilter || quote.theme === themeFilter;
+            const matchesSource = !sourceFilter || quote.source === sourceFilter;
+            const matchesNumber = !numberFilter || quote.number === numberFilter;
+
+            return matchesSearch && matchesTheme && matchesSource && matchesNumber;
+        });
+
+        // Filter by favorites if viewing favorites is active
+        if (viewingFavorites) {
+            filteredQuotes = filteredQuotes.filter(quote => savedQuotes.includes(quote.id));
+        }
+
+        currentQuotes = filteredQuotes;
+
+        if (filteredQuotes.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <p>${viewingFavorites ? 
+                        'No saved quotes found matching your criteria. Try saving some quotes first or adjust your filters.' : 
+                        'No quotes found matching your criteria. Try adjusting your search or filters.'}</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = filteredQuotes.map(quote => {
+            const isSaved = savedQuotes.includes(quote.id);
+            return `
+                <div class="quote-card" data-id="${quote.id}">
+                    <div class="theme-tag">${quote.theme}</div>
+                    <div class="quote-text">${highlightText(quote.quote, searchTerm)}</div>
+                    <div class="quote-meta">
+                        <span>${quote.source}, ${quote.number}</span>
+                    </div>
+                    <button class="save-button ${isSaved ? 'saved' : ''}" 
+                            onclick="toggleSave('${quote.id}')">
+                        ${isSaved ? '❤️' : '🤍'}
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Event listeners with debounce for search
+    document.getElementById('search-box').addEventListener('input', 
+        debounce(renderQuotes, 300));
+    document.getElementById('theme-filter').addEventListener('change', renderQuotes);
+    document.getElementById('source-filter').addEventListener('change', renderQuotes);
+    document.getElementById('number-filter').addEventListener('change', renderQuotes);
+
+    // Make toggle save function available in global scope
+    window.toggleSave = toggleSave;
+</script>      
+</body>
+</html>
