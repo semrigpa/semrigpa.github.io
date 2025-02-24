@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "name": "Semrigpa",
+  "short_name": "Semrigpa",
+  "display": "fullscreen",
+  "background_color": "#F8F8F2",
+  "theme_color": "#0D47A1",
+  "orientation": "portrait",
+  "description": "",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "productivity",
+    "reference",
+    "utilities"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
