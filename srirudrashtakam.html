@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Śrī Rudrāṣṭakam</title>
+    <style>
+        :root {
+            --primary-color: #0D47A1; /* Deep Shiva Blue */
+            --accent-color: #FFC107; /* Vibrant Gold accent */
+            --bg-color: #E8EAF6; /* Light blue background */
+            --card-bg: #FFFFFF;
+            --text-color: #333;
+            --secondary-text: #555;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L50 0M50 50L100 50M50 50L50 100M50 50L0 50' stroke='%230D47A122' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 20px 20px;
+            touch-action: pan-x pan-y;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-decoration {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--secondary-text);
+            font-weight: normal;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .info-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+
+        select {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            min-width: 200px;
+            outline: none;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+            background-color: white;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            appearance: none;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.2);
+        }
+
+        .verse-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .verse-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .verse-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .verse-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .sanskrit-text {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--primary-color);
+            line-height: 1.5;
+        }
+
+        .iast-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: var(--secondary-text);
+        }
+
+        .literal-text {
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .meaning {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .meaning-label {
+            font-size: 12px;
+            color: var(--secondary-text);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .meaning-text {
+            font-size: 15px;
+            position: relative;
+            background-color: rgba(232, 234, 246, 0.2);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .links {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .link-item {
+            font-size: 13px;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 4px 10px;
+            border: 1px solid var(--primary-color);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .link-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .om-symbol {
+            display: inline-block;
+            font-size: 22px;
+            color: var(--primary-color);
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--secondary-text);
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            grid-column: 1 / -1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            select {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .verse-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            opacity: 0.7;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0a3b82;
+        }
+
+        /* Trishul icon for bullet points */
+        ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        ul li::before {
+            content: "🔱";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-decoration"></div>
+        <h1>Śrī Rudrāṣṭakam</h1>
+        <h2><span class="om-symbol">🕉️</span> महादेवाय नमः <span class="om-symbol">🕉️</span></h2>
+    </header>
+
+    <button class="info-button" id="info-button">ℹ️</button>
+    
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <button class="close-button" id="close-modal">✕</button>
+            <h3>About Śrī Rudrāṣṭakam</h3>
+            <p>The Rudrashtakam is a sacred hymn dedicated to Lord Shiva (Rudra). It consists of eight verses that praise the various aspects of Lord Shiva.</p>
+            <p>This application allows you to explore these powerful Sanskrit verses with their translations and meanings.</p>
+            <p>Use the dropdown menus to filter by verse number and line to find specific content.</p>
+            <p>Each card shows:</p>
+            <ul>
+                <li>The original Sanskrit text in Devanagari</li>
+                <li>IAST transliteration</li>
+                <li>Word-by-word literal meaning</li>
+                <li>Two different translations (literal and poetic)</li>
+                <li>Links to resources for further study</li>
+            </ul>
+            <p><em>ॐ नमः शिवाय</em> — Om Namah Shivaya</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <select id="verse-filter">
+            <option value="">All Verses</option>
+        </select>
+        <select id="line-filter">
+            <option value="">All Lines</option>
+        </select>
+    </div>
+    
+    <div class="verse-container" id="verses">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading verses...</p>
+        </div>
+    </div>
+
+    <script>
+        let verses = [];
+        let verseNumbers = new Set();
+        let lineNumbers = new Set();
+
+        // Prevent zooming
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle dropdowns and click outside to blur
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('select')) {
+                document.activeElement.blur();
+            }
+        });
+
+        const inputs = document.querySelectorAll('select');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                this.blur();
+            });
+        });
+
+        // Info modal
+        const infoButton = document.getElementById('info-button');
+        const infoModal = document.getElementById('info-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        infoButton.addEventListener('click', () => {
+            infoModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+
+        // Function to parse TSV data
+        function parseTSV(tsvData) {
+            const rows = tsvData.trim().split('\n');
+            const headers = rows[0].split('\t');
+            
+            return rows.slice(1).map(row => {
+                const values = row.split('\t');
+                const entry = {};
+                
+                headers.forEach((header, index) => {
+                    entry[header] = values[index] || '';
+                });
+                
+                return entry;
+            });
+        }
+
+        // Load TSV data
+        async function loadData() {
+            try {
+                const response = await fetch('rudrashtakam.tsv');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+                }
+                
+                const tsvData = await response.text();
+                verses = parseTSV(tsvData);
+                
+                // Extract unique verse and line numbers
+                verses.forEach(verse => {
+                    if (verse.Verse) verseNumbers.add(verse.Verse);
+                    if (verse.Line) lineNumbers.add(verse.Line);
+                });
+                
+                // Populate filter dropdowns
+                populateDropdown('verse-filter', verseNumbers);
+                populateDropdown('line-filter', lineNumbers);
+                
+                // Initial render
+                renderVerses();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('verses').innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading verses: ${error.message}</p>
+                        <p>Please ensure the file "rudrashtakam.tsv" is in the correct location.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function populateDropdown(id, values) {
+            const select = document.getElementById(id);
+            const sortedValues = [...values].sort((a, b) => parseInt(a) - parseInt(b));
+            const fragment = document.createDocumentFragment();
+
+            sortedValues.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = id === 'verse-filter' ? `Verse ${value}` : `Line ${value}`;
+                fragment.appendChild(option);
+            });
+
+            select.appendChild(fragment);
+        }
+
+        function renderVerses() {
+            const container = document.getElementById('verses');
+            const verseFilter = document.getElementById('verse-filter').value;
+            const lineFilter = document.getElementById('line-filter').value;
+
+            let filteredVerses = verses.filter(verse => {
+                const matchesVerse = !verseFilter || verse.Verse === verseFilter;
+                const matchesLine = !lineFilter || verse.Line === lineFilter;
+                return matchesVerse && matchesLine;
+            });
+
+            if (filteredVerses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No verses found matching your criteria. Try adjusting your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredVerses.map(verse => {
+                // Process links (if they exist)
+                let linkItems = '';
+                if (verse.Links) {
+                    linkItems = verse.Links.split(',').map(link => {
+                        try {
+                            const url = new URL(link);
+                            return `<a href="${link}" class="link-item" target="_blank">${url.pathname.split('/').pop()}</a>`;
+                        } catch (e) {
+                            // If link is not a valid URL
+                            return `<a href="${link}" class="link-item" target="_blank">${link}</a>`;
+                        }
+                    }).join('');
+                }
+
+                return `
+                    <div class="verse-card">
+                        <div class="verse-number">Verse ${verse.Verse}, Line ${verse.Line}</div>
+                        <div class="sanskrit-text">${verse.Sanskrit}</div>
+                        <div class="iast-text">${verse.IAST}</div>
+                        <div class="literal-text">${verse.Literal}</div>
+                        
+                        <div class="meaning">
+                            <div class="meaning-label">Literal Translation:</div>
+                            <div class="meaning-text">${verse.Meaning1}</div>
+                        </div>
+                        
+                        <div class="meaning">
+                            <div class="meaning-label">Poetic Translation:</div>
+                            <div class="meaning-text">${verse.Meaning2}</div>
+                        </div>
+                        
+                        <div class="links">
+                            ${linkItems}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Event listeners for filters
+        document.getElementById('verse-filter').addEventListener('change', renderVerses);
+        document.getElementById('line-filter').addEventListener('change', renderVerses);
+
+        // Initialize the app
+        loadData();
+    </script>      
+</body>
+</html>ĺ
