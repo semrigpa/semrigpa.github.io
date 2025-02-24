@@ -439,7 +439,7 @@
                 <li>IAST transliteration</li>
                 <li>Word-by-word literal meaning</li>
                 <li>Two different translations (literal and poetic)</li>
-                <li>Links to resources for further study (click the "Show Links" button)</li>
+                <li>Links to resources for further study (click the "Show References" button)</li>
             </ul>
             <p><em>ॐ नमः शिवाय</em> — Om Namah Shivaya</p>
         </div>
@@ -529,12 +529,15 @@
             const rows = tsvData.trim().split('\n');
             const headers = rows[0].split('\t');
             
+            // Log headers for debugging
+            console.log("Headers detected:", headers);
+            
             return rows.slice(1).map(row => {
                 const values = row.split('\t');
                 const entry = {};
                 
                 headers.forEach((header, index) => {
-                    // Make sure to handle all columns including Links (which may be the last column)
+                    // Make sure to handle all columns including Links
                     entry[header] = values[index] !== undefined ? values[index] : '';
                 });
                 
@@ -546,7 +549,6 @@
         function toggleLinks(event) {
             const button = event.currentTarget;
             const linksDiv = button.nextElementSibling;
-            const icon = button.querySelector('.toggle-icon');
             
             if (linksDiv.classList.contains('show')) {
                 linksDiv.classList.remove('show');
@@ -577,8 +579,11 @@
                 const tsvData = await response.text();
                 verses = parseTSV(tsvData);
                 
-                // Debug: log the first verse to see if Links are present
-                console.log("First verse data:", verses[0]);
+                // Debug: log the first verse and its structure
+                if (verses.length > 0) {
+                    console.log("First verse data:", verses[0]);
+                    console.log("Available keys:", Object.keys(verses[0]));
+                }
                 
                 // Extract unique verse and line numbers
                 verses.forEach(verse => {
@@ -639,11 +644,16 @@
             }
 
             container.innerHTML = filteredVerses.map(verse => {
-                // Debug: Log each verse to inspect Links
+                // Debug: Check each verse for the Links field
                 console.log(`Verse ${verse.Verse}, Line ${verse.Line}, Links:`, verse.Links);
+                
+                // Fix for using the right Sanskrit field - it could be Sasnkrit or Sanskrit
+                const sanskritField = verse.Sasnkrit || verse.Sanskrit;
                 
                 // Process links (if they exist)
                 let linksSection = '';
+                
+                // First check if Links exists in the verse object directly
                 if (verse.Links && verse.Links.trim()) {
                     const linkItems = verse.Links.split(',').map(link => {
                         const linkTrimmed = link.trim();
@@ -679,7 +689,7 @@
                 return `
                     <div class="verse-card">
                         <div class="verse-number">Verse ${verse.Verse}, Line ${verse.Line}</div>
-                        <div class="sanskrit-text">${verse.Sanskrit}</div>
+                        <div class="sanskrit-text">${sanskritField}</div>
                         <div class="iast-text">${verse.IAST}</div>
                         <div class="literal-text">${verse.Literal}</div>
                         
