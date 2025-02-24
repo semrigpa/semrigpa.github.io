@@ -5,6 +5,13 @@
   "scope": "/rudrashtakam.html",
   "name": "Śrī Rudrāṣṭakam",
   "short_name": "Rudrashtakam",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "display": "fullscreen",
   "background_color": "#F8F8F2",
   "theme_color": "#0D47A1",
