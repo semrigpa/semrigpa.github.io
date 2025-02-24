@@ -190,7 +190,6 @@
             padding: 3px 10px;
             border-radius: 12px;
             font-family: 'Open Sans', sans-serif;
-            z-index: 1; /* Ensure it's above other content */
         }
 
         .sanskrit-text {
@@ -200,7 +199,6 @@
             color: var(--primary-color);
             line-height: 1.5;
             font-family: 'Noto Sans Devanagari', sans-serif;
-            padding-right: 60px; /* Make space for the verse number tag */
         }
 
         .iast-text {
@@ -237,11 +235,50 @@
             border-radius: 4px;
         }
 
-        .links {
-            margin-top: 20px;
+        .links-container {
+            margin-top: 15px;
+            border-top: 1px dashed #eee;
+            padding-top: 15px;
+        }
+
+        .links-toggle {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            cursor: pointer;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: var(--transition);
+            margin-bottom: 10px;
+        }
+
+        .links-toggle:hover {
+            background-color: #083a8c;
+        }
+
+        .links-toggle .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .links {
+            display: none;
             gap: 10px;
             flex-wrap: wrap;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .links.show {
+            display: flex;
         }
 
         .link-item {
@@ -295,6 +332,12 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .no-links {
+            font-size: 13px;
+            color: var(--secondary-text);
+            font-style: italic;
         }
 
         @media (max-width: 768px) {
@@ -396,7 +439,7 @@
                 <li>IAST transliteration</li>
                 <li>Word-by-word literal meaning</li>
                 <li>Two different translations (literal and poetic)</li>
-                <li>Links to resources for further study</li>
+                <li>Links to resources for further study (click the "Show Links" button)</li>
             </ul>
             <p><em>ॐ नमः शिवाय</em> — Om Namah Shivaya</p>
         </div>
@@ -498,6 +541,31 @@
             });
         }
 
+        // Toggle links visibility
+        function toggleLinks(event) {
+            const button = event.currentTarget;
+            const linksDiv = button.nextElementSibling;
+            const icon = button.querySelector('.toggle-icon');
+            
+            if (linksDiv.classList.contains('show')) {
+                linksDiv.classList.remove('show');
+                button.textContent = 'Show References ↓';
+                button.innerHTML = 'Show References <span class="toggle-icon">↓</span>';
+            } else {
+                linksDiv.classList.add('show');
+                button.textContent = 'Hide References ↑';
+                button.innerHTML = 'Hide References <span class="toggle-icon">↑</span>';
+            }
+        }
+
+        // Add event listeners for links toggle buttons
+        function addToggleListeners() {
+            const toggleButtons = document.querySelectorAll('.links-toggle');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', toggleLinks);
+            });
+        }
+
         // Load TSV data
         async function loadData() {
             try {
@@ -570,27 +638,33 @@
 
             container.innerHTML = filteredVerses.map(verse => {
                 // Process links (if they exist)
-                let linkItems = '';
-                if (verse.Links) {
-                    const links = verse.Links.split(',').map(link => link.trim());
-                    
-                    linkItems = links.map(link => {
-                        // Check if it's a valid URL
-                        let linkText;
+                let linksSection = '';
+                if (verse.Links && verse.Links.trim()) {
+                    const linkItems = verse.Links.split(',').map(link => {
                         try {
-                            const url = new URL(link);
-                            // Extract a meaningful name from the URL
-                            linkText = url.hostname.replace('www.', '') + url.pathname.split('/').pop();
-                            if (linkText.length > 20) {
-                                linkText = linkText.substring(0, 20) + '...';
-                            }
+                            const linkTrimmed = link.trim();
+                            const url = new URL(linkTrimmed);
+                            return `<a href="${linkTrimmed}" class="link-item" target="_blank">${url.pathname.split('/').pop() || url.hostname}</a>`;
                         } catch (e) {
-                            // If it's not a valid URL, use the link text as is
-                            linkText = link;
+                            // If link is not a valid URL
+                            return `<a href="${link.trim()}" class="link-item" target="_blank">${link.trim()}</a>`;
                         }
-                        
-                        return `<a href="${link}" class="link-item" target="_blank">${linkText}</a>`;
                     }).join('');
+                    
+                    linksSection = `
+                        <div class="links-container">
+                            <button class="links-toggle">Show References <span class="toggle-icon">↓</span></button>
+                            <div class="links">
+                                ${linkItems}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    linksSection = `
+                        <div class="links-container">
+                            <div class="no-links">No references available for this verse</div>
+                        </div>
+                    `;
                 }
 
                 return `
@@ -610,10 +684,13 @@
                             <div class="meaning-text">${verse.Meaning2}</div>
                         </div>
                         
-                        ${linkItems ? `<div class="links">${linkItems}</div>` : ''}
+                        ${linksSection}
                     </div>
                 `;
             }).join('');
+
+            // Add event listeners to toggle buttons
+            addToggleListeners();
         }
 
         // Event listeners for filters
