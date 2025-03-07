@@ -12,262 +12,181 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #fafafa;
+            background-color: #f5f5f7;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
-            color: #333;
+            padding: 20px 16px;
+            color: #1d1d1f;
         }
 
-        .menu-container {
-            width: 92%;
-            max-width: 550px;
-            position: relative;
-            z-index: 2;
+        .app-header {
+            width: 100%;
+            max-width: 540px;
+            padding: 15px 0;
+            margin-bottom: 20px;
         }
 
-        .menu-title {
+        .app-title {
             text-align: center;
-            margin-bottom: 1.8rem;
-            color: #333;
-            font-size: 1.6rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-size: 32px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 5px;
         }
 
-        .divine-menu {
+        .app-subtitle {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 400;
+            color: #86868b;
+            margin-bottom: 20px;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 540px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .menu-btn {
-            position: relative;
-            height: 140px;
-            border-radius: 8px;
-            overflow: hidden;
-            text-decoration: none;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            background-position: center;
-            background-size: cover;
+        .app-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
-        .menu-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .menu-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-
-        .menu-btn.maa::before {
-            background: linear-gradient(135deg, rgba(255, 204, 213, 0.95) 0%, rgba(219, 112, 147, 0.95) 100%);
-        }
-
-        .menu-btn.shiva::before {
-            background: linear-gradient(135deg, rgba(176, 196, 222, 0.95) 0%, rgba(70, 130, 180, 0.95) 100%);
-        }
-
-        .menu-btn-content {
-            height: 100%;
-            width: 100%;
+        .card-banner {
+            height: 120px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2rem;
-            z-index: 2;
-            position: relative;
-            color: #fff;
+            justify-content: center;
         }
 
-        .deity-info {
+        .pink-gradient {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        .blue-gradient {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .purple-gradient {
+            background: linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);
+        }
+
+        .icon-container {
+            height: 70px;
+            width: 70px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .card-content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
             flex: 1;
         }
 
-        .menu-btn-title {
-            font-size: 1.5rem;
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 6px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #86868b;
+            line-height: 1.4;
+        }
+
+        .get-button {
+            margin-top: 12px;
+            align-self: flex-start;
+            background: #e8e8ed;
+            color: #0066cc;
+            font-size: 14px;
             font-weight: 500;
-            letter-spacing: 1px;
-            margin-bottom: 0.6rem;
-            text-transform: capitalize;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
         }
 
-        .menu-btn-desc {
-            font-size: 0.85rem;
-            opacity: 0.95;
-            font-weight: 300;
-            max-width: 80%;
-        }
-
-        .deity-icon {
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 60px;
-            width: 60px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            color: #fff;
-            margin-left: 1rem;
-        }
-
-        /* Subtle decorative element */
-        .decorative-border {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            opacity: 0.2;
-            z-index: 2;
-        }
-
-        .decorative-border::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            height: 100%;
-            width: 3px;
-        }
-
-        .maa .decorative-border::before {
-            background: #f8bbd0;
-            box-shadow: 0 0 10px rgba(248, 187, 208, 0.5);
-        }
-
-        .shiva .decorative-border::before {
-            background: #bbdefb;
-            box-shadow: 0 0 10px rgba(187, 222, 251, 0.5);
-        }
-
-        /* Subtle dot pattern background */
-        .background-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-            z-index: 0;
-        }
-
-        @media (min-width: 768px) {
-            .divine-menu {
-                flex-direction: row;
-            }
-
-            .menu-btn {
-                flex: 1;
+        @media (min-width: 540px) {
+            .app-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
-
-        @media (max-width: 480px) {
-            .menu-btn {
-                height: 120px;
-            }
-
-            .menu-btn-content {
-                padding: 1rem 1.5rem;
-            }
-
-            .menu-title {
-                font-size: 1.4rem;
-            }
-
-            .menu-btn-title {
-                font-size: 1.2rem;
-            }
-            
-            .deity-icon {
-                height: 50px;
-                width: 50px;
-                font-size: 1.5rem;
-            }
-        }
-.menu-btn.misc::before {
-    background: linear-gradient(135deg, rgba(144, 238, 144, 0.95) 0%, rgba(50, 205, 50, 0.95) 100%);
-}
-
-.misc .decorative-border::before {
-    background: #90ee90;
-    box-shadow: 0 0 10px rgba(144, 238, 144, 0.5);
-}
     </style>
 </head>
 <body>
-    <!-- Subtle background pattern -->
-    <div class="background-pattern"></div>
-
-    <!-- Main menu container -->
-    <div class="menu-container">
-        <h1 class="menu-title">Semrigpa</h1>
-        
-        <div class="divine-menu">
-            <!-- Maa/Goddess Button -->
-            <a href="mavani.html" class="menu-btn maa">
-                <div class="decorative-border"></div>
-                <div class="menu-btn-content">
-                    <div class="deity-info">
-                        <h2 class="menu-btn-title">Mā Vāṇi</h2>
-                        <p class="menu-btn-desc">Your spiritual gateway to the profound teachings of Śrī Śrī Ānandamayī Mā</p>
-                    </div>
-                    <div class="deity-icon">
-                        <span>🌸</span>
-                    </div>
-                </div>
-            </a>
-            
-            <!-- Lord Shiva Button -->
-            <a href="rudrashtakam.html" class="menu-btn shiva">
-                <div class="decorative-border"></div>
-                <div class="menu-btn-content">
-                    <div class="deity-info">
-                        <h2 class="menu-btn-title">Śrī Rudrāṣṭakam</h2>
-                        <p class="menu-btn-desc">A Mantra-Meditation on the True Nature of Reality</p>
-                    </div>
-                    <div class="deity-icon">
-                        <span>🔱</span>
-                    </div>
-                </div>
-            </a>
-
-<!-- Misc Writings Button
-<a href="misc-writings.html" class="menu-btn misc">
-    <div class="decorative-border"></div>
-    <div class="menu-btn-content">
-        <div class="deity-info">
-            <h2 class="menu-btn-title">Misc Writings</h2>
-            <p class="menu-btn-desc">Collection of abandoned writings and projects</p>
-        </div>
-        <div class="deity-icon">
-            <span>✍</span>
-        </div>
+    <div class="app-header">
+        <h1 class="app-title">Semrigpa</h1>
+        <p class="app-subtitle">Spiritual Teachings</p>
     </div>
-</a>
--->
-
-        </div>
+    
+    <div class="app-grid">
+        <a href="mavani.html" class="app-card">
+            <div class="card-banner pink-gradient">
+                <div class="icon-container">
+                    <span>🌸</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">Mā Vāṇi</h2>
+                <p class="card-description">Your spiritual gateway to the profound teachings of Śrī Śrī Ānandamayī Mā</p>
+                <div class="get-button">Open</div>
+            </div>
+        </a>
+        
+        <a href="rudrashtakam.html" class="app-card">
+            <div class="card-banner blue-gradient">
+                <div class="icon-container">
+                    <span>🔱</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">Śrī Rudrāṣṭakam</h2>
+                <p class="card-description">A Mantra-Meditation on the True Nature of Reality</p>
+                <div class="get-button">Open</div>
+            </div>
+        </a>
+        
+        <a href="new_manmino.html" class="app-card">
+            <div class="card-banner purple-gradient">
+                <div class="icon-container">
+                    <span>🙌</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title">Kotan Hiskuntsa</h2>
+                <p class="card-description">Jama ye Pien Lalu</p>
+                <div class="get-button">Open</div>
+            </div>
+        </a>
     </div>
 </body>
 </html>
