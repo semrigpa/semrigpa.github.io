@@ -106,12 +106,18 @@
                     item.addEventListener('click',function(){
                         const theme=this.getAttribute('data-theme');
                         
+                        const currentQuery = searchInput.value.trim();
+                        
                         if(activeTheme === theme) {
                             // If clicking the same theme, deselect it
                             activeTheme = '';
                             this.classList.remove('active');
-                            searchInput.value = '';
-                            displayResults(dictionaryData);
+                            // Don't clear search input and use current query for search
+                            if(currentQuery) {
+                                searchDictionary(currentQuery);
+                            } else {
+                                displayResults(dictionaryData);
+                            }
                         } else {
                             // Select new theme
                             activeTheme = theme;
@@ -119,7 +125,20 @@
                                 el.classList.remove('active');
                             });
                             this.classList.add('active');
-                            filterByTheme(theme);
+                            
+                            // Filter by theme first
+                            const themeFiltered = dictionaryData.filter(item=>item.theme === theme);
+                            
+                            // Then apply search query if it exists
+                            if(currentQuery) {
+                                const searchFiltered = themeFiltered.filter(item => 
+                                    item.iskunsa.toLowerCase().includes(currentQuery.toLowerCase()) || 
+                                    item.definition.toLowerCase().includes(currentQuery.toLowerCase())
+                                );
+                                displayResults(searchFiltered, currentQuery);
+                            } else {
+                                displayResults(themeFiltered);
+                            }
                         }
                     });
                 });
