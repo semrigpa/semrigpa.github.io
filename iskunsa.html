@@ -6,229 +6,30 @@
     <title>Iskunsa Dictionary</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
-        /* iOS-inspired styling with automatic dark/light mode */
-        :root {
-            --ios-blue: #007AFF;
-            --ios-light-gray: #F2F2F7;
-            --ios-border: #C5C5C7;
-            --ios-text: #000000;
-            --ios-secondary: #8E8E93;
-            --background: #FFFFFF;
-            --card-bg: #F8F8F8;
-            --shadow: rgba(0,0,0,0.1);
-        }
-        
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --ios-blue: #0A84FF;
-                --ios-light-gray: #1C1C1E;
-                --ios-border: #38383A;
-                --ios-text: #FFFFFF;
-                --ios-secondary: #8E8E93;
-                --background: #000000;
-                --card-bg: #1C1C1E;
-                --shadow: rgba(255,255,255,0.1);
-            }
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        
-        body {
-            background-color: var(--background);
-            color: var(--ios-text);
-            font-size: 16px;
-            line-height: 1.3;
-            -webkit-text-size-adjust: 100%;
-            padding-bottom: 30px;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 10px;
-        }
-        
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: var(--background);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--ios-border);
-            padding: 8px 0;
-        }
-        
-        .title-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 8px;
-        }
-        
-        .back-button {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--ios-blue);
-            text-decoration: none;
-            border-radius: 50%;
-        }
-        
-        .title {
-            font-size: 17px;
-            font-weight: 600;
-            text-align: center;
-            background: linear-gradient(to right, 
-                #FF0000, #FF7F00, #FFFF00, 
-                #00FF00, #0000FF, #4B0082, #8B00FF);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-        
-        .search-container {
-            position: relative;
-            margin-bottom: 8px;
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--ios-secondary);
-            font-size: 14px;
-        }
-        
-        .clear-button {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: var(--ios-secondary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 8px 28px;
-            border-radius: 10px;
-            border: none;
-            background-color: var(--ios-light-gray);
-            font-size: 16px;
-            outline: none;
-            color: var(--ios-text);
-        }
-        
-        .letter-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 8px;
-            justify-content: center;
-        }
-        
-        .letter-item {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--card-bg);
-            border-radius: 6px;
-            border: 1px solid var(--ios-border);
-            font-weight: 500;
-            color: var(--ios-text);
-            font-size: 14px;
-        }
-        
-        .letter-item.active {
-            background-color: var(--ios-blue);
-            color: white;
-            border-color: var(--ios-blue);
-        }
-        
-        .dictionary-item {
-            margin-bottom: 8px;
-            padding: 10px 12px;
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 1px 2px var(--shadow);
-        }
-        
-        .iskunsa {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 2px;
-            background: linear-gradient(to right, 
-                #FF0000, #FF7F00, #FFFF00, 
-                #00FF00, #0000FF, #4B0082, #8B00FF);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-        
-        .pos {
-            color: var(--ios-blue);
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-        
-        .definition {
-            margin-bottom: 4px;
-            font-size: 15px;
-        }
-        
-        .theme {
-            color: var(--ios-secondary);
-            font-size: 13px;
-            font-style: italic;
-        }
-        
-        .no-results {
-            text-align: center;
-            color: var(--ios-secondary);
-            padding: 15px;
-            font-size: 15px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 15px;
-            color: var(--ios-secondary);
-            font-size: 15px;
-        }
-        
-        .highlight {
-            background-color: rgba(255, 255, 0, 0.3);
-            border-radius: 2px;
-            padding: 0 2px;
-        }
+        :root{--ios-blue:#007AFF;--ios-light-gray:#F2F2F7;--ios-border:#C5C5C7;--ios-text:#000000;--ios-secondary:#8E8E93;--background:#FFFFFF;--card-bg:#F8F8F8;--shadow:rgba(0,0,0,0.1);}
+        @media (prefers-color-scheme: dark){:root{--ios-blue:#0A84FF;--ios-light-gray:#1C1C1E;--ios-border:#38383A;--ios-text:#FFFFFF;--ios-secondary:#8E8E93;--background:#000000;--card-bg:#1C1C1E;--shadow:rgba(255,255,255,0.1);}}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+        body{background-color:var(--background);color:var(--ios-text);font-size:16px;line-height:1.3;-webkit-text-size-adjust:100%;padding-bottom:30px;}
+        .container{max-width:600px;margin:0 auto;padding:0 10px;}
+        .header{position:sticky;top:0;z-index:100;background-color:var(--background);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ios-border);padding:8px 0;}
+        .title-bar{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:8px;}
+        .back-button{position:absolute;left:0;top:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;color:var(--ios-blue);text-decoration:none;border-radius:50%;}
+        .title{font-size:17px;font-weight:600;text-align:center;background:linear-gradient(to right,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;}
+        .search-container{position:relative;margin-bottom:8px;}
+        .search-icon{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--ios-secondary);font-size:14px;}
+        .clear-button{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background-color:var(--ios-secondary);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;}
+        .search-input{width:100%;padding:8px 28px;border-radius:10px;border:none;background-color:var(--ios-light-gray);font-size:16px;outline:none;color:var(--ios-text);}
+        .letter-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;justify-content:center;}
+        .letter-item{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background-color:var(--card-bg);border-radius:6px;border:1px solid var(--ios-border);font-weight:500;color:var(--ios-text);font-size:14px;}
+        .letter-item.active{background-color:var(--ios-blue);color:white;border-color:var(--ios-blue);}
+        .dictionary-item{margin-bottom:8px;padding:10px 12px;background-color:var(--card-bg);border-radius:10px;box-shadow:0 1px 2px var(--shadow);}
+        .iskunsa{font-size:18px;font-weight:600;margin-bottom:2px;background:linear-gradient(to right,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;}
+        .pos{color:var(--ios-blue);font-size:13px;margin-bottom:4px;}
+        .definition{margin-bottom:4px;font-size:15px;}
+        .theme{color:var(--ios-secondary);font-size:13px;font-style:italic;}
+        .no-results{text-align:center;color:var(--ios-secondary);padding:15px;font-size:15px;}
+        .loading{text-align:center;padding:15px;color:var(--ios-secondary);font-size:15px;}
+        .highlight{background-color:rgba(255,255,0,0.3);border-radius:2px;padding:0 2px;}
     </style>
 </head>
 <body>
@@ -246,193 +47,97 @@
             <div class="letter-grid" id="letterGrid"></div>
         </div>
     </div>
-    
     <div class="container">
         <div id="loading" class="loading">Loading dictionary...</div>
         <div id="results"></div>
     </div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const clearButton = document.getElementById('clearButton');
-            const resultsContainer = document.getElementById('results');
-            const loadingElement = document.getElementById('loading');
-            const letterGridElement = document.getElementById('letterGrid');
-            
-            let dictionaryData = [];
-            let uniqueLetters = new Set();
-
-            // Function to fetch and parse the TSV file
-            async function loadDictionary() {
-                try {
-                    const response = await window.fs.readFile('dictionary.tsv', { encoding: 'utf8' });
-                    
-                    Papa.parse(response, {
-                        delimiter: '\t',
-                        skipEmptyLines: true,
-                        complete: function(results) {
-                            dictionaryData = results.data.map(row => ({
-                                iskunsa: row[0] || '',
-                                pos: row[1] || '',
-                                definition: row[2] || '',
-                                theme: row[3] || ''
-                            }));
-                            
-                            // Extract unique first letters for the letter grid
-                            dictionaryData.forEach(item => {
-                                if (item.iskunsa) {
-                                    uniqueLetters.add(item.iskunsa.charAt(0).toUpperCase());
-                                }
-                            });
-                            
-                            // Sort the dictionary by the Iskunsa word
-                            dictionaryData.sort((a, b) => a.iskunsa.localeCompare(b.iskunsa));
-                            
-                            // Create letter grid
+        document.addEventListener('DOMContentLoaded',function(){
+            const searchInput=document.getElementById('searchInput');
+            const clearButton=document.getElementById('clearButton');
+            const resultsContainer=document.getElementById('results');
+            const loadingElement=document.getElementById('loading');
+            const letterGridElement=document.getElementById('letterGrid');
+            let dictionaryData=[];
+            let uniqueLetters=new Set();
+            async function loadDictionary(){
+                try{
+                    const response=await fetch('dictionary.tsv');
+                    const data=await response.text();
+                    Papa.parse(data,{
+                        delimiter:'\t',
+                        skipEmptyLines:true,
+                        complete:function(results){
+                            dictionaryData=results.data.map(row=>({iskunsa:row[0]||'',pos:row[1]||'',definition:row[2]||'',theme:row[3]||''}));
+                            dictionaryData.forEach(item=>{if(item.iskunsa){uniqueLetters.add(item.iskunsa.charAt(0).toUpperCase());}});
+                            dictionaryData.sort((a,b)=>a.iskunsa.localeCompare(b.iskunsa));
                             createLetterGrid();
-                            
-                            // Display all results initially
                             displayResults(dictionaryData);
-                            loadingElement.style.display = 'none';
+                            loadingElement.style.display='none';
                         },
-                        error: function(error) {
-                            console.error('Error parsing TSV:', error);
-                            resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary</div>';
-                            loadingElement.style.display = 'none';
-                        }
+                        error:function(error){console.error('Error parsing TSV:',error);resultsContainer.innerHTML='<div class="no-results">Error loading dictionary</div>';loadingElement.style.display='none';}
                     });
-                } catch (error) {
-                    console.error('Error reading file:', error);
-                    resultsContainer.innerHTML = '<div class="no-results">Dictionary file not found</div>';
-                    loadingElement.style.display = 'none';
-                }
+                }catch(error){console.error('Error reading file:',error);resultsContainer.innerHTML='<div class="no-results">Dictionary file not found</div>';loadingElement.style.display='none';}
             }
-
-            // Create letter grid for quick navigation
-            function createLetterGrid() {
-                const sortedLetters = Array.from(uniqueLetters).sort();
-                let gridHTML = '';
-                
-                sortedLetters.forEach(letter => {
-                    gridHTML += `<div class="letter-item" data-letter="${letter}">${letter}</div>`;
-                });
-                
-                letterGridElement.innerHTML = gridHTML;
-                
-                // Add event listeners to letter items
-                document.querySelectorAll('.letter-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        const letter = this.getAttribute('data-letter');
-                        searchInput.value = letter;
+            function createLetterGrid(){
+                const sortedLetters=Array.from(uniqueLetters).sort();
+                let gridHTML='';
+                sortedLetters.forEach(letter=>{gridHTML+=`<div class="letter-item" data-letter="${letter}">${letter}</div>`;});
+                letterGridElement.innerHTML=gridHTML;
+                document.querySelectorAll('.letter-item').forEach(item=>{
+                    item.addEventListener('click',function(){
+                        const letter=this.getAttribute('data-letter');
+                        searchInput.value=letter;
                         searchDictionary(letter);
-                        
-                        // Update active state
-                        document.querySelectorAll('.letter-item').forEach(el => {
-                            el.classList.remove('active');
-                        });
+                        document.querySelectorAll('.letter-item').forEach(el=>{el.classList.remove('active');});
                         this.classList.add('active');
                     });
                 });
             }
-
-            // Search function
-            function searchDictionary(query) {
-                query = query.toLowerCase().trim();
-                
-                if (query === '') {
-                    displayResults(dictionaryData);
-                    return;
-                }
-                
-                const filteredResults = dictionaryData.filter(item => {
-                    return (
-                        item.iskunsa.toLowerCase().includes(query) ||
-                        item.definition.toLowerCase().includes(query) ||
-                        item.theme.toLowerCase().includes(query)
-                    );
+            function searchDictionary(query){
+                query=query.toLowerCase().trim();
+                if(query===''){displayResults(dictionaryData);return;}
+                const filteredResults=dictionaryData.filter(item=>{
+                    return(item.iskunsa.toLowerCase().includes(query)||item.definition.toLowerCase().includes(query)||item.theme.toLowerCase().includes(query));
                 });
-                
-                displayResults(filteredResults, query);
-                
-                // Update letter grid active state
-                if (query.length === 1) {
-                    const upperQuery = query.toUpperCase();
-                    document.querySelectorAll('.letter-item').forEach(item => {
-                        if (item.getAttribute('data-letter') === upperQuery) {
-                            item.classList.add('active');
-                        } else {
-                            item.classList.remove('active');
-                        }
+                displayResults(filteredResults,query);
+                if(query.length===1){
+                    const upperQuery=query.toUpperCase();
+                    document.querySelectorAll('.letter-item').forEach(item=>{
+                        if(item.getAttribute('data-letter')===upperQuery){item.classList.add('active');}
+                        else{item.classList.remove('active');}
                     });
-                } else {
-                    document.querySelectorAll('.letter-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                }
+                }else{document.querySelectorAll('.letter-item').forEach(item=>{item.classList.remove('active');});}
             }
-
-            // Display results with highlighting
-            function displayResults(results, query = '') {
-                if (results.length === 0) {
-                    resultsContainer.innerHTML = '<div class="no-results">No matching entries found</div>';
-                    return;
-                }
-                
-                let html = '';
-                
-                results.forEach(item => {
-                    let iskunsaDisplay = item.iskunsa;
-                    let definitionDisplay = item.definition;
-                    let themeDisplay = item.theme;
-                    
-                    // Add highlighting if there's a query
-                    if (query) {
-                        const regex = new RegExp(`(${query})`, 'gi');
-                        iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        themeDisplay = themeDisplay.replace(regex, '<span class="highlight">$1</span>');
+            function displayResults(results,query=''){
+                if(results.length===0){resultsContainer.innerHTML='<div class="no-results">No matching entries found</div>';return;}
+                let html='';
+                results.forEach(item=>{
+                    let iskunsaDisplay=item.iskunsa;
+                    let definitionDisplay=item.definition;
+                    let themeDisplay=item.theme;
+                    if(query){
+                        const regex=new RegExp(`(${query})`,'gi');
+                        iskunsaDisplay=iskunsaDisplay.replace(regex,'<span class="highlight">$1</span>');
+                        definitionDisplay=definitionDisplay.replace(regex,'<span class="highlight">$1</span>');
+                        themeDisplay=themeDisplay.replace(regex,'<span class="highlight">$1</span>');
                     }
-                    
-                    html += `
-                        <div class="dictionary-item">
-                            <div class="iskunsa">${iskunsaDisplay}</div>
-                            <div class="pos">${item.pos}</div>
-                            <div class="definition">${definitionDisplay}</div>
-                            <div class="theme">${themeDisplay}</div>
-                        </div>
-                    `;
+                    html+=`<div class="dictionary-item"><div class="iskunsa">${iskunsaDisplay}</div><div class="pos">${item.pos}</div><div class="definition">${definitionDisplay}</div><div class="theme">${themeDisplay}</div></div>`;
                 });
-                
-                resultsContainer.innerHTML = html;
+                resultsContainer.innerHTML=html;
             }
-
-            // Event listeners
-            searchInput.addEventListener('input', function() {
-                searchDictionary(this.value);
-            });
-            
-            clearButton.addEventListener('click', function() {
-                searchInput.value = '';
+            searchInput.addEventListener('input',function(){searchDictionary(this.value);});
+            clearButton.addEventListener('click',function(){
+                searchInput.value='';
                 searchDictionary('');
-                document.querySelectorAll('.letter-item').forEach(item => {
-                    item.classList.remove('active');
-                });
+                document.querySelectorAll('.letter-item').forEach(item=>{item.classList.remove('active');});
             });
-
-            // Handle error with mock data if file isn't available
-            window.addEventListener('error', function() {
-                const mockData = [
-                    { iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature' },
-                    { iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication' },
-                    { iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception' }
-                ];
-                dictionaryData = mockData;
+            window.addEventListener('error',function(){
+                const mockData=[{iskunsa:'akuna',pos:'n.',definition:'river',theme:'nature'},{iskunsa:'baruta',pos:'v.',definition:'to speak',theme:'communication'},{iskunsa:'cimaro',pos:'adj.',definition:'bright',theme:'perception'}];
+                dictionaryData=mockData;
                 displayResults(mockData);
-                loadingElement.style.display = 'none';
+                loadingElement.style.display='none';
             });
-
-            // Load the dictionary
             loadDictionary();
         });
     </script>
