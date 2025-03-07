@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iskunsa Dictionary</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        :root{--ios-blue:#007AFF;--ios-light-gray:#F2F2F7;--ios-border:#C5C5C7;--ios-text:#000000;--ios-secondary:#8E8E93;--background:#FFFFFF;--card-bg:#F8F8F8;--shadow:rgba(0,0,0,0.1);}
+        @media (prefers-color-scheme: dark){:root{--ios-blue:#0A84FF;--ios-light-gray:#1C1C1E;--ios-border:#38383A;--ios-text:#FFFFFF;--ios-secondary:#8E8E93;--background:#000000;--card-bg:#1C1C1E;--shadow:rgba(255,255,255,0.1);}}
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+        body{background-color:var(--background);color:var(--ios-text);font-size:16px;line-height:1.3;-webkit-text-size-adjust:100%;padding-bottom:30px;}
+        .container{max-width:600px;margin:0 auto;padding:0 10px;}
+        .header{position:sticky;top:0;z-index:100;background-color:var(--background);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ios-border);padding:8px 0;}
+        .title-bar{display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:8px;}
+        .back-button{position:absolute;left:0;top:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;color:var(--ios-blue);text-decoration:none;border-radius:50%;}
+        .title{font-size:17px;font-weight:600;text-align:center;color:white;display:inline-block;}
+        .search-container{position:relative;margin-bottom:8px;}
+        .search-icon{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--ios-secondary);font-size:14px;}
+        .clear-button{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background-color:var(--ios-secondary);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;}
+        .search-input{width:100%;padding:8px 28px;border-radius:10px;border:none;background-color:var(--ios-light-gray);font-size:16px;outline:none;color:var(--ios-text);}
+        .theme-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;justify-content:center;}
+        .theme-item{padding:4px 8px;display:flex;align-items:center;justify-content:center;background-color:var(--card-bg);border-radius:6px;border:1px solid var(--ios-border);font-weight:500;color:var(--ios-text);font-size:14px;}
+        .theme-item.active{background-color:var(--ios-blue);color:white;border-color:var(--ios-blue);}
+        .dictionary-item{margin-bottom:8px;padding:10px 12px;background-color:var(--card-bg);border-radius:10px;box-shadow:0 1px 2px var(--shadow);}
+        .item-content{display:flex;align-items:center;gap:8px;}
+        .iskunsa{font-size:18px;font-weight:600;color:white;}
+        .pos{color:var(--ios-blue);font-size:13px;}
+        .definition{font-size:15px;}
+        .theme-tag{color:var(--ios-secondary);font-size:13px;font-style:italic;margin-left:auto;}
+        .no-results{text-align:center;color:var(--ios-secondary);padding:15px;font-size:15px;}
+        .loading{text-align:center;padding:15px;color:var(--ios-secondary);font-size:15px;}
+        .highlight{background-color:rgba(255,255,0,0.3);border-radius:2px;padding:0 2px;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="title-bar">
+                <a href="index.html" class="back-button">✕</a>
+                <h1 class="title">Iskunsa Dictionary</h1>
+            </div>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search words, definitions, themes...">
+                <span class="clear-button" id="clearButton">✕</span>
+            </div>
+            <div class="theme-grid" id="themeGrid"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="loading" class="loading">Loading dictionary...</div>
+        <div id="results"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            const searchInput=document.getElementById('searchInput');
+            const clearButton=document.getElementById('clearButton');
+            const resultsContainer=document.getElementById('results');
+            const loadingElement=document.getElementById('loading');
+            const themeGridElement=document.getElementById('themeGrid');
+            let dictionaryData=[];
+            let uniqueThemes=new Set();
+            let activeTheme = '';
+            
+            async function loadDictionary(){
+                try{
+                    const response=await fetch('dictionary.tsv');
+                    const data=await response.text();
+                    Papa.parse(data,{
+                        delimiter:'\t',
+                        skipEmptyLines:true,
+                        complete:function(results){
+                            dictionaryData=results.data.map(row=>({iskunsa:row[0]||'',pos:row[1]||'',definition:row[2]||'',theme:row[3]||''}));
+                            dictionaryData.forEach(item=>{
+                                if(item.theme){
+                                    uniqueThemes.add(item.theme);
+                                }
+                            });
+                            dictionaryData.sort((a,b)=>a.iskunsa.localeCompare(b.iskunsa));
+                            createThemeGrid();
+                            displayResults(dictionaryData);
+                            loadingElement.style.display='none';
+                        },
+                        error:function(error){
+                            console.error('Error parsing TSV:',error);
+                            resultsContainer.innerHTML='<div class="no-results">Error loading dictionary</div>';
+                            loadingElement.style.display='none';
+                        }
+                    });
+                }catch(error){
+                    console.error('Error reading file:',error);
+                    resultsContainer.innerHTML='<div class="no-results">Dictionary file not found</div>';
+                    loadingElement.style.display='none';
+                }
+            }
+            
+            function createThemeGrid(){
+                const sortedThemes=Array.from(uniqueThemes).sort();
+                let gridHTML='';
+                sortedThemes.forEach(theme=>{
+                    gridHTML+=`<div class="theme-item" data-theme="${theme}">${theme}</div>`;
+                });
+                themeGridElement.innerHTML=gridHTML;
+                document.querySelectorAll('.theme-item').forEach(item=>{
+                    item.addEventListener('click',function(){
+                        const theme=this.getAttribute('data-theme');
+                        
+                        if(activeTheme === theme) {
+                            // If clicking the same theme, deselect it
+                            activeTheme = '';
+                            this.classList.remove('active');
+                            searchInput.value = '';
+                            displayResults(dictionaryData);
+                        } else {
+                            // Select new theme
+                            activeTheme = theme;
+                            document.querySelectorAll('.theme-item').forEach(el=>{
+                                el.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                            filterByTheme(theme);
+                        }
+                    });
+                });
+            }
+            
+            function filterByTheme(theme) {
+                const filteredResults=dictionaryData.filter(item=>item.theme === theme);
+                displayResults(filteredResults);
+            }
+            
+            function searchDictionary(query){
+                query=query.toLowerCase().trim();
+                
+                if(query===''){
+                    if(activeTheme) {
+                        filterByTheme(activeTheme);
+                    } else {
+                        displayResults(dictionaryData);
+                    }
+                    return;
+                }
+                
+                let dataToFilter = activeTheme ? 
+                    dictionaryData.filter(item=>item.theme === activeTheme) : 
+                    dictionaryData;
+                
+                const filteredResults=dataToFilter.filter(item=>{
+                    return(item.iskunsa.toLowerCase().includes(query)||
+                           item.definition.toLowerCase().includes(query)||
+                           item.theme.toLowerCase().includes(query));
+                });
+                
+                displayResults(filteredResults,query);
+            }
+            
+            function displayResults(results,query=''){
+                if(results.length===0){
+                    resultsContainer.innerHTML='<div class="no-results">No matching entries found</div>';
+                    return;
+                }
+                
+                let html='';
+                results.forEach(item=>{
+                    let iskunsaDisplay=item.iskunsa;
+                    let definitionDisplay=item.definition;
+                    let themeDisplay=item.theme;
+                    
+                    if(query){
+                        const regex=new RegExp(`(${query})`,'gi');
+                        iskunsaDisplay=iskunsaDisplay.replace(regex,'<span class="highlight">$1</span>');
+                        definitionDisplay=definitionDisplay.replace(regex,'<span class="highlight">$1</span>');
+                        themeDisplay=themeDisplay.replace(regex,'<span class="highlight">$1</span>');
+                    }
+                    
+                    html+=`
+                    <div class="dictionary-item">
+                        <div class="item-content">
+                            <div class="iskunsa">${iskunsaDisplay}</div>
+                            <div class="pos">${item.pos}</div>
+                            <div class="definition">${definitionDisplay}</div>
+                            <div class="theme-tag">${themeDisplay}</div>
+                        </div>
+                    </div>`;
+                });
+                
+                resultsContainer.innerHTML=html;
+            }
+            
+            searchInput.addEventListener('input',function(){
+                searchDictionary(this.value);
+            });
+            
+            clearButton.addEventListener('click',function(){
+                searchInput.value='';
+                searchDictionary('');
+                activeTheme = '';
+                document.querySelectorAll('.theme-item').forEach(item=>{
+                    item.classList.remove('active');
+                });
+            });
+            
+            window.addEventListener('error',function(){
+                const mockData=[
+                    {iskunsa:'akuna',pos:'n.',definition:'river',theme:'nature'},
+                    {iskunsa:'baruta',pos:'v.',definition:'to speak',theme:'communication'},
+                    {iskunsa:'cimaro',pos:'adj.',definition:'bright',theme:'perception'}
+                ];
+                dictionaryData=mockData;
+                displayResults(mockData);
+                loadingElement.style.display='none';
+            });
+            
+            loadDictionary();
+        });
+    </script>
+</body>
+</html>
