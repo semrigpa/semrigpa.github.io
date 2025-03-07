@@ -118,6 +118,7 @@
                                 el.classList.remove('active');
                             });
                             this.classList.add('active');
+                            searchInput.value = ''; // Clear search input when selecting a theme
                             filterByTheme(theme);
                         }
                     });
