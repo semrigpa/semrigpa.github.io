@@ -1,9 +1,43 @@
 iskunsa	pos	def	theme
-enkamon	n	face	anatomy
-gamba	n	leg	anatomy
-abo	n	arm	anatomy
-tatek	n	chest, breast	anatomy
-wiksa	n	belly, stomach	anatomy
-wawai	n	foot	anatomy
-šingo	n	neck | throat	anatomy
-jungo	n	hand	anatomy
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tatek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+waway	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+iskúnsaya	n	linguistics	language
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+guey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acua	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+duanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+salil	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf	plants
+xixalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
