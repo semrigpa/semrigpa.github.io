@@ -42,7 +42,7 @@
             </div>
             <div class="search-container">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search words, definitions, themes...">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search words and definitions...">
                 <span class="clear-button" id="clearButton">✕</span>
             </div>
             <div class="theme-grid" id="themeGrid"></div>
@@ -147,9 +147,11 @@
                     dictionaryData;
                 
                 const filteredResults=dataToFilter.filter(item=>{
-                    return(item.iskunsa.toLowerCase().includes(query)||
-                           item.definition.toLowerCase().includes(query)||
-                           item.theme.toLowerCase().includes(query));
+                    // Only search iskunsa and definition columns, not theme
+                    return (
+                        item.iskunsa.toLowerCase().includes(query) || 
+                        item.definition.toLowerCase().includes(query)
+                    );
                 });
                 
                 displayResults(filteredResults,query);
@@ -169,9 +171,10 @@
                     
                     if(query){
                         const regex=new RegExp(`(${query})`,'gi');
+                        // Only highlight matches in iskunsa and definition
                         iskunsaDisplay=iskunsaDisplay.replace(regex,'<span class="highlight">$1</span>');
                         definitionDisplay=definitionDisplay.replace(regex,'<span class="highlight">$1</span>');
-                        themeDisplay=themeDisplay.replace(regex,'<span class="highlight">$1</span>');
+                        // Don't highlight theme matches since we're not searching them
                     }
                     
                     html+=`
