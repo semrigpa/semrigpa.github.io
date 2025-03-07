@@ -4,79 +4,128 @@
     <link rel="manifest" href="/index.json">
     <link rel="icon" type="image/png" href="favicon2.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f5f5f7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Semrigpa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+        :root {
+            --primary-bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-blue: #0066cc;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --card-radius: 16px;
+            --button-radius: 24px;
+            --transition-speed: 0.3s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-bg: #121212;
+                --card-bg: #1e1e1e;
+                --text-primary: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #f5f5f7;
+            background-color: var(--primary-bg);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 16px;
-            color: #1d1d1f;
+            padding: 20px 16px 40px;
+            color: var(--text-primary);
         }
 
         .app-header {
             width: 100%;
-            max-width: 540px;
-            padding: 15px 0;
-            margin-bottom: 20px;
+            max-width: 600px;
+            padding: 10px 0;
+            margin-bottom: 12px;
+            position: relative;
         }
 
         .app-title {
             text-align: center;
-            font-size: 32px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 5px;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .app-subtitle {
             text-align: center;
             font-size: 16px;
             font-weight: 400;
-            color: #86868b;
+            color: var(--text-secondary);
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
         }
 
         .app-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 20px;
             width: 100%;
-            max-width: 540px;
+            max-width: 600px;
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .app-card {
-            background: white;
-            border-radius: 12px;
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform var(--transition-speed) ease, 
+                        box-shadow var(--transition-speed) ease;
+            position: relative;
+            height: 100%;
         }
 
-        .app-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        .app-card:active {
+            transform: scale(0.98);
         }
 
         .card-banner {
-            height: 120px;
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.05);
+            z-index: 1;
         }
 
         .pink-gradient {
@@ -92,47 +141,88 @@
         }
 
         .icon-container {
-            height: 70px;
-            width: 70px;
-            border-radius: 18px;
+            height: 80px;
+            width: 80px;
+            border-radius: 24px;
             background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 36px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover .icon-container {
+            transform: scale(1.05);
         }
 
         .card-content {
-            padding: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            color: #1d1d1f;
-            margin-bottom: 6px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
         .card-description {
-            font-size: 14px;
-            color: #86868b;
-            line-height: 1.4;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex: 1;
         }
 
         .get-button {
-            margin-top: 12px;
-            align-self: flex-start;
-            background: #e8e8ed;
-            color: #0066cc;
+            margin-top: 16px;
+            background: var(--accent-blue);
+            color: white;
             font-size: 14px;
-            font-weight: 500;
-            padding: 6px 16px;
-            border-radius: 20px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: var(--button-radius);
             text-transform: uppercase;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 102, 204, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .get-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 5px rgba(0, 102, 204, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Status bar styling for iOS */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: calc(40px + env(safe-area-inset-bottom));
+            }
         }
 
         @media (min-width: 540px) {
@@ -140,16 +230,60 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        @media (min-width: 768px) {
+            .app-grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 900px;
+            }
+        }
+
+        /* Add ripple effect for touch */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* Loading animation */
+        .app-loader {
+            height: 3px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
+            z-index: 9999;
+            animation: loading 2s ease-in-out infinite;
+            transform-origin: left;
+        }
+
+        @keyframes loading {
+            0% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
     </style>
 </head>
 <body>
+    <div class="app-loader"></div>
+    
     <div class="app-header">
         <h1 class="app-title">Semrigpa</h1>
-        <p class="app-subtitle">Spiritual Teachings</p>
     </div>
     
     <div class="app-grid">
-        <a href="mavani.html" class="app-card">
+        <a href="mavani.html" class="app-card" ontouchstart="createRipple(event)">
             <div class="card-banner pink-gradient">
                 <div class="icon-container">
                     <span>🌸</span>
@@ -162,7 +296,7 @@
             </div>
         </a>
         
-        <a href="rudrashtakam.html" class="app-card">
+        <a href="rudrashtakam.html" class="app-card" ontouchstart="createRipple(event)">
             <div class="card-banner blue-gradient">
                 <div class="icon-container">
                     <span>🔱</span>
@@ -175,7 +309,7 @@
             </div>
         </a>
         
-        <a href="iskunsa.html" class="app-card">
+        <a href="iskunsa.html" class="app-card" ontouchstart="createRipple(event)">
             <div class="card-banner purple-gradient">
                 <div class="icon-container">
                     <span>🙌</span>
@@ -188,5 +322,51 @@
             </div>
         </a>
     </div>
+
+    <script>
+        // Add ripple effect on touch
+        function createRipple(event) {
+            const card = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(card.clientWidth, card.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.touches[0].pageX - card.offsetLeft - radius}px`;
+            circle.style.top = `${event.touches[0].pageY - card.offsetTop - radius}px`;
+            circle.classList.add("ripple");
+            
+            const ripple = card.querySelector(".ripple");
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            card.appendChild(circle);
+        }
+
+        // Add to home screen prompt for iOS
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        // Simulate page loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.app-loader').style.display = 'none';
+            }, 1500);
+        });
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
