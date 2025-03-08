@@ -1,57 +1,67 @@
+abo	n	arm	anatomy I
+acwa	n	skin, hide	anatomy I
+alak	n	cheek	anatomy I
+audi	n	seed	plants
+baska	n	liquid	science I
+bayancak	n	spider | arachnid	insects
+binta	n	star	astronomy
+bisu	a	non-binary	gender
+cinil	n	ear	anatomy I
+dawan	n	sand	materials II
+dulusi	n	reptile	animals I
 dwanci	n	brain | lower mind	anatomy I
-lajido	n	heart | centre (jargon)	anatomy I
-lila	n	body | torso	anatomy I
-talen	n	limb | branch	anatomy I
-tave	n	hair | fur | plumage	anatomy I
-vik	n	head | chief (jargon)	anatomy I
-śapo	n	guts, entr:ails, viscera	anatomy I
-saha	a	healthy, sane	properties I
+ebol	n	shoulder	anatomy I
 enkamon	n	face	anatomy I
 gamba	n	leg	anatomy I
-abo	n	arm	anatomy I
-tetek	n	chest, breast	anatomy I
-viksa	n	belly, stomach	anatomy I
-vai	n	foot	anatomy I
-śingo	n	neck | throat	anatomy I
-jungo	n	hand	anatomy I
-cinil	n	ear	anatomy I
-ebol	n	shoulder	anatomy I
-alak	n	cheek	anatomy I
-goya	n	mouth	anatomy I
-gwey	n	eye	anatomy I
-nasik	n	nose, snout, trunk	anatomy I
-acwa	n	skin, hide	anatomy I
-jiśi	n	finger, toe (digit)	anatomy I
-juha	n	tongue | language (jargon)	anatomy I
 gandali	n	sphere | ball	geometry II
-podalak	n	algae, moss	plants
 gasa	n	plant	plants
-hulu	n	grass	plants
-mimbali	n	flower	plants
-lonki	n	bulb	plants
-namu	n	tree | wood	plants
-audi	n	seed	plants
-walak	n	petal | leaf | page	plants
-śiśalka	n	pinecone | pineal	plants
-jali	n	bush, shrub	plants
-bayancak	n	spider | arachnid	insects
-dulusi	n	reptile	animals I
-gusa	a	angry	emotions I
-wabi	n	island	geo I
-leki	cnj	but	conjunction
-iskunsa	n	language	language
-dawan	n	sand	materials II
 geko	n	soil | dirt	materials II
+goya	n	mouth	anatomy I
 gumi	n	rubber	materials II
-sekitan	n	coal | cinder	materials II
-sapun	n	soap	materials II
-jogak	n	pitch, tar	materials II
-jalani	n	fuel	materials II
-bintan	n	star	astronomy
-kujubinta	n	sun (great-star)	astronomy
-baska	n	liquid	science I
+gusa	a	angry	emotions I
+gusaya	n	anger	emotions I
+gwey	n	eye	anatomy I
 handan	n	family	family
+henelo	n	gender	gender
+hulu	n	grass	plants
+iskunsa	n	language	language
+iskunsaya	n	linguistics	language
+jalani	n	fuel	materials II
+jali	n	bush, shrub	plants
 jijima	n	generation, era	family
-gúsaya	n	anger	emotions I
-iskúnsaya	n	linguistics	language
+jiśi	n	finger, toe (digit)	anatomy I
+jogak	n	pitch, tar	materials II
+juha	n	tongue | language (jargon)	anatomy I
+jungo	n	hand	anatomy I
+kujubinta	n	sun (great-star)	astronomy
+lajido	n	heart | centre (jargon)	anatomy I
+leki	cnj	but	conjunction
+lila	n	body | torso	anatomy I
+lonki	n	bulb	plants
+masku	a	male, masculine	gender
+maskuya	n	masculinity	gender
+mimbali	n	flower	plants
+nakda	a	old	properties I
+nakda	n	age	properties I
+namu	n	tree | wood	plants
+nasik	n	nose, snout, trunk	anatomy I
+podalak	n	algae, moss	plants
+saha	a	healthy, sane	properties I
 sahaya	n	health, sanity	properties I
+śanak	a	young	properties I
+śanakya	n	youth, youthfulness	properties I
+śapo	n	guts, entr:ails, viscera	anatomy I
+sapun	n	soap	materials II
+sekitan	n	coal | cinder	materials II
+śingo	n	neck | throat	anatomy I
+śiśalka	n	pinecone | pineal	plants
+talen	n	limb | branch	anatomy I
+tave	n	hair | fur | plumage	anatomy I
+tetek	n	chest, breast	anatomy I
+vik	n	head | chief (jargon)	anatomy I
+viksa	n	belly, stomach	anatomy I
+wabi	n	island	geo I
+wahi	a	female, feminine	gender
+wahiya	n	femininity	gender
+walak	n	petal | leaf | page	plants
+waye	n	foot	anatomy I
