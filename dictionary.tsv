@@ -1,27 +1,29 @@
-duanci	n	brain | lower mind	anatomy I
+dwanci	n	brain | lower mind	anatomy I
 lajido	n	heart | centre (jargon)	anatomy I
 lila	n	body | torso	anatomy I
 talen	n	limb | branch	anatomy I
 tawe	n	hair | fur | plumage	anatomy I
 wik	n	head | chief (jargon)	anatomy I
 śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
 enkamon	n	face	anatomy I
 gamba	n	leg	anatomy I
 abo	n	arm	anatomy I
-tatek	n	chest, breast	anatomy I
+tetek	n	chest, breast	anatomy I
 wiksa	n	belly, stomach	anatomy I
-wawai	n	foot	anatomy I
-šingo	n	neck | throat	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
 jungo	n	hand	anatomy I
 cinil	n	ear	anatomy I
 ebol	n	shoulder	anatomy I
 alak	n	cheek	anatomy I
 goya	n	mouth	anatomy I
-guey	n	eye	anatomy I
+gwey	n	eye	anatomy I
 nasik	n	nose, snout, trunk	anatomy I
-acua	n	skin, hide	anatomy I
+acwa	n	skin, hide	anatomy I
 jiśi	n	finger, toe (digit)	anatomy I
 juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
 podalak	n	algae, moss	plants
 gasa	n	plant	plants
 hulu	n	grass	plants
@@ -32,10 +34,12 @@ audi	n	seed	plants
 walak	n	petal | leaf | page	plants
 śiśalka	n	pinecone | pineal	plants
 jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
 gusa	a	angry	emotions I
-gúsaya	n	anger	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
 iskunsa	n	language	language
-iskúnsaya	n	linguistics	language
 dawan	n	sand	materials II
 geko	n	soil | dirt	materials II
 gumi	n	rubber	materials II
@@ -43,5 +47,866 @@ sekitan	n	coal | cinder	materials II
 sapun	n	soap	materials II
 jogak	n	pitch, tar	materials II
 jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
 handan	n	family	family
 jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
+dwanci	n	brain | lower mind	anatomy I
+lajido	n	heart | centre (jargon)	anatomy I
+lila	n	body | torso	anatomy I
+talen	n	limb | branch	anatomy I
+tawe	n	hair | fur | plumage	anatomy I
+wik	n	head | chief (jargon)	anatomy I
+śapo	n	guts, entr:ails, viscera	anatomy I
+saha	a	healthy, sane	properties I
+enkamon	n	face	anatomy I
+gamba	n	leg	anatomy I
+abo	n	arm	anatomy I
+tetek	n	chest, breast	anatomy I
+wiksa	n	belly, stomach	anatomy I
+vai	n	foot	anatomy I
+śingo	n	neck | throat	anatomy I
+jungo	n	hand	anatomy I
+cinil	n	ear	anatomy I
+ebol	n	shoulder	anatomy I
+alak	n	cheek	anatomy I
+goya	n	mouth	anatomy I
+gwey	n	eye	anatomy I
+nasik	n	nose, snout, trunk	anatomy I
+acwa	n	skin, hide	anatomy I
+jiśi	n	finger, toe (digit)	anatomy I
+juha	n	tongue | language (jargon)	anatomy I
+gandali	n	sphere | ball	geometry II
+podalak	n	algae, moss	plants
+gasa	n	plant	plants
+hulu	n	grass	plants
+mimbali	n	flower	plants
+lonki	n	bulb	plants
+namu	n	tree | wood	plants
+audi	n	seed	plants
+walak	n	petal | leaf | page	plants
+śiśalka	n	pinecone | pineal	plants
+jali	n	bush, shrub	plants
+bayancak	n	spider | arachnid	insects
+dulusi	n	reptile	animals I
+gusa	a	angry	emotions I
+wabi	n	island	geo I
+leki	cnj	but	conjunction
+iskunsa	n	language	language
+dawan	n	sand	materials II
+geko	n	soil | dirt	materials II
+gumi	n	rubber	materials II
+sekitan	n	coal | cinder	materials II
+sapun	n	soap	materials II
+jogak	n	pitch, tar	materials II
+jalani	n	fuel	materials II
+bintan	n	star	astronomy
+kujubinta	n	sun (great-star)	astronomy
+baska	n	liquid	science I
+handan	n	family	family
+jijima	n	generation, era	family
+gúsaya	n	anger	emotions I
+iskúnsaya	n	linguistics	language
+sahaya	n	health, sanity	properties I
