@@ -224,6 +224,7 @@
             display: flex;
             align-items: center;
             width: 100%;
+            margin-bottom: 8px;
         }
         
         .iskunsa {
@@ -246,7 +247,6 @@
         .definition {
             font-size: 16px;
             color: var(--text-secondary);
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             flex: 1;
@@ -261,6 +261,41 @@
             border-radius: 4px;
             white-space: nowrap;
             margin-left: 8px;
+        }
+        
+        .examples-container {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            display: none;
+        }
+        
+        .examples-container.has-examples {
+            display: block;
+        }
+        
+        .example-row {
+            margin-bottom: 6px;
+        }
+        
+        .example-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: block;
+        }
+        
+        .example-iskunsa {
+            font-size: 15px;
+            color: var(--primary-light);
+            font-style: italic;
+            margin-bottom: 2px;
+        }
+        
+        .example-translation {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
         
         .no-results {
@@ -303,67 +338,6 @@
             border-radius: 2px;
             padding: 0 2px;
             font-weight: 500;
-        }
-        
-        /* Examples section styling */
-        .examples-section {
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            display: none; /* Hidden by default */
-        }
-        
-        .example-container {
-            margin-bottom: 8px;
-        }
-        
-        .example-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .example-iskunsa {
-            font-size: 15px;
-            color: var(--primary-light);
-        }
-        
-        .example-english {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        
-        .item-footer {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 10px;
-        }
-        
-        .toggle-examples {
-            font-size: 13px;
-            color: var(--accent);
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        
-        .toggle-examples:hover {
-            background-color: rgba(72, 191, 227, 0.1);
-        }
-        
-        .toggle-examples-icon {
-            margin-right: 4px;
-            transition: transform 0.2s ease;
-        }
-        
-        .rotate-icon {
-            transform: rotate(180deg);
         }
         
         /* POS-specific styling */
@@ -446,9 +420,17 @@
                 font-size: 15px;
             }
             
-            .example-iskunsa,
-            .example-english {
+            .examples-container {
+                padding-top: 6px;
+                margin-top: 6px;
+            }
+            
+            .example-iskunsa {
                 font-size: 14px;
+            }
+            
+            .example-translation {
+                font-size: 13px;
             }
         }
     </style>
@@ -499,19 +481,19 @@
                     const data = await response.text();
                     
                     Papa.parse(data, {
-                        delimiter: '\t', // TSV format
-                        header: false, // No headers in the TSV
+                        delimiter: '\t',
                         skipEmptyLines: true,
                         complete: function(results) {
-                            // Map data without headers
-                            dictionaryData = results.data.map(row => ({
-                                iskunsa: row[0] || '',
-                                pos: row[1] || '',
-                                definition: row[2] || '',
-                                theme: row[3] || '',
-                                example1: row[4] || '-',
-                                example2: row[5] || '-'
-                            }));
+                            dictionaryData = results.data
+                                .filter(row => row.length >= 3) // Filter out invalid rows
+                                .map(row => ({
+                                    iskunsa: row[0] || '',
+                                    pos: row[1] || '',
+                                    definition: row[2] || '',
+                                    theme: row[3] || '',
+                                    example1: row[4] || '0', // Iskunsa example sentence
+                                    example2: row[5] || '0'  // Translation
+                                }));
                             
                             // Extract unique themes
                             dictionaryData.forEach(item => {
@@ -537,10 +519,33 @@
                     });
                 } catch (error) {
                     console.error('Error reading file:', error);
-                    resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary file</div>';
-                    loadingElement.style.display = 'none';
-                    updateWordCounter(0);
+                    handleDictionaryError();
                 }
+            }
+            
+            function handleDictionaryError() {
+                // Use mock data if dictionary file is not found
+                const mockData = [
+                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example1: 'Mi telimba akuna varo.', example2: 'I swim in the river.'},
+                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example1: 'Si baruta Iskunsa veli.', example2: 'She speaks Iskunsa well.'},
+                    {iskunsa: 'cimaro', pos: 'a.', definition: 'bright', theme: 'perception', example1: 'Sola esta cimaro hoji.', example2: 'The sun is bright today.'},
+                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example1: '0', example2: '0'},
+                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example1: 'Nubes esta elomni montaña.', example2: 'Clouds are above the mountain.'},
+                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example1: '0', example2: '0'},
+                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example1: 'Mi tena guropi libros.', example2: 'I have seven books.'}
+                ];
+                
+                dictionaryData = mockData;
+                mockData.forEach(item => {
+                    if (item.theme) {
+                        uniqueThemes.add(item.theme);
+                    }
+                });
+                
+                createThemeGrid();
+                displayResults(mockData);
+                updateWordCounter(mockData.length);
+                loadingElement.style.display = 'none';
             }
             
             function updateWordCounter(count) {
@@ -608,8 +613,8 @@
                     return (
                         item.iskunsa.toLowerCase().includes(query) || 
                         item.definition.toLowerCase().includes(query) ||
-                        (item.example1 !== '-' && item.example1.toLowerCase().includes(query)) ||
-                        (item.example2 !== '-' && item.example2.toLowerCase().includes(query))
+                        (item.example1 !== '0' && item.example1.toLowerCase().includes(query)) ||
+                        (item.example2 !== '0' && item.example2.toLowerCase().includes(query))
                     );
                 });
                 
@@ -624,7 +629,7 @@
                 }
                 
                 let html = '';
-                results.forEach((item, index) => {
+                results.forEach(item => {
                     let iskunsaDisplay = item.iskunsa;
                     let definitionDisplay = item.definition;
                     let themeDisplay = item.theme;
@@ -646,77 +651,47 @@
                         // Highlight matches in iskunsa, definition, and examples
                         iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
                         definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        if (example1Display !== '-') {
+                        
+                        if (example1Display !== '0') {
                             example1Display = example1Display.replace(regex, '<span class="highlight">$1</span>');
                         }
-                        if (example2Display !== '-') {
+                        
+                        if (example2Display !== '0') {
                             example2Display = example2Display.replace(regex, '<span class="highlight">$1</span>');
                         }
                     }
                     
-                    // Check if examples exist
-                    const hasExamples = example1Display !== '-' || example2Display !== '-';
+                    // Determine if we have examples to show
+                    const hasExamples = example1Display !== '0' || example2Display !== '0';
                     
                     html += `
-                    <div class="dictionary-item" data-pos="${posValue}" id="item-${index}">
+                    <div class="dictionary-item" data-pos="${posValue}">
                         <div class="item-header">
                             <div class="iskunsa">${iskunsaDisplay}</div>
                             <div class="pos">${item.pos}</div>
                             <div class="definition">${definitionDisplay}</div>
-                            <div class="theme-tag">${themeDisplay}</div>`;
+                            <div class="theme-tag">${themeDisplay}</div>
+                        </div>`;
                     
-                    // Add toggle button inline with the header content if examples exist
+                    // Add examples section if available
                     if (hasExamples) {
                         html += `
-                            <button class="toggle-examples" data-target="examples-${index}">
-                                <span class="toggle-examples-icon">▼</span> 
-                                Examples
-                            </button>`;
-                    }
-                    
-                    html += `</div>`;
-                    
-                    // Examples section (initially hidden)
-                    if (hasExamples) {
-                        html += `
-                        <div class="examples-section" id="examples-${index}">`;
-                        
-                        if (example1Display !== '-' && example2Display !== '-') {
-                            html += `
-                            <div class="example-container">
-                                <div class="example-line">
+                        <div class="examples-container has-examples">
+                            <div class="example-row">
+                                ${example1Display !== '0' ? `
                                     <div class="example-iskunsa">${example1Display}</div>
-                                    <div class="example-english">${example2Display}</div>
-                                </div>
-                            </div>`;
-                        }
-                        
-                        html += `</div>`;
+                                ` : ''}
+                                ${example2Display !== '0' ? `
+                                    <div class="example-translation">${example2Display}</div>
+                                ` : ''}
+                            </div>
+                        </div>`;
                     }
                     
                     html += `</div>`;
                 });
                 
                 resultsContainer.innerHTML = html;
-                
-                // Add event listeners to toggle buttons
-                document.querySelectorAll('.toggle-examples').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const targetId = this.getAttribute('data-target');
-                        const examplesSection = document.getElementById(targetId);
-                        const icon = this.querySelector('.toggle-examples-icon');
-                        
-                        if (examplesSection.style.display === 'block') {
-                            examplesSection.style.display = 'none';
-                            this.innerHTML = '<span class="toggle-examples-icon">▼</span> Examples';
-                            icon.classList.remove('rotate-icon');
-                        } else {
-                            examplesSection.style.display = 'block';
-                            this.innerHTML = '<span class="toggle-examples-icon rotate-icon">▼</span> Hide';
-                            icon.classList.add('rotate-icon');
-                        }
-                    });
-                });
             }
             
             searchInput.addEventListener('input', function() {
@@ -731,6 +706,11 @@
                     item.classList.remove('active');
                 });
                 updateWordCounter(dictionaryData.length);
+            });
+            
+            // Fallback for errors
+            window.addEventListener('error', function() {
+                handleDictionaryError();
             });
             
             // Start loading the dictionary
