@@ -317,11 +317,15 @@
             margin-bottom: 8px;
         }
         
+        .example-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
         .example-iskunsa {
             font-size: 15px;
             color: var(--primary-light);
-            margin-bottom: 4px;
-            font-style: italic;
         }
         
         .example-english {
@@ -329,8 +333,14 @@
             color: var(--text-secondary);
         }
         
-        .toggle-examples {
+        .item-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
             margin-top: 10px;
+        }
+        
+        .toggle-examples {
             font-size: 13px;
             color: var(--accent);
             background: none;
@@ -485,22 +495,22 @@
             
             async function loadDictionary() {
                 try {
-                    const response = await fetch('dictionary.csv');
+                    const response = await fetch('dictionary.tsv');
                     const data = await response.text();
                     
                     Papa.parse(data, {
-                        delimiter: ',', // Changed from TSV to CSV
-                        header: true,
+                        delimiter: '\t', // TSV format
+                        header: false, // No headers in the TSV
                         skipEmptyLines: true,
                         complete: function(results) {
-                            // Mapping assuming new CSV structure
+                            // Map data without headers
                             dictionaryData = results.data.map(row => ({
-                                iskunsa: row.iskunsa || '',
-                                pos: row.pos || '',
-                                definition: row.definition || '',
-                                theme: row.theme || '',
-                                example1: row.example1 || '-',
-                                example2: row.example2 || '-'
+                                iskunsa: row[0] || '',
+                                pos: row[1] || '',
+                                definition: row[2] || '',
+                                theme: row[3] || '',
+                                example1: row[4] || '-',
+                                example2: row[5] || '-'
                             }));
                             
                             // Extract unique themes
@@ -519,42 +529,18 @@
                             loadingElement.style.display = 'none';
                         },
                         error: function(error) {
-                            console.error('Error parsing CSV:', error);
+                            console.error('Error parsing TSV:', error);
                             resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary</div>';
                             loadingElement.style.display = 'none';
                             updateWordCounter(0);
-                            handleDictionaryError();
                         }
                     });
                 } catch (error) {
                     console.error('Error reading file:', error);
-                    handleDictionaryError();
+                    resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary file</div>';
+                    loadingElement.style.display = 'none';
+                    updateWordCounter(0);
                 }
-            }
-            
-            function handleDictionaryError() {
-                // Use mock data if dictionary file is not found
-                const mockData = [
-                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example1: 'Akuna kamiro falani', example2: 'The river flows quickly'},
-                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example1: 'Mi baruta Iskunsa', example2: 'I speak Iskunsa'},
-                    {iskunsa: 'cimaro', pos: 'a.', definition: 'bright', theme: 'perception', example1: '-', example2: '-'},
-                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example1: 'Mi duvala ti', example2: 'Me and you'},
-                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example1: '-', example2: '-'},
-                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example1: 'Falana baruta', example2: 'They speak'},
-                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example1: 'Guropi akuna', example2: 'Seven rivers'}
-                ];
-                
-                dictionaryData = mockData;
-                mockData.forEach(item => {
-                    if (item.theme) {
-                        uniqueThemes.add(item.theme);
-                    }
-                });
-                
-                createThemeGrid();
-                displayResults(mockData);
-                updateWordCounter(mockData.length);
-                loadingElement.style.display = 'none';
             }
             
             function updateWordCounter(count) {
@@ -677,24 +663,31 @@
                             <div class="iskunsa">${iskunsaDisplay}</div>
                             <div class="pos">${item.pos}</div>
                             <div class="definition">${definitionDisplay}</div>
-                            <div class="theme-tag">${themeDisplay}</div>
-                        </div>`;
+                            <div class="theme-tag">${themeDisplay}</div>`;
                     
-                    // Add toggle button only if examples exist
+                    // Add toggle button inline with the header content if examples exist
                     if (hasExamples) {
                         html += `
-                        <button class="toggle-examples" data-target="examples-${index}">
-                            <span class="toggle-examples-icon">▼</span> 
-                            Show examples
-                        </button>
-                        
+                            <button class="toggle-examples" data-target="examples-${index}">
+                                <span class="toggle-examples-icon">▼</span> 
+                                Examples
+                            </button>`;
+                    }
+                    
+                    html += `</div>`;
+                    
+                    // Examples section (initially hidden)
+                    if (hasExamples) {
+                        html += `
                         <div class="examples-section" id="examples-${index}">`;
                         
                         if (example1Display !== '-' && example2Display !== '-') {
                             html += `
                             <div class="example-container">
-                                <div class="example-iskunsa">${example1Display}</div>
-                                <div class="example-english">${example2Display}</div>
+                                <div class="example-line">
+                                    <div class="example-iskunsa">${example1Display}</div>
+                                    <div class="example-english">${example2Display}</div>
+                                </div>
                             </div>`;
                         }
                         
@@ -715,11 +708,11 @@
                         
                         if (examplesSection.style.display === 'block') {
                             examplesSection.style.display = 'none';
-                            this.innerHTML = '<span class="toggle-examples-icon">▼</span> Show examples';
+                            this.innerHTML = '<span class="toggle-examples-icon">▼</span> Examples';
                             icon.classList.remove('rotate-icon');
                         } else {
                             examplesSection.style.display = 'block';
-                            this.innerHTML = '<span class="toggle-examples-icon rotate-icon">▼</span> Hide examples';
+                            this.innerHTML = '<span class="toggle-examples-icon rotate-icon">▼</span> Hide';
                             icon.classList.add('rotate-icon');
                         }
                     });
@@ -738,11 +731,6 @@
                     item.classList.remove('active');
                 });
                 updateWordCounter(dictionaryData.length);
-            });
-            
-            // Fallback for errors
-            window.addEventListener('error', function() {
-                handleDictionaryError();
             });
             
             // Start loading the dictionary
