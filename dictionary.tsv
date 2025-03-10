@@ -1,4 +1,22 @@
-garā	v	read | study	communication	Agrāsi tamam.	I read a book.
-garāna	n	document | text	arts	Nigrāku pā garānā.	You must study this text.
-tamas	n	book	arts	0	0
-parāta	n	wall	structure	Idēkasi cambā parātā.	He saw a large wall.
+jawa	n	dog (all caniforms)	animal	0	0
+maska	n	cat (all felines)	animal	0	0
+mici	n	fish	animal	0	0
+timya	n	bird	animal	Timi yaña niśam.	Birds have wings.
+havaji	n	cow (all bovines)	animal	0	0
+danu	n	pig (all swine)	animal	0	0
+cuwi	n	mouse, rat (all rodents)	animal	0	0
+kuda	n	horse (all equines)	animal	0	0
+niśi	n	wing	animal anatomy	0	0
+janwa	n	animal	animal	0	0
+payanca	n	spider (arachnid)	insect	0	0
+dulusi	n	lizard (all reptiles)	animal	0	0
+hatan	n	mammal	animal	0	0
+muśi	n	insect	insect	0	0
+baika	n	shell	animal anatomy	0	0
+buntu	n	tail	animal anatomy	0	0
+hunsi	a	red	primary colours	0	0
+rangi	n	colour	primary colours	0	0
+nara	a	black | dark	primary colours	0	0
+sarapa	a	yellow	primary colours	0	0
+jai	a	blue	primary colours	0	0
+bura	a	brown	secondary colours	Asuka burayam.	I prefer the colour brown.
