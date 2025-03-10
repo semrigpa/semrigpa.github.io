@@ -19,7 +19,7 @@
             --text-secondary: #86868b;
             --accent-blue: #0066cc;
             --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --card-radius: 16px;
+            --card-radius: 20px;
             --button-radius: 24px;
             --transition-speed: 0.3s;
         }
@@ -48,21 +48,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 16px 40px;
+            padding: env(safe-area-inset-top, 20px) 16px env(safe-area-inset-bottom, 40px);
             color: var(--text-primary);
+            position: relative;
+        }
+
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: env(safe-area-inset-top, 20px);
+            background-color: var(--primary-bg);
+            z-index: 1000;
         }
 
         .app-header {
             width: 100%;
             max-width: 600px;
-            padding: 10px 0;
-            margin-bottom: 12px;
+            padding: 24px 0 10px;
+            margin-bottom: 20px;
             position: relative;
+            z-index: 10;
         }
 
         .app-title {
             text-align: center;
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 700;
             background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
             background-clip: text;
@@ -70,62 +82,105 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
             animation: fadeIn 0.8s ease-out;
+            letter-spacing: -0.5px;
         }
 
-        .app-subtitle {
-            text-align: center;
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+        .search-bar {
+            margin: 16px 0;
+            position: relative;
             animation: fadeIn 1s ease-out;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            background: var(--card-bg);
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            color: var(--text-primary);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
         }
 
         .app-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 24px 16px;
             width: 100%;
             max-width: 600px;
+            padding: 0 8px;
+            animation: fadeInUp 0.6s ease-out;
+            margin-bottom: 24px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            position: relative;
             animation: fadeInUp 0.6s ease-out;
         }
 
-        .app-card {
-            background: var(--card-bg);
-            border-radius: var(--card-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            transition: transform var(--transition-speed) ease, 
-                        box-shadow var(--transition-speed) ease;
-            position: relative;
-            height: 100%;
-        }
-
-        .app-card:active {
-            transform: scale(0.98);
-        }
-
-        .card-banner {
-            height: 140px;
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 8px;
+            font-size: 30px;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed) ease;
         }
 
-        .card-banner::after {
+        .app-icon::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
             z-index: 1;
+        }
+
+        .app-item:active .app-icon {
+            transform: scale(0.9);
+        }
+
+        .app-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-align: center;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
 
         .pink-gradient {
@@ -140,67 +195,94 @@
             background: linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);
         }
 
-        .icon-container {
-            height: 80px;
-            width: 80px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        .green-gradient {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+        }
+
+        .teal-gradient {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .dock-container {
+            position: fixed;
+            bottom: env(safe-area-inset-bottom, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 500px;
+            background: rgba(var(--card-bg-rgb, 255, 255, 255), 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .dock-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            z-index: 2;
-            transition: transform 0.3s ease;
+            font-size: 24px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease;
+            margin-bottom: 6px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-card:hover .icon-container {
-            transform: scale(1.05);
+        .dock-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
         }
 
-        .card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
+        .dock-item:active .dock-icon {
+            transform: scale(0.9);
         }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
+        .dock-label {
+            font-size: 11px;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            font-weight: 500;
         }
 
-        .card-description {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .get-button {
-            margin-top: 16px;
+        .dock-indicator {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
             background: var(--accent-blue);
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 8px 20px;
-            border-radius: var(--button-radius);
-            text-transform: uppercase;
-            display: inline-block;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 102, 204, 0.2);
-            transition: all 0.3s ease;
         }
 
-        .get-button:active {
-            transform: translateY(2px);
-            box-shadow: 0 1px 5px rgba(0, 102, 204, 0.2);
-        }
-
+        /* Animation keyframes */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -217,28 +299,18 @@
             }
         }
 
-        /* Status bar styling for iOS */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                padding-top: env(safe-area-inset-top);
-                padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translate(-50%, 0);
             }
         }
 
-        @media (min-width: 540px) {
-            .app-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .app-grid {
-                grid-template-columns: repeat(3, 1fr);
-                max-width: 900px;
-            }
-        }
-
-        /* Add ripple effect for touch */
+        /* Ripple effect for touch */
         .ripple {
             position: absolute;
             background: rgba(255, 255, 255, 0.3);
@@ -252,6 +324,52 @@
             to {
                 transform: scale(2.5);
                 opacity: 0;
+            }
+        }
+
+        /* Page indicator */
+        .page-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            margin: 0 4px;
+            opacity: 0.3;
+        }
+
+        .dot.active {
+            opacity: 1;
+            background: var(--accent-blue);
+        }
+
+        /* Status bar on iOS */
+        .ios-status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: env(safe-area-inset-top, 20px);
+            background-color: var(--primary-bg);
+            z-index: 1000;
+        }
+
+        /* Media queries for responsive design */
+        @media (min-width: 768px) {
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 32px 24px;
+                max-width: 900px;
+            }
+            
+            .app-icon {
+                width: 72px;
+                height: 72px;
             }
         }
 
@@ -273,76 +391,202 @@
             50% { transform: scaleX(1); }
             100% { transform: scaleX(0); transform-origin: right; }
         }
+
+        .date-time {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            animation: fadeIn 1s ease-out;
+        }
     </style>
 </head>
 <body>
     <div class="app-loader"></div>
+    <div class="ios-status-bar"></div>
     
     <div class="app-header">
         <h1 class="app-title">Semrigpa</h1>
+        <div class="date-time" id="dateTime"></div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search apps...">
+        </div>
     </div>
     
     <div class="app-grid">
-        <a href="mavani.html" class="app-card" ontouchstart="createRipple(event)">
-            <div class="card-banner pink-gradient">
-                <div class="icon-container">
-                    <span>🌸</span>
-                </div>
+        <a href="mavani.html" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon pink-gradient">
+                <span>🌸</span>
             </div>
-            <div class="card-content">
-                <h2 class="card-title">Mā Vāṇi</h2>
-                <p class="card-description">Your spiritual gateway to the profound teachings of Śrī Śrī Ānandamayī Mā</p>
-                <div class="get-button">Open</div>
-            </div>
+            <span class="app-name">Mā Vāṇi</span>
         </a>
         
-        <a href="rudrashtakam.html" class="app-card" ontouchstart="createRipple(event)">
-            <div class="card-banner blue-gradient">
-                <div class="icon-container">
-                    <span>🔱</span>
-                </div>
+        <a href="rudrashtakam.html" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon blue-gradient">
+                <span>🔱</span>
             </div>
-            <div class="card-content">
-                <h2 class="card-title">Śrī Rudrāṣṭakam</h2>
-                <p class="card-description">A Mantra-Meditation on the True Nature of Reality</p>
-                <div class="get-button">Open</div>
-            </div>
+            <span class="app-name">Rudrāṣṭakam</span>
         </a>
         
-        <a href="dictionary.html" class="app-card" ontouchstart="createRipple(event)">
-            <div class="card-banner purple-gradient">
-                <div class="icon-container">
-                    <span>🙌</span>
-                </div>
+        <a href="dictionary.html" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon purple-gradient">
+                <span>🙌</span>
             </div>
-            <div class="card-content">
-                <h2 class="card-title">Dehuskan Juha</h2>
-                <p class="card-description">Pien lalu ke jama</p>
-                <div class="get-button">Open</div>
+            <span class="app-name">Dehuskan</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon green-gradient">
+                <span>📖</span>
             </div>
+            <span class="app-name">Gītā</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon orange-gradient">
+                <span>🧘</span>
+            </div>
+            <span class="app-name">Dhyāna</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon teal-gradient">
+                <span>🕉️</span>
+            </div>
+            <span class="app-name">Mantra</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon pink-gradient">
+                <span>📅</span>
+            </div>
+            <span class="app-name">Calendar</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon blue-gradient">
+                <span>⏱️</span>
+            </div>
+            <span class="app-name">Timer</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon purple-gradient">
+                <span>⚙️</span>
+            </div>
+            <span class="app-name">Settings</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon green-gradient">
+                <span>📝</span>
+            </div>
+            <span class="app-name">Notes</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon orange-gradient">
+                <span>🎵</span>
+            </div>
+            <span class="app-name">Music</span>
+        </a>
+
+        <a href="#" class="app-item" ontouchstart="createRipple(event)">
+            <div class="app-icon teal-gradient">
+                <span>🌟</span>
+            </div>
+            <span class="app-name">Favorites</span>
+        </a>
+    </div>
+
+    <div class="page-indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="dock-container">
+        <a href="#" class="dock-item" ontouchstart="createRipple(event)">
+            <div class="dock-icon pink-gradient">
+                <span>📱</span>
+            </div>
+            <span class="dock-label">Home</span>
+            <div class="dock-indicator"></div>
+        </a>
+        
+        <a href="#" class="dock-item" ontouchstart="createRipple(event)">
+            <div class="dock-icon blue-gradient">
+                <span>🔍</span>
+            </div>
+            <span class="dock-label">Search</span>
+        </a>
+        
+        <a href="#" class="dock-item" ontouchstart="createRipple(event)">
+            <div class="dock-icon purple-gradient">
+                <span>📚</span>
+            </div>
+            <span class="dock-label">Library</span>
+        </a>
+        
+        <a href="#" class="dock-item" ontouchstart="createRipple(event)">
+            <div class="dock-icon green-gradient">
+                <span>👤</span>
+            </div>
+            <span class="dock-label">Profile</span>
         </a>
     </div>
 
     <script>
+        // Display current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('dateTime').textContent = `${dateString} • ${timeString}`;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+        
         // Add ripple effect on touch
         function createRipple(event) {
-            const card = event.currentTarget;
+            const button = event.currentTarget;
             const circle = document.createElement("span");
-            const diameter = Math.max(card.clientWidth, card.clientHeight);
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
             const radius = diameter / 2;
             
             circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.touches[0].pageX - card.offsetLeft - radius}px`;
-            circle.style.top = `${event.touches[0].pageY - card.offsetTop - radius}px`;
+            circle.style.left = `${event.touches[0].pageX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.touches[0].pageY - button.getBoundingClientRect().top - radius}px`;
             circle.classList.add("ripple");
             
-            const ripple = card.querySelector(".ripple");
+            const ripple = button.querySelector(".ripple");
             if (ripple) {
                 ripple.remove();
             }
             
-            card.appendChild(circle);
+            button.appendChild(circle);
         }
+
+        // Simulate touch events for desktop testing
+        document.querySelectorAll('.app-item, .dock-item').forEach(item => {
+            item.addEventListener('mousedown', function(e) {
+                // Create a fake touch event object
+                const fakeTouch = {
+                    pageX: e.pageX,
+                    pageY: e.pageY
+                };
+                
+                // Call the createRipple function with a fake event object
+                createRipple({
+                    currentTarget: this,
+                    touches: [fakeTouch]
+                });
+            });
+        });
 
         // Add to home screen prompt for iOS
         let deferredPrompt;
@@ -358,13 +602,20 @@
             }, 1500);
         });
 
-        // Add smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // Simple search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const appItems = document.querySelectorAll('.app-item');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            appItems.forEach(item => {
+                const appName = item.querySelector('.app-name').textContent.toLowerCase();
+                if (appName.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         });
     </script>
