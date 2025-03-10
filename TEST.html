@@ -1,694 +1,640 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Iskunsa Dictionary</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <style>
-        :root {
-            /* Primary palette */
-            --primary: #5E60CE;
-            --primary-light: #6930C3;
-            --primary-dark: #5390D9;
-            --accent: #48BFE3;
-            
-            /* UI colors */
-            --background: #0F172A;
-            --card-bg: #1E293B;
-            --border: #334155;
-            --text: #F8FAFC;
-            --text-secondary: #94A3B8;
-            --text-tertiary: #64748B;
-            --shadow: rgba(0, 0, 0, 0.3);
-            
-            /* POS Colors - more sophisticated palette */
-            --pos-n: #10B981;    /* green */
-            --pos-v: #8B5CF6;    /* violet */
-            --pos-a: #F59E0B;    /* amber */
-            --pos-cnj: #EF4444;  /* red */
-            --pos-prp: #3B82F6;  /* blue */
-            --pos-prn: #06B6D4;  /* cyan */
-            --pos-num: #8D3FD8;  /* purple */
-        }
-        
-        @keyframes gradientTitle {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.5;
-            -webkit-text-size-adjust: 100%;
-            padding-bottom: 30px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
-        
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: var(--background);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 0;
-        }
-        
-        .title-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 16px;
-            padding: 4px 0;
-        }
-        
-        .title {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: center;
-            background: linear-gradient(90deg, #5E60CE, #6930C3, #5390D9, #48BFE3);
-            background-size: 300% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientTitle 6s ease infinite;
-            letter-spacing: -0.5px;
-        }
-        
-        .search-container {
-            position: relative;
-            margin-bottom: 16px;
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-tertiary);
-            font-size: 16px;
-        }
-        
-        .clear-button {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(148, 163, 184, 0.3);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .clear-button:hover {
-            background-color: rgba(148, 163, 184, 0.5);
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 12px 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background-color: var(--card-bg);
-            font-size: 16px;
-            outline: none;
-            color: var(--text);
-            transition: all 0.2s ease;
-        }
-        
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(94, 96, 206, 0.3);
-        }
-        
-        .theme-section {
-            margin-bottom: 16px;
-        }
-        
-        .theme-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .theme-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        
-        .theme-item {
-            padding: 6px 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            font-weight: 500;
-            color: var(--text);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .theme-item:hover {
-            border-color: var(--primary-light);
-            background-color: rgba(94, 96, 206, 0.1);
-        }
-        
-        .theme-item.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .word-counter {
-            text-align: right;
-            color: var(--accent);
-            font-size: 14px;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-        
-        .results-section {
-            margin-top: 16px;
-        }
-        
-        .dictionary-item {
-            margin-bottom: 12px;
-            padding: 16px;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px var(--shadow);
-            border-left: 3px solid transparent;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .dictionary-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px var(--shadow);
-        }
-        
-        .item-header {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        
-        .iskunsa {
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-            margin-right: 8px;
-        }
-        
-        .pos {
-            font-size: 14px;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin-right: 8px;
-            white-space: nowrap;
-        }
-        
-        .definition {
-            font-size: 16px;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1;
-        }
-        
-        .theme-tag {
-            color: var(--text-tertiary);
-            font-size: 13px;
-            font-weight: 500;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 2px 8px;
-            border-radius: 4px;
-            white-space: nowrap;
-            margin-left: 8px;
-        }
-        
-        .example-section {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .example-line {
-            display: flex;
-            align-items: center;
-        }
-        
-        .example-iskunsa {
-            font-size: 15px;
-            color: var(--accent);
-            font-style: italic;
-            margin-right: 12px;
-        }
-        
-        .example-translation {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        
-        .no-results {
-            text-align: center;
-            color: var(--text-secondary);
-            padding: 32px;
-            font-size: 16px;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px dashed var(--border);
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 32px;
-            color: var(--text-secondary);
-            font-size: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(94, 96, 206, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .highlight {
-            background-color: rgba(255, 210, 0, 0.2);
-            border-radius: 2px;
-            padding: 0 2px;
-            font-weight: 500;
-        }
-        
-        /* POS-specific styling */
-        .dictionary-item[data-pos="n"] {
-            border-left-color: var(--pos-n);
-        }
-        .dictionary-item[data-pos="n"] .pos {
-            color: var(--pos-n);
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-        
-        .dictionary-item[data-pos="v"] {
-            border-left-color: var(--pos-v);
-        }
-        .dictionary-item[data-pos="v"] .pos {
-            color: var(--pos-v);
-            background-color: rgba(139, 92, 246, 0.1);
-        }
-        
-        .dictionary-item[data-pos="a"] {
-            border-left-color: var(--pos-a);
-        }
-        .dictionary-item[data-pos="a"] .pos {
-            color: var(--pos-a);
-            background-color: rgba(245, 158, 11, 0.1);
-        }
-        
-        .dictionary-item[data-pos="cnj"] {
-            border-left-color: var(--pos-cnj);
-        }
-        .dictionary-item[data-pos="cnj"] .pos {
-            color: var(--pos-cnj);
-            background-color: rgba(239, 68, 68, 0.1);
-        }
-        
-        .dictionary-item[data-pos="prp"] {
-            border-left-color: var(--pos-prp);
-        }
-        .dictionary-item[data-pos="prp"] .pos {
-            color: var(--pos-prp);
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-        
-        .dictionary-item[data-pos="prn"] {
-            border-left-color: var(--pos-prn);
-        }
-        .dictionary-item[data-pos="prn"] .pos {
-            color: var(--pos-prn);
-            background-color: rgba(6, 182, 212, 0.1);
-        }
-        
-        .dictionary-item[data-pos="num"] {
-            border-left-color: var(--pos-num);
-        }
-        .dictionary-item[data-pos="num"] .pos {
-            color: var(--pos-num);
-            background-color: rgba(141, 63, 216, 0.1);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .theme-grid {
-                gap: 6px;
-            }
-            
-            .theme-item {
-                padding: 4px 10px;
-                font-size: 13px;
-            }
-            
-            .dictionary-item {
-                padding: 12px;
-            }
-            
-            .iskunsa {
-                font-size: 18px;
-            }
-            
-            .definition {
-                font-size: 15px;
-            }
-            
-            .example-iskunsa,
-            .example-translation {
-                font-size: 13px;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iskunsa Dictionary</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        :root {
+            /* Primary palette */
+            --primary: #5E60CE;
+            --primary-light: #6930C3;
+            --primary-dark: #5390D9;
+            --accent: #48BFE3;
+            
+            /* UI colors */
+            --background: #0F172A;
+            --card-bg: #1E293B;
+            --border: #334155;
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-tertiary: #64748B;
+            --shadow: rgba(0, 0, 0, 0.3);
+            
+            /* POS Colors - more sophisticated palette */
+            --pos-n: #10B981;    /* green */
+            --pos-v: #8B5CF6;    /* violet */
+            --pos-a: #F59E0B;    /* amber */
+            --pos-cnj: #EF4444;  /* red */
+            --pos-prp: #3B82F6;  /* blue */
+            --pos-prn: #06B6D4;  /* cyan */
+            --pos-num: #8D3FD8;  /* purple */
+        }
+        
+        @keyframes gradientTitle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            padding-bottom: 30px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--background);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        
+        .title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 16px;
+            padding: 4px 0;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(90deg, #5E60CE, #6930C3, #5390D9, #48BFE3);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientTitle 6s ease infinite;
+            letter-spacing: -0.5px;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 16px;
+        }
+        
+        .clear-button {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(148, 163, 184, 0.3);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .clear-button:hover {
+            background-color: rgba(148, 163, 184, 0.5);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            font-size: 16px;
+            outline: none;
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(94, 96, 206, 0.3);
+        }
+        
+        .theme-section {
+            margin-bottom: 16px;
+        }
+        
+        .theme-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .theme-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .theme-item {
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-weight: 500;
+            color: var(--text);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-item:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(94, 96, 206, 0.1);
+        }
+        
+        .theme-item.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .word-counter {
+            text-align: right;
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        
+        .results-section {
+            margin-top: 16px;
+        }
+        
+        .dictionary-item {
+            margin-bottom: 12px;
+            padding: 16px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px var(--shadow);
+            border-left: 3px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .dictionary-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .item-header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .iskunsa {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-right: 8px;
+        }
+        
+        .pos {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-right: 8px;
+            white-space: nowrap;
+        }
+        
+        .definition {
+            font-size: 16px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+        
+        .theme-tag {
+            color: var(--text-tertiary);
+            font-size: 13px;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 32px;
+            font-size: 16px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px dashed var(--border);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-secondary);
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(94, 96, 206, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .highlight {
+            background-color: rgba(255, 210, 0, 0.2);
+            border-radius: 2px;
+            padding: 0 2px;
+            font-weight: 500;
+        }
+        
+        /* POS-specific styling */
+        .dictionary-item[data-pos="n"] {
+            border-left-color: var(--pos-n);
+        }
+        .dictionary-item[data-pos="n"] .pos {
+            color: var(--pos-n);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        
+        .dictionary-item[data-pos="v"] {
+            border-left-color: var(--pos-v);
+        }
+        .dictionary-item[data-pos="v"] .pos {
+            color: var(--pos-v);
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+        
+        .dictionary-item[data-pos="a"] {
+            border-left-color: var(--pos-a);
+        }
+        .dictionary-item[data-pos="a"] .pos {
+            color: var(--pos-a);
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        
+        .dictionary-item[data-pos="cnj"] {
+            border-left-color: var(--pos-cnj);
+        }
+        .dictionary-item[data-pos="cnj"] .pos {
+            color: var(--pos-cnj);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .dictionary-item[data-pos="prp"] {
+            border-left-color: var(--pos-prp);
+        }
+        .dictionary-item[data-pos="prp"] .pos {
+            color: var(--pos-prp);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .dictionary-item[data-pos="prn"] {
+            border-left-color: var(--pos-prn);
+        }
+        .dictionary-item[data-pos="prn"] .pos {
+            color: var(--pos-prn);
+            background-color: rgba(6, 182, 212, 0.1);
+        }
+        
+        .dictionary-item[data-pos="num"] {
+            border-left-color: var(--pos-num);
+        }
+        .dictionary-item[data-pos="num"] .pos {
+            color: var(--pos-num);
+            background-color: rgba(141, 63, 216, 0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .theme-grid {
+                gap: 6px;
+            }
+            
+            .theme-item {
+                padding: 4px 10px;
+                font-size: 13px;
+            }
+            
+            .dictionary-item {
+                padding: 12px;
+            }
+            
+            .iskunsa {
+                font-size: 18px;
+            }
+            
+            .definition {
+                font-size: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="title-bar">
-                <h1 class="title">Iskunsa Dictionary</h1>
-            </div>
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" class="search-input" placeholder="Search words and definitions...">
-                <span class="clear-button" id="clearButton">✕</span>
-            </div>
-            <div class="theme-section">
-                <h2 class="theme-title">Filter by Theme</h2>
-                <div class="theme-grid" id="themeGrid"></div>
-                <div class="word-counter" id="wordCounter">0 words</div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div id="loading" class="loading">
-            <div class="loading-spinner"></div>
-            <div>Loading dictionary...</div>
-        </div>
-        <div class="results-section">
-            <div id="results"></div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const clearButton = document.getElementById('clearButton');
-            const resultsContainer = document.getElementById('results');
-            const loadingElement = document.getElementById('loading');
-            const themeGridElement = document.getElementById('themeGrid');
-            const wordCounterElement = document.getElementById('wordCounter');
-            
-            let dictionaryData = [];
-            let uniqueThemes = new Set();
-            let activeTheme = '';
-            
-            async function loadDictionary() {
-                try {
-                    const response = await fetch('dictionary.tsv');
-                    const data = await response.text();
-                    
-                    Papa.parse(data, {
-                        delimiter: '\t',
-                        skipEmptyLines: true,
-                        complete: function(results) {
-                            dictionaryData = results.data
-                                .filter(row => row.length >= 3) // Filter out invalid rows
-                                .map(row => ({
-                                    iskunsa: row[0] || '',
-                                    pos: row[1] || '',
-                                    definition: row[2] || '',
-                                    theme: row[3] || '',
-                                    example: row[4] || '0',
-                                    translation: row[5] || '0'
-                                }));
-                            
-                            // Extract unique themes
-                            dictionaryData.forEach(item => {
-                                if (item.theme) {
-                                    uniqueThemes.add(item.theme);
-                                }
-                            });
-                            
-                            // Sort dictionary alphabetically
-                            dictionaryData.sort((a, b) => a.iskunsa.localeCompare(b.iskunsa));
-                            
-                            createThemeGrid();
-                            displayResults(dictionaryData);
-                            updateWordCounter(dictionaryData.length);
-                            loadingElement.style.display = 'none';
-                        },
-                        error: function(error) {
-                            console.error('Error parsing TSV:', error);
-                            resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary</div>';
-                            loadingElement.style.display = 'none';
-                            updateWordCounter(0);
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error reading file:', error);
-                    handleDictionaryError();
-                }
-            }
-            
-            function handleDictionaryError() {
-                // Use mock data if dictionary file is not found
-                const mockData = [
-                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example: 'Akuna ven malosti.', translation: 'The river flows quickly.'},
-                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example: '0', translation: '0'},
-                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception', example: 'Cimaro sulani ven falana.', translation: 'Their eyes are bright.'},
-                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example: '0', translation: '0'},
-                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example: 'Sor elomni karu.', translation: 'He is above the mountain.'},
-                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example: '0', translation: '0'},
-                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example: 'Guropi teska ven misu.', translation: 'I have seven books.'}
-                ];
-                
-                dictionaryData = mockData;
-                mockData.forEach(item => {
-                    if (item.theme) {
-                        uniqueThemes.add(item.theme);
-                    }
-                });
-                
-                createThemeGrid();
-                displayResults(mockData);
-                updateWordCounter(mockData.length);
-                loadingElement.style.display = 'none';
-            }
-            
-            function updateWordCounter(count) {
-                wordCounterElement.textContent = count + (count === 1 ? ' word' : ' words');
-            }
-            
-            function createThemeGrid() {
-                const sortedThemes = Array.from(uniqueThemes).sort();
-                let gridHTML = '';
-                
-                sortedThemes.forEach(theme => {
-                    gridHTML += `<div class="theme-item" data-theme="${theme}">${theme}</div>`;
-                });
-                
-                themeGridElement.innerHTML = gridHTML;
-                
-                document.querySelectorAll('.theme-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        const theme = this.getAttribute('data-theme');
-                        
-                        if (activeTheme === theme) {
-                            // If clicking the same theme, deselect it
-                            activeTheme = '';
-                            this.classList.remove('active');
-                            searchInput.value = '';
-                            displayResults(dictionaryData);
-                            updateWordCounter(dictionaryData.length);
-                        } else {
-                            // Select new theme
-                            activeTheme = theme;
-                            document.querySelectorAll('.theme-item').forEach(el => {
-                                el.classList.remove('active');
-                            });
-                            this.classList.add('active');
-                            searchInput.value = ''; // Clear search input when selecting a theme
-                            const filteredResults = dictionaryData.filter(item => item.theme === theme);
-                            displayResults(filteredResults);
-                            updateWordCounter(filteredResults.length);
-                        }
-                    });
-                });
-            }
-            
-            function searchDictionary(query) {
-                query = query.toLowerCase().trim();
-                
-                if (query === '') {
-                    if (activeTheme) {
-                        const filteredResults = dictionaryData.filter(item => item.theme === activeTheme);
-                        displayResults(filteredResults);
-                        updateWordCounter(filteredResults.length);
-                    } else {
-                        displayResults(dictionaryData);
-                        updateWordCounter(dictionaryData.length);
-                    }
-                    return;
-                }
-                
-                let dataToFilter = activeTheme ? 
-                    dictionaryData.filter(item => item.theme === activeTheme) : 
-                    dictionaryData;
-                
-                const filteredResults = dataToFilter.filter(item => {
-                    // Search in iskunsa, definition, example, and translation columns
-                    return (
-                        item.iskunsa.toLowerCase().includes(query) || 
-                        item.definition.toLowerCase().includes(query) ||
-                        (item.example !== '0' && item.example.toLowerCase().includes(query)) ||
-                        (item.translation !== '0' && item.translation.toLowerCase().includes(query))
-                    );
-                });
-                
-                displayResults(filteredResults, query);
-                updateWordCounter(filteredResults.length);
-            }
-            
-            function displayResults(results, query = '') {
-                if (results.length === 0) {
-                    resultsContainer.innerHTML = '<div class="no-results">No matching entries found</div>';
-                    return;
-                }
-                
-                let html = '';
-                results.forEach(item => {
-                    let iskunsaDisplay = item.iskunsa;
-                    let definitionDisplay = item.definition;
-                    let themeDisplay = item.theme;
-                    let exampleDisplay = item.example;
-                    let translationDisplay = item.translation;
-                    let posValue = item.pos.toLowerCase();
-                    
-                    // Clean up POS to match our CSS classes
-                    if (posValue.includes('n')) posValue = 'n';
-                    else if (posValue.includes('v')) posValue = 'v';
-                    else if (posValue.includes('a')) posValue = 'a';
-                    else if (posValue.includes('cnj')) posValue = 'cnj';
-                    else if (posValue.includes('prp')) posValue = 'prp';
-                    else if (posValue.includes('prn')) posValue = 'prn';
-                    else if (posValue.includes('num')) posValue = 'num';
-                    
-                    if (query) {
-                        const regex = new RegExp(`(${query})`, 'gi');
-                        // Highlight matches in iskunsa, definition, example and translation
-                        iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        
-                        if (exampleDisplay !== '0') {
-                            exampleDisplay = exampleDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        }
-                        
-                        if (translationDisplay !== '0') {
-                            translationDisplay = translationDisplay.replace(regex, '<span class="highlight">$1</span>');
-                        }
-                    }
-                    
-                    html += `
-                    <div class="dictionary-item" data-pos="${posValue}">
-                        <div class="item-header">
-                            <div class="iskunsa">${iskunsaDisplay}</div>
-                            <div class="pos">${item.pos}</div>
-                            <div class="definition">${definitionDisplay}</div>
-                            <div class="theme-tag">${themeDisplay}</div>
-                        </div>`;
-                    
-                    // Only add example section if there is an example
-                    if (item.example !== '0' && item.translation !== '0') {
-                        html += `
-                        <div class="example-section">
-                            <div class="example-line">
-                                <span class="example-iskunsa">${exampleDisplay}</span>
-                                <span class="example-translation">${translationDisplay}</span>
-                            </div>
-                        </div>`;
-                    }
-                    
-                    html += `</div>`;
-                });
-                
-                resultsContainer.innerHTML = html;
-            }
-            
-            searchInput.addEventListener('input', function() {
-                searchDictionary(this.value);
-            });
-            
-            clearButton.addEventListener('click', function() {
-                searchInput.value = '';
-                searchDictionary('');
-                activeTheme = '';
-                document.querySelectorAll('.theme-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                updateWordCounter(dictionaryData.length);
-            });
-            
-            // Fallback for errors
-            window.addEventListener('error', function() {
-                handleDictionaryError();
-            });
-            
-            // Start loading the dictionary
-            loadDictionary();
-        });
-    </script>
+    <div class="header">
+        <div class="container">
+            <div class="title-bar">
+                <h1 class="title">Iskunsa Dictionary</h1>
+            </div>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search words and definitions...">
+                <span class="clear-button" id="clearButton">✕</span>
+            </div>
+            <div class="theme-section">
+                <h2 class="theme-title">Filter by Theme</h2>
+                <div class="theme-grid" id="themeGrid"></div>
+                <div class="word-counter" id="wordCounter">0 words</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <div>Loading dictionary...</div>
+        </div>
+        <div class="results-section">
+            <div id="results"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearButton = document.getElementById('clearButton');
+            const resultsContainer = document.getElementById('results');
+            const loadingElement = document.getElementById('loading');
+            const themeGridElement = document.getElementById('themeGrid');
+            const wordCounterElement = document.getElementById('wordCounter');
+            
+            let dictionaryData = [];
+            let uniqueThemes = new Set();
+            let activeTheme = '';
+            
+            async function loadDictionary() {
+                try {
+                    const response = await fetch('dictionary.tsv');
+                    const data = await response.text();
+                    
+                    Papa.parse(data, {
+                        delimiter: '\t',
+                        skipEmptyLines: true,
+                        complete: function(results) {
+                            dictionaryData = results.data
+                                .filter(row => row.length >= 3) // Filter out invalid rows
+                                .map(row => ({
+                                    iskunsa: row[0] || '',
+                                    pos: row[1] || '',
+                                    definition: row[2] || '',
+                                    theme: row[3] || ''
+                                }));
+                            
+                            // Extract unique themes
+                            dictionaryData.forEach(item => {
+                                if (item.theme) {
+                                    uniqueThemes.add(item.theme);
+                                }
+                            });
+                            
+                            // Sort dictionary alphabetically
+                            dictionaryData.sort((a, b) => a.iskunsa.localeCompare(b.iskunsa));
+                            
+                            createThemeGrid();
+                            displayResults(dictionaryData);
+                            updateWordCounter(dictionaryData.length);
+                            loadingElement.style.display = 'none';
+                        },
+                        error: function(error) {
+                            console.error('Error parsing TSV:', error);
+                            resultsContainer.innerHTML = '<div class="no-results">Error loading dictionary</div>';
+                            loadingElement.style.display = 'none';
+                            updateWordCounter(0);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error reading file:', error);
+                    handleDictionaryError();
+                }
+            }
+            
+            function handleDictionaryError() {
+                // Use mock data if dictionary file is not found
+                const mockData = [
+                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature'},
+                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication'},
+                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception'},
+                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar'},
+                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position'},
+                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people'},
+                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity'}
+                ];
+                
+                dictionaryData = mockData;
+                mockData.forEach(item => {
+                    if (item.theme) {
+                        uniqueThemes.add(item.theme);
+                    }
+                });
+                
+                createThemeGrid();
+                displayResults(mockData);
+                updateWordCounter(mockData.length);
+                loadingElement.style.display = 'none';
+            }
+            
+            function updateWordCounter(count) {
+                wordCounterElement.textContent = count + (count === 1 ? ' word' : ' words');
+            }
+            
+            function createThemeGrid() {
+                const sortedThemes = Array.from(uniqueThemes).sort();
+                let gridHTML = '';
+                
+                sortedThemes.forEach(theme => {
+                    gridHTML += `<div class="theme-item" data-theme="${theme}">${theme}</div>`;
+                });
+                
+                themeGridElement.innerHTML = gridHTML;
+                
+                document.querySelectorAll('.theme-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const theme = this.getAttribute('data-theme');
+                        
+                        if (activeTheme === theme) {
+                            // If clicking the same theme, deselect it
+                            activeTheme = '';
+                            this.classList.remove('active');
+                            searchInput.value = '';
+                            displayResults(dictionaryData);
+                            updateWordCounter(dictionaryData.length);
+                        } else {
+                            // Select new theme
+                            activeTheme = theme;
+                            document.querySelectorAll('.theme-item').forEach(el => {
+                                el.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                            searchInput.value = ''; // Clear search input when selecting a theme
+                            const filteredResults = dictionaryData.filter(item => item.theme === theme);
+                            displayResults(filteredResults);
+                            updateWordCounter(filteredResults.length);
+                        }
+                    });
+                });
+            }
+            
+            function searchDictionary(query) {
+                query = query.toLowerCase().trim();
+                
+                if (query === '') {
+                    if (activeTheme) {
+                        const filteredResults = dictionaryData.filter(item => item.theme === activeTheme);
+                        displayResults(filteredResults);
+                        updateWordCounter(filteredResults.length);
+                    } else {
+                        displayResults(dictionaryData);
+                        updateWordCounter(dictionaryData.length);
+                    }
+                    return;
+                }
+                
+                let dataToFilter = activeTheme ? 
+                    dictionaryData.filter(item => item.theme === activeTheme) : 
+                    dictionaryData;
+                
+                const filteredResults = dataToFilter.filter(item => {
+                    // Search in iskunsa and definition columns
+                    return (
+                        item.iskunsa.toLowerCase().includes(query) || 
+                        item.definition.toLowerCase().includes(query)
+                    );
+                });
+                
+                displayResults(filteredResults, query);
+                updateWordCounter(filteredResults.length);
+            }
+            
+            function displayResults(results, query = '') {
+                if (results.length === 0) {
+                    resultsContainer.innerHTML = '<div class="no-results">No matching entries found</div>';
+                    return;
+                }
+                
+                let html = '';
+                results.forEach(item => {
+                    let iskunsaDisplay = item.iskunsa;
+                    let definitionDisplay = item.definition;
+                    let themeDisplay = item.theme;
+                    let posValue = item.pos.toLowerCase();
+                    
+                    // Clean up POS to match our CSS classes
+                    if (posValue.includes('n')) posValue = 'n';
+                    else if (posValue.includes('v')) posValue = 'v';
+                    else if (posValue.includes('a')) posValue = 'a';
+                    else if (posValue.includes('cnj')) posValue = 'cnj';
+                    else if (posValue.includes('prp')) posValue = 'prp';
+                    else if (posValue.includes('prn')) posValue = 'prn';
+                    else if (posValue.includes('num')) posValue = 'num';
+                    
+                    if (query) {
+                        const regex = new RegExp(`(${query})`, 'gi');
+                        // Highlight matches in iskunsa and definition
+                        iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
+                        definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
+                    }
+                    
+                    html += `
+                    <div class="dictionary-item" data-pos="${posValue}">
+                        <div class="item-header">
+                            <div class="iskunsa">${iskunsaDisplay}</div>
+                            <div class="pos">${item.pos}</div>
+                            <div class="definition">${definitionDisplay}</div>
+                            <div class="theme-tag">${themeDisplay}</div>
+                        </div>
+                    </div>`;
+                });
+                
+                resultsContainer.innerHTML = html;
+            }
+            
+            searchInput.addEventListener('input', function() {
+                searchDictionary(this.value);
+            });
+            
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                searchDictionary('');
+                activeTheme = '';
+                document.querySelectorAll('.theme-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                updateWordCounter(dictionaryData.length);
+            });
+            
+            // Fallback for errors
+            window.addEventListener('error', function() {
+                handleDictionaryError();
+            });
+            
+            // Start loading the dictionary
+            loadDictionary();
+        });
+    </script>
 </body>
 </html>
