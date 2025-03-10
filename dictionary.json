@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "id": "/",
+  "start_url": "/dictionary.html",
+  "scope": "/",
+  "name": "Juha",
+  "short_name": "Juha",
+   "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "fullscreen",
+  "background_color": "#F8F8F2",
+  "theme_color": "#0D47A1",
+  "orientation": "portrait",
+  "description": "",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "productivity",
+    "reference",
+    "utilities"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
