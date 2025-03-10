@@ -224,7 +224,6 @@
             display: flex;
             align-items: center;
             width: 100%;
-            margin-bottom: 8px;
         }
         
         .iskunsa {
@@ -247,6 +246,7 @@
         .definition {
             font-size: 16px;
             color: var(--text-secondary);
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             flex: 1;
@@ -263,34 +263,22 @@
             margin-left: 8px;
         }
         
-        .examples-container {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid var(--border);
-            display: none;
+        .example-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .examples-container.has-examples {
-            display: block;
-        }
-        
-        .example-row {
-            margin-bottom: 6px;
-        }
-        
-        .example-label {
-            font-size: 12px;
-            color: var(--text-tertiary);
-            font-weight: 600;
-            margin-bottom: 2px;
-            display: block;
+        .example-line {
+            display: flex;
+            align-items: center;
         }
         
         .example-iskunsa {
             font-size: 15px;
-            color: var(--primary-light);
+            color: var(--accent);
             font-style: italic;
-            margin-bottom: 2px;
+            margin-right: 12px;
         }
         
         .example-translation {
@@ -420,15 +408,7 @@
                 font-size: 15px;
             }
             
-            .examples-container {
-                padding-top: 6px;
-                margin-top: 6px;
-            }
-            
-            .example-iskunsa {
-                font-size: 14px;
-            }
-            
+            .example-iskunsa,
             .example-translation {
                 font-size: 13px;
             }
@@ -491,8 +471,8 @@
                                     pos: row[1] || '',
                                     definition: row[2] || '',
                                     theme: row[3] || '',
-                                    example1: row[4] || '0', // Iskunsa example sentence
-                                    example2: row[5] || '0'  // Translation
+                                    example: row[4] || '0',
+                                    translation: row[5] || '0'
                                 }));
                             
                             // Extract unique themes
@@ -526,13 +506,13 @@
             function handleDictionaryError() {
                 // Use mock data if dictionary file is not found
                 const mockData = [
-                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example1: 'Mi telimba akuna varo.', example2: 'I swim in the river.'},
-                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example1: 'Si baruta Iskunsa veli.', example2: 'She speaks Iskunsa well.'},
-                    {iskunsa: 'cimaro', pos: 'a.', definition: 'bright', theme: 'perception', example1: 'Sola esta cimaro hoji.', example2: 'The sun is bright today.'},
-                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example1: '0', example2: '0'},
-                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example1: 'Nubes esta elomni montaña.', example2: 'Clouds are above the mountain.'},
-                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example1: '0', example2: '0'},
-                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example1: 'Mi tena guropi libros.', example2: 'I have seven books.'}
+                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example: 'Akuna ven malosti.', translation: 'The river flows quickly.'},
+                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example: '0', translation: '0'},
+                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception', example: 'Cimaro sulani ven falana.', translation: 'Their eyes are bright.'},
+                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example: '0', translation: '0'},
+                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example: 'Sor elomni karu.', translation: 'He is above the mountain.'},
+                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example: '0', translation: '0'},
+                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example: 'Guropi teska ven misu.', translation: 'I have seven books.'}
                 ];
                 
                 dictionaryData = mockData;
@@ -609,12 +589,12 @@
                     dictionaryData;
                 
                 const filteredResults = dataToFilter.filter(item => {
-                    // Search in iskunsa, definition, and examples
+                    // Search in iskunsa, definition, example, and translation columns
                     return (
                         item.iskunsa.toLowerCase().includes(query) || 
                         item.definition.toLowerCase().includes(query) ||
-                        (item.example1 !== '0' && item.example1.toLowerCase().includes(query)) ||
-                        (item.example2 !== '0' && item.example2.toLowerCase().includes(query))
+                        (item.example !== '0' && item.example.toLowerCase().includes(query)) ||
+                        (item.translation !== '0' && item.translation.toLowerCase().includes(query))
                     );
                 });
                 
@@ -633,8 +613,8 @@
                     let iskunsaDisplay = item.iskunsa;
                     let definitionDisplay = item.definition;
                     let themeDisplay = item.theme;
-                    let example1Display = item.example1;
-                    let example2Display = item.example2;
+                    let exampleDisplay = item.example;
+                    let translationDisplay = item.translation;
                     let posValue = item.pos.toLowerCase();
                     
                     // Clean up POS to match our CSS classes
@@ -648,21 +628,18 @@
                     
                     if (query) {
                         const regex = new RegExp(`(${query})`, 'gi');
-                        // Highlight matches in iskunsa, definition, and examples
+                        // Highlight matches in iskunsa, definition, example and translation
                         iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
                         definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
                         
-                        if (example1Display !== '0') {
-                            example1Display = example1Display.replace(regex, '<span class="highlight">$1</span>');
+                        if (exampleDisplay !== '0') {
+                            exampleDisplay = exampleDisplay.replace(regex, '<span class="highlight">$1</span>');
                         }
                         
-                        if (example2Display !== '0') {
-                            example2Display = example2Display.replace(regex, '<span class="highlight">$1</span>');
+                        if (translationDisplay !== '0') {
+                            translationDisplay = translationDisplay.replace(regex, '<span class="highlight">$1</span>');
                         }
                     }
-                    
-                    // Determine if we have examples to show
-                    const hasExamples = example1Display !== '0' || example2Display !== '0';
                     
                     html += `
                     <div class="dictionary-item" data-pos="${posValue}">
@@ -673,17 +650,13 @@
                             <div class="theme-tag">${themeDisplay}</div>
                         </div>`;
                     
-                    // Add examples section if available
-                    if (hasExamples) {
+                    // Only add example section if there is an example
+                    if (item.example !== '0' && item.translation !== '0') {
                         html += `
-                        <div class="examples-container has-examples">
-                            <div class="example-row">
-                                ${example1Display !== '0' ? `
-                                    <div class="example-iskunsa">${example1Display}</div>
-                                ` : ''}
-                                ${example2Display !== '0' ? `
-                                    <div class="example-translation">${example2Display}</div>
-                                ` : ''}
+                        <div class="example-section">
+                            <div class="example-line">
+                                <span class="example-iskunsa">${exampleDisplay}</span>
+                                <span class="example-translation">${translationDisplay}</span>
                             </div>
                         </div>`;
                     }
