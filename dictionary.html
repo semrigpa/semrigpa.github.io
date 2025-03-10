@@ -263,6 +263,29 @@
             margin-left: 8px;
         }
         
+        .example-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .example-line {
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-iskunsa {
+            font-size: 15px;
+            color: var(--accent);
+            font-style: italic;
+            margin-right: 12px;
+        }
+        
+        .example-translation {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
         .no-results {
             text-align: center;
             color: var(--text-secondary);
@@ -384,6 +407,11 @@
             .definition {
                 font-size: 15px;
             }
+            
+            .example-iskunsa,
+            .example-translation {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -442,7 +470,9 @@
                                     iskunsa: row[0] || '',
                                     pos: row[1] || '',
                                     definition: row[2] || '',
-                                    theme: row[3] || ''
+                                    theme: row[3] || '',
+                                    example: row[4] || '0',
+                                    translation: row[5] || '0'
                                 }));
                             
                             // Extract unique themes
@@ -476,13 +506,13 @@
             function handleDictionaryError() {
                 // Use mock data if dictionary file is not found
                 const mockData = [
-                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature'},
-                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication'},
-                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception'},
-                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar'},
-                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position'},
-                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people'},
-                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity'}
+                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example: 'Akuna ven malosti.', translation: 'The river flows quickly.'},
+                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example: '0', translation: '0'},
+                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception', example: 'Cimaro sulani ven falana.', translation: 'Their eyes are bright.'},
+                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example: '0', translation: '0'},
+                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example: 'Sor elomni karu.', translation: 'He is above the mountain.'},
+                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example: '0', translation: '0'},
+                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example: 'Guropi teska ven misu.', translation: 'I have seven books.'}
                 ];
                 
                 dictionaryData = mockData;
@@ -559,10 +589,12 @@
                     dictionaryData;
                 
                 const filteredResults = dataToFilter.filter(item => {
-                    // Search in iskunsa and definition columns
+                    // Search in iskunsa, definition, example, and translation columns
                     return (
                         item.iskunsa.toLowerCase().includes(query) || 
-                        item.definition.toLowerCase().includes(query)
+                        item.definition.toLowerCase().includes(query) ||
+                        (item.example !== '0' && item.example.toLowerCase().includes(query)) ||
+                        (item.translation !== '0' && item.translation.toLowerCase().includes(query))
                     );
                 });
                 
@@ -581,6 +613,8 @@
                     let iskunsaDisplay = item.iskunsa;
                     let definitionDisplay = item.definition;
                     let themeDisplay = item.theme;
+                    let exampleDisplay = item.example;
+                    let translationDisplay = item.translation;
                     let posValue = item.pos.toLowerCase();
                     
                     // Clean up POS to match our CSS classes
@@ -594,9 +628,17 @@
                     
                     if (query) {
                         const regex = new RegExp(`(${query})`, 'gi');
-                        // Highlight matches in iskunsa and definition
+                        // Highlight matches in iskunsa, definition, example and translation
                         iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
                         definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
+                        
+                        if (exampleDisplay !== '0') {
+                            exampleDisplay = exampleDisplay.replace(regex, '<span class="highlight">$1</span>');
+                        }
+                        
+                        if (translationDisplay !== '0') {
+                            translationDisplay = translationDisplay.replace(regex, '<span class="highlight">$1</span>');
+                        }
                     }
                     
                     html += `
@@ -606,8 +648,20 @@
                             <div class="pos">${item.pos}</div>
                             <div class="definition">${definitionDisplay}</div>
                             <div class="theme-tag">${themeDisplay}</div>
-                        </div>
-                    </div>`;
+                        </div>`;
+                    
+                    // Only add example section if there is an example
+                    if (item.example !== '0' && item.translation !== '0') {
+                        html += `
+                        <div class="example-section">
+                            <div class="example-line">
+                                <span class="example-iskunsa">${exampleDisplay}</span>
+                                <span class="example-translation">${translationDisplay}</span>
+                            </div>
+                        </div>`;
+                    }
+                    
+                    html += `</div>`;
                 });
                 
                 resultsContainer.innerHTML = html;
