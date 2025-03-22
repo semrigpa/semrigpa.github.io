@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bretanech Dictionary</title>
+    <style>
+        :root {
+            /* Khaki bookish color theme */
+            --primary: #967D69;
+            --primary-light: #B5A48C;
+            --primary-dark: #6B5B49;
+            --accent: #D1BE9C;
+            
+            /* UI colors */
+            --background: #F5F1E8;
+            --card-bg: #FFFCF5;
+            --border: #C4B59D;
+            --text: #3F3527;
+            --text-secondary: #665E51;
+            --text-tertiary: #8B8072;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes gradientTitle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Bookman Old Style', 'Book Antiqua', Garamond, serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            padding-bottom: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d1be9c' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--background);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        
+        .title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 16px;
+            padding: 4px 0;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(90deg, #967D69, #B5A48C, #6B5B49, #D1BE9C);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientTitle 6s ease infinite;
+            letter-spacing: 1px;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 16px;
+        }
+        
+        .clear-button {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .clear-button:hover {
+            background-color: var(--primary);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            font-size: 16px;
+            outline: none;
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(150, 125, 105, 0.3);
+        }
+        
+        .word-counter {
+            text-align: right;
+            color: var(--primary);
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .results-section {
+            margin-top: 16px;
+        }
+        
+        .dictionary-item {
+            margin-bottom: 16px;
+            padding: 16px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow);
+            border-left: 3px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .dictionary-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        
+        .highlight {
+            background-color: rgba(209, 190, 156, 0.4);
+            border-radius: 2px;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .dictionary-item {
+                padding: 12px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-secondary);
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(150, 125, 105, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 32px;
+            font-size: 16px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="title-bar">
+                <h1 class="title">Bretanech Dictionary</h1>
+            </div>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search Bretanech dictionary...">
+                <span class="clear-button" id="clearButton">✕</span>
+            </div>
+            <div class="word-counter" id="wordCounter">0 entries</div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <div>Loading dictionary...</div>
+        </div>
+        <div class="results-section">
+            <div id="results"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearButton = document.getElementById('clearButton');
+            const resultsContainer = document.getElementById('results');
+            const loadingElement = document.getElementById('loading');
+            const wordCounterElement = document.getElementById('wordCounter');
+            
+            let dictionaryData = [];
+            
+            async function loadDictionary() {
+                try {
+                    const response = await fetch('dictionary.txt');
+                    const data = await response.text();
+                    
+                    // Split the text file by lines
+                    dictionaryData = data.split('\n')
+                        .filter(line => line.trim() !== '') // Remove empty lines
+                        .map(line => ({ text: line.trim() }));
+                    
+                    displayResults(dictionaryData);
+                    updateWordCounter(dictionaryData.length);
+                    loadingElement.style.display = 'none';
+                } catch (error) {
+                    console.error('Error reading file:', error);
+                    handleDictionaryError();
+                }
+            }
+            
+            function handleDictionaryError() {
+                // Use mock data if dictionary file is not found
+                const mockData = [
+                    { text: "abask - (v.) to bask in sunlight" },
+                    { text: "beldame - (n.) an old woman, especially an ugly one; a witch" },
+                    { text: "caliver - (n.) a light kind of musket or harquebus" },
+                    { text: "dastard - (n.) a dishonorable or despicable person; a coward" },
+                    { text: "eld - (n.) old age; antiquity" },
+                    { text: "fardel - (n.) a bundle or little pack; a burden" },
+                    { text: "galliard - (n.) a lively dance in triple time" }
+                ];
+                
+                dictionaryData = mockData;
+                displayResults(mockData);
+                updateWordCounter(mockData.length);
+                loadingElement.style.display = 'none';
+            }
+            
+            function updateWordCounter(count) {
+                wordCounterElement.textContent = count + (count === 1 ? ' entry' : ' entries');
+            }
+            
+            function searchDictionary(query) {
+                query = query.toLowerCase().trim();
+                
+                if (query === '') {
+                    displayResults(dictionaryData);
+                    updateWordCounter(dictionaryData.length);
+                    return;
+                }
+                
+                const filteredResults = dictionaryData.filter(item => {
+                    return item.text.toLowerCase().includes(query);
+                });
+                
+                displayResults(filteredResults, query);
+                updateWordCounter(filteredResults.length);
+            }
+            
+            function displayResults(results, query = '') {
+                if (results.length === 0) {
+                    resultsContainer.innerHTML = '<div class="no-results">No matching entries found</div>';
+                    return;
+                }
+                
+                let html = '';
+                results.forEach(item => {
+                    let textDisplay = item.text;
+                    
+                    if (query) {
+                        const regex = new RegExp(`(${query})`, 'gi');
+                        textDisplay = textDisplay.replace(regex, '<span class="highlight">$1</span>');
+                    }
+                    
+                    html += `
+                    <div class="dictionary-item">
+                        ${textDisplay}
+                    </div>`;
+                });
+                
+                resultsContainer.innerHTML = html;
+            }
+            
+            searchInput.addEventListener('input', function() {
+                searchDictionary(this.value);
+            });
+            
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                searchDictionary('');
+                updateWordCounter(dictionaryData.length);
+            });
+            
+            // Fallback for errors
+            window.addEventListener('error', function() {
+                handleDictionaryError();
+            });
+            
+            // Start loading the dictionary
+            loadDictionary();
+        });
+    </script>
+</body>
+</html>
