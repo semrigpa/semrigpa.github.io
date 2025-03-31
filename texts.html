@@ -3,221 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🜎 Text Repository</title>
+    <title>Text Reader</title>
     <style>
         :root {
-            --bg: #F0F0F0;
-            --surface: #FFFFFF;
-            --border: #DADCE0;
+            --background: #F0F0F0;
+            --card: #FFFFFF;
             --text: #202124;
             --accent: #4B0082;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --sidebar-width: 250px;
         }
-
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-
+        
         body {
-            background: var(--bg);
+            background-color: var(--background);
             color: var(--text);
+            display: grid;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            overflow: hidden;
         }
-
-        #title {
+        
+        header {
             text-align: center;
             padding: 1rem;
-            color: var(--accent);
-            border-bottom: 1px solid var(--border);
+            background-color: var(--card);
+            box-shadow: 0 2px 4px var(--shadow);
+            z-index: 10;
         }
-
-        #container {
+        
+        main {
             display: grid;
-            grid-template-columns: 250px 1fr;
-            height: calc(100vh - 65px);
+            grid-template-columns: var(--sidebar-width) 1fr;
+            overflow: hidden;
+            height: calc(100vh - 70px);
         }
-
+        
         #sidebar {
-            border-right: 1px solid var(--border);
+            background-color: var(--card);
             padding: 1rem;
-            background: var(--surface);
-        }
-
-        #content {
-            padding: 2rem;
-            background: var(--surface);
             overflow-y: auto;
+            border-right: 1px solid var(--shadow);
         }
-
+        
+        #search-container {
+            margin-bottom: 1rem;
+        }
+        
         #search {
             width: 100%;
             padding: 0.5rem;
-            border: 1px solid var(--border);
+            border: 1px solid var(--shadow);
             border-radius: 4px;
-            margin-bottom: 1rem;
         }
-
-        .file-item {
+        
+        #file-list {
+            list-style: none;
+        }
+        
+        #file-list li {
             padding: 0.5rem;
             cursor: pointer;
             border-radius: 4px;
         }
-
-        .file-item:hover {
-            background: var(--bg);
+        
+        #file-list li:hover, #file-list li.active {
+            background-color: var(--background);
         }
-
-        .tooltip {
-            border-bottom: 1px dotted var(--accent);
-            cursor: help;
-            position: relative;
+        
+        #content {
+            padding: 1rem 2rem;
+            overflow-y: auto;
+            background-color: var(--card);
         }
-
-        .tooltip-content {
-            display: none;
-            position: absolute;
-            background: var(--surface);
-            border: 1px solid var(--accent);
+        
+        #content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        #content-container p {
+            margin-bottom: 1rem;
+        }
+        
+        #content-container pre {
+            background-color: var(--background);
             padding: 0.5rem;
             border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        #content-container h1, #content-container h2, #content-container h3 {
+            margin: 1.5rem 0 0.5rem;
+            color: var(--accent);
+        }
+        
+        #message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text);
+        }
+        
+        .tooltip {
+            position: relative;
+            border-bottom: 1px dotted var(--accent);
+            cursor: help;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            background-color: var(--accent);
+            color: var(--card);
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            position: absolute;
             z-index: 1;
-            min-width: 200px;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-
-        .tooltip:hover .tooltip-content {
-            display: block;
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
-
+        
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent);
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+        
         @media (max-width: 768px) {
-            #container {
+            main {
                 grid-template-columns: 1fr;
             }
-
+            
             #sidebar {
-                position: fixed;
-                top: 0;
+                position: absolute;
                 left: -100%;
-                width: 80%;
-                height: 100vh;
-                z-index: 100;
+                height: calc(100vh - 70px);
+                width: var(--sidebar-width);
+                z-index: 10;
                 transition: left 0.3s;
             }
-
-            .menu-open #sidebar {
+            
+            #sidebar.open {
                 left: 0;
             }
-
-            #mobile-menu {
+            
+            #menu-toggle {
                 display: block;
-                position: fixed;
-                top: 1rem;
-                left: 1rem;
-                z-index: 101;
             }
         }
     </style>
 </head>
 <body>
-    <h1 id="title">🜎</h1>
-    <button id="mobile-menu" style="display: none;">☰</button>
-    <div id="container">
-        <div id="sidebar">
-            <input type="text" id="search" placeholder="Search all texts...">
-            <div id="file-list"></div>
-        </div>
-        <div id="content"></div>
-    </div>
-
+    <header>
+        <button id="menu-toggle">☰</button>
+        <h1 style="color:#4B0082">🜎</h1>
+    </header>
+    
+    <main>
+        <aside id="sidebar">
+            <div id="search-container">
+                <input type="text" id="search" placeholder="Search...">
+            </div>
+            <ul id="file-list"></ul>
+        </aside>
+        
+        <section id="content">
+            <div id="message">Select a file from the sidebar</div>
+            <div id="content-container"></div>
+        </section>
+    </main>
+    
     <script>
-        // Load and process text files
-        async function loadFiles() {
+        // DOM Elements
+        const fileList = document.getElementById('file-list');
+        const contentContainer = document.getElementById('content-container');
+        const message = document.getElementById('message');
+        const search = document.getElementById('search');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        // Store file contents for searching
+        const fileContents = {};
+        let currentFile = null;
+        
+        // Toggle mobile menu
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+        
+        // Handle search
+        search.addEventListener('input', () => {
+            const query = search.value.toLowerCase();
+            
+            if (query.length < 2) {
+                // Reset highlight in current file if query is too short
+                if (currentFile) {
+                    displayFileContent(currentFile);
+                }
+                return;
+            }
+            
+            if (currentFile) {
+                // Highlight matches in current file
+                let content = fileContents[currentFile];
+                const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+                content = content.replace(regex, '<mark>$1</mark>');
+                renderContent(content);
+            } else {
+                // Search across all files
+                message.style.display = 'none';
+                contentContainer.innerHTML = '';
+                
+                let hasResults = false;
+                
+                for (const filename in fileContents) {
+                    const content = fileContents[filename];
+                    if (content.toLowerCase().includes(query)) {
+                        hasResults = true;
+                        
+                        // Create header for file
+                        const header = document.createElement('h2');
+                        header.textContent = filename;
+                        contentContainer.appendChild(header);
+                        
+                        // Get the context around the match
+                        const index = content.toLowerCase().indexOf(query);
+                        const start = Math.max(0, index - 100);
+                        const end = Math.min(content.length, index + 100);
+                        let excerpt = content.substring(start, end);
+                        
+                        // Highlight match
+                        const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+                        excerpt = excerpt.replace(regex, '<mark>$1</mark>');
+                        
+                        // Add ellipsis if excerpt doesn't start/end at content boundaries
+                        if (start > 0) excerpt = '...' + excerpt;
+                        if (end < content.length) excerpt = excerpt + '...';
+                        
+                        // Create excerpt container
+                        const p = document.createElement('p');
+                        p.innerHTML = excerpt;
+                        contentContainer.appendChild(p);
+                    }
+                }
+                
+                if (!hasResults) {
+                    message.style.display = 'block';
+                    message.textContent = 'No results found';
+                }
+            }
+        });
+        
+        // Escape regular expression special characters
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+        
+        // Parse GitHub Pages directory listing
+        async function parseDirectoryListing(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const links = Array.from(doc.querySelectorAll('a'));
+            
+            return links
+                .map(link => link.href)
+                .filter(href => href.endsWith('.txt'))
+                .map(href => {
+                    const url = new URL(href);
+                    return url.pathname.split('/').pop();
+                })
+                .sort();
+        }
+        
+        // Create a custom directory listing parser as a fallback
+        function createDirectoryListingParser(response) {
+            const text = response;
+            const fileRegex = /href="([^"]+\.txt)"/g;
+            const matches = [...text.matchAll(fileRegex)];
+            return matches.map(match => match[1]).sort();
+        }
+        
+        // Process Markdown-like formatting
+        function processMarkdown(text) {
+            // Headers
+            text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+            text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+            text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+            
+            // Bold
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Italic
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Code blocks
+            text = text.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+            
+            // Inline code
+            text = text.replace(/`(.*?)`/g, '<code>$1</code>');
+            
+            // Process tooltip definitions, format: [term](definition)
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, term, definition) => {
+                return `<span class="tooltip">${term}<span class="tooltip-text">${definition}</span></span>`;
+            });
+            
+            // Paragraphs
+            const paragraphs = text.split(/\n\s*\n/);
+            return paragraphs.map(p => {
+                if (p.trim().startsWith('<h') || p.trim().startsWith('<pre>')) {
+                    return p;
+                }
+                return `<p>${p}</p>`;
+            }).join('');
+        }
+        
+        // Display file content
+        function displayFileContent(filename) {
+            currentFile = filename;
+            message.style.display = 'none';
+            
+            // Mark current file in the list
+            document.querySelectorAll('#file-list li').forEach(li => {
+                li.classList.remove('active');
+                if (li.textContent === filename) {
+                    li.classList.add('active');
+                }
+            });
+            
+            // Display content
+            renderContent(fileContents[filename]);
+        }
+        
+        // Render content with Markdown processing
+        function renderContent(content) {
+            contentContainer.innerHTML = processMarkdown(content);
+        }
+        
+        // Load a file
+        async function loadFile(filename) {
             try {
-                const response = await fetch('./texts/');
-                const text = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-                const links = Array.from(doc.querySelectorAll('a'))
-                    .filter(a => a.href.endsWith('.txt'))
-                    .map(a => a.href.split('/').pop());
-
-                const fileContents = await Promise.all(links.map(async file => {
-                    const response = await fetch(`./texts/${file}`);
-                    return {
-                        name: file,
-                        content: await response.text()
-                    };
-                }));
-
-                populateSidebar(fileContents);
-                loadInitialContent(fileContents);
-                setupSearch(fileContents);
+                const response = await fetch(`texts/${filename}`);
+                if (!response.ok) throw new Error(`Failed to load ${filename}`);
+                
+                const content = await response.text();
+                fileContents[filename] = content;
+                
+                const li = document.createElement('li');
+                li.textContent = filename;
+                li.addEventListener('click', () => displayFileContent(filename));
+                fileList.appendChild(li);
+                
+                return content;
             } catch (error) {
-                console.error('Error loading files:', error);
-                content.innerHTML = '<p>Error loading text files. Ensure the /texts directory exists with .txt files.</p>';
+                console.error(error);
+                return null;
             }
         }
-
-        function populateSidebar(files) {
-            const fileList = document.getElementById('file-list');
-            fileList.innerHTML = files
-                .map(file => `<div class="file-item" data-file="${file.name}">${file.name.replace('.txt', '')}</div>`)
-                .join('');
-            
-            document.querySelectorAll('.file-item').forEach(item => {
-                item.addEventListener('click', () => loadFileContent(files.find(f => f.name === item.dataset.file)));
-            });
-        }
-
-        function loadFileContent(file) {
-            const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = formatContent(file.content);
-            setupTooltips();
-        }
-
-        function formatContent(text) {
-            return text
-                .replace(/# (.*)/g, '<h1>$1</h1>')
-                .replace(/## (.*)/g, '<h2>$1</h2>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\(\((.*?)\)\):(.*?)(\n|$)/g, '<span class="tooltip">$1<span class="tooltip-content">$2</span></span>');
-        }
-
-        function setupSearch(files) {
-            const searchInput = document.getElementById('search');
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                if (!query) {
-                    document.querySelectorAll('.file-item').forEach(el => el.style.display = 'block');
+        
+        // Main function to load files
+        async function loadFiles() {
+            try {
+                // First try fetching the directory listing
+                let files = [];
+                try {
+                    const response = await fetch('texts/');
+                    if (!response.ok) throw new Error('Failed to fetch directory listing');
+                    
+                    const text = await response.text();
+                    
+                    // Try parsing as HTML
+                    files = await parseDirectoryListing(text);
+                    
+                    // If no files found, try alternative parsing
+                    if (files.length === 0) {
+                        files = createDirectoryListingParser(text);
+                    }
+                } catch (error) {
+                    console.error('Directory listing error:', error);
+                    
+                    // Handle fallback for GitHub Pages (try some common filenames)
+                    message.textContent = 'Directory listing failed. Checking for common files...';
+                    
+                    for (const commonFile of ['README.txt', 'index.txt', 'axioms.txt', 'cosmology.txt']) {
+                        try {
+                            const response = await fetch(`texts/${commonFile}`);
+                            if (response.ok) {
+                                files.push(commonFile);
+                            }
+                        } catch (e) {
+                            // Ignore errors for fallback attempts
+                        }
+                    }
+                }
+                
+                if (files.length === 0) {
+                    message.textContent = 'No text files found in the /texts directory';
                     return;
                 }
-
-                files.forEach(file => {
-                    const matches = file.content.toLowerCase().includes(query);
-                    document.querySelector(`.file-item[data-file="${file.name}"]`).style.display = matches ? 'block' : 'none';
-                });
-            });
+                
+                // Reset file list
+                fileList.innerHTML = '';
+                message.textContent = 'Loading files...';
+                
+                // Load all files
+                const promises = files.map(file => loadFile(file));
+                await Promise.all(promises);
+                
+                // Display first file if search is empty
+                if (search.value.trim() === '') {
+                    displayFileContent(files[0]);
+                } else {
+                    // Trigger search with current query
+                    search.dispatchEvent(new Event('input'));
+                }
+            } catch (error) {
+                console.error('Error loading files:', error);
+                message.textContent = 'Error loading files. Please check the console for details.';
+            }
         }
-
-        function setupTooltips() {
-            document.querySelectorAll('.tooltip').forEach(tooltip => {
-                tooltip.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        tooltip.querySelector('.tooltip-content').classList.toggle('active');
-                    }
-                });
-            });
-        }
-
-        // Mobile menu toggle
-        document.getElementById('mobile-menu').addEventListener('click', () => {
-            document.body.classList.toggle('menu-open');
-        });
-
-        // Initialize
-        loadFiles();
+        
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', loadFiles);
     </script>
 </body>
 </html>
