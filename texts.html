@@ -407,7 +407,7 @@
                     // Handle fallback for GitHub Pages (try some common filenames)
                     message.textContent = 'Directory listing failed. Checking for common files...';
                     
-                    for (const commonFile of ['README.txt', 'index.txt', 'axioms.txt', 'cosmology.txt']) {
+                    for (const commonFile of ['test.txt']) {
                         try {
                             const response = await fetch(`texts/${commonFile}`);
                             if (response.ok) {
