@@ -6,11 +6,13 @@
     <title>Text Reader</title>
     <style>
         :root {
-            --background: #F0F0F0;
-            --card: #FFFFFF;
-            --text: #202124;
-            --accent: #4B0082;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --background: #000000;
+            --card: #121212;
+            --card-hover: #1E1E1E;
+            --text: #E0E0E0;
+            --accent: #BB86FC;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --border: #333333;
             --sidebar-width: 250px;
         }
         
@@ -18,7 +20,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         body {
@@ -32,35 +34,44 @@
         
         header {
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem;
             background-color: var(--card);
-            box-shadow: 0 2px 4px var(--shadow);
+            box-shadow: 0 4px 6px var(--shadow);
             z-index: 10;
+            border-bottom: 1px solid var(--border);
         }
         
         main {
             display: grid;
             grid-template-columns: var(--sidebar-width) 1fr;
             overflow: hidden;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 80px);
         }
         
         #sidebar {
             background-color: var(--card);
-            padding: 1rem;
+            padding: 1.5rem;
             overflow-y: auto;
-            border-right: 1px solid var(--shadow);
+            border-right: 1px solid var(--border);
         }
         
         #search-container {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         #search {
             width: 100%;
-            padding: 0.5rem;
-            border: 1px solid var(--shadow);
-            border-radius: 4px;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 14px;
+        }
+        
+        #search:focus {
+            outline: none;
+            border-color: var(--accent);
         }
         
         #file-list {
@@ -68,76 +79,75 @@
         }
         
         #file-list li {
-            padding: 0.5rem;
+            padding: 0.75rem;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background-color: var(--card);
+            box-shadow: 0 2px 4px var(--shadow);
+            transition: all 0.2s ease;
         }
         
-        #file-list li:hover, #file-list li.active {
-            background-color: var(--background);
+        #file-list li:hover {
+            background-color: var(--card-hover);
+            transform: translateY(-2px);
+        }
+        
+        #file-list li.active {
+            background-color: var(--accent);
+            color: #000000;
+            font-weight: bold;
         }
         
         #content {
-            padding: 1rem 2rem;
+            padding: 2rem;
             overflow-y: auto;
-            background-color: var(--card);
+            background-color: var(--background);
         }
         
         #content-container {
             max-width: 800px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.8;
+            background-color: var(--card);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
         }
         
         #content-container p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         #content-container pre {
             background-color: var(--background);
-            padding: 0.5rem;
-            border-radius: 4px;
+            padding: 1rem;
+            border-radius: 8px;
             overflow-x: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
         }
         
         #content-container h1, #content-container h2, #content-container h3 {
-            margin: 1.5rem 0 0.5rem;
+            margin: 2rem 0 1rem;
             color: var(--accent);
         }
         
         #message {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             color: var(--text);
+            background-color: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin: 2rem;
         }
         
-        .tooltip {
-            position: relative;
-            border-bottom: 1px dotted var(--accent);
-            cursor: help;
-        }
-        
-        .tooltip-text {
-            visibility: hidden;
-            background-color: var(--accent);
-            color: var(--card);
-            text-align: center;
-            padding: 0.5rem;
-            border-radius: 4px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        mark {
+            background-color: rgba(187, 134, 252, 0.3);
+            color: #FFFFFF;
+            padding: 0 3px;
+            border-radius: 3px;
         }
         
         #menu-toggle {
@@ -148,8 +158,8 @@
             cursor: pointer;
             color: var(--accent);
             position: absolute;
-            top: 1rem;
-            left: 1rem;
+            top: 1.5rem;
+            left: 1.5rem;
         }
         
         @media (max-width: 768px) {
@@ -160,7 +170,7 @@
             #sidebar {
                 position: absolute;
                 left: -100%;
-                height: calc(100vh - 70px);
+                height: calc(100vh - 80px);
                 width: var(--sidebar-width);
                 z-index: 10;
                 transition: left 0.3s;
@@ -179,7 +189,7 @@
 <body>
     <header>
         <button id="menu-toggle">☰</button>
-        <h1 style="color:#4B0082">🜎</h1>
+        <h1 style="color:var(--accent)">🜎</h1>
     </header>
     
     <main>
@@ -293,7 +303,8 @@
                 .filter(href => href.endsWith('.txt'))
                 .map(href => {
                     const url = new URL(href);
-                    return url.pathname.split('/').pop();
+                    // Remove .txt extension for display
+                    return url.pathname.split('/').pop().replace('.txt', '');
                 })
                 .sort();
         }
@@ -303,7 +314,8 @@
             const text = response;
             const fileRegex = /href="([^"]+\.txt)"/g;
             const matches = [...text.matchAll(fileRegex)];
-            return matches.map(match => match[1]).sort();
+            // Remove .txt extension for display
+            return matches.map(match => match[1].replace('.txt', '')).sort();
         }
         
         // Process Markdown-like formatting
@@ -324,11 +336,6 @@
             
             // Inline code
             text = text.replace(/`(.*?)`/g, '<code>$1</code>');
-            
-            // Process tooltip definitions, format: [term](definition)
-            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, term, definition) => {
-                return `<span class="tooltip">${term}<span class="tooltip-text">${definition}</span></span>`;
-            });
             
             // Paragraphs
             const paragraphs = text.split(/\n\s*\n/);
@@ -363,17 +370,19 @@
         }
         
         // Load a file
-        async function loadFile(filename) {
+        async function loadFile(displayName) {
             try {
+                // Add .txt extension back for fetching
+                const filename = displayName + '.txt';
                 const response = await fetch(`texts/${filename}`);
                 if (!response.ok) throw new Error(`Failed to load ${filename}`);
                 
                 const content = await response.text();
-                fileContents[filename] = content;
+                fileContents[displayName] = content;
                 
                 const li = document.createElement('li');
-                li.textContent = filename;
-                li.addEventListener('click', () => displayFileContent(filename));
+                li.textContent = displayName;
+                li.addEventListener('click', () => displayFileContent(displayName));
                 fileList.appendChild(li);
                 
                 return content;
@@ -407,9 +416,9 @@
                     // Handle fallback for GitHub Pages (try some common filenames)
                     message.textContent = 'Directory listing failed. Checking for common files...';
                     
-                    for (const commonFile of ['test.txt']) {
+                    for (const commonFile of ['test','house']) {
                         try {
-                            const response = await fetch(`texts/${commonFile}`);
+                            const response = await fetch(`texts/${commonFile}.txt`);
                             if (response.ok) {
                                 files.push(commonFile);
                             }
