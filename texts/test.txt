@@ -2,4 +2,7 @@
 ## Subheader
 *italic text*
 **bold text**
-((Tooltip Term)):Definition text
+
+
+
+((Tooltip Term)):Definition
