@@ -1,39 +1,525 @@
+					
 asu	a	blue	colour	0	0
 bais	a	white	colour	0	0
 sis	a	grey	colour	0	0
-fa	v	cook	-	0	0
-hafiru	a	fast	-	0	0
-han	v	see, read	-	0	0
-hav	v	dig	-	0	0
-haz	v	sing	-	0	0
-hexi	a	hot	-	0	0
-hixi	v	breathe	-	0	0
-ho	v	go, move	-	0	0
-hus	a	red	-	0	0
-jisei	v	draw	-	0	0
-lai	a	comfortable	-	0	0
-lau	a	old	-	0	0
-lezu	a	slow	-	0	0
-mex	n	month	-	0	0
-misi	n	music	-	0	0
-nax	v	dance	-	0	0
-paxu	n	peace	-	0	0
-sei	v	smile	-	0	0
-ses	v	forget	-	0	0
-sipex	a	simple	-	0	0
-sit	v	sit	-	0	0
-waf	a	fat	-	0	0
-was	a	dirty	-	0	0
-wei	a	new	-	0	0
-xê	v	write	-	0	0
-xêgo	v	laugh	-	0	0
-xeyo	v	drive	-	0	0
-xi	v	teach	-	0	0
-xif	v	eat	-	0	0
-xuhu	v	abandon	-	0	0
-yai	v	love	-	0	0
-yei	a	beautiful	-	0	0
-yen	v	give	-	0	0
-yen	v	learn	-	0	0
-yet	v	understand	-	Sem mezeyét.	I understood you.
-soyu	v	dream, sleep	-	0	0
+fa	v	cook		0	0
+hafiru	a	fast		0	0
+han	v	see, read		0	0
+hav	v	dig		0	0
+haz	v	sing		0	0
+hexi	a	hot		0	0
+hixi	v	breathe		0	0
+ho	v	go, move		0	0
+hus	a	red		0	0
+jisei	v	draw		0	0
+lai	a	comfortable		0	0
+lau	a	old		0	0
+lezu	a	slow		0	0
+mex	n	month		0	0
+misi	n	music		0	0
+nax	v	dance		0	0
+paxu	n	peace		0	0
+sei	v	smile		0	0
+ses	v	forget		0	0
+sipex	a	simple		0	0
+sit	v	sit		0	0
+waf	a	fat		0	0
+was	a	dirty		0	0
+wei	a	new		0	0
+xê	v	write		0	0
+xêgo	v	laugh		0	0
+xeyo	v	drive		0	0
+xi	v	teach		0	0
+xif	v	eat		0	0
+xuhu	v	abandon		0	0
+yai	v	love		0	0
+yei	a	beautiful		0	0
+yen	v	give		0	0
+yen	v	learn		0	0
+yet	v	understand		Sem mezeyét.	I understood you.
+soyu	v	dream, sleep		0	0
+gan	v	want, need		0	0
+yenu	a	afraid		0	0
+yesu	a	boring		0	0
+mez	n	table	furniture	0	0
+yen	n	eye	anatomy	0	0
+leru	n	finger	anatomy	0	0
+lig	n	tongue	anatomy	0	0
+duz	n	shoe	clothing	0	0
+mit	n	pepper	food	0	0
+amo	n	animal	animal	0	0
+ai	n	bird	animal	0	0
+nau	n	brain	anatomy	0	0
+guzu	n	bone	anatomy	0	0
+ji	n	day	time	0	0
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
