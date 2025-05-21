@@ -62,8 +62,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Changed from center to flex-start */
             padding: 2rem;
+            padding-top: 4rem; /* Added more padding at the top */
         }
 
         .title-section {
@@ -221,20 +222,11 @@
             transform: translateY(-2px);
         }
 
-        .footer {
-            position: absolute;
-            bottom: 2rem;
-            text-align: center;
-            color: var(--neutral-medium);
-            font-size: 0.875rem;
-            opacity: 0.6;
-            animation: fadeInUp 1.6s ease-out 0.4s both;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-container {
                 padding: 1.5rem;
+                padding-top: 3rem; /* Adjusted for mobile */
             }
             
             .title-section {
@@ -260,6 +252,7 @@
         @media (max-width: 480px) {
             .main-container {
                 padding: 1rem;
+                padding-top: 2rem; /* Adjusted for small mobile */
             }
             
             .apps-grid {
@@ -354,10 +347,6 @@
                 </div>
                 <span class="app-label">Sekay Til</span>
             </a>
-        </div>
-        
-        <div class="footer">
-            <p>© 2025 Semrigpa • Digital Wisdom</p>
         </div>
     </div>
 </body>
