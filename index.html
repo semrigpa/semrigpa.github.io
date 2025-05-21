@@ -4,7 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semrigpa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-deep: #1a1f3a;
+            --primary-medium: #2d3561;
+            --primary-light: #434b7c;
+            --accent-warm: #f4a261;
+            --accent-coral: #e76f51;
+            --neutral-light: #f8f9fa;
+            --neutral-medium: #e9ecef;
+            --neutral-dark: #495057;
+            --gradient-primary: linear-gradient(135deg, #1a1f3a 0%, #2d3561 50%, #434b7c 100%);
+            --gradient-accent: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+            --gradient-chrome: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 25%, #9fa8da 50%, #7986cb 75%, #5c6bc0 100%);
+            --shadow-soft: 0 8px 32px rgba(26, 31, 58, 0.12);
+            --shadow-medium: 0 12px 48px rgba(26, 31, 58, 0.18);
+            --shadow-strong: 0 20px 64px rgba(26, 31, 58, 0.25);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,115 +33,270 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(231, 111, 81, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(248, 249, 250, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 2rem;
         }
 
-        .title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 60px;
+        .title-section {
             text-align: center;
-            background: linear-gradient(135deg, #c0c0c0 0%, #f5f5f5 25%, #e8e8e8 50%, #d1d1d1 75%, #c0c0c0 100%);
-            background-size: 200%;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: var(--gradient-chrome);
+            background-size: 200% 200%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: chrome 8s ease-in-out infinite;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            filter: drop-shadow(0 2px 4px rgba(255,255,255,0.3));
+            animation: chromeShimmer 8s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
+            margin-bottom: 0.5rem;
         }
 
-        @keyframes chrome {
-            0%, 100% {
-                background-position: 0% 50%;
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--neutral-medium);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        @keyframes chromeShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            50% {
-                background-position: 100% 50%;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .app-grid {
+        .apps-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 300px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 2rem;
+            max-width: 500px;
             width: 100%;
+            animation: fadeInUp 1.4s ease-out 0.2s both;
         }
 
-        .app-icon {
+        .app-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            transition: transform 0.2s ease;
+            padding: 1.5rem;
+            border-radius: 24px;
+            background: rgba(248, 249, 250, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(248, 249, 250, 0.1);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-icon:hover {
-            transform: scale(1.05);
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .app-icon:active {
-            transform: scale(0.95);
+        .app-card:hover::before {
+            opacity: 1;
         }
 
-        .icon-container {
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+            background: rgba(248, 249, 250, 0.12);
+            border-color: rgba(248, 249, 250, 0.2);
+        }
+
+        .app-card:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        .app-icon {
             width: 80px;
             height: 80px;
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            margin-bottom: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            transition: box-shadow 0.2s ease;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .icon-container:hover {
-            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        .app-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
         }
 
-        .mavani {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+        .app-card:hover .app-icon::before {
+            transform: rotate(45deg) translate(100%, 100%);
         }
 
-        .dictionary {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        .mavani-icon {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8a80 50%, #ffab91 100%);
+        }
+
+        .dictionary-icon {
+            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 50%, #03a9f4 100%);
+        }
+
+        .app-card:hover .app-icon {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-strong);
         }
 
         .app-label {
-            color: white;
-            font-size: 0.9rem;
+            color: var(--neutral-light);
+            font-size: 1rem;
             font-weight: 500;
             text-align: center;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            max-width: 90px;
-            line-height: 1.2;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+            transition: all 0.3s ease;
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 480px) {
-            .title {
-                font-size: 2.5rem;
-                margin-bottom: 50px;
+        .app-card:hover .app-label {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            text-align: center;
+            color: var(--neutral-medium);
+            font-size: 0.875rem;
+            opacity: 0.6;
+            animation: fadeInUp 1.6s ease-out 0.4s both;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1.5rem;
             }
             
-            .app-grid {
-                gap: 30px;
-                max-width: 250px;
+            .title-section {
+                margin-bottom: 3rem;
             }
             
-            .icon-container {
+            .apps-grid {
+                gap: 1.5rem;
+                max-width: 100%;
+            }
+            
+            .app-card {
+                padding: 1.25rem;
+            }
+            
+            .app-icon {
                 width: 70px;
                 height: 70px;
                 font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .apps-grid {
+                gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .app-card {
+                padding: 1rem;
+                border-radius: 20px;
+            }
+            
+            .app-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+                border-radius: 16px;
+            }
+            
+            .app-label {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .apps-grid {
+                gap: 0.75rem;
+            }
+            
+            .app-card {
+                padding: 0.75rem;
+            }
+            
+            .app-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
             .app-label {
@@ -128,36 +304,61 @@
             }
         }
 
-        @media (max-width: 360px) {
-            .title {
-                font-size: 2rem;
+        /* High-end animations and micro-interactions */
+        @media (prefers-reduced-motion: no-preference) {
+            .app-card {
+                animation: slideInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
             }
             
-            .icon-container {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+            .app-card:nth-child(1) { animation-delay: 0.1s; }
+            .app-card:nth-child(2) { animation-delay: 0.2s; }
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --neutral-light: #ffffff;
+                --neutral-medium: #e9ecef;
             }
         }
     </style>
 </head>
-<body>
-    <h1 class="title">Semrigpa</h1>
-    
-    <div class="app-grid">
-        <a href="https://semrigpa.github.io/mavani.html" class="app-icon">
-            <div class="icon-container mavani">
-                🌸
-            </div>
-            <span class="app-label">Mā Vāṇi</span>
-        </a>
+<body class="w3-animate-opacity">
+    <div class="main-container">
+        <div class="title-section">
+            <h1 class="main-title">Semrigpa</h1>
+        </div>
         
-        <a href="https://semrigpa.github.io/dictionary.html" class="app-icon">
-            <div class="icon-container dictionary">
-                📓
-            </div>
-            <span class="app-label">Dictionary</span>
-        </a>
+        <div class="apps-grid">
+            <a href="https://semrigpa.github.io/mavani.html" class="app-card w3-hover-opacity-off">
+                <div class="app-icon mavani-icon">
+                    🌸
+                </div>
+                <span class="app-label">Mā Vāṇi</span>
+            </a>
+            
+            <a href="https://semrigpa.github.io/dictionary.html" class="app-card w3-hover-opacity-off">
+                <div class="app-icon dictionary-icon">
+                    📓
+                </div>
+                <span class="app-label">Sekay Til</span>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Semrigpa • Digital Wisdom</p>
+        </div>
     </div>
 </body>
 </html>
