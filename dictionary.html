@@ -4,15 +4,15 @@
     <link rel="manifest" href="/dictionary.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Juha Dictionary</title>
+    <title>Dictionary App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         :root {
             /* Primary palette */
-            --primary: #5E60CE;
-            --primary-light: #6930C3;
-            --primary-dark: #5390D9;
-            --accent: #48BFE3;
+            --primary: #3B82F6;
+            --primary-light: #60A5FA;
+            --primary-dark: #1E40AF;
+            --accent: #06B6D4;
             
             /* UI colors */
             --background: #0F172A;
@@ -23,14 +23,16 @@
             --text-tertiary: #64748B;
             --shadow: rgba(0, 0, 0, 0.3);
             
-            /* POS Colors - more sophisticated palette */
-            --pos-n: #10B981;    /* green */
-            --pos-v: #8B5CF6;    /* violet */
-            --pos-a: #F59E0B;    /* amber */
-            --pos-cnj: #EF4444;  /* red */
-            --pos-prp: #3B82F6;  /* blue */
-            --pos-prn: #06B6D4;  /* cyan */
-            --pos-num: #8D3FD8;  /* purple */
+            /* POS Colors - sophisticated palette */
+            --pos-noun: #10B981;      /* green */
+            --pos-verb: #8B5CF6;      /* violet */
+            --pos-adjective: #F59E0B; /* amber */
+            --pos-conjunction: #EF4444; /* red */
+            --pos-preposition: #3B82F6; /* blue */
+            --pos-pronoun: #06B6D4;   /* cyan */
+            --pos-number: #8D3FD8;    /* purple */
+            --pos-adverb: #F97316;    /* orange */
+            --pos-interjection: #EC4899; /* pink */
         }
         
         @keyframes gradientTitle {
@@ -86,7 +88,7 @@
             font-size: 24px;
             font-weight: 700;
             text-align: center;
-            background: linear-gradient(90deg, #5E60CE, #6930C3, #5390D9, #48BFE3);
+            background: linear-gradient(90deg, #3B82F6, #60A5FA, #06B6D4, #8B5CF6);
             background-size: 300% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -145,14 +147,14 @@
         
         .search-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(94, 96, 206, 0.3);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
         }
         
-        .theme-section {
+        .filter-section {
             margin-bottom: 16px;
         }
         
-        .theme-title {
+        .filter-title {
             font-size: 14px;
             font-weight: 600;
             color: var(--text-secondary);
@@ -161,14 +163,14 @@
             letter-spacing: 0.5px;
         }
         
-        .theme-grid {
+        .filter-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 8px;
         }
         
-        .theme-item {
+        .filter-item {
             padding: 6px 12px;
             display: flex;
             align-items: center;
@@ -183,12 +185,12 @@
             transition: all 0.2s ease;
         }
         
-        .theme-item:hover {
+        .filter-item:hover {
             border-color: var(--primary-light);
-            background-color: rgba(94, 96, 206, 0.1);
+            background-color: rgba(59, 130, 246, 0.1);
         }
         
-        .theme-item.active {
+        .filter-item.active {
             background-color: var(--primary);
             color: white;
             border-color: var(--primary);
@@ -227,7 +229,7 @@
             width: 100%;
         }
         
-        .iskunsa {
+        .word {
             font-size: 20px;
             font-weight: 700;
             color: white;
@@ -253,7 +255,7 @@
             flex: 1;
         }
         
-        .theme-tag {
+        .category-tag {
             color: var(--text-tertiary);
             font-size: 13px;
             font-weight: 500;
@@ -275,7 +277,7 @@
             align-items: center;
         }
         
-        .example-iskunsa {
+        .example-text {
             font-size: 15px;
             color: var(--accent);
             font-style: italic;
@@ -312,7 +314,7 @@
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(94, 96, 206, 0.3);
+            border: 4px solid rgba(59, 130, 246, 0.3);
             border-radius: 50%;
             border-top-color: var(--primary);
             animation: spin 1s linear infinite;
@@ -330,69 +332,85 @@
         }
         
         /* POS-specific styling */
-        .dictionary-item[data-pos="n"] {
-            border-left-color: var(--pos-n);
+        .dictionary-item[data-pos="noun"] {
+            border-left-color: var(--pos-noun);
         }
-        .dictionary-item[data-pos="n"] .pos {
-            color: var(--pos-n);
+        .dictionary-item[data-pos="noun"] .pos {
+            color: var(--pos-noun);
             background-color: rgba(16, 185, 129, 0.1);
         }
         
-        .dictionary-item[data-pos="v"] {
-            border-left-color: var(--pos-v);
+        .dictionary-item[data-pos="verb"] {
+            border-left-color: var(--pos-verb);
         }
-        .dictionary-item[data-pos="v"] .pos {
-            color: var(--pos-v);
+        .dictionary-item[data-pos="verb"] .pos {
+            color: var(--pos-verb);
             background-color: rgba(139, 92, 246, 0.1);
         }
         
-        .dictionary-item[data-pos="a"] {
-            border-left-color: var(--pos-a);
+        .dictionary-item[data-pos="adjective"] {
+            border-left-color: var(--pos-adjective);
         }
-        .dictionary-item[data-pos="a"] .pos {
-            color: var(--pos-a);
+        .dictionary-item[data-pos="adjective"] .pos {
+            color: var(--pos-adjective);
             background-color: rgba(245, 158, 11, 0.1);
         }
         
-        .dictionary-item[data-pos="cnj"] {
-            border-left-color: var(--pos-cnj);
+        .dictionary-item[data-pos="adverb"] {
+            border-left-color: var(--pos-adverb);
         }
-        .dictionary-item[data-pos="cnj"] .pos {
-            color: var(--pos-cnj);
+        .dictionary-item[data-pos="adverb"] .pos {
+            color: var(--pos-adverb);
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+        
+        .dictionary-item[data-pos="conjunction"] {
+            border-left-color: var(--pos-conjunction);
+        }
+        .dictionary-item[data-pos="conjunction"] .pos {
+            color: var(--pos-conjunction);
             background-color: rgba(239, 68, 68, 0.1);
         }
         
-        .dictionary-item[data-pos="prp"] {
-            border-left-color: var(--pos-prp);
+        .dictionary-item[data-pos="preposition"] {
+            border-left-color: var(--pos-preposition);
         }
-        .dictionary-item[data-pos="prp"] .pos {
-            color: var(--pos-prp);
+        .dictionary-item[data-pos="preposition"] .pos {
+            color: var(--pos-preposition);
             background-color: rgba(59, 130, 246, 0.1);
         }
         
-        .dictionary-item[data-pos="prn"] {
-            border-left-color: var(--pos-prn);
+        .dictionary-item[data-pos="pronoun"] {
+            border-left-color: var(--pos-pronoun);
         }
-        .dictionary-item[data-pos="prn"] .pos {
-            color: var(--pos-prn);
+        .dictionary-item[data-pos="pronoun"] .pos {
+            color: var(--pos-pronoun);
             background-color: rgba(6, 182, 212, 0.1);
         }
         
-        .dictionary-item[data-pos="num"] {
-            border-left-color: var(--pos-num);
+        .dictionary-item[data-pos="number"] {
+            border-left-color: var(--pos-number);
         }
-        .dictionary-item[data-pos="num"] .pos {
-            color: var(--pos-num);
+        .dictionary-item[data-pos="number"] .pos {
+            color: var(--pos-number);
             background-color: rgba(141, 63, 216, 0.1);
+        }
+        
+        .dictionary-item[data-pos="interjection"] {
+            border-left-color: var(--pos-interjection);
+        }
+        .dictionary-item[data-pos="interjection"] .pos {
+            color: var(--pos-interjection);
+            background-color: rgba(236, 72, 153, 0.1);
         }
         
         /* Responsive adjustments */
         @media (max-width: 600px) {
-            .theme-grid {
+            .filter-grid {
                 gap: 6px;
             }
             
-            .theme-item {
+            .filter-item {
                 padding: 4px 10px;
                 font-size: 13px;
             }
@@ -401,7 +419,7 @@
                 padding: 12px;
             }
             
-            .iskunsa {
+            .word {
                 font-size: 18px;
             }
             
@@ -409,7 +427,7 @@
                 font-size: 15px;
             }
             
-            .example-iskunsa,
+            .example-text,
             .example-translation {
                 font-size: 13px;
             }
@@ -420,16 +438,16 @@
     <div class="header">
         <div class="container">
             <div class="title-bar">
-                <h1 class="title">Juha Dictionary</h1>
+                <h1 class="title">Dictionary App</h1>
             </div>
             <div class="search-container">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" class="search-input" placeholder="Search words and definitions...">
                 <span class="clear-button" id="clearButton">✕</span>
             </div>
-            <div class="theme-section">
-                <h2 class="theme-title">Filter by Theme</h2>
-                <div class="theme-grid" id="themeGrid"></div>
+            <div class="filter-section">
+                <h2 class="filter-title">Filter by Category</h2>
+                <div class="filter-grid" id="filterGrid"></div>
                 <div class="word-counter" id="wordCounter">0 words</div>
             </div>
         </div>
@@ -449,12 +467,12 @@
             const clearButton = document.getElementById('clearButton');
             const resultsContainer = document.getElementById('results');
             const loadingElement = document.getElementById('loading');
-            const themeGridElement = document.getElementById('themeGrid');
+            const filterGridElement = document.getElementById('filterGrid');
             const wordCounterElement = document.getElementById('wordCounter');
             
             let dictionaryData = [];
-            let uniqueThemes = new Set();
-            let activeTheme = '';
+            let uniqueCategories = new Set();
+            let activeFilter = '';
             
             async function loadDictionary() {
                 try {
@@ -468,25 +486,25 @@
                             dictionaryData = results.data
                                 .filter(row => row.length >= 3) // Filter out invalid rows
                                 .map(row => ({
-                                    iskunsa: row[0] || '',
+                                    word: row[0] || '',
                                     pos: row[1] || '',
                                     definition: row[2] || '',
-                                    theme: row[3] || '',
-                                    example: row[4] || '0',
-                                    translation: row[5] || '0'
+                                    category: row[3] || '',
+                                    example: row[4] || '',
+                                    translation: row[5] || ''
                                 }));
                             
-                            // Extract unique themes
+                            // Extract unique categories
                             dictionaryData.forEach(item => {
-                                if (item.theme) {
-                                    uniqueThemes.add(item.theme);
+                                if (item.category) {
+                                    uniqueCategories.add(item.category);
                                 }
                             });
                             
                             // Sort dictionary alphabetically
-                            dictionaryData.sort((a, b) => a.iskunsa.localeCompare(b.iskunsa));
+                            dictionaryData.sort((a, b) => a.word.localeCompare(b.word));
                             
-                            createThemeGrid();
+                            createFilterGrid();
                             displayResults(dictionaryData);
                             updateWordCounter(dictionaryData.length);
                             loadingElement.style.display = 'none';
@@ -505,27 +523,27 @@
             }
             
             function handleDictionaryError() {
-                // Use mock data if dictionary file is not found
-                const mockData = [
-                    {iskunsa: 'akuna', pos: 'n.', definition: 'river', theme: 'nature', example: 'Akuna ven malosti.', translation: 'The river flows quickly.'},
-                    {iskunsa: 'baruta', pos: 'v.', definition: 'to speak', theme: 'communication', example: '0', translation: '0'},
-                    {iskunsa: 'cimaro', pos: 'adj.', definition: 'bright', theme: 'perception', example: 'Cimaro sulani ven falana.', translation: 'Their eyes are bright.'},
-                    {iskunsa: 'duvala', pos: 'cnj.', definition: 'and', theme: 'grammar', example: '0', translation: '0'},
-                    {iskunsa: 'elomni', pos: 'prp.', definition: 'above', theme: 'position', example: 'Sor elomni karu.', translation: 'He is above the mountain.'},
-                    {iskunsa: 'falana', pos: 'prn.', definition: 'they/them', theme: 'people', example: '0', translation: '0'},
-                    {iskunsa: 'guropi', pos: 'num.', definition: 'seven', theme: 'quantity', example: 'Guropi teska ven misu.', translation: 'I have seven books.'}
+                // Use sample data if dictionary file is not found
+                const sampleData = [
+                    {word: 'abandon', pos: 'verb', definition: 'to give up completely', category: 'emotion', example: 'She had to abandon her plans.', translation: 'She gave up her plans completely.'},
+                    {word: 'beautiful', pos: 'adjective', definition: 'attractive or pleasing to the senses', category: 'appearance', example: 'The sunset was beautiful.', translation: 'The sunset was very attractive.'},
+                    {word: 'courage', pos: 'noun', definition: 'bravery in facing danger or difficulty', category: 'character', example: 'It takes courage to speak up.', translation: 'Bravery is needed to voice opinions.'},
+                    {word: 'discover', pos: 'verb', definition: 'to find or learn something for the first time', category: 'learning', example: 'Scientists discovered a new species.', translation: 'Scientists found a new type of animal.'},
+                    {word: 'elegant', pos: 'adjective', definition: 'graceful and stylish', category: 'appearance', example: 'She wore an elegant dress.', translation: 'Her dress was graceful and stylish.'},
+                    {word: 'freedom', pos: 'noun', definition: 'the power to act without constraint', category: 'politics', example: 'Everyone deserves freedom.', translation: 'All people should have liberty.'},
+                    {word: 'gracefully', pos: 'adverb', definition: 'in a smooth and elegant manner', category: 'movement', example: 'The dancer moved gracefully.', translation: 'The dancer had smooth, elegant movements.'}
                 ];
                 
-                dictionaryData = mockData;
-                mockData.forEach(item => {
-                    if (item.theme) {
-                        uniqueThemes.add(item.theme);
+                dictionaryData = sampleData;
+                sampleData.forEach(item => {
+                    if (item.category) {
+                        uniqueCategories.add(item.category);
                     }
                 });
                 
-                createThemeGrid();
-                displayResults(mockData);
-                updateWordCounter(mockData.length);
+                createFilterGrid();
+                displayResults(sampleData);
+                updateWordCounter(sampleData.length);
                 loadingElement.style.display = 'none';
             }
             
@@ -533,36 +551,36 @@
                 wordCounterElement.textContent = count + (count === 1 ? ' word' : ' words');
             }
             
-            function createThemeGrid() {
-                const sortedThemes = Array.from(uniqueThemes).sort();
+            function createFilterGrid() {
+                const sortedCategories = Array.from(uniqueCategories).sort();
                 let gridHTML = '';
                 
-                sortedThemes.forEach(theme => {
-                    gridHTML += `<div class="theme-item" data-theme="${theme}">${theme}</div>`;
+                sortedCategories.forEach(category => {
+                    gridHTML += `<div class="filter-item" data-category="${category}">${category}</div>`;
                 });
                 
-                themeGridElement.innerHTML = gridHTML;
+                filterGridElement.innerHTML = gridHTML;
                 
-                document.querySelectorAll('.theme-item').forEach(item => {
+                document.querySelectorAll('.filter-item').forEach(item => {
                     item.addEventListener('click', function() {
-                        const theme = this.getAttribute('data-theme');
+                        const category = this.getAttribute('data-category');
                         
-                        if (activeTheme === theme) {
-                            // If clicking the same theme, deselect it
-                            activeTheme = '';
+                        if (activeFilter === category) {
+                            // If clicking the same category, deselect it
+                            activeFilter = '';
                             this.classList.remove('active');
                             searchInput.value = '';
                             displayResults(dictionaryData);
                             updateWordCounter(dictionaryData.length);
                         } else {
-                            // Select new theme
-                            activeTheme = theme;
-                            document.querySelectorAll('.theme-item').forEach(el => {
+                            // Select new category
+                            activeFilter = category;
+                            document.querySelectorAll('.filter-item').forEach(el => {
                                 el.classList.remove('active');
                             });
                             this.classList.add('active');
-                            searchInput.value = ''; // Clear search input when selecting a theme
-                            const filteredResults = dictionaryData.filter(item => item.theme === theme);
+                            searchInput.value = ''; // Clear search input when selecting a category
+                            const filteredResults = dictionaryData.filter(item => item.category === category);
                             displayResults(filteredResults);
                             updateWordCounter(filteredResults.length);
                         }
@@ -574,8 +592,8 @@
                 query = query.toLowerCase().trim();
                 
                 if (query === '') {
-                    if (activeTheme) {
-                        const filteredResults = dictionaryData.filter(item => item.theme === activeTheme);
+                    if (activeFilter) {
+                        const filteredResults = dictionaryData.filter(item => item.category === activeFilter);
                         displayResults(filteredResults);
                         updateWordCounter(filteredResults.length);
                     } else {
@@ -585,17 +603,17 @@
                     return;
                 }
                 
-                let dataToFilter = activeTheme ? 
-                    dictionaryData.filter(item => item.theme === activeTheme) : 
+                let dataToFilter = activeFilter ? 
+                    dictionaryData.filter(item => item.category === activeFilter) : 
                     dictionaryData;
                 
                 const filteredResults = dataToFilter.filter(item => {
-                    // Search in iskunsa, definition, example, and translation columns
+                    // Search in word, definition, example, and translation columns
                     return (
-                        item.iskunsa.toLowerCase().includes(query) || 
+                        item.word.toLowerCase().includes(query) || 
                         item.definition.toLowerCase().includes(query) ||
-                        (item.example !== '0' && item.example.toLowerCase().includes(query)) ||
-                        (item.translation !== '0' && item.translation.toLowerCase().includes(query))
+                        (item.example && item.example.toLowerCase().includes(query)) ||
+                        (item.translation && item.translation.toLowerCase().includes(query))
                     );
                 });
                 
@@ -611,33 +629,24 @@
                 
                 let html = '';
                 results.forEach(item => {
-                    let iskunsaDisplay = item.iskunsa;
+                    let wordDisplay = item.word;
                     let definitionDisplay = item.definition;
-                    let themeDisplay = item.theme;
+                    let categoryDisplay = item.category;
                     let exampleDisplay = item.example;
                     let translationDisplay = item.translation;
-                    let posValue = item.pos.toLowerCase();
-                    
-                    // Clean up POS to match our CSS classes
-                    if (posValue.includes('n')) posValue = 'n';
-                    else if (posValue.includes('v')) posValue = 'v';
-                    else if (posValue.includes('a')) posValue = 'a';
-                    else if (posValue.includes('cnj')) posValue = 'cnj';
-                    else if (posValue.includes('prp')) posValue = 'prp';
-                    else if (posValue.includes('prn')) posValue = 'prn';
-                    else if (posValue.includes('num')) posValue = 'num';
+                    let posValue = normalizePOS(item.pos);
                     
                     if (query) {
                         const regex = new RegExp(`(${query})`, 'gi');
-                        // Highlight matches in iskunsa, definition, example and translation
-                        iskunsaDisplay = iskunsaDisplay.replace(regex, '<span class="highlight">$1</span>');
+                        // Highlight matches in word, definition, example and translation
+                        wordDisplay = wordDisplay.replace(regex, '<span class="highlight">$1</span>');
                         definitionDisplay = definitionDisplay.replace(regex, '<span class="highlight">$1</span>');
                         
-                        if (exampleDisplay !== '0') {
+                        if (exampleDisplay) {
                             exampleDisplay = exampleDisplay.replace(regex, '<span class="highlight">$1</span>');
                         }
                         
-                        if (translationDisplay !== '0') {
+                        if (translationDisplay) {
                             translationDisplay = translationDisplay.replace(regex, '<span class="highlight">$1</span>');
                         }
                     }
@@ -645,18 +654,18 @@
                     html += `
                     <div class="dictionary-item" data-pos="${posValue}">
                         <div class="item-header">
-                            <div class="iskunsa">${iskunsaDisplay}</div>
+                            <div class="word">${wordDisplay}</div>
                             <div class="pos">${item.pos}</div>
                             <div class="definition">${definitionDisplay}</div>
-                            <div class="theme-tag">${themeDisplay}</div>
+                            ${categoryDisplay ? `<div class="category-tag">${categoryDisplay}</div>` : ''}
                         </div>`;
                     
                     // Only add example section if there is an example
-                    if (item.example !== '0' && item.translation !== '0') {
+                    if (item.example && item.translation) {
                         html += `
                         <div class="example-section">
                             <div class="example-line">
-                                <span class="example-iskunsa">${exampleDisplay}</span>
+                                <span class="example-text">${exampleDisplay}</span>
                                 <span class="example-translation">${translationDisplay}</span>
                             </div>
                         </div>`;
@@ -668,6 +677,22 @@
                 resultsContainer.innerHTML = html;
             }
             
+            function normalizePOS(pos) {
+                const posLower = pos.toLowerCase();
+                
+                if (posLower.includes('noun') || posLower.includes('n.')) return 'noun';
+                if (posLower.includes('verb') || posLower.includes('v.')) return 'verb';
+                if (posLower.includes('adjective') || posLower.includes('adj')) return 'adjective';
+                if (posLower.includes('adverb') || posLower.includes('adv')) return 'adverb';
+                if (posLower.includes('conjunction') || posLower.includes('conj')) return 'conjunction';
+                if (posLower.includes('preposition') || posLower.includes('prep')) return 'preposition';
+                if (posLower.includes('pronoun') || posLower.includes('pron')) return 'pronoun';
+                if (posLower.includes('number') || posLower.includes('num')) return 'number';
+                if (posLower.includes('interjection') || posLower.includes('interj')) return 'interjection';
+                
+                return 'other';
+            }
+            
             searchInput.addEventListener('input', function() {
                 searchDictionary(this.value);
             });
@@ -675,8 +700,8 @@
             clearButton.addEventListener('click', function() {
                 searchInput.value = '';
                 searchDictionary('');
-                activeTheme = '';
-                document.querySelectorAll('.theme-item').forEach(item => {
+                activeFilter = '';
+                document.querySelectorAll('.filter-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 updateWordCounter(dictionaryData.length);
