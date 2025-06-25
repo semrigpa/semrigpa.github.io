@@ -128,7 +128,7 @@
         let allWords = [];
 
         // Load TSV file
-        fetch('dict.tsv')
+        fetch('lexicon.tsv')
             .then(response => response.text())
             .then(data => {
                 const lines = data.trim().split('\n');
