@@ -147,9 +147,37 @@
                 document.getElementById('results').innerHTML = '<div class="no-results">Could not load dict.tsv</div>';
             });
 
+        // Remove diacritics for searching
+        function removeDiacritics(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
         function highlight(text, term) {
             if (!term) return text;
-            const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            
+            // Create regex that matches both accented and non-accented versions
+            const normalizedTerm = removeDiacritics(term.toLowerCase());
+            const chars = normalizedTerm.split('').map(char => {
+                switch(char) {
+                    case 'a': return '[aāáàâäãåą]';
+                    case 'e': return '[eēéèêëęė]';
+                    case 'i': return '[iīíìîïįı]';
+                    case 'o': return '[oōóòôöõøő]';
+                    case 'u': return '[uūúùûüųů]';
+                    case 'c': return '[cčćç]';
+                    case 'n': return '[nñń]';
+                    case 's': return '[sšś]';
+                    case 'z': return '[zžź]';
+                    case 'l': return '[lł]';
+                    case 'r': return '[rř]';
+                    case 't': return '[tť]';
+                    case 'd': return '[dď]';
+                    case 'y': return '[yý]';
+                    default: return char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                }
+            }).join('');
+            
+            const regex = new RegExp(`(${chars})`, 'gi');
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
 
@@ -171,8 +199,14 @@
             `).join('');
         }
 
+        function matchesSearch(text, searchTerm) {
+            const normalizedText = removeDiacritics(text.toLowerCase());
+            const normalizedSearch = removeDiacritics(searchTerm.toLowerCase());
+            return normalizedText.includes(normalizedSearch);
+        }
+
         document.getElementById('search').addEventListener('input', function() {
-            const term = this.value.toLowerCase().trim();
+            const term = this.value.trim();
             
             if (term === '') {
                 showResults(allWords);
@@ -180,8 +214,8 @@
             }
 
             const filtered = words.filter(entry => 
-                entry.word.toLowerCase().includes(term) || 
-                entry.def.toLowerCase().includes(term)
+                matchesSearch(entry.word, term) || 
+                matchesSearch(entry.def, term)
             );
             
             showResults(filtered);
