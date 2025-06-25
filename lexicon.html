@@ -26,8 +26,32 @@
         .header {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: space-between;
             margin-bottom: 25px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sort-toggle {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sort-toggle:hover {
+            background-color: #555;
+        }
+
+        .sort-toggle.active {
+            background-color: #666;
         }
 
         .back-btn {
@@ -114,8 +138,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="index.html" class="back-btn">← Back</a>
-            <h1>Dictionary</h1>
+            <div class="header-left">
+                <a href="index.html" class="back-btn">← Back</a>
+                <h1>Dictionary</h1>
+            </div>
+            <button class="sort-toggle" id="sortToggle" onclick="toggleSort()">Sort by Definition</button>
         </div>
         
         <input type="text" class="search-box" id="search" placeholder="Search words or definitions...">
@@ -126,6 +153,7 @@
     <script>
         let words = [];
         let allWords = [];
+        let sortByDefinition = false;
 
         // Load TSV file
         fetch('lexicon.tsv')
@@ -140,12 +168,49 @@
                         def: cols[2] || ''
                     };
                 });
+                sortEntries();
                 allWords = [...words];
                 showResults(words);
             })
             .catch(() => {
-                document.getElementById('results').innerHTML = '<div class="no-results">Could not load dict.tsv</div>';
+                document.getElementById('results').innerHTML = '<div class="no-results">Could not load lexicon.tsv</div>';
             });
+
+        function sortEntries() {
+            if (sortByDefinition) {
+                words.sort((a, b) => removeDiacritics(a.def.toLowerCase()).localeCompare(removeDiacritics(b.def.toLowerCase())));
+            } else {
+                words.sort((a, b) => removeDiacritics(a.word.toLowerCase()).localeCompare(removeDiacritics(b.word.toLowerCase())));
+            }
+        }
+
+        function toggleSort() {
+            sortByDefinition = !sortByDefinition;
+            const toggleBtn = document.getElementById('sortToggle');
+            
+            if (sortByDefinition) {
+                toggleBtn.textContent = 'Sort by Word';
+                toggleBtn.classList.add('active');
+            } else {
+                toggleBtn.textContent = 'Sort by Definition';
+                toggleBtn.classList.remove('active');
+            }
+            
+            sortEntries();
+            allWords = [...words];
+            
+            // Re-run current search
+            const searchTerm = document.getElementById('search').value.trim();
+            if (searchTerm === '') {
+                showResults(allWords);
+            } else {
+                const filtered = words.filter(entry => 
+                    matchesSearch(entry.word, searchTerm) || 
+                    matchesSearch(entry.def, searchTerm)
+                );
+                showResults(filtered);
+            }
+        }
 
         // Remove diacritics for searching
         function removeDiacritics(str) {
@@ -213,10 +278,17 @@
                 return;
             }
 
-            const filtered = words.filter(entry => 
+            let filtered = words.filter(entry => 
                 matchesSearch(entry.word, term) || 
                 matchesSearch(entry.def, term)
             );
+            
+            // Sort filtered results according to current sort mode
+            if (sortByDefinition) {
+                filtered.sort((a, b) => removeDiacritics(a.def.toLowerCase()).localeCompare(removeDiacritics(b.def.toLowerCase())));
+            } else {
+                filtered.sort((a, b) => removeDiacritics(a.word.toLowerCase()).localeCompare(removeDiacritics(b.word.toLowerCase())));
+            }
             
             showResults(filtered);
         });
