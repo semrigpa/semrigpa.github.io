@@ -12,135 +12,102 @@
         }
 
         body {
-            background: #1a1a1a;
+            background-color: #1a1a1a;
             color: #e0e0e0;
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: 14px;
-            line-height: 1.4;
-            padding: 16px;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .back-btn {
-            background: #333;
+            background-color: #333;
             color: #fff;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            font-size: 13px;
+            display: inline-block;
         }
 
         .back-btn:hover {
-            background: #444;
+            background-color: #555;
         }
 
         h1 {
             color: #fff;
-            font-size: 18px;
-            font-weight: 500;
         }
 
         .search-box {
             width: 100%;
-            padding: 10px 12px;
-            background: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 4px;
+            padding: 15px;
+            background-color: #2a2a2a;
+            border: 1px solid #555;
+            border-radius: 5px;
             color: #fff;
-            font-size: 14px;
-            margin-bottom: 16px;
+            font-size: 16px;
+            margin-bottom: 20px;
         }
 
         .search-box:focus {
             outline: none;
-            border-color: #666;
+            border-color: #777;
         }
 
         .results {
-            max-height: 75vh;
+            max-height: 70vh;
             overflow-y: auto;
         }
 
         .entry {
-            background: #2a2a2a;
-            border: 1px solid #333;
-            margin-bottom: 6px;
-            padding: 10px 12px;
-            border-radius: 3px;
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 12px;
-            align-items: start;
-        }
-
-        .word-info {
-            min-width: 120px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
         }
 
         .word {
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: bold;
             color: #fff;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
         }
 
         .pos {
-            font-size: 11px;
+            font-size: 14px;
             color: #888;
             font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
 
         .def {
             color: #ccc;
-            font-size: 13px;
+            line-height: 1.4;
         }
 
         .highlight {
-            background: #ffd700;
+            background-color: #ffff00;
             color: #000;
-            padding: 1px 2px;
-            border-radius: 2px;
+            padding: 2px;
         }
 
         .no-results {
             text-align: center;
             color: #666;
-            padding: 40px;
+            padding: 50px;
             font-style: italic;
-            font-size: 13px;
-        }
-
-        /* Scrollbar styling */
-        .results::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .results::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-
-        .results::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 4px;
-        }
-
-        .results::-webkit-scrollbar-thumb:hover {
-            background: #555;
         }
     </style>
 </head>
@@ -161,7 +128,7 @@
         let allWords = [];
 
         // Load TSV file
-        fetch('dict.tsv')
+        fetch('lexicon.tsv')
             .then(response => response.text())
             .then(data => {
                 const lines = data.trim().split('\n');
@@ -180,7 +147,7 @@
                 showResults(words);
             })
             .catch(() => {
-                document.getElementById('results').innerHTML = '<div class="no-results">Could not load dict.tsv</div>';
+                document.getElementById('results').innerHTML = '<div class="no-results">Could not load lexicon.tsv</div>';
             });
 
         // Remove diacritics for searching
@@ -228,10 +195,8 @@
 
             container.innerHTML = entries.map(entry => `
                 <div class="entry">
-                    <div class="word-info">
-                        <div class="word">${highlight(entry.word, searchTerm)}</div>
-                        <div class="pos">${entry.pos}</div>
-                    </div>
+                    <div class="word">${highlight(entry.word, searchTerm)}</div>
+                    <div class="pos">${entry.pos}</div>
                     <div class="def">${highlight(entry.def, searchTerm)}</div>
                 </div>
             `).join('');
