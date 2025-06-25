@@ -12,137 +12,143 @@
         }
 
         body {
-            background-color: #1a1a1a;
+            background: #1a1a1a;
             color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 16px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .sort-toggle {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .sort-toggle:hover {
-            background-color: #555;
-        }
-
-        .sort-toggle.active {
-            background-color: #666;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .back-btn {
-            background-color: #333;
+            background: #333;
             color: #fff;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            font-size: 13px;
         }
 
         .back-btn:hover {
-            background-color: #555;
+            background: #444;
         }
 
         h1 {
             color: #fff;
+            font-size: 18px;
+            font-weight: 500;
         }
 
         .search-box {
             width: 100%;
-            padding: 15px;
-            background-color: #2a2a2a;
-            border: 1px solid #555;
-            border-radius: 5px;
+            padding: 10px 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
             color: #fff;
-            font-size: 16px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            margin-bottom: 16px;
         }
 
         .search-box:focus {
             outline: none;
-            border-color: #777;
+            border-color: #666;
         }
 
         .results {
-            max-height: 70vh;
+            max-height: 75vh;
             overflow-y: auto;
         }
 
         .entry {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 5px;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            margin-bottom: 6px;
+            padding: 10px 12px;
+            border-radius: 3px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .word-info {
+            min-width: 120px;
         }
 
         .word {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 600;
             color: #fff;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
         .pos {
-            font-size: 14px;
+            font-size: 11px;
             color: #888;
             font-style: italic;
-            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .def {
             color: #ccc;
-            line-height: 1.4;
+            font-size: 13px;
         }
 
         .highlight {
-            background-color: #ffff00;
+            background: #ffd700;
             color: #000;
-            padding: 2px;
+            padding: 1px 2px;
+            border-radius: 2px;
         }
 
         .no-results {
             text-align: center;
             color: #666;
-            padding: 50px;
+            padding: 40px;
             font-style: italic;
+            font-size: 13px;
+        }
+
+        /* Scrollbar styling */
+        .results::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .results::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .results::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        .results::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-left">
-                <a href="index.html" class="back-btn">← Back</a>
-                <h1>Dictionary</h1>
-            </div>
-            <button class="sort-toggle" id="sortToggle" onclick="toggleSort()">Sort by Definition</button>
+            <a href="index.html" class="back-btn">← Back</a>
+            <h1>Dictionary</h1>
         </div>
         
         <input type="text" class="search-box" id="search" placeholder="Search words or definitions...">
@@ -153,10 +159,9 @@
     <script>
         let words = [];
         let allWords = [];
-        let sortByDefinition = false;
 
         // Load TSV file
-        fetch('lexicon.tsv')
+        fetch('dict.tsv')
             .then(response => response.text())
             .then(data => {
                 const lines = data.trim().split('\n');
@@ -168,49 +173,15 @@
                         def: cols[2] || ''
                     };
                 });
-                sortEntries();
+                
+                // Sort alphabetically by word (column 1)
+                words.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
                 allWords = [...words];
                 showResults(words);
             })
             .catch(() => {
-                document.getElementById('results').innerHTML = '<div class="no-results">Could not load lexicon.tsv</div>';
+                document.getElementById('results').innerHTML = '<div class="no-results">Could not load dict.tsv</div>';
             });
-
-        function sortEntries() {
-            if (sortByDefinition) {
-                words.sort((a, b) => removeDiacritics(a.def.toLowerCase()).localeCompare(removeDiacritics(b.def.toLowerCase())));
-            } else {
-                words.sort((a, b) => removeDiacritics(a.word.toLowerCase()).localeCompare(removeDiacritics(b.word.toLowerCase())));
-            }
-        }
-
-        function toggleSort() {
-            sortByDefinition = !sortByDefinition;
-            const toggleBtn = document.getElementById('sortToggle');
-            
-            if (sortByDefinition) {
-                toggleBtn.textContent = 'Sort by Word';
-                toggleBtn.classList.add('active');
-            } else {
-                toggleBtn.textContent = 'Sort by Definition';
-                toggleBtn.classList.remove('active');
-            }
-            
-            sortEntries();
-            allWords = [...words];
-            
-            // Re-run current search
-            const searchTerm = document.getElementById('search').value.trim();
-            if (searchTerm === '') {
-                showResults(allWords);
-            } else {
-                const filtered = words.filter(entry => 
-                    matchesSearch(entry.word, searchTerm) || 
-                    matchesSearch(entry.def, searchTerm)
-                );
-                showResults(filtered);
-            }
-        }
 
         // Remove diacritics for searching
         function removeDiacritics(str) {
@@ -257,8 +228,10 @@
 
             container.innerHTML = entries.map(entry => `
                 <div class="entry">
-                    <div class="word">${highlight(entry.word, searchTerm)}</div>
-                    <div class="pos">${entry.pos}</div>
+                    <div class="word-info">
+                        <div class="word">${highlight(entry.word, searchTerm)}</div>
+                        <div class="pos">${entry.pos}</div>
+                    </div>
                     <div class="def">${highlight(entry.def, searchTerm)}</div>
                 </div>
             `).join('');
@@ -278,17 +251,10 @@
                 return;
             }
 
-            let filtered = words.filter(entry => 
+            const filtered = words.filter(entry => 
                 matchesSearch(entry.word, term) || 
                 matchesSearch(entry.def, term)
             );
-            
-            // Sort filtered results according to current sort mode
-            if (sortByDefinition) {
-                filtered.sort((a, b) => removeDiacritics(a.def.toLowerCase()).localeCompare(removeDiacritics(b.def.toLowerCase())));
-            } else {
-                filtered.sort((a, b) => removeDiacritics(a.word.toLowerCase()).localeCompare(removeDiacritics(b.word.toLowerCase())));
-            }
             
             showResults(filtered);
         });
