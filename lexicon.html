@@ -3,226 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dictionary Search</title>
+    <title>Tartarian Lexicon</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; font-size: 14px; }
+        .search-box { width: 100%; max-width: 400px; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 6px 8px; text-align: left; }
+        th { background: #f5f5f5; font-weight: bold; position: sticky; top: 0; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .n { background-color: #e3f2fd; } /* noun - light blue */
+        .v { background-color: #f3e5f5; } /* verb - light purple */
+        .a { background-color: #e8f5e8; } /* adjective - light green */
+        .ad { background-color: #fff3e0; } /* adverb - light orange */
+        .prn { background-color: #fce4ec; } /* pronoun - light pink */
+        .num { background-color: #f1f8e9; } /* numeral - light lime */
+        .prp { background-color: #e0f2f1; } /* preposition - light teal */
+        .highlight { background-color: #ffeb3b; font-weight: bold; }
 
-        body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .back-btn {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-btn:hover {
-            background-color: #555;
-        }
-
-        h1 {
-            color: #fff;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 15px;
-            background-color: #2a2a2a;
-            border: 1px solid #555;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: #777;
-        }
-
-        .results {
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .entry {
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        .word {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .pos {
-            font-size: 14px;
-            color: #888;
-            font-style: italic;
-            margin-bottom: 8px;
-        }
-
-        .def {
-            color: #ccc;
-            line-height: 1.4;
-        }
-
-        .highlight {
-            background-color: #ffff00;
-            color: #000;
-            padding: 2px;
-        }
-
-        .no-results {
-            text-align: center;
-            color: #666;
-            padding: 50px;
-            font-style: italic;
-        }
+        .stats { margin-bottom: 10px; font-size: 12px; color: #666; }
+        .filters { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+        .filter-controls { display: flex; gap: 15px; align-items: center; }
+        .filter-group { display: flex; align-items: center; gap: 5px; }
+        .filter-group label { font-size: 12px; font-weight: bold; }
+        select { padding: 4px 8px; border: 1px solid #ccc; }
+        .tartarian-text { color: #ffa500; font-weight: bold; }
+        .root-text { color: #999; font-style: italic; }
+        .verbal-text { color: #1e90ff; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="index.html" class="back-btn">← Back</a>
-            <h1>Dictionary</h1>
+
+
+    
+    <input type="text" id="searchBox" class="search-box" placeholder="Search for words..." oninput="search()" />
+    
+    <div class="filters">
+        <div class="filter-controls">
+            <div class="filter-group">
+                <select id="englishFilter" onchange="applyFilters()">
+                    <option value="">All</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R">R</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="U">U</option>
+                    <option value="V">V</option>
+                    <option value="W">W</option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="Z">Z</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select id="tartarianFilter" onchange="applyFilters()">
+                    <option value="">All</option>
+                    <option value="А">А</option>
+                    <option value="Б">Б</option>
+                    <option value="В">В</option>
+                    <option value="Г">Г</option>
+                    <option value="Д">Д</option>
+                    <option value="Е">Е</option>
+                    <option value="Ё">Ё</option>
+                    <option value="Є">Є</option>
+                    <option value="Ж">Ж</option>
+                    <option value="З">З</option>
+                    <option value="И">И</option>
+                    <option value="Й">Й</option>
+                    <option value="К">К</option>
+                    <option value="Л">Л</option>
+                    <option value="М">М</option>
+                    <option value="Н">Н</option>
+                    <option value="О">О</option>
+                    <option value="П">П</option>
+                    <option value="Р">Р</option>
+                    <option value="С">С</option>
+                    <option value="Т">Т</option>
+                    <option value="У">У</option>
+                    <option value="Ф">Ф</option>
+                    <option value="Х">Х</option>
+                    <option value="Ц">Ц</option>
+                    <option value="Ч">Ч</option>
+                    <option value="Џ">Џ</option>
+                    <option value="Ш">Ш</option>
+                    <option value="Ю">Ю</option>
+                    <option value="Я">Я</option>
+                </select>
+            </div>
         </div>
-        
-        <input type="text" class="search-box" id="search" placeholder="Search words or definitions...">
-        
-        <div class="results" id="results"></div>
+        <div class="stats" id="stats">Loading lexicon...</div>
     </div>
+    
+    <table id="lexiconTable">
+        <thead>
+            <tr>
+                <th>Root</th>
+                <th></th>
+                <th>Verbal Stem</th>
+                <th></th>
+                <th>Definition</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
 
     <script>
-        let words = [];
-        let allWords = [];
+        let lexiconData = [];
+        let filteredData = [];
 
-        // Load TSV file
-        fetch('lexicon.tsv')
-            .then(response => response.text())
-            .then(data => {
-                const lines = data.trim().split('\n');
-                words = lines.map(line => {
-                    const cols = line.split('\t');
-                    return {
-                        word: cols[0] || '',
-                        pos: cols[1] || '',
-                        def: cols[2] || ''
-                    };
-                });
-                
-                // Sort alphabetically by word (column 1)
-                words.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
-                allWords = [...words];
-                showResults(words);
-            })
-            .catch(() => {
-                document.getElementById('results').innerHTML = '<div class="no-results">Could not load lexicon.tsv</div>';
-            });
-
-        // Remove diacritics for searching
-        function removeDiacritics(str) {
-            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        async function loadLexicon() {
+            try {
+                const response = await fetch('lexicon.tsv');
+                const text = await response.text();
+                parseAndDisplayData(text);
+            } catch (error) {
+                document.getElementById('stats').textContent = 'Error loading lexicon.tsv: ' + error.message;
+            }
         }
 
-        function highlight(text, term) {
-            if (!term) return text;
+        function parseAndDisplayData(tsvText) {
+            const lines = tsvText.trim().split('\n');
+            lexiconData = [];
             
-            // Create regex that matches both accented and non-accented versions
-            const normalizedTerm = removeDiacritics(term.toLowerCase());
-            const chars = normalizedTerm.split('').map(char => {
-                switch(char) {
-                    case 'a': return '[aāáàâäãåą]';
-                    case 'e': return '[eēéèêëęė]';
-                    case 'i': return '[iīíìîïįı]';
-                    case 'o': return '[oōóòôöõøő]';
-                    case 'u': return '[uūúùûüųů]';
-                    case 'c': return '[cčćç]';
-                    case 'n': return '[nñń]';
-                    case 's': return '[sšś]';
-                    case 'z': return '[zžź]';
-                    case 'l': return '[lł]';
-                    case 'r': return '[rř]';
-                    case 't': return '[tť]';
-                    case 'd': return '[dď]';
-                    case 'y': return '[yý]';
-                    default: return char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            lines.forEach((line, index) => {
+                const columns = line.split('\t');
+                if (columns.length >= 5) {
+                    lexiconData.push({
+                        root: columns[0] || '',
+                        tartarian: columns[1] || '',
+                        verbal: columns[2] || '',
+                        pos: columns[3] || '',
+                        definition: columns[4] || ''
+                    });
                 }
-            }).join('');
+            });
             
-            const regex = new RegExp(`(${chars})`, 'gi');
+            // Sort by Tartarian word alphabetically
+            lexiconData.sort((a, b) => a.tartarian.localeCompare(b.tartarian));
+            filteredData = [...lexiconData];
+            
+            updateStats();
+            displayData(filteredData);
+            document.getElementById('searchBox').focus();
+        }
+
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .replace(/š/g, 's')
+                .replace(/č/g, 'c')
+                .replace(/ž/g, 'z');
+        }
+
+        function updateStats() {
+            const stats = document.getElementById('stats');
+            const total = lexiconData.length;
+            const filtered = filteredData.length;
+            const posCount = {};
+            
+            filteredData.forEach(entry => {
+                posCount[entry.pos] = (posCount[entry.pos] || 0) + 1;
+            });
+            
+            const posStats = Object.entries(posCount)
+                .map(([pos, count]) => `${pos}: ${count}`)
+                .join(', ');
+            
+            stats.textContent = `Showing ${filtered} of ${total} entries | ${posStats}`;
+        }
+
+        function displayData(data) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+                row.className = entry.pos; // Apply POS color class
+                
+                row.innerHTML = `
+                    <td><span class="root-text">${escapeHtml(entry.root)}</span></td>
+                    <td><span class="tartarian-text">${escapeHtml(entry.tartarian)}</span></td>
+                    <td>${entry.pos === 'v' ? '<span class="verbal-text">' + escapeHtml(entry.verbal) + '</span>' : ''}</td>
+                    <td><strong>${escapeHtml(entry.pos)}</strong></td>
+                    <td>${escapeHtml(entry.definition)}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function search() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchQuery = normalizeText(document.getElementById('searchBox').value);
+            const englishFilter = document.getElementById('englishFilter').value;
+            const tartarianFilter = document.getElementById('tartarianFilter').value;
+            
+            filteredData = lexiconData.filter(entry => {
+                // Apply search filter
+                let matchesSearch = true;
+                if (searchQuery) {
+                    matchesSearch = normalizeText(entry.tartarian).includes(searchQuery) ||
+                                   normalizeText(entry.root).includes(searchQuery) ||
+                                   normalizeText(entry.definition).includes(searchQuery) ||
+                                   normalizeText(entry.verbal).includes(searchQuery);
+                }
+                
+                // Apply English letter filter (searches in definition)
+                let matchesEnglish = true;
+                if (englishFilter) {
+                    matchesEnglish = entry.definition.toLowerCase().startsWith(englishFilter.toLowerCase());
+                }
+                
+                // Apply Tartarian letter filter (searches in Tartarian word)
+                let matchesTartarian = true;
+                if (tartarianFilter) {
+                    matchesTartarian = entry.tartarian.startsWith(tartarianFilter) ||
+                                      entry.tartarian.toLowerCase().startsWith(tartarianFilter.toLowerCase());
+                }
+                
+                return matchesSearch && matchesEnglish && matchesTartarian;
+            });
+            
+            updateStats();
+            displayDataWithHighlight(filteredData, searchQuery);
+        }
+
+        function displayDataWithHighlight(data, query) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+                row.className = entry.pos;
+                
+                row.innerHTML = `
+                    <td><span class="root-text">${highlightText(escapeHtml(entry.root), query)}</span></td>
+                    <td><span class="tartarian-text">${highlightText(escapeHtml(entry.tartarian), query)}</span></td>
+                    <td>${entry.pos === 'v' ? '<span class="verbal-text">' + highlightText(escapeHtml(entry.verbal), query) + '</span>' : ''}</td>
+                    <td><strong>${escapeHtml(entry.pos)}</strong></td>
+                    <td>${highlightText(escapeHtml(entry.definition), query)}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            // Create a regex that matches both the normalized query and its special character variants
+            let pattern = query;
+            pattern = pattern.replace(/s/g, '[sš]').replace(/c/g, '[cč]').replace(/z/g, '[zž]');
+            const regex = new RegExp(`(${escapeRegex(pattern)})`, 'gi');
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
 
-        function showResults(entries) {
-            const container = document.getElementById('results');
-            const searchTerm = document.getElementById('search').value;
-            
-            if (entries.length === 0) {
-                container.innerHTML = '<div class="no-results">No results found</div>';
-                return;
-            }
-
-            container.innerHTML = entries.map(entry => `
-                <div class="entry">
-                    <div class="word">${highlight(entry.word, searchTerm)}</div>
-                    <div class="pos">${entry.pos}</div>
-                    <div class="def">${highlight(entry.def, searchTerm)}</div>
-                </div>
-            `).join('');
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
-        function matchesSearch(text, searchTerm) {
-            const normalizedText = removeDiacritics(text.toLowerCase());
-            const normalizedSearch = removeDiacritics(searchTerm.toLowerCase());
-            return normalizedText.includes(normalizedSearch);
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
 
-        document.getElementById('search').addEventListener('input', function() {
-            const term = this.value.trim();
-            
-            if (term === '') {
-                showResults(allWords);
-                return;
-            }
-
-            const filtered = words.filter(entry => 
-                matchesSearch(entry.word, term) || 
-                matchesSearch(entry.def, term)
-            );
-            
-            showResults(filtered);
-        });
+        // Load lexicon on page load
+        window.onload = function() {
+            document.getElementById('searchBox').addEventListener('keyup', search);
+            loadLexicon();
+        };
     </script>
 </body>
 </html>
